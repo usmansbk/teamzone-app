@@ -6,6 +6,7 @@ export const lightTheme: DefaultTheme = {
     text: "#333",
     secondary: "#c35",
     background: "#fff",
+    onPrimary: "#fff",
   },
 };
 
@@ -15,5 +16,6 @@ export const darkTheme: DefaultTheme = {
     text: "#fff",
     secondary: "#c35",
     background: "#000",
+    onPrimary: "#fff",
   },
 };
