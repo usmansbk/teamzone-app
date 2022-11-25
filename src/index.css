@@ -14,3 +14,14 @@ body,
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: #fff;
+  background: #c35;
+}
+
+::selection {
+  color: #fff;
+  background: #c35;
+}

@@ -1,16 +1,30 @@
 import { ThemeProvider } from "styled-components";
-import Text from "./components/Text";
+import {
+  Body1,
+  Body2,
+  Caption,
+  Display,
+  Headline1,
+  Headline2,
+  Label,
+  SubTitle,
+  Title,
+} from "./components/Typography";
 import theme from "./config/theme";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Text variant="display">Hello World!</Text>
-      <Text variant="headline">Hello World!</Text>
-      <Text variant="title">Hello World!</Text>
-      <Text variant="label">Hello World!</Text>
-      <Text variant="body">Hello World!</Text>
-      <Text variant="caption">Hello World!</Text>
+      <Display>Display</Display>
+      <Headline1>Headline1</Headline1>
+      <Headline2>Headline2</Headline2>
+      <Title>Title</Title>
+      <SubTitle>Subtitle</SubTitle>
+      <Body1>Summer time started</Body1>
+      <Body2>Body2</Body2>
+      <Label bold>LabelBold</Label>
+      <Label>LabelLight</Label>
+      <Caption>Caption</Caption>
     </ThemeProvider>
   );
 }
