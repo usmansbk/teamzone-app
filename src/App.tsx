@@ -1,21 +1,17 @@
-import styled from "styled-components";
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`;
-
-const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`;
+import { ThemeProvider } from "styled-components";
+import Text from "./components/Text";
+import theme from "./config/theme";
 
 function App() {
   return (
-    <Wrapper>
-      <Title>Hello World!</Title>
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Text variant="display">Hello World!</Text>
+      <Text variant="headline">Hello World!</Text>
+      <Text variant="title">Hello World!</Text>
+      <Text variant="label">Hello World!</Text>
+      <Text variant="body">Hello World!</Text>
+      <Text variant="caption">Hello World!</Text>
+    </ThemeProvider>
   );
 }
 
