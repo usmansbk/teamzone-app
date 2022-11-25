@@ -4,7 +4,7 @@ import Home from "./Home";
 
 export default function Pages() {
   return (
-    <Container>
+    <Container style={{ padding: "0 10%" }}>
       <Logo />
       <Home />
     </Container>
