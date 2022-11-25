@@ -41,7 +41,7 @@ export const SubTitle = styled.h6`
 export const Body1 = styled.p<TypographyBaseProps>`
   font-size: 24px;
   line-height: 32px;
-  display: ${(props) => (props.inline ? "inline" : "block")};
+  display: ${(props) => (props.inline ? "inline-block" : "block")};
   font-weight: ${(props) => (props.bold ? 900 : 400)};
   color: ${(props) => props.theme.colors.text};
 `;
@@ -65,6 +65,19 @@ export const Caption = styled.p`
   line-height: 24px;
   font-weight: 400;
   color: ${(props) => props.theme.colors.text};
+`;
+
+export const Link = styled.a`
+  width: auto;
+  display: inline-block;
+  text-decoration: none;
+  ${Body2}, ${Body1}, ${Display}, ${Headline1}, ${Headline2}, ${Label}, ${Caption}, ${Title} {
+    transition: all 0.3s ease-out;
+    padding: 0 4px;
+    :hover {
+      background-color: ${(props) => props.theme.colors.primary};
+    }
+  }
 `;
 
 export default Text;
