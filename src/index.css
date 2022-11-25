@@ -10,11 +10,17 @@ body,
 *::before {
   margin: 0;
   padding: 0;
+  border: 0;
+  outline: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+}
 ::-moz-selection {
   /* Code for Firefox */
   color: #fff;
