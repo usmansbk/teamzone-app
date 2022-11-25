@@ -1,10 +1,11 @@
 import { ThemeProvider } from "styled-components";
-import theme from "./config/theme";
+import { lightTheme, darkTheme } from "./config/theme";
 import Pages from "./pages";
 
 function App() {
+  const mode: string = "light";
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
       <Pages />
     </ThemeProvider>
   );

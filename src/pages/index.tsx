@@ -1,3 +1,4 @@
+import Logo from "../components/Logo";
 import Container from "../components/Container";
 import {
   Body1,
@@ -14,6 +15,7 @@ import {
 export default function Pages() {
   return (
     <Container>
+      <Logo />
       <Display>Display</Display>
       <Headline1>Headline1</Headline1>
       <Headline2>Headline2</Headline2>
