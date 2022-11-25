@@ -32,3 +32,7 @@ body,
   color: #fff;
   background: #c35;
 }
+
+a {
+  color: inherit;
+}

@@ -48,19 +48,16 @@ export default function Home() {
                 <ListItem>
                   <Body>Calendar / Event scheduler</Body>
                 </ListItem>
+                <ListItem>
+                  <Body>Group Timer</Body>
+                </ListItem>
               </List>
-              <Body>Group Timer</Body>
             </section>
             <section>
               <SubTitle bold>{t("Time Zone Database")}</SubTitle>
               <Body>
                 Teamzone relies on time zone data from{" "}
-                <a
-                  style={{
-                    color: "inherit",
-                  }}
-                  href="https://www.iana.org/time-zones"
-                >
+                <a href="https://www.iana.org/time-zones">
                   IANA Time Zone Database
                 </a>
                 . We always strive to keep Teamzone updated with the latest

@@ -5,7 +5,7 @@ import Pages from "./pages";
 import "./config/i18n";
 
 function App() {
-  const mode: string = "light";
+  const mode: string = "dark";
   return (
     <Suspense fallback="Loading">
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>

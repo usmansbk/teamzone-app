@@ -60,18 +60,4 @@ export const Caption = styled.p`
   color: ${(props) => props.theme.colors.text};
 `;
 
-export const Link = styled.a`
-  width: auto;
-  display: inline-block;
-  text-decoration: none;
-  ${Body}, ${Display}, ${Headline1}, ${Headline2}, ${Label}, ${Caption}, ${Title} {
-    transition: all 0.2s ease;
-    padding: 0 4px;
-    :hover {
-      background-color: ${(props) => props.theme.colors.primary};
-      color: ${(props) => props.theme.colors.onPrimary};
-    }
-  }
-`;
-
 export default Text;
