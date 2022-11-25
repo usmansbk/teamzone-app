@@ -20,6 +20,7 @@ body,
 #root {
   min-height: 100vh;
   display: flex;
+  background: #c35;
 }
 ::-moz-selection {
   /* Code for Firefox */
