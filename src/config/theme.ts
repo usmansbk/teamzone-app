@@ -14,6 +14,6 @@ export const darkTheme: DefaultTheme = {
     primary: "#c35",
     text: "#fff",
     secondary: "#c35",
-    background: "#222",
+    background: "#000",
   },
 };

@@ -5,26 +5,23 @@ interface TypographyBaseProps {
   readonly inline?: boolean;
 }
 export const Display = styled.div`
-  font-size: 148px;
+  font-size: 199px;
   font-weight: 800;
   color: ${(props) => props.theme.colors.text};
-  letter-spacing: 0;
 `;
 
-export const Headline1 = styled.h1`
+export const Headline1 = styled.h1<TypographyBaseProps>`
   font-size: 36px;
   line-height: 40px;
-  font-weight: 900;
+  font-weight: ${(props) => (props.bold ? 900 : 400)};
   color: ${(props) => props.theme.colors.text};
-  letter-spacing: 0;
 `;
 
-export const Headline2 = styled.h2`
+export const Headline2 = styled.h2<TypographyBaseProps>`
   font-size: 28px;
   line-height: 36px;
-  font-weight: 900;
+  font-weight: ${(props) => (props.bold ? 900 : 400)};
   color: ${(props) => props.theme.colors.text};
-  letter-spacing: 0;
 `;
 
 export const Title = styled.h6`
