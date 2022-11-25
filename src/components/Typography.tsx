@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface TypographyBaseProps {
+  readonly bold?: boolean;
+  readonly inline?: boolean;
+}
 export const Display = styled.div`
   font-size: 148px;
   font-weight: 800;
@@ -37,21 +41,22 @@ export const SubTitle = styled.h6`
   color: ${(props) => props.theme.colors.text};
 `;
 
-export const Body1 = styled.p`
+export const Body1 = styled.p<TypographyBaseProps>`
   font-size: 24px;
   line-height: 32px;
-  font-weight: 400;
+  display: ${(props) => (props.inline ? "inline" : "block")};
+  font-weight: ${(props) => (props.bold ? 900 : 400)};
   color: ${(props) => props.theme.colors.text};
 `;
 
-export const Body2 = styled.p`
+export const Body2 = styled.p<TypographyBaseProps>`
   font-size: 18px;
   line-height: 26px;
-  font-weight: 400;
+  font-weight: ${(props) => (props.bold ? 900 : 400)};
   color: ${(props) => props.theme.colors.text};
 `;
 
-export const Label = styled.p<{ bold?: boolean }>`
+export const Label = styled.p<TypographyBaseProps>`
   font-size: 18px;
   line-height: 26px;
   font-weight: ${(props) => (props.bold ? 900 : 400)};
