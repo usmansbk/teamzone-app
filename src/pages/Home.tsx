@@ -1,19 +1,24 @@
 import { Box, Typography, Button, Stack, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import ContactUsForm from "src/components/ContactUsForm";
 import Footer from "src/components/Footer";
+import Header from "src/components/Header";
 
 export default function Home() {
   return (
     <Box>
       <Stack spacing={4}>
         <Box>
-          <Typography variant="h1" color="primary">
-            Teamzone
-          </Typography>
+          <Header />
           <Typography>Clock app for remote teams...</Typography>
         </Box>
         <Box>
-          <Button size="large" variant="contained">
+          <Button
+            size="large"
+            variant="contained"
+            to="login"
+            component={RouterLink}
+          >
             Get Started
           </Button>
         </Box>
