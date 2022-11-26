@@ -1,5 +1,6 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import routeMap from "src/routeMap";
 
 export default function Footer() {
   return (
@@ -23,7 +24,7 @@ export default function Footer() {
           >
             GitHub
           </Button>
-          <Button href="#privacy" size="small" component={Link} to="terms">
+          <Button size="small" component={Link} to={routeMap.terms}>
             Terms & Privacy
           </Button>
         </Stack>

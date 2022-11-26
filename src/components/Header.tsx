@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import routeMap from "src/routeMap";
 
 export default function Header() {
   return (
@@ -7,7 +8,7 @@ export default function Header() {
       variant="h1"
       color="primary"
       component={Link}
-      to="/"
+      to={routeMap.home}
       style={{ textDecoration: "none" }}
     >
       Teamzone

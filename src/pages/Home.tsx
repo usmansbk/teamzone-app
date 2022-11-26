@@ -1,6 +1,7 @@
 import { Box, Typography, Button, Stack, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import ContactUsForm from "src/components/ContactUsForm";
+import routeMap from "src/routeMap";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <Button
           size="large"
           variant="contained"
-          to="login"
+          to={routeMap.login}
           component={RouterLink}
         >
           Get Started
