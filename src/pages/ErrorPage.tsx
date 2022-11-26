@@ -18,7 +18,7 @@ export default function ErrorPage() {
         </Typography>
         <Typography>{error.message || (error as any).statusText}</Typography>
         <Button component={Link} to={routeMap.home}>
-          Back to Home Page
+          Back to Home
         </Button>
       </Stack>
     </Box>
