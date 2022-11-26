@@ -3,7 +3,6 @@ import {
   ThemeProvider,
   useMediaQuery,
   LinearProgress,
-  Container,
 } from "@mui/material";
 import { Suspense, useMemo } from "react";
 import { RouterProvider } from "react-router-dom";
@@ -14,9 +13,7 @@ import "./config/i18n";
 function Main() {
   return (
     <Suspense fallback={<LinearProgress />}>
-      <Container fixed>
-        <RouterProvider router={router} />
-      </Container>
+      <RouterProvider router={router} />
     </Suspense>
   );
 }
