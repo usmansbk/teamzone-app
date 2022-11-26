@@ -4,7 +4,7 @@ import ContactUsForm from "src/components/ContactUsForm";
 
 export default function Home() {
   return (
-    <Stack spacing={4}>
+    <Stack spacing={4} flexGrow={1}>
       <Box>
         <Typography>Clock app for remote teams...</Typography>
       </Box>
