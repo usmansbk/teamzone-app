@@ -14,7 +14,7 @@ const ThemedNavLink = forwardRef<any, LinkProps>((props, ref) => {
         if (isActive) {
           return {
             backgroundColor: palette.primary.main,
-            color: palette.text.primary,
+            color: palette.primary.contrastText,
           };
         }
         return undefined;

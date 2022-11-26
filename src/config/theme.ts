@@ -35,9 +35,11 @@ const themeOptions: ThemeOptions = {
     },
     google: {
       main: "#4285F4",
+      contrastText: "white",
     },
     github: {
       main: "#444444",
+      contrastText: "white",
     },
   },
   typography: {
