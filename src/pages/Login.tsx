@@ -1,4 +1,5 @@
 import { Box, Button, Stack } from "@mui/material";
+import { Google } from "@mui/icons-material";
 import Footer from "src/components/Footer";
 import Header from "src/components/Header";
 
@@ -13,7 +14,7 @@ export default function Login() {
         spacing={2}
       >
         <Box>
-          <Button color="google" variant="contained">
+          <Button startIcon={<Google />} color="google" variant="contained">
             Sign in with Google
           </Button>
         </Box>
