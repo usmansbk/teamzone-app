@@ -9,7 +9,7 @@ export default function Terms() {
       </Box>
       <Box>
         <Typography variant="h4">Privacy policy</Typography>
-        <Typography>We current don't tract any information.</Typography>
+        <Typography>We currently don't track any information.</Typography>
       </Box>
     </Stack>
   );
