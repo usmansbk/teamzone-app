@@ -1,5 +1,5 @@
-import { Box, Button, Stack } from "@mui/material";
-import { Google } from "@mui/icons-material";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { Google, GitHub } from "@mui/icons-material";
 import Footer from "src/components/Footer";
 import Header from "src/components/Header";
 
@@ -13,11 +13,15 @@ export default function Login() {
         flexGrow={1}
         spacing={2}
       >
-        <Box>
+        <Typography variant="h6">Login</Typography>
+        <Stack spacing={2}>
           <Button startIcon={<Google />} color="google" variant="contained">
             Sign in with Google
           </Button>
-        </Box>
+          <Button startIcon={<GitHub />} color="github" variant="contained">
+            Sign in with GitHub
+          </Button>
+        </Stack>
       </Stack>
       <Footer />
     </Box>

@@ -10,14 +10,17 @@ import deepmerge from "deepmerge";
 declare module "@mui/material" {
   interface Palette {
     google: ThemePalette["primary"];
+    github: ThemePalette["primary"];
   }
   interface PaletteOptions {
     google: ThemePaletteOptions["primary"];
+    github: ThemePaletteOptions["primary"];
   }
 }
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     google: true;
+    github: true;
   }
 }
 
@@ -32,6 +35,9 @@ const themeOptions: ThemeOptions = {
     },
     google: {
       main: "#4285F4",
+    },
+    github: {
+      main: "#444444",
     },
   },
   typography: {
