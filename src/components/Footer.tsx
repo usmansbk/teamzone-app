@@ -1,6 +1,7 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import routeMap from "src/routeMap";
+import NavLink from "./NavLink";
 
 export default function Footer() {
   return (
@@ -24,7 +25,16 @@ export default function Footer() {
           >
             GitHub
           </Button>
-          <Button size="small" component={Link} to={routeMap.terms}>
+          <Button
+            size="small"
+            component={NavLink}
+            to={routeMap.terms}
+            sx={{
+              "&.active": () => ({
+                fontWeight: 800,
+              }),
+            }}
+          >
             Terms & Privacy
           </Button>
         </Stack>

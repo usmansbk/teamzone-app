@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "src/layouts/Root";
 import routeMap from "src/routeMap";
-import ErrorPage from "./ErrorPage";
+import PageNotFound from "./404";
 import Home from "./Home";
 import Login from "./Login";
 import Terms from "./Terms";
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   {
     path: routeMap.home,
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <PageNotFound />,
     children: [
       {
         index: true,
