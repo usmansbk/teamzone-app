@@ -1,5 +1,25 @@
-import { createTheme, responsiveFontSizes, ThemeOptions } from "@mui/material";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeOptions,
+  Palette as ThemePalette,
+  PaletteOptions as ThemePaletteOptions,
+} from "@mui/material";
 import deepmerge from "deepmerge";
+
+declare module "@mui/material" {
+  interface Palette {
+    google: ThemePalette["primary"];
+  }
+  interface PaletteOptions {
+    google: ThemePaletteOptions["primary"];
+  }
+}
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    google: true;
+  }
+}
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -9,6 +29,9 @@ const themeOptions: ThemeOptions = {
     },
     secondary: {
       main: "#cc3355",
+    },
+    google: {
+      main: "#4285F4",
     },
   },
   typography: {
