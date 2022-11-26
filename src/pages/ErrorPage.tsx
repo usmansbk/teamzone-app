@@ -4,7 +4,10 @@ import { useRouteError } from "react-router-dom";
 export default function ErrorPage() {
   const error = useRouteError() as Error;
   return (
-    <Box height="100vh" display="flex" flexGrow={1}>
+    <Box height="100vh" display="flex" flexGrow={1} flexDirection="column">
+      <Typography variant="h1" color="primary">
+        Teamzone
+      </Typography>
       <Stack
         flexGrow={1}
         justifyContent="center"
