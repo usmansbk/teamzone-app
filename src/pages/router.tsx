@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "src/layouts/Root";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
+import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./Login";
 import Terms from "./Terms";
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
   {
     path: routeMap.home,
     element: <Root />,
-    errorElement: <PageNotFound />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: routeMap.login,
         element: <Login />,
+      },
+      {
+        path: "*",
+        element: <PageNotFound />,
       },
     ],
   },

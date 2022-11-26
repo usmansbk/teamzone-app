@@ -1,14 +1,26 @@
-import { Typography, Stack } from "@mui/material";
-import { useRouteError } from "react-router-dom";
+import { Typography, Stack, Box, Button } from "@mui/material";
+import { useRouteError, Link } from "react-router-dom";
+import routeMap from "src/routeMap";
 
 export default function ErrorPage() {
   const error = useRouteError() as Error;
   return (
-    <Stack flexGrow={1} justifyContent="center" alignItems="center" spacing={4}>
-      <Typography variant="h3">
-        Sorry, an unexpected error has occurred.
-      </Typography>
-      <Typography>{error.message || (error as any).statusText}</Typography>
-    </Stack>
+    <Box
+      height="100vh"
+      display="flex"
+      flexGrow={1}
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack spacing={4} justifyContent="center" alignItems="center">
+        <Typography variant="h3">
+          Sorry, an unexpected error has occurred.
+        </Typography>
+        <Typography>{error.message || (error as any).statusText}</Typography>
+        <Button component={Link} to={routeMap.home}>
+          Back to Home Page
+        </Button>
+      </Stack>
+    </Box>
   );
 }
