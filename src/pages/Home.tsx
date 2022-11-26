@@ -1,4 +1,6 @@
 import { Box, Typography, Button, Stack, Link } from "@mui/material";
+import ContactUsForm from "src/components/ContactUsForm";
+import Footer from "src/components/Footer";
 
 export default function Home() {
   return (
@@ -11,7 +13,9 @@ export default function Home() {
           </Typography>
         </Box>
         <Box>
-          <Button variant="contained">Get Started</Button>
+          <Button size="large" variant="contained">
+            Get Started
+          </Button>
         </Box>
         <Box>
           <Typography variant="h4">About Teamzone</Typography>
@@ -44,10 +48,15 @@ export default function Home() {
             </Typography>
           </Stack>
         </Box>
-        <Box>
-          <Typography variant="h4">Contact Us</Typography>
-        </Box>
+        <Stack spacing={2}>
+          <Box>
+            <Typography variant="h4">Contact Us</Typography>
+            <Typography>Any feedback is appreciated!</Typography>
+          </Box>
+          <ContactUsForm />
+        </Stack>
       </Stack>
+      <Footer />
     </Box>
   );
 }
