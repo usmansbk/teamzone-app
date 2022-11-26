@@ -1,22 +1,7 @@
-import {
-  CssBaseline,
-  ThemeProvider,
-  useMediaQuery,
-  LinearProgress,
-} from "@mui/material";
-import { Suspense, useMemo } from "react";
-import { RouterProvider } from "react-router-dom";
+import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import { useMemo } from "react";
 import getAppTheme from "src/config/theme";
-import router from "./pages/router";
-import "./config/i18n";
-
-function Main() {
-  return (
-    <Suspense fallback={<LinearProgress />}>
-      <RouterProvider router={router} />
-    </Suspense>
-  );
-}
+import Main from "./pages";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
