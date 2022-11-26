@@ -57,7 +57,7 @@ export default function Home() {
       </Box>
       <Stack spacing={2}>
         <Box>
-          <Typography variant="h4">Contact Us</Typography>
+          <Typography variant="h4">Contact Teamzone</Typography>
           <Typography>Any feedback is appreciated!</Typography>
         </Box>
         <ContactUsForm />
