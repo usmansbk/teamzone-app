@@ -18,31 +18,31 @@ const themeOptions: ThemeOptions = {
     },
     h2: {
       fontFamily: "Montserrat",
-      fontWeight: 800,
+      fontWeight: 900,
     },
     h3: {
       fontFamily: "Montserrat",
-      fontWeight: 700,
+      fontWeight: 900,
     },
     h4: {
       fontFamily: "Montserrat",
-      fontWeight: 600,
+      fontWeight: 900,
     },
     h5: {
       fontFamily: "Montserrat",
-      fontWeight: 600,
+      fontWeight: 900,
     },
     h6: {
       fontFamily: "Montserrat",
-      fontWeight: 500,
+      fontWeight: 900,
     },
     subtitle1: {
       fontFamily: "Montserrat",
-      fontWeight: 700,
+      fontWeight: 800,
     },
     subtitle2: {
       fontFamily: "Montserrat",
-      fontWeight: 600,
+      fontWeight: 700,
     },
     body1: {
       fontFamily: "Montserrat",
