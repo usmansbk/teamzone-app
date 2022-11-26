@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { useTheme } from "@mui/material";
 import { LinkProps, NavLink as RouterNavLink } from "react-router-dom";
 
-const NavLink = forwardRef<any, LinkProps>((props, ref) => {
+const ThemedNavLink = forwardRef<any, LinkProps>((props, ref) => {
   const { palette } = useTheme();
   return (
     <RouterNavLink
@@ -23,4 +23,4 @@ const NavLink = forwardRef<any, LinkProps>((props, ref) => {
   );
 });
 
-export default NavLink;
+export default ThemedNavLink;

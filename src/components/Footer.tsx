@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, Button } from "@mui/material";
 import routeMap from "src/routeMap";
-import NavLink from "./NavLink";
+import ThemedNavLink from "./ThemedNavLink";
 
 export default function Footer() {
   return (
@@ -24,7 +24,7 @@ export default function Footer() {
           >
             GitHub
           </Button>
-          <Button size="small" component={NavLink} to={routeMap.terms}>
+          <Button size="small" component={ThemedNavLink} to={routeMap.terms}>
             Terms & Privacy
           </Button>
         </Stack>
