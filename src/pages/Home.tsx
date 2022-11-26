@@ -7,10 +7,10 @@ export default function Home() {
     <Box>
       <Stack spacing={4}>
         <Box>
-          <Typography variant="h1">Teamzone</Typography>
-          <Typography variant="subtitle1">
-            Clock app for remote teams
+          <Typography variant="h1" color="primary">
+            Teamzone
           </Typography>
+          <Typography>Clock app for remote teams...</Typography>
         </Box>
         <Box>
           <Button size="large" variant="contained">
@@ -25,7 +25,7 @@ export default function Home() {
               different Time zones.
             </Typography>
             <Typography>
-              It lets you see the country and time of your team, track
+              It lets you see the countries and times of your teammates, track
               information about their public holidays and observances, and
               schedule online meetings.
             </Typography>

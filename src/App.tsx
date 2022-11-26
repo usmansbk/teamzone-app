@@ -3,16 +3,20 @@ import {
   ThemeProvider,
   useMediaQuery,
   LinearProgress,
+  Container,
 } from "@mui/material";
 import { Suspense, useMemo } from "react";
+import { RouterProvider } from "react-router-dom";
 import getAppTheme from "src/config/theme";
-import Pages from "./pages";
+import router from "./pages/router";
 import "./config/i18n";
 
 function Main() {
   return (
     <Suspense fallback={<LinearProgress />}>
-      <Pages />
+      <Container fixed>
+        <RouterProvider router={router} />
+      </Container>
     </Suspense>
   );
 }

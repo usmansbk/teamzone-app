@@ -1,9 +1,9 @@
-import { Box, Stack, Link, Typography } from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
 
 export default function Footer() {
   return (
     <Box py={4} display="flex" justifyContent="center">
-      <Stack justifyContent="center" alignItems="center">
+      <Stack justifyContent="center" alignItems="center" spacing={1}>
         <Typography variant="caption">
           &copy; {new Date().getFullYear()} Teamzone
         </Typography>
@@ -12,20 +12,22 @@ export default function Footer() {
           spacing={2}
           alignItems="center"
           justifyContent="center"
+          flexWrap="wrap"
         >
-          <Link
+          <Button
             href="https://github.com/usmansbk"
             target="_blank"
             rel="noreferrer"
+            size="small"
           >
-            <Typography variant="caption">GitHub</Typography>
-          </Link>
-          <Link href="#privacy" target="_blank" rel="noreferrer">
-            <Typography variant="caption">Privacy Policy</Typography>
-          </Link>
-          <Link href="#privacy" target="_blank" rel="noreferrer">
-            <Typography variant="caption">Terms of use</Typography>
-          </Link>
+            GitHub
+          </Button>
+          <Button href="#privacy" size="small">
+            Privacy
+          </Button>
+          <Button href="#terms" size="small">
+            Terms
+          </Button>
         </Stack>
       </Stack>
     </Box>
