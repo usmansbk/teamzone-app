@@ -36,7 +36,12 @@ export default function Home() {
           <Stack spacing={1}>
             <Typography>
               Teamzone relies on time zone data from{" "}
-              <Link target="_blank" href="http://www.iana.org/time-zones">
+              <Link
+                color="inherit"
+                target="_blank"
+                rel="noreferrer"
+                href="http://www.iana.org/time-zones"
+              >
                 IANA Time Zone Database
               </Link>
               . We always strive keep Teamzone updated with the latest version

@@ -13,13 +13,17 @@ export default function Footer() {
           alignItems="center"
           justifyContent="center"
         >
-          <Link href="https://github.com/usmansbk" target="_blank">
+          <Link
+            href="https://github.com/usmansbk"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Typography variant="caption">GitHub</Typography>
           </Link>
-          <Link href="#privacy">
+          <Link href="#privacy" target="_blank" rel="noreferrer">
             <Typography variant="caption">Privacy Policy</Typography>
           </Link>
-          <Link href="#privacy">
+          <Link href="#privacy" target="_blank" rel="noreferrer">
             <Typography variant="caption">Terms of use</Typography>
           </Link>
         </Stack>
