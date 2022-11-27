@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { GitHub } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useCallback, useEffect, useState } from "react";
 
 export default function GitHubLoginButton() {
   const [params] = useSearchParams();
