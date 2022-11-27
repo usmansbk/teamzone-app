@@ -1787,6 +1787,11 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
+"@react-oauth/google@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@react-oauth/google/-/google-0.5.0.tgz#1c8aff6b6914a61ba3df505cdb126026db2e3cad"
+  integrity sha512-3bS+DmKjynzdn3dwdNFdiIybRTOhF2siVI+gjSZrsYI52oWKVqb8mkxsV3YbU/EnL/c5g9zBinGcbzTNUHq/eg==
+
 "@remix-run/router@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.3.tgz#953b88c20ea00d0eddaffdc1b115c08474aa295d"
