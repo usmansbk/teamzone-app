@@ -1,19 +1,20 @@
 import { InMemoryCache } from "@apollo/client";
-import { AppTheme } from "src/types";
+import { AppPreferences } from "src/types";
 
 const cache = new InMemoryCache({
   typePolicies: {
-    AppPreferences: {
-      fields: {
-        theme: {
-          read(currentTheme: AppTheme = "system") {
-            return currentTheme;
-          },
-        },
-      },
-    },
     Query: {
       fields: {
+        appPreferences: {
+          merge: true,
+          read(
+            preferences: AppPreferences = {
+              theme: "dark",
+            }
+          ) {
+            return preferences;
+          },
+        },
         team: {
           read(_, { toReference, args }) {
             return toReference({
