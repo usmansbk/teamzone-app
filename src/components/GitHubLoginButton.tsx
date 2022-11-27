@@ -7,7 +7,7 @@ import useSocialLogin from "src/hooks/api/useSocialLogin";
 import { SocialProvider } from "src/__generated__/graphql";
 
 export default function GitHubLoginButton() {
-  const { fetching, login, error, data } = useSocialLogin();
+  const { fetching, login, data } = useSocialLogin();
   const [params] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const code = params.get("code");
@@ -24,12 +24,6 @@ export default function GitHubLoginButton() {
       toast.success("You're logged in!");
     }
   }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error.message);
-    }
-  }, [error]);
 
   useEffect(() => {
     if (code) {

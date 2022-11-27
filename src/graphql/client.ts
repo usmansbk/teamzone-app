@@ -1,5 +1,6 @@
 import { ApolloClient, HttpLink, ApolloLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+import toast from "react-hot-toast";
 import cache from "./cache";
 
 const httpLink = new HttpLink({
@@ -19,8 +20,13 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const errorLink = onError(({ graphQLErrors }) => {
-  graphQLErrors?.forEach(console.log);
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  graphQLErrors?.forEach((e) => {
+    toast.error(e.message);
+  });
+  if (networkError) {
+    toast.error(networkError.message);
+  }
 });
 
 const client = new ApolloClient({

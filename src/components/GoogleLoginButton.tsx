@@ -7,7 +7,7 @@ import useSocialLogin from "src/hooks/api/useSocialLogin";
 import { SocialProvider } from "src/__generated__/graphql";
 
 export default function GoogleLoginButton() {
-  const { login, data, error, fetching } = useSocialLogin();
+  const { login, data, fetching } = useSocialLogin();
   const [loading, setLoading] = useState(false);
   const loginWithGoogle = useGoogleLogin({
     flow: "auth-code",
@@ -25,12 +25,6 @@ export default function GoogleLoginButton() {
       });
     },
   });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error.message);
-    }
-  }, [error]);
 
   useEffect(() => {
     if (data) {
