@@ -1,10 +1,33 @@
+import { useSearchParams } from "react-router-dom";
 import { GitHub } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useCallback, useEffect, useState } from "react";
 
 export default function GitHubLoginButton() {
+  const [params] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const code = params.get("code");
+
+  const onClick = useCallback(() => {
+    setLoading(true);
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}`
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(code);
+  }, [code]);
+
   return (
-    <Button startIcon={<GitHub />} color="github" variant="contained">
+    <LoadingButton
+      loading={loading}
+      onClick={onClick}
+      startIcon={<GitHub />}
+      color="github"
+      variant="contained"
+    >
       Sign in with GitHub
-    </Button>
+    </LoadingButton>
   );
 }

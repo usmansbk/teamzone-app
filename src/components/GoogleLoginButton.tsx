@@ -1,23 +1,29 @@
-import { Button } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Google } from "@mui/icons-material";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export default function GoogleLoginButton() {
-  const login = useGoogleLogin({});
+  const [loading, setLoading] = useState(false);
+  const login = useGoogleLogin({
+    onError: () => setLoading(false),
+    onSuccess: () => setLoading(false),
+  });
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback(async () => {
+    setLoading(true);
     login();
   }, [login]);
 
   return (
-    <Button
+    <LoadingButton
+      loading={loading}
       onClick={onClick}
       startIcon={<Google />}
       color="google"
       variant="contained"
     >
       Sign in with Google
-    </Button>
+    </LoadingButton>
   );
 }
