@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { GitHub } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import toast from "react-hot-toast";
 
 export default function GitHubLoginButton() {
   const [params] = useSearchParams();
@@ -17,7 +18,7 @@ export default function GitHubLoginButton() {
 
   useEffect(() => {
     if (code) {
-      console.log(code);
+      toast.success("Success");
     }
   }, [code]);
 
