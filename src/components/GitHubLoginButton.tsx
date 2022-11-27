@@ -3,8 +3,10 @@ import { useSearchParams } from "react-router-dom";
 import { GitHub } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import toast from "react-hot-toast";
+import useSocialLogin from "src/hooks/api/useSocialLogin";
 
 export default function GitHubLoginButton() {
+  const { fetching, login, error, data } = useSocialLogin();
   const [params] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const code = params.get("code");
@@ -17,14 +19,29 @@ export default function GitHubLoginButton() {
   }, []);
 
   useEffect(() => {
+    if (data) {
+      toast.success("You've logged in!");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (code) {
-      toast.success("Success");
+      login({
+        code,
+        provider: "GITHUB",
+      });
     }
   }, [code]);
 
   return (
     <LoadingButton
-      loading={loading}
+      loading={loading || fetching}
       onClick={onClick}
       startIcon={<GitHub />}
       color="github"

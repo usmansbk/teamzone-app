@@ -5,7 +5,7 @@ import { Toaster, DefaultToastOptions } from "react-hot-toast";
 import router from "./router";
 import "src/config/i18n";
 
-function Main() {
+function Pages() {
   const { palette, typography, shape } = useTheme();
   const toastOptions = useMemo<DefaultToastOptions>(
     () => ({
@@ -39,4 +39,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Pages;
