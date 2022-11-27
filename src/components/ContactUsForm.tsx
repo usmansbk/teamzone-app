@@ -4,7 +4,7 @@ export default function ContactUsForm() {
   return (
     <form method="POST" action="https://formspree.io/f/xpzneyaw">
       <Grid container>
-        <Grid xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Stack spacing={1}>
             <TextField
               autoComplete="off"

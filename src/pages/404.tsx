@@ -8,7 +8,7 @@ export default function PageNotFound() {
       justifyContent="center"
       alignItems="center"
     >
-      <Grid flexGrow={1} xs={12} md={8}>
+      <Grid item flexGrow={1} xs={12} md={8}>
         <Stack spacing={4}>
           <Typography variant="h2">Oops!</Typography>
           <Typography variant="h3">
