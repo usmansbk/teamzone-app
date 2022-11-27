@@ -6,7 +6,7 @@ import router from "./router";
 import "src/config/i18n";
 
 function Main() {
-  const { palette, typography } = useTheme();
+  const { palette, typography, shape } = useTheme();
   const toastOptions = useMemo<DefaultToastOptions>(
     () => ({
       success: {
@@ -15,7 +15,7 @@ function Main() {
           background: palette.success.main,
           color: palette.success.contrastText,
           fontWeight: 600,
-          borderRadius: 0,
+          borderRadius: shape.borderRadius,
         },
       },
       error: {
@@ -24,11 +24,11 @@ function Main() {
           background: palette.error.main,
           color: palette.error.contrastText,
           fontWeight: 600,
-          borderRadius: 0,
+          borderRadius: shape.borderRadius,
         },
       },
     }),
-    [palette, typography]
+    [palette, typography, shape]
   );
 
   return (
