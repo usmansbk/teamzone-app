@@ -7,7 +7,7 @@ import routeMap from "src/routeMap";
 
 export default function Header() {
   const { palette } = useTheme();
-  const { setTheme, preferences } = useAppPreferences();
+  const { setTheme } = useAppPreferences();
 
   const toggleTheme = useCallback(() => {
     setTheme(palette.mode === "dark" ? "light" : "dark");
@@ -31,7 +31,7 @@ export default function Header() {
         Teamzone
       </Typography>
       <IconButton onClick={toggleTheme}>
-        {preferences?.theme === "dark" ? <DarkMode /> : <LightMode />}
+        {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
       </IconButton>
     </Stack>
   );
