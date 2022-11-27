@@ -1,10 +1,16 @@
 /* eslint-disable */
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -175,13 +181,13 @@ export type Scalars = {
 };
 
 export type AuthPayload = {
-  __typename?: 'AuthPayload';
-  token?: Maybe<Scalars['JWT']>;
+  __typename?: "AuthPayload";
+  token?: Maybe<Scalars["JWT"]>;
 };
 
 export type AuthRule = {
   allow: AuthStrategy;
-  identityClaim?: InputMaybe<Scalars['String']>;
+  identityClaim?: InputMaybe<Scalars["String"]>;
 };
 
 export enum AuthStrategy {
@@ -189,15 +195,15 @@ export enum AuthStrategy {
    * To restrict a record's access to a specific user, use the `owner` strategy.
    * When `owner` authorization is configured, only the record's `owner` and admins are allowed the specified operations.
    */
-  Owner = 'owner'
+  Owner = "owner",
 }
 
 export type CreateTeamInput = {
-  name: Scalars['NonEmptyString'];
+  name: Scalars["NonEmptyString"];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   addTeamMemberToAdmin: TeamMember;
   archiveTeam: Team;
   createTeam: Team;
@@ -215,173 +221,228 @@ export type Mutation = {
   updateTeam: Team;
 };
 
-
 export type MutationAddTeamMemberToAdminArgs = {
-  memberId: Scalars['ID'];
-  teamId: Scalars['ID'];
+  memberId: Scalars["ID"];
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationArchiveTeamArgs = {
-  teamId: Scalars['ID'];
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationCreateTeamArgs = {
   input: CreateTeamInput;
 };
 
-
 export type MutationDeleteTeamArgs = {
-  teamId: Scalars['ID'];
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationJoinTeamArgs = {
-  inviteCode: Scalars['ID'];
+  inviteCode: Scalars["ID"];
 };
-
 
 export type MutationLeaveTeamArgs = {
-  teamId: Scalars['ID'];
+  teamId: Scalars["ID"];
 };
 
-
 export type MutationLoginWithSocialProviderArgs = {
-  code: Scalars['String'];
+  code: Scalars["String"];
   provider: SocialProvider;
 };
 
-
 export type MutationRemoveTeamMemberFromAdminArgs = {
-  memberId: Scalars['ID'];
-  teamId: Scalars['ID'];
+  memberId: Scalars["ID"];
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationRemoveTeammatesArgs = {
-  memberIds: Array<Scalars['ID']>;
-  teamId: Scalars['ID'];
+  memberIds: Array<Scalars["ID"]>;
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationUnarchiveTeamArgs = {
-  teamId: Scalars['ID'];
+  teamId: Scalars["ID"];
 };
-
 
 export type MutationUpdateCurrentUserCountryArgs = {
-  countryCode: Scalars['CountryCode'];
+  countryCode: Scalars["CountryCode"];
 };
-
 
 export type MutationUpdateCurrentUserFullNameArgs = {
-  firstName: Scalars['NonEmptyString'];
-  lastName: Scalars['NonEmptyString'];
+  firstName: Scalars["NonEmptyString"];
+  lastName: Scalars["NonEmptyString"];
 };
-
 
 export type MutationUpdateCurrentUserLocaleArgs = {
-  locale: Scalars['Locale'];
+  locale: Scalars["Locale"];
 };
-
 
 export type MutationUpdateCurrentUserTimeZoneArgs = {
-  timezone: Scalars['TimeZone'];
+  timezone: Scalars["TimeZone"];
 };
-
 
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   getTeamById: Team;
   me: User;
 };
 
-
 export type QueryGetTeamByIdArgs = {
-  id: Scalars['ID'];
+  id: Scalars["ID"];
 };
 
 export enum SocialProvider {
-  Github = 'GITHUB',
-  Google = 'GOOGLE'
+  Github = "GITHUB",
+  Google = "GOOGLE",
 }
 
 export type Team = {
-  __typename?: 'Team';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  inviteCode?: Maybe<Scalars['ID']>;
-  isOwner: Scalars['Boolean'];
-  logo?: Maybe<Scalars['URL']>;
-  name: Scalars['String'];
+  __typename?: "Team";
+  createdAt: Scalars["DateTime"];
+  id: Scalars["ID"];
+  inviteCode?: Maybe<Scalars["ID"]>;
+  isOwner: Scalars["Boolean"];
+  logo?: Maybe<Scalars["URL"]>;
+  name: Scalars["String"];
   owner: User;
   teammates: Array<Maybe<TeamMember>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
-
 export type TeamLogoArgs = {
-  height?: InputMaybe<Scalars['PositiveInt']>;
-  width?: InputMaybe<Scalars['PositiveInt']>;
+  height?: InputMaybe<Scalars["PositiveInt"]>;
+  width?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
 export type TeamMember = {
-  __typename?: 'TeamMember';
-  id: Scalars['ID'];
-  isMe?: Maybe<Scalars['Boolean']>;
-  joinedAt: Scalars['DateTime'];
+  __typename?: "TeamMember";
+  id: Scalars["ID"];
+  isMe?: Maybe<Scalars["Boolean"]>;
+  joinedAt: Scalars["DateTime"];
   member: User;
   role?: Maybe<TeamRole>;
   team: Team;
 };
 
 export enum TeamRole {
-  Admin = 'ADMIN',
-  Teammate = 'TEAMMATE'
+  Admin = "ADMIN",
+  Teammate = "TEAMMATE",
 }
 
 export type UpdateTeamInput = {
-  id: Scalars['ID'];
-  name: Scalars['NonEmptyString'];
+  id: Scalars["ID"];
+  name: Scalars["NonEmptyString"];
 };
 
 export type User = {
-  __typename?: 'User';
-  countryCode?: Maybe<Scalars['CountryCode']>;
-  createdAt: Scalars['DateTime'];
+  __typename?: "User";
+  countryCode?: Maybe<Scalars["CountryCode"]>;
+  createdAt: Scalars["DateTime"];
   createdTeams: Array<Maybe<Team>>;
-  email: Scalars['EmailAddress'];
-  emailVerified: Scalars['Boolean'];
-  firstName: Scalars['String'];
-  fullName: Scalars['String'];
-  id: Scalars['ID'];
-  isMe: Scalars['Boolean'];
-  lastName: Scalars['String'];
-  locale?: Maybe<Scalars['Locale']>;
-  picture?: Maybe<Scalars['URL']>;
+  email: Scalars["EmailAddress"];
+  emailVerified: Scalars["Boolean"];
+  firstName: Scalars["String"];
+  fullName: Scalars["String"];
+  id: Scalars["ID"];
+  isMe: Scalars["Boolean"];
+  lastName: Scalars["String"];
+  locale?: Maybe<Scalars["Locale"]>;
+  picture?: Maybe<Scalars["URL"]>;
   teams: Array<Maybe<TeamMember>>;
-  timezone?: Maybe<Scalars['TimeZone']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
+  timezone?: Maybe<Scalars["TimeZone"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
-
 export type UserPictureArgs = {
-  height?: InputMaybe<Scalars['PositiveInt']>;
-  width?: InputMaybe<Scalars['PositiveInt']>;
+  height?: InputMaybe<Scalars["PositiveInt"]>;
+  width?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
   provider: SocialProvider;
-  code: Scalars['String'];
+  code: Scalars["String"];
 }>;
 
+export type LoginWithSocialProviderMutation = {
+  __typename?: "Mutation";
+  loginWithSocialProvider: { __typename?: "AuthPayload"; token?: any | null };
+};
 
-export type LoginWithSocialProviderMutation = { __typename?: 'Mutation', loginWithSocialProvider: { __typename?: 'AuthPayload', token?: any | null } };
-
-
-export const LoginWithSocialProviderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginWithSocialProvider"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"provider"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SocialProvider"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginWithSocialProvider"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"provider"},"value":{"kind":"Variable","name":{"kind":"Name","value":"provider"}}},{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}}]}}]}}]} as unknown as DocumentNode<LoginWithSocialProviderMutation, LoginWithSocialProviderMutationVariables>;
+export const LoginWithSocialProviderDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "LoginWithSocialProvider" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "provider" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "SocialProvider" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "code" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "loginWithSocialProvider" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "provider" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "provider" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "code" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "code" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "token" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  LoginWithSocialProviderMutation,
+  LoginWithSocialProviderMutationVariables
+>;

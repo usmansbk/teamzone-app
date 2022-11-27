@@ -3,7 +3,7 @@ import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useMemo } from "react";
 import getAppTheme from "src/config/theme";
-import client from "./config/graphqlClient";
+import client from "./graphql/client";
 import Pages from "./pages";
 
 function Main() {

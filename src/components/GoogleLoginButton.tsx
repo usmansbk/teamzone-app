@@ -4,7 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { Google } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import useSocialLogin from "src/hooks/api/useSocialLogin";
-import { SocialProvider } from "src/gql/graphql";
+import { SocialProvider } from "src/__generated__/graphql";
 
 export default function GoogleLoginButton() {
   const { login, data, error, fetching } = useSocialLogin();

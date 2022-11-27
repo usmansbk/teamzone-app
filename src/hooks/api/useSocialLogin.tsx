@@ -1,4 +1,4 @@
-import loginWithSocialProvider from "src/queries/loginWithSocialProvider";
+import loginWithSocialProvider from "src/graphql/queries/loginWithSocialProvider";
 import { useMutation } from "@apollo/client";
 
 export default function useSocialLogin() {

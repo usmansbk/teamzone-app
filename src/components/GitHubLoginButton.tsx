@@ -4,7 +4,7 @@ import { GitHub } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import toast from "react-hot-toast";
 import useSocialLogin from "src/hooks/api/useSocialLogin";
-import { SocialProvider } from "src/gql/graphql";
+import { SocialProvider } from "src/__generated__/graphql";
 
 export default function GitHubLoginButton() {
   const { fetching, login, error, data } = useSocialLogin();
