@@ -4,6 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { Google } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import useSocialLogin from "src/hooks/api/useSocialLogin";
+import { SocialProvider } from "src/gql/graphql";
 
 export default function GoogleLoginButton() {
   const { login, data, error, fetching } = useSocialLogin();
@@ -18,7 +19,7 @@ export default function GoogleLoginButton() {
       setLoading(false);
       login({
         code: response.code,
-        provider: "GOOGLE",
+        provider: SocialProvider.Google,
       });
     },
   });
