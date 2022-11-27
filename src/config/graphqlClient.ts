@@ -1,7 +1,8 @@
-import { createClient } from "urql";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const client = createClient({
-  url: process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+  cache: new InMemoryCache(),
 });
 
 export default client;

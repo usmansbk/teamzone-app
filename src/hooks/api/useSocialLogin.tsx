@@ -1,14 +1,14 @@
 import loginWithSocialProvider from "src/queries/loginWithSocialProvider";
-import { useMutation } from "urql";
+import { useMutation } from "@apollo/client";
 
 export default function useSocialLogin() {
-  const [{ data, error, fetching }, login] = useMutation(
+  const [login, { data, error, loading }] = useMutation(
     loginWithSocialProvider
   );
 
   return {
     login,
-    fetching,
+    fetching: loading,
     error,
     data: data?.loginWithSocialProvider?.token,
   };

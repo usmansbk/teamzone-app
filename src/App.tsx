@@ -1,10 +1,12 @@
+import { ApolloProvider } from "@apollo/client";
 import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useMemo } from "react";
 import getAppTheme from "src/config/theme";
+import client from "./config/graphqlClient";
 import Pages from "./pages";
 
-function App() {
+function Main() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const theme = useMemo(() => getAppTheme(prefersDarkMode), [prefersDarkMode]);
   return (
@@ -14,6 +16,14 @@ function App() {
         <Pages />
       </GoogleOAuthProvider>
     </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Main />
+    </ApolloProvider>
   );
 }
 

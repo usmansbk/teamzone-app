@@ -34,8 +34,10 @@ export default function GitHubLoginButton() {
   useEffect(() => {
     if (code) {
       login({
-        code,
-        provider: SocialProvider.Github,
+        variables: {
+          code,
+          provider: SocialProvider.Github,
+        },
       });
     }
   }, [code]);
