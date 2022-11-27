@@ -1,9 +1,14 @@
 import { ApolloProvider } from "@apollo/client";
-import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import {
+  CssBaseline,
+  LinearProgress,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getAppTheme from "src/config/theme";
-import client from "./graphql/client";
+import client, { persistor } from "./graphql/client";
 import Pages from "./pages";
 
 function Main() {
@@ -20,6 +25,21 @@ function Main() {
 }
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function init() {
+      await persistor.restore();
+      setLoading(false);
+    }
+
+    init();
+  }, []);
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
   return (
     <ApolloProvider client={client}>
       <Main />
