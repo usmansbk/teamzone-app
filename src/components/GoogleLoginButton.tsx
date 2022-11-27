@@ -4,10 +4,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useCallback } from "react";
 
 export default function GoogleLoginButton() {
-  const login = useGoogleLogin({
-    onSuccess: console.log,
-    onError: console.log,
-  });
+  const login = useGoogleLogin({});
 
   const onClick = useCallback(() => {
     login();
