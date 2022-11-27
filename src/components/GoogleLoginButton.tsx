@@ -8,9 +8,9 @@ export default function GoogleLoginButton() {
   const [loading, setLoading] = useState(false);
   const login = useGoogleLogin({
     flow: "auth-code",
-    onError: () => {
+    onError: (errorResponse) => {
       setLoading(false);
-      toast.error("Failed");
+      toast.error(errorResponse.error_description || "Failed");
     },
     onSuccess: () => {
       setLoading(false);
@@ -19,7 +19,6 @@ export default function GoogleLoginButton() {
   });
 
   const onClick = useCallback(async () => {
-    toast.error("Success");
     setLoading(true);
     login();
   }, [login]);
