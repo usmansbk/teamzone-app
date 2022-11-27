@@ -21,7 +21,7 @@ export default function GitHubLoginButton() {
 
   useEffect(() => {
     if (data) {
-      toast.success("You've logged in!");
+      toast.success("You're logged in!");
     }
   }, [data]);
 
