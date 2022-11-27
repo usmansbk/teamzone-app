@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "urql";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import client from "./graphql/client";
+import client from "./config/graphqlClient";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
