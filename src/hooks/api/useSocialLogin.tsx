@@ -1,3 +1,4 @@
+import { MutationLoginWithSocialProviderArgs } from "src/gql/graphql";
 import loginWithSocialProvider from "src/graphql/queries/loginWithSocialProvider";
 import { useMutation } from "urql";
 
@@ -7,15 +8,11 @@ interface Result {
   };
 }
 
-interface Variables {
-  provider: "GOOGLE" | "GITHUB";
-  code: string;
-}
-
 export default function useSocialLogin() {
-  const [{ data, error, fetching }, login] = useMutation<Result, Variables>(
-    loginWithSocialProvider
-  );
+  const [{ data, error, fetching }, login] = useMutation<
+    Result,
+    MutationLoginWithSocialProviderArgs
+  >(loginWithSocialProvider);
 
   return {
     login,
