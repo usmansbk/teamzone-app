@@ -16,7 +16,9 @@ export default function GitHubLoginButton() {
   }, []);
 
   useEffect(() => {
-    console.log(code);
+    if (code) {
+      console.log(code);
+    }
   }, [code]);
 
   return (

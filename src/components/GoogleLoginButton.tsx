@@ -6,8 +6,12 @@ import { useCallback, useState } from "react";
 export default function GoogleLoginButton() {
   const [loading, setLoading] = useState(false);
   const login = useGoogleLogin({
+    flow: "auth-code",
     onError: () => setLoading(false),
-    onSuccess: () => setLoading(false),
+    onSuccess: (response) => {
+      setLoading(false);
+      console.log(response.code);
+    },
   });
 
   const onClick = useCallback(async () => {
