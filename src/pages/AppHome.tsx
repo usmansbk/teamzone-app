@@ -9,7 +9,7 @@ export default function AppHome() {
   const { firstName, teams } = data!;
 
   return (
-    <Box p={3}>
+    <Box px={3}>
       <Typography variant="h4">Hello, {firstName}!</Typography>
       <Typography variant="h6" pt={2}>
         Your Teams

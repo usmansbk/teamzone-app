@@ -1,31 +1,21 @@
 import * as React from "react";
 import {
   useScrollTrigger,
-  Typography,
   Tooltip,
   Avatar,
-  MenuItem,
   Container,
-  Menu,
   IconButton,
   Toolbar,
   Box,
   AppBar,
-  Divider,
   Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListSubheader,
-  Stack,
+  Popover,
 } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
-import { Add, Menu as MenuIcon } from "@mui/icons-material";
-import routeMap from "src/routeMap";
-import { tokenVar } from "src/graphql/vars";
+import { Outlet } from "react-router-dom";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import { User } from "src/__generated__/graphql";
-import ThemedNavLink from "src/components/ThemedNavLink";
+import DropdownContent from "./DropdownContent";
+import DrawerContent from "./DrawerContent";
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -45,13 +35,11 @@ function ElevationScroll(props: ElevationScrollProps) {
   });
 }
 
-const settings = ["Profile"];
-
 interface Props {
   user: User;
 }
 
-function NavBar({ user }: Props) {
+function Layout({ user }: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -65,69 +53,11 @@ function NavBar({ user }: Props) {
     setAnchorElUser(null);
   };
 
-  const logout = React.useCallback(() => {
-    tokenVar(null);
-    localStorage.removeItem("token");
-    handleCloseUserMenu();
-  }, []);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      <Toolbar>
-        <Typography
-          color="primary"
-          variant="h4"
-          component={Link}
-          to={routeMap.home}
-          noWrap
-          sx={{
-            fontWeight: 900,
-            textDecoration: "none",
-          }}
-        >
-          Teamzone
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List>
-        <ListSubheader>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Typography style={{ fontWeight: 700 }}>Teams</Typography>
-            <IconButton size="small">
-              <Add />
-            </IconButton>
-          </Stack>
-        </ListSubheader>
-        {user.teams.map((team) => (
-          <ListItem key={team!.id} disablePadding>
-            <ListItemButton
-              component={ThemedNavLink}
-              to={routeMap.team.replace(":id", team!.id)}
-            >
-              <ListItemText
-                primary={team!.name}
-                primaryTypographyProps={{
-                  noWrap: true,
-                  style: {
-                    fontWeight: 600,
-                    fontSize: 16,
-                  },
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
+  const drawer = <DrawerContent teams={user.teams as any} />;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -161,31 +91,24 @@ function NavBar({ user }: Props) {
                     />
                   </IconButton>
                 </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
+                <Popover
                   id="menu-appbar"
+                  sx={{ mt: "45px" }}
                   anchorEl={anchorElUser}
                   anchorOrigin={{
                     vertical: "top",
                     horizontal: "right",
                   }}
-                  keepMounted
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                   transformOrigin={{
                     vertical: "top",
                     horizontal: "right",
                   }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
+                  keepMounted
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
-                  <MenuItem onClick={logout}>
-                    <Typography textAlign="center">Logout</Typography>
-                  </MenuItem>
-                </Menu>
+                  <DropdownContent user={user} />
+                </Popover>
               </Box>
             </Toolbar>
           </Container>
@@ -244,4 +167,4 @@ function NavBar({ user }: Props) {
     </Box>
   );
 }
-export default NavBar;
+export default Layout;
