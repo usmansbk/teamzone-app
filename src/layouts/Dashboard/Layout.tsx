@@ -191,7 +191,6 @@ function NavBar({ user }: Props) {
           </Container>
         </AppBar>
       </ElevationScroll>
-      <Toolbar />
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -232,12 +231,14 @@ function NavBar({ user }: Props) {
       <Box
         component="main"
         sx={{
+          display: "flex",
+          flexDirection: "column",
           flexGrow: 1,
-          p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          height: "100%",
         }}
       >
-        <Toolbar />
+        <Toolbar disableGutters />
         <Outlet />
       </Box>
     </Box>

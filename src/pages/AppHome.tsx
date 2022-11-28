@@ -9,14 +9,14 @@ export default function AppHome() {
   const { firstName, teams } = data!;
 
   return (
-    <Box>
+    <Box p={3}>
       <Typography variant="h4">Hello, {firstName}!</Typography>
       <Typography variant="h6" pt={2}>
         Your Teams
       </Typography>
       <Grid container pt={1} spacing={2}>
         {teams.map((team) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} zeroMinWidth>
+          <Grid key={team!.id} item xs={12} sm={6} md={4} lg={3} zeroMinWidth>
             <Tooltip title={team!.name}>
               <Link
                 to={routeMap.team.replace(":id", team!.id)}
