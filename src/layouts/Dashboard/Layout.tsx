@@ -108,7 +108,10 @@ function NavBar({ user }: Props) {
         </ListSubheader>
         {user.teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
-            <ListItemButton component={ThemedNavLink} to="/">
+            <ListItemButton
+              component={ThemedNavLink}
+              to={`/app/team/${team!.id}`}
+            >
               <ListItemText
                 primary={team!.name}
                 primaryTypographyProps={{

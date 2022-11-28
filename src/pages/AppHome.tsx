@@ -23,7 +23,7 @@ export default function AppHome() {
               >
                 <Paper elevation={1} sx={{ p: 2 }}>
                   <Typography style={{ fontWeight: 700 }} noWrap>
-                    {team?.name} adkadfjkjf;akjdf;ajkadfkadfadfdfadfadfadf
+                    {team?.name}
                   </Typography>
                 </Paper>
               </Link>
