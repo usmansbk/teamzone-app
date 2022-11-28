@@ -110,7 +110,7 @@ function NavBar({ user }: Props) {
           <ListItem key={team!.id} disablePadding>
             <ListItemButton
               component={ThemedNavLink}
-              to={`/app/team/${team!.id}`}
+              to={routeMap.team.replace(":id", team!.id)}
             >
               <ListItemText
                 primary={team!.name}

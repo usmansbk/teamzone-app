@@ -1,6 +1,11 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
-import LandingLayout from "src/layouts/Landing";
+import Landing from "src/layouts/Landing";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
 import Dashboard from "../layouts/Dashboard";
@@ -10,53 +15,58 @@ import Login from "./Login";
 import Terms from "./Terms";
 import AppHome from "./AppHome";
 
-function ProtectedRoute({ children }: { children: JSX.Element }) {
+function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
+  const location = useLocation();
 
   if (!isLoggedIn) {
-    return <Navigate replace to={routeMap.home} />;
+    return <Navigate replace to={routeMap.login} state={{ from: location }} />;
   }
 
-  return children;
+  return <Outlet />;
 }
 
-function RedirectAuth({ children }: { children: JSX.Element }) {
+function RedirectAuth() {
   const { isLoggedIn } = useAuth();
+  const location = useLocation();
 
   if (isLoggedIn) {
-    return <Navigate replace to={routeMap.app} />;
+    return (
+      <Navigate replace to={location.state?.from?.pathname || routeMap.app} />
+    );
   }
 
-  return children;
+  return <Outlet />;
 }
 
 const router = createBrowserRouter([
   {
     path: routeMap.home,
+    element: <RedirectAuth />,
     errorElement: <ErrorPage />,
-    element: (
-      <RedirectAuth>
-        <LandingLayout />
-      </RedirectAuth>
-    ),
     children: [
       {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: routeMap.login,
-        element: <Login />,
-      },
-      {
-        path: "*",
-        element: <PageNotFound />,
+        element: <Landing />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: routeMap.login,
+            element: <Login />,
+          },
+          {
+            path: "*",
+            element: <PageNotFound />,
+          },
+        ],
       },
     ],
   },
   {
     path: routeMap.terms,
-    element: <LandingLayout />,
+    element: <Landing />,
     children: [
       {
         index: true,
@@ -66,20 +76,21 @@ const router = createBrowserRouter([
   },
   {
     path: routeMap.app,
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute />,
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <AppHome />,
-      },
-      {
-        path: routeMap.team,
-        element: <AppHome />,
+        element: <Dashboard />,
+        children: [
+          {
+            index: true,
+            element: <AppHome />,
+          },
+          {
+            path: routeMap.team,
+            element: <AppHome />,
+          },
+        ],
       },
     ],
   },
