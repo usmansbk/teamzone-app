@@ -12,6 +12,12 @@ export default gql(`
       timezone
       picture
       updatedAt
+      teams {
+        id
+        name
+        logo
+        isOwner
+      }
     }
   }
 `);

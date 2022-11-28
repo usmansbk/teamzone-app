@@ -1,6 +1,6 @@
-import { Box, LinearProgress, Container } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 import useMe from "src/hooks/api/useMe";
-import NavBar from "./NavBar";
+import Layout from "./Layout";
 
 export default function Dashboard() {
   const { loading, data } = useMe();
@@ -13,12 +13,5 @@ export default function Dashboard() {
     throw new Error("No user found");
   }
 
-  return (
-    <>
-      <NavBar user={data} />
-      <Container>
-        <Box />
-      </Container>
-    </>
-  );
+  return <Layout user={data as any} />;
 }
