@@ -96,7 +96,7 @@ const themeOptions: ThemeOptions = {
   components: {
     MuiAppBar: {
       defaultProps: {
-        color: "default",
+        color: "inherit",
       },
     },
   },

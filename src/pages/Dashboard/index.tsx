@@ -1,20 +1,24 @@
-import { Button, Toolbar, Typography } from "@mui/material";
-import { useCallback } from "react";
-import { tokenVar } from "src/graphql/vars";
+import { Box, LinearProgress, Container } from "@mui/material";
+import useMe from "src/hooks/api/useMe";
 import NavBar from "./NavBar";
 
 export default function Dashboard() {
-  const logout = useCallback(() => {
-    tokenVar(null);
-    localStorage.removeItem("token");
-  }, []);
+  const { loading, data } = useMe();
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  if (!data) {
+    throw new Error("No user found");
+  }
 
   return (
     <>
-      <NavBar />
-      <Typography>Dashboard</Typography>
-      <Toolbar />
-      <Button onClick={logout}>Logout</Button>
+      <NavBar user={data} />
+      <Container>
+        <Box />
+      </Container>
     </>
   );
 }
