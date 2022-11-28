@@ -1,6 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Toolbar, Typography } from "@mui/material";
 import { useCallback } from "react";
 import { tokenVar } from "src/graphql/vars";
+import NavBar from "./NavBar";
 
 export default function Dashboard() {
   const logout = useCallback(() => {
@@ -9,9 +10,11 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Box>
+    <>
+      <NavBar />
       <Typography>Dashboard</Typography>
+      <Toolbar />
       <Button onClick={logout}>Logout</Button>
-    </Box>
+    </>
   );
 }
