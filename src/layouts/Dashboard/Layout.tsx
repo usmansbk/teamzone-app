@@ -93,7 +93,7 @@ function Layout({ user }: Props) {
                 </Tooltip>
                 <Popover
                   id="menu-appbar"
-                  sx={{ mt: "45px" }}
+                  sx={{ mt: "40px" }}
                   anchorEl={anchorElUser}
                   anchorOrigin={{
                     vertical: "top",

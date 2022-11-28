@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
+import { useCallback } from "react";
 import { GET_AUTH_STATE } from "src/graphql/localQueries";
+import { tokenVar } from "src/graphql/vars";
 
 interface Result {
   isLoggedIn: boolean;
@@ -10,4 +12,13 @@ export default function useAuth() {
   return {
     isLoggedIn: data?.isLoggedIn,
   };
+}
+
+export function useLogout() {
+  const handleLogout = useCallback(async () => {
+    localStorage.removeItem("token");
+    tokenVar(null);
+  }, []);
+
+  return handleLogout;
 }

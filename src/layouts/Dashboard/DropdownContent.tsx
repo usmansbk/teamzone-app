@@ -8,12 +8,15 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { useLogout } from "src/hooks/useAuth";
 import { User } from "src/__generated__/graphql";
 
 interface Props {
   user: Partial<User>;
 }
 export default function DropdownContent({ user }: Props) {
+  const logout = useLogout();
+
   return (
     <Box maxWidth={300}>
       <Grid p={2} container spacing={1} flexWrap="nowrap">
@@ -29,7 +32,7 @@ export default function DropdownContent({ user }: Props) {
       </Grid>
       <Divider />
       <ListItem disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={logout}>
           <ListItemText
             primary="Sign out"
             primaryTypographyProps={{
