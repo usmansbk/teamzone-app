@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "src/layouts/Root";
+import AppLayout from "src/layouts/App";
+import LandingLayout from "src/layouts/Landing";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
+import Dashboard from "./Dashboard";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./Login";
@@ -10,7 +12,7 @@ import Terms from "./Terms";
 const router = createBrowserRouter([
   {
     path: routeMap.home,
-    element: <Root />,
+    element: <LandingLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -28,6 +30,17 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <PageNotFound />,
+      },
+    ],
+  },
+  {
+    path: routeMap.app,
+    element: <AppLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
       },
     ],
   },

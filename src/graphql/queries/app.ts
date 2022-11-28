@@ -8,4 +8,8 @@ export const GET_APP_PREFERENCES = gql`
   }
 `;
 
-export default {};
+export const GET_AUTH_STATE = gql`
+  query GetAuth {
+    isLoggedIn @client
+  }
+`;
