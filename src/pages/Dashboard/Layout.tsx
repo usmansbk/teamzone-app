@@ -92,7 +92,7 @@ function NavBar({ user }: Props) {
       </Toolbar>
       <Divider />
       <List>
-        <ListSubheader style={{ fontWeight: 700 }}>My Teams</ListSubheader>
+        <ListSubheader style={{ fontWeight: 700 }}>Teams</ListSubheader>
         {user.teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
             <ListItemButton>
