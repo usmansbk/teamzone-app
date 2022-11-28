@@ -25,6 +25,7 @@ import { Add, Menu as MenuIcon } from "@mui/icons-material";
 import routeMap from "src/routeMap";
 import { tokenVar } from "src/graphql/vars";
 import { User } from "src/__generated__/graphql";
+import ThemedNavLink from "src/components/ThemedNavLink";
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -107,7 +108,7 @@ function NavBar({ user }: Props) {
         </ListSubheader>
         {user.teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={ThemedNavLink} to="/">
               <ListItemText
                 primary={team!.name}
                 primaryTypographyProps={{
