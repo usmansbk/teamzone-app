@@ -1,5 +1,11 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { IconButton, Stack, Typography, useTheme } from "@mui/material";
+import {
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
 import useAppPreferences from "src/hooks/useAppPreferences";
@@ -30,9 +36,11 @@ export default function Header() {
       >
         Teamzone
       </Typography>
-      <IconButton onClick={toggleTheme}>
-        {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
-      </IconButton>
+      <Tooltip title="Toggle theme">
+        <IconButton onClick={toggleTheme}>
+          {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
+        </IconButton>
+      </Tooltip>
     </Stack>
   );
 }

@@ -18,9 +18,10 @@ import {
   ListItemButton,
   ListItemText,
   ListSubheader,
+  Stack,
 } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import { Add, Menu as MenuIcon } from "@mui/icons-material";
 import routeMap from "src/routeMap";
 import { tokenVar } from "src/graphql/vars";
 import { User } from "src/__generated__/graphql";
@@ -92,7 +93,18 @@ function NavBar({ user }: Props) {
       </Toolbar>
       <Divider />
       <List>
-        <ListSubheader style={{ fontWeight: 700 }}>Teams</ListSubheader>
+        <ListSubheader>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography style={{ fontWeight: 700 }}>Teams</Typography>
+            <IconButton size="small">
+              <Add />
+            </IconButton>
+          </Stack>
+        </ListSubheader>
         {user.teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
             <ListItemButton>
