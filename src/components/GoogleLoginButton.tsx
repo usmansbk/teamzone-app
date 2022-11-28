@@ -28,7 +28,7 @@ export default function GoogleLoginButton() {
 
   useEffect(() => {
     if (data) {
-      toast.success("You're logged in!");
+      toast.success("Welcome!");
     }
   }, [data]);
 
