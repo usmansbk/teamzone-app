@@ -15,6 +15,8 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
 const documents = {
   "\n  mutation LoginWithSocialProvider($provider: SocialProvider!, $code: String!) {\n    loginWithSocialProvider(provider: $provider, code: $code) {\n      token\n    }\n  }\n":
     types.LoginWithSocialProviderDocument,
+  "\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n    }\n  }\n":
+    types.MeDocument,
 };
 
 /**
@@ -23,6 +25,12 @@ const documents = {
 export function gql(
   source: "\n  mutation LoginWithSocialProvider($provider: SocialProvider!, $code: String!) {\n    loginWithSocialProvider(provider: $provider, code: $code) {\n      token\n    }\n  }\n"
 ): typeof documents["\n  mutation LoginWithSocialProvider($provider: SocialProvider!, $code: String!) {\n    loginWithSocialProvider(provider: $provider, code: $code) {\n      token\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n    }\n  }\n"
+): typeof documents["\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n    }\n  }\n"];
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

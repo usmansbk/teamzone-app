@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useCallback } from "react";
-import { GET_APP_PREFERENCES } from "src/graphql/queries/app";
+import { GET_APP_PREFERENCES } from "src/graphql/localQueries";
 import { AppPreferences, AppTheme } from "src/types";
 
 interface Result {

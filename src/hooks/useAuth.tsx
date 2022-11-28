@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_AUTH_STATE } from "src/graphql/queries/app";
+import { GET_AUTH_STATE } from "src/graphql/localQueries";
 
 interface Result {
   isLoggedIn: boolean;

@@ -373,6 +373,24 @@ export type LoginWithSocialProviderMutation = {
   loginWithSocialProvider: { __typename?: "AuthPayload"; token?: any | null };
 };
 
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MeQuery = {
+  __typename?: "Query";
+  me: {
+    __typename?: "User";
+    id: string;
+    fullName: string;
+    firstName: string;
+    lastName: string;
+    email: any;
+    locale?: any | null;
+    timezone?: any | null;
+    picture?: any | null;
+    updatedAt?: any | null;
+  };
+};
+
 export const LoginWithSocialProviderDocument = {
   kind: "Document",
   definitions: [
@@ -446,3 +464,36 @@ export const LoginWithSocialProviderDocument = {
   LoginWithSocialProviderMutation,
   LoginWithSocialProviderMutationVariables
 >;
+export const MeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Me" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "fullName" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "locale" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "picture" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
