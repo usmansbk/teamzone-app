@@ -27,9 +27,8 @@ export default function Home() {
             Time zones.
           </Typography>
           <Typography>
-            It lets you see the countries and times of your teammates, track
-            information about their public holidays and observances, and
-            schedule online meetings.
+            It lets you see the countries and times of your teammates, and track
+            information about their public holidays and observances.
           </Typography>
         </Stack>
       </Box>

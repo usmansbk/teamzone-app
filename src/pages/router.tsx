@@ -14,6 +14,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Terms from "./Terms";
 import AppHome from "./AppHome";
+import Team from "./Team";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
           },
           {
             path: routeMap.team,
-            element: <AppHome />,
+            element: <Team />,
           },
         ],
       },
