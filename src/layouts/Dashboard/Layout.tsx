@@ -14,6 +14,7 @@ import {
 import { Outlet } from "react-router-dom";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { User } from "src/__generated__/graphql";
+import ThemeButton from "src/components/ThemeButton";
 import DropdownContent from "./DropdownContent";
 import DrawerContent from "./DrawerContent";
 
@@ -81,22 +82,19 @@ function Layout({ user }: Props) {
                 <MenuIcon />
               </IconButton>
               <Box display="flex" flexGrow={1} />
-              <Box>
+              <ThemeButton />
+              <Box pl={2}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt={user.fullName}
-                      src={user.picture}
-                      sx={{ width: 32, height: 32 }}
-                    />
+                    <Avatar alt={user.fullName} src={user.picture} />
                   </IconButton>
                 </Tooltip>
                 <Popover
                   id="menu-appbar"
-                  sx={{ mt: "40px" }}
+                  sx={{ mt: "8px" }}
                   anchorEl={anchorElUser}
                   anchorOrigin={{
-                    vertical: "top",
+                    vertical: "bottom",
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}

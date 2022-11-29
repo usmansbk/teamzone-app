@@ -1,24 +1,9 @@
-import { DarkMode, LightMode } from "@mui/icons-material";
-import {
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import { useCallback } from "react";
+import { Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import useAppPreferences from "src/hooks/useAppPreferences";
 import routeMap from "src/routeMap";
+import ThemeButton from "./ThemeButton";
 
 export default function Header() {
-  const { palette } = useTheme();
-  const { setTheme } = useAppPreferences();
-
-  const toggleTheme = useCallback(() => {
-    setTheme(palette.mode === "dark" ? "light" : "dark");
-  }, [palette.mode]);
-
   return (
     <Stack
       flexWrap="nowrap"
@@ -36,11 +21,7 @@ export default function Header() {
       >
         Teamzone
       </Typography>
-      <Tooltip title="Toggle theme">
-        <IconButton onClick={toggleTheme}>
-          {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
-        </IconButton>
-      </Tooltip>
+      <ThemeButton />
     </Stack>
   );
 }
