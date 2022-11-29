@@ -83,7 +83,7 @@ function Layout({ user }: Props) {
               </IconButton>
               <Box display="flex" flexGrow={1} />
               <ThemeButton />
-              <Box pl={2}>
+              <Box pl={1}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt={user.fullName} src={user.picture} />
