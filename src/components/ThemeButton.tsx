@@ -4,7 +4,6 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -52,11 +51,9 @@ export default function ThemeButton() {
 
   return (
     <div>
-      <Tooltip title="Toggle theme">
-        <IconButton onClick={handleClick}>
-          {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
-        </IconButton>
-      </Tooltip>
+      <IconButton onClick={handleClick}>
+        {palette.mode === "dark" ? <DarkMode /> : <LightMode />}
+      </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={open}
