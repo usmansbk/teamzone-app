@@ -214,10 +214,7 @@ export type Mutation = {
   removeTeamMemberFromAdmin: TeamMember;
   removeTeammates: Array<TeamMember>;
   unarchiveTeam: Team;
-  updateCurrentUserCountry: User;
-  updateCurrentUserFullName: User;
-  updateCurrentUserLocale: User;
-  updateCurrentUserTimeZone: User;
+  updateProfile: User;
   updateTeam: Team;
 };
 
@@ -264,21 +261,8 @@ export type MutationUnarchiveTeamArgs = {
   teamId: Scalars["ID"];
 };
 
-export type MutationUpdateCurrentUserCountryArgs = {
-  countryCode: Scalars["CountryCode"];
-};
-
-export type MutationUpdateCurrentUserFullNameArgs = {
-  firstName: Scalars["NonEmptyString"];
-  lastName: Scalars["NonEmptyString"];
-};
-
-export type MutationUpdateCurrentUserLocaleArgs = {
-  locale: Scalars["Locale"];
-};
-
-export type MutationUpdateCurrentUserTimeZoneArgs = {
-  timezone: Scalars["TimeZone"];
+export type MutationUpdateProfileArgs = {
+  input: UpdateUserProfileInput;
 };
 
 export type MutationUpdateTeamArgs = {
@@ -345,9 +329,15 @@ export type UpdateTeamInput = {
   name: Scalars["NonEmptyString"];
 };
 
+export type UpdateUserProfileInput = {
+  firstName: Scalars["NonEmptyString"];
+  lastName: Scalars["NonEmptyString"];
+  locale: Scalars["Locale"];
+  timezone: Scalars["TimeZone"];
+};
+
 export type User = {
   __typename?: "User";
-  clocks: Array<Maybe<Scalars["TimeZone"]>>;
   countryCode?: Maybe<Scalars["CountryCode"]>;
   createdAt: Scalars["DateTime"];
   email: Scalars["EmailAddress"];
@@ -416,6 +406,24 @@ export type MeQuery = {
       logo?: any | null;
       isOwner: boolean;
     } | null>;
+  };
+};
+
+export type UpdateProfileMutationVariables = Exact<{
+  input: UpdateUserProfileInput;
+}>;
+
+export type UpdateProfileMutation = {
+  __typename?: "Mutation";
+  updateProfile: {
+    __typename?: "User";
+    id: string;
+    fullName: string;
+    firstName: string;
+    lastName: string;
+    locale?: any | null;
+    timezone?: any | null;
+    updatedAt?: any | null;
   };
 };
 
@@ -586,3 +594,63 @@ export const MeDocument = {
     },
   ],
 } as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const UpdateProfileDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateProfile" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "UpdateUserProfileInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateProfile" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "fullName" } },
+                { kind: "Field", name: { kind: "Name", value: "firstName" } },
+                { kind: "Field", name: { kind: "Name", value: "lastName" } },
+                { kind: "Field", name: { kind: "Name", value: "locale" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateProfileMutation,
+  UpdateProfileMutationVariables
+>;
