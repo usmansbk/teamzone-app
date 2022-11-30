@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useLogout } from "src/hooks/useAuth";
+import routeMap from "src/routeMap";
 import { User } from "src/__generated__/graphql";
 
 interface Props {
@@ -20,7 +21,10 @@ export default function DropdownContent({ user }: Props) {
 
   return (
     <Box maxWidth={300}>
-      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <Link
+        to={routeMap.settings}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
         <Grid p={2} container spacing={1} flexWrap="nowrap">
           <Grid item xs="auto">
             <Avatar alt={user.fullName} src={user.picture} />

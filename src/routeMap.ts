@@ -4,4 +4,6 @@ export default {
   terms: "/terms",
   app: "/app",
   team: "/app/team/:id",
+  settings: "/settings",
+  me: "/settings/me",
 };

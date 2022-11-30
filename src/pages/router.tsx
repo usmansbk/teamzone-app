@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
 import Landing from "src/layouts/Landing";
+import Settings from "src/layouts/Settings";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
 import App from "../layouts/App";
@@ -15,6 +16,7 @@ import Login from "./Login";
 import Terms from "./Terms";
 import Dashboard from "./Dashboard";
 import Team from "./Team";
+import EditProfile from "./EditProfile";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -90,6 +92,22 @@ const router = createBrowserRouter([
           {
             path: routeMap.team,
             element: <Team />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: routeMap.settings,
+    element: <ProtectedRoute />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        element: <Settings />,
+        children: [
+          {
+            index: true,
+            element: <EditProfile />,
           },
         ],
       },
