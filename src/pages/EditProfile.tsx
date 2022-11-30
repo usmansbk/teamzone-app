@@ -8,7 +8,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
@@ -60,6 +60,7 @@ export default function EditProfile() {
   );
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { isDirty, errors, touchedFields },
@@ -123,18 +124,25 @@ export default function EditProfile() {
                 )}
                 helperText={errors.lastName?.message as string}
               />
-              <Autocomplete
-                options={timezoneOptions}
-                disablePortal
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Timezone"
-                    helperText={errors.timezone?.message as string}
-                    error={Boolean(
-                      touchedFields.timezone && errors.timezone?.message
+              <Controller
+                control={control}
+                name="timezone"
+                render={({ field: { value, onChange } }) => (
+                  <Autocomplete
+                    value={value}
+                    options={timezoneOptions}
+                    onChange={(e, val: string) => onChange(val)}
+                    disablePortal
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Timezone"
+                        helperText={errors.timezone?.message as string}
+                        error={Boolean(
+                          touchedFields.timezone && errors.timezone?.message
+                        )}
+                      />
                     )}
-                    {...register("timezone")}
                   />
                 )}
               />
