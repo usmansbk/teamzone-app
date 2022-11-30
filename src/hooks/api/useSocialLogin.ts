@@ -27,9 +27,9 @@ export default function useSocialLogin() {
         variables: {
           input: {
             code,
+            provider,
             locale: i18n.language,
             timezone: timeZone,
-            provider,
           },
         },
       }),
