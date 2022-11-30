@@ -1,15 +1,16 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField, Stack, Grid, Avatar } from "@mui/material";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useUpdateProfile from "src/hooks/api/useUpdateProfile";
 import { UpdateProfileMutationVariables } from "src/__generated__/graphql";
+import toast from "react-hot-toast";
 
 export default function EditProfile() {
-  const { onSubmit, loading } = useUpdateProfile();
+  const { onSubmit, loading, data: updatedData } = useUpdateProfile();
   const { data } = useMe();
   const { picture, fullName, firstName, lastName, locale, timezone } = data!;
 
@@ -44,6 +45,7 @@ export default function EditProfile() {
     register,
     handleSubmit,
     formState: { isDirty, errors, touchedFields },
+    reset,
   } = useForm<UpdateProfileMutationVariables["input"]>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -53,6 +55,13 @@ export default function EditProfile() {
       timezone,
     },
   });
+
+  useEffect(() => {
+    if (updatedData) {
+      toast.success("Your profile has been updated");
+      reset(updatedData);
+    }
+  }, [updatedData]);
 
   return (
     <Box>
@@ -65,7 +74,11 @@ export default function EditProfile() {
               sx={{ width: 120, height: 120 }}
             />
           </Stack>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit((values) =>
+              onSubmit(schema.cast(values, { stripUnknown: true }))
+            )}
+          >
             <Stack mt={2} spacing={2}>
               <TextField
                 label="First name"
