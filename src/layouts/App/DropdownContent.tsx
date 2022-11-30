@@ -8,6 +8,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useLogout } from "src/hooks/useAuth";
 import { User } from "src/__generated__/graphql";
 
@@ -19,17 +20,19 @@ export default function DropdownContent({ user }: Props) {
 
   return (
     <Box maxWidth={300}>
-      <Grid p={2} container spacing={1} flexWrap="nowrap">
-        <Grid item xs="auto">
-          <Avatar alt={user.fullName} src={user.picture} />
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <Grid p={2} container spacing={1} flexWrap="nowrap">
+          <Grid item xs="auto">
+            <Avatar alt={user.fullName} src={user.picture} />
+          </Grid>
+          <Grid item zeroMinWidth>
+            <Typography sx={{ fontWeight: 700 }} noWrap>
+              {user.fullName}
+            </Typography>
+            <Typography variant="caption">{user.email}</Typography>
+          </Grid>
         </Grid>
-        <Grid item zeroMinWidth>
-          <Typography sx={{ fontWeight: 700 }} noWrap>
-            {user.fullName}
-          </Typography>
-          <Typography variant="caption">{user.email}</Typography>
-        </Grid>
-      </Grid>
+      </Link>
       <Divider />
       <ListItem disablePadding>
         <ListItemButton onClick={logout}>

@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import NewTeamModal from "src/components/NewTeamModal";
 import StyledPaper from "src/components/StyledPaper";
 import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
@@ -40,6 +41,7 @@ export default function Dashboard() {
           </Grid>
         ))}
       </Grid>
+      <NewTeamModal />
     </Box>
   );
 }
