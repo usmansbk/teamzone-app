@@ -92,7 +92,6 @@ function Layout({ user }: Props) {
                 </IconButton>
                 <Popover
                   id="menu-appbar"
-                  sx={{ mt: "8px" }}
                   anchorEl={anchorElUser}
                   anchorOrigin={{
                     vertical: "bottom",
