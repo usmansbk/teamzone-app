@@ -1,13 +1,10 @@
-import { Add } from "@mui/icons-material";
 import {
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   ListSubheader,
-  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -40,16 +37,7 @@ export default function DrawerContent({ teams }: Props) {
       <Divider />
       <List>
         <ListSubheader>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Typography style={{ fontWeight: 700 }}>Teams</Typography>
-            <IconButton size="small">
-              <Add />
-            </IconButton>
-          </Stack>
+          <Typography style={{ fontWeight: 700 }}>Teams</Typography>
         </ListSubheader>
         {teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
