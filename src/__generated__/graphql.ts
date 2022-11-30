@@ -247,8 +247,7 @@ export type MutationLeaveTeamArgs = {
 };
 
 export type MutationLoginWithSocialProviderArgs = {
-  code: Scalars["String"];
-  provider: SocialProvider;
+  input: SocialLoginInput;
 };
 
 export type MutationRemoveTeamMemberFromAdminArgs = {
@@ -294,6 +293,13 @@ export type Query = {
 
 export type QueryGetTeamByIdArgs = {
   id: Scalars["ID"];
+};
+
+export type SocialLoginInput = {
+  code: Scalars["String"];
+  locale?: InputMaybe<Scalars["Locale"]>;
+  provider: SocialProvider;
+  timezone?: InputMaybe<Scalars["TimeZone"]>;
 };
 
 export enum SocialProvider {
@@ -380,8 +386,7 @@ export type CreateTeamMutation = {
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
-  provider: SocialProvider;
-  code: Scalars["String"];
+  input: SocialLoginInput;
 }>;
 
 export type LoginWithSocialProviderMutation = {
@@ -490,24 +495,13 @@ export const LoginWithSocialProviderDocument = {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "provider" },
+            name: { kind: "Name", value: "input" },
           },
           type: {
             kind: "NonNullType",
             type: {
               kind: "NamedType",
-              name: { kind: "Name", value: "SocialProvider" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "code" } },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
+              name: { kind: "Name", value: "SocialLoginInput" },
             },
           },
         },
@@ -521,18 +515,10 @@ export const LoginWithSocialProviderDocument = {
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "provider" },
+                name: { kind: "Name", value: "input" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "provider" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "code" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "code" },
+                  name: { kind: "Name", value: "input" },
                 },
               },
             ],

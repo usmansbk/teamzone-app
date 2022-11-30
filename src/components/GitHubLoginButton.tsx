@@ -28,10 +28,8 @@ export default function GitHubLoginButton() {
   useEffect(() => {
     if (code) {
       login({
-        variables: {
-          code,
-          provider: SocialProvider.Github,
-        },
+        code,
+        provider: SocialProvider.Github,
       });
     }
   }, [code]);

@@ -18,10 +18,8 @@ export default function GoogleLoginButton() {
     onSuccess: (response) => {
       setLoading(false);
       login({
-        variables: {
-          code: response.code,
-          provider: SocialProvider.Google,
-        },
+        code: response.code,
+        provider: SocialProvider.Google,
       });
     },
   });
