@@ -4,6 +4,7 @@ declare global {
       REACT_APP_GOOGLE_CLIENT_ID: string;
       REACT_APP_GITHUB_CLIENT_ID: string;
       REACT_APP_GRAPHQL_API_ENDPOINT: string;
+      REACT_APP_REST_API_ENDPOINT: string;
     }
   }
 }
