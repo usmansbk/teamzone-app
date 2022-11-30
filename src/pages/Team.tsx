@@ -7,19 +7,24 @@ export default function Team() {
 
   const { loading, data, error } = useGetTeamById(id!);
 
-  if (loading && !data) {
-    return <LinearProgress />;
-  }
-
   if (error) {
     throw error;
+  }
+
+  if (loading && !data) {
+    return <LinearProgress />;
   }
 
   const { name } = data!;
 
   return (
-    <Container>
-      <Typography variant="h4">{name}</Typography>
-    </Container>
+    <>
+      {loading && <LinearProgress />}
+      {!!data && (
+        <Container>
+          <Typography variant="h4">{name}</Typography>
+        </Container>
+      )}
+    </>
   );
 }
