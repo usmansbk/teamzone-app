@@ -18,13 +18,8 @@ export default function Team() {
   const { name } = data!;
 
   return (
-    <>
-      {loading && <LinearProgress />}
-      {!!data && (
-        <Container>
-          <Typography variant="h4">{name}</Typography>
-        </Container>
-      )}
-    </>
+    <Container>
+      <Typography variant="h4">{name}</Typography>
+    </Container>
   );
 }
