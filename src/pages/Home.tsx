@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Stack spacing={4} flexGrow={1}>
       <Box>
-        <Typography>Clock for International Teams...</Typography>
+        <Typography variant="h4">Clock for International Teams...</Typography>
       </Box>
       <Box>
         <Button
