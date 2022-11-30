@@ -13,7 +13,7 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-  "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t}\n\t}\n":
+  "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n":
     types.CreateTeamDocument,
   "\n  mutation LoginWithSocialProvider($provider: SocialProvider!, $code: String!) {\n    loginWithSocialProvider(provider: $provider, code: $code) {\n      token\n    }\n  }\n":
     types.LoginWithSocialProviderDocument,
@@ -25,8 +25,8 @@ const documents = {
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t}\n\t}\n"
-): typeof documents["\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t}\n\t}\n"];
+  source: "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n"
+): typeof documents["\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

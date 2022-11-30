@@ -7,6 +7,9 @@ export default gql(`
 			name
 			logo
 			isOwner
+			owner {
+				id
+			}
 		}
 	}
 `);

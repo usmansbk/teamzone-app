@@ -15,7 +15,7 @@ const cache = new InMemoryCache({
           merge: true,
           read(
             preferences: AppPreferences = {
-              theme: "dark",
+              theme: "system",
             }
           ) {
             return preferences;

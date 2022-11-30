@@ -375,6 +375,7 @@ export type CreateTeamMutation = {
     name: string;
     logo?: any | null;
     isOwner: boolean;
+    owner: { __typename?: "User"; id: string };
   };
 };
 
@@ -459,6 +460,16 @@ export const CreateTeamDocument = {
                 { kind: "Field", name: { kind: "Name", value: "name" } },
                 { kind: "Field", name: { kind: "Name", value: "logo" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                    ],
+                  },
+                },
               ],
             },
           },
