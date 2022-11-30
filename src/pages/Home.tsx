@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Stack spacing={4} flexGrow={1}>
       <Box>
-        <Typography>Clock app for remote teams...</Typography>
+        <Typography>Clock for International Teams...</Typography>
       </Box>
       <Box>
         <Button
@@ -41,16 +41,11 @@ export default function Home() {
               color="inherit"
               target="_blank"
               rel="noreferrer"
-              href="http://www.iana.org/time-zones"
+              href="https://github.com/vvo/tzdb"
             >
-              IANA Time Zone Database
+              tzdb
             </Link>
-            . We always strive keep Teamzone updated with the latest version of
-            the IANA Timezone Database.
-          </Typography>
-          <Typography>
-            Teamzone is currently using version 2022f of the IANA Time Zone
-            Database.
+            .
           </Typography>
         </Stack>
       </Box>
