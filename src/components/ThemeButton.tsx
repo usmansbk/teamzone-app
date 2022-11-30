@@ -1,4 +1,4 @@
-import { DarkMode, LightMode, Settings } from "@mui/icons-material";
+import { Brightness4, DarkMode, LightMode } from "@mui/icons-material";
 import {
   IconButton,
   ListItemIcon,
@@ -22,7 +22,7 @@ const themes: { icon: JSX.Element; value: AppTheme }[] = [
     value: "light",
   },
   {
-    icon: <Settings fontSize="small" />,
+    icon: <Brightness4 fontSize="small" />,
     value: "system",
   },
 ];
@@ -79,7 +79,7 @@ export default function ThemeButton() {
             onClick={handleOption(value)}
           >
             <ListItemIcon>{icon}</ListItemIcon>
-            <Typography style={{ fontWeight: 700 }}>
+            <Typography variant="caption" style={{ fontWeight: 700 }}>
               {value.toUpperCase()}
             </Typography>
           </MenuItem>

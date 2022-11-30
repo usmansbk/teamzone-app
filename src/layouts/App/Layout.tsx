@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   useScrollTrigger,
-  Tooltip,
   Avatar,
   Container,
   IconButton,
@@ -83,12 +82,14 @@ function Layout({ user }: Props) {
               </IconButton>
               <Box display="flex" flexGrow={1} />
               <ThemeButton />
-              <Box pl={1}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={user.fullName} src={user.picture} />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <IconButton onClick={handleOpenUserMenu}>
+                  <Avatar
+                    alt={user.fullName}
+                    src={user.picture}
+                    sx={{ width: 30, height: 30 }}
+                  />
+                </IconButton>
                 <Popover
                   id="menu-appbar"
                   sx={{ mt: "8px" }}
