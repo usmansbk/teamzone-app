@@ -72,6 +72,7 @@ export default function ThemeButton() {
       >
         {themes.map(({ icon, value }) => (
           <MenuItem
+            key={value}
             selected={value === preferences?.theme}
             onClick={handleOption(value)}
           >

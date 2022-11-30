@@ -363,6 +363,21 @@ export type UserPictureArgs = {
   width?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
+export type CreateTeamMutationVariables = Exact<{
+  input: CreateTeamInput;
+}>;
+
+export type CreateTeamMutation = {
+  __typename?: "Mutation";
+  createTeam: {
+    __typename?: "Team";
+    id: string;
+    name: string;
+    logo?: any | null;
+    isOwner: boolean;
+  };
+};
+
 export type LoginWithSocialProviderMutationVariables = Exact<{
   provider: SocialProvider;
   code: Scalars["String"];
@@ -398,6 +413,60 @@ export type MeQuery = {
   };
 };
 
+export const CreateTeamDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateTeam" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateTeamInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createTeam" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "logo" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateTeamMutation, CreateTeamMutationVariables>;
 export const LoginWithSocialProviderDocument = {
   kind: "Document",
   definitions: [

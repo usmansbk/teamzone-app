@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { forwardRef } from "react";
 import { useTheme } from "@mui/material";
 import { LinkProps, NavLink as RouterNavLink } from "react-router-dom";
