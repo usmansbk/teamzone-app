@@ -49,6 +49,7 @@ export default function EditProfile() {
           timezone: yup
             .string()
             .trim()
+            .nullable()
             .required("What's your current time zone?"),
           locale: yup
             .string()
@@ -138,9 +139,7 @@ export default function EditProfile() {
                         {...params}
                         label="Timezone"
                         helperText={errors.timezone?.message as string}
-                        error={Boolean(
-                          touchedFields.timezone && errors.timezone?.message
-                        )}
+                        error={Boolean(errors.timezone?.message)}
                       />
                     )}
                   />
