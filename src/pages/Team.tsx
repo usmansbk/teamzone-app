@@ -19,7 +19,7 @@ export default function Team() {
 
   return (
     <Container>
-      <Typography variant="h6">{name}</Typography>
+      <Typography variant="h4">{name}</Typography>
     </Container>
   );
 }
