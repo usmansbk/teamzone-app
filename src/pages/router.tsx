@@ -8,12 +8,12 @@ import useAuth from "src/hooks/useAuth";
 import Landing from "src/layouts/Landing";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
-import Dashboard from "../layouts/Dashboard";
+import App from "../layouts/App";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./Login";
 import Terms from "./Terms";
-import AppHome from "./AppHome";
+import Dashboard from "./Dashboard";
 import Team from "./Team";
 
 function ProtectedRoute() {
@@ -81,11 +81,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <Dashboard />,
+        element: <App />,
         children: [
           {
             index: true,
-            element: <AppHome />,
+            element: <Dashboard />,
           },
           {
             path: routeMap.team,

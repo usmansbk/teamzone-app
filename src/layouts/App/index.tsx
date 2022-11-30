@@ -2,7 +2,7 @@ import { LinearProgress } from "@mui/material";
 import useMe from "src/hooks/api/useMe";
 import Layout from "./Layout";
 
-export default function Dashboard() {
+export default function AppLayout() {
   const { loading, data } = useMe();
 
   if (loading) {

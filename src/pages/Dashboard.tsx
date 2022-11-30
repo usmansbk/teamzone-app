@@ -4,7 +4,7 @@ import StyledPaper from "src/components/StyledPaper";
 import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
 
-export default function AppHome() {
+export default function Dashboard() {
   const { data } = useMe();
 
   const { firstName, teams } = data!;
