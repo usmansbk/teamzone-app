@@ -1,9 +1,31 @@
-import { DarkMode, LightMode } from "@mui/icons-material";
-import { IconButton, Menu, MenuItem, Tooltip, useTheme } from "@mui/material";
+import { DarkMode, LightMode, Settings } from "@mui/icons-material";
+import {
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useCallback, useState } from "react";
 import useAppPreferences from "src/hooks/useAppPreferences";
 import { AppTheme } from "src/types";
 
+const themes: { icon: JSX.Element; value: AppTheme }[] = [
+  {
+    icon: <DarkMode fontSize="small" />,
+    value: "dark",
+  },
+  {
+    icon: <LightMode fontSize="small" />,
+    value: "light",
+  },
+  {
+    icon: <Settings fontSize="small" />,
+    value: "system",
+  },
+];
 export default function ThemeButton() {
   const { palette } = useTheme();
   const { preferences, setTheme } = useAppPreferences();
@@ -24,7 +46,6 @@ export default function ThemeButton() {
   const handleOption = useCallback(
     (theme: AppTheme) => () => {
       setTheme(theme);
-      handleClose();
     },
     []
   );
@@ -48,25 +69,21 @@ export default function ThemeButton() {
           vertical: "top",
           horizontal: "right",
         }}
+        sx={{
+          padding: 0,
+        }}
       >
-        <MenuItem
-          selected={preferences?.theme === "dark"}
-          onClick={handleOption("dark")}
-        >
-          Dark
-        </MenuItem>
-        <MenuItem
-          selected={preferences?.theme === "light"}
-          onClick={handleOption("light")}
-        >
-          Light
-        </MenuItem>
-        <MenuItem
-          selected={preferences?.theme === "system"}
-          onClick={handleOption("system")}
-        >
-          System
-        </MenuItem>
+        {themes.map(({ icon, value }) => (
+          <MenuItem
+            selected={value === preferences?.theme}
+            onClick={handleOption(value)}
+          >
+            <ListItemIcon>{icon}</ListItemIcon>
+            <Typography style={{ fontWeight: 700 }}>
+              {value.toUpperCase()}
+            </Typography>
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
