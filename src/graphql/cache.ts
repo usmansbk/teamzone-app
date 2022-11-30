@@ -4,6 +4,9 @@ import { tokenVar } from "./vars";
 
 const cache = new InMemoryCache({
   typePolicies: {
+    TimezoneData: {
+      keyFields: ["name"],
+    },
     Query: {
       fields: {
         isLoggedIn: {

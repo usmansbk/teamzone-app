@@ -1,5 +1,12 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, TextField, Stack, Grid, Avatar } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Stack,
+  Grid,
+  LinearProgress,
+  Autocomplete,
+} from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -8,11 +15,22 @@ import useMe from "src/hooks/api/useMe";
 import useUpdateProfile from "src/hooks/api/useUpdateProfile";
 import { UpdateProfileMutationVariables } from "src/__generated__/graphql";
 import toast from "react-hot-toast";
+import UploadAvatar from "src/components/UploadAvatar";
+import { redirect } from "react-router-dom";
+import routeMap from "src/routeMap";
+import useGetTimezones from "src/hooks/api/useGetTimezones";
 
 export default function EditProfile() {
+  const { loading: loadingTimezones, data: timezones } = useGetTimezones();
   const { onSubmit, loading, data: updatedData } = useUpdateProfile();
   const { data } = useMe();
-  const { picture, fullName, firstName, lastName, locale, timezone } = data!;
+
+  if (!data) {
+    redirect(routeMap.home);
+    return null;
+  }
+
+  const { firstName, lastName, locale, timezone } = data;
 
   const schema = useMemo(
     () =>
@@ -63,16 +81,21 @@ export default function EditProfile() {
     }
   }, [updatedData]);
 
+  const timezoneOptions = useMemo(
+    () => timezones?.map((t) => t.name) || [],
+    [timezones]
+  );
+
+  if (loadingTimezones) {
+    return <LinearProgress />;
+  }
+
   return (
     <Box>
       <Grid container justifyContent="center">
         <Grid item xs={12} md={6} alignItems="center">
           <Stack justifyContent="center" alignItems="center">
-            <Avatar
-              src={picture}
-              alt={fullName}
-              sx={{ width: 120, height: 120 }}
-            />
+            <UploadAvatar />
           </Stack>
           <form
             onSubmit={handleSubmit((values) =>
@@ -100,14 +123,20 @@ export default function EditProfile() {
                 )}
                 helperText={errors.lastName?.message as string}
               />
-              <TextField
-                label="Timezone"
-                {...register("timezone")}
-                type="text"
-                error={Boolean(
-                  touchedFields.timezone && errors.timezone?.message
+              <Autocomplete
+                options={timezoneOptions}
+                disablePortal
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Timezone"
+                    helperText={errors.timezone?.message as string}
+                    error={Boolean(
+                      touchedFields.timezone && errors.timezone?.message
+                    )}
+                    {...register("timezone")}
+                  />
                 )}
-                helperText={errors.timezone?.message as string}
               />
               <LoadingButton
                 loading={loading}

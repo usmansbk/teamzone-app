@@ -273,6 +273,7 @@ export type Query = {
   __typename?: "Query";
   getTeamById: Team;
   me: User;
+  timezones: Array<TimezoneData>;
 };
 
 export type QueryGetTeamByIdArgs = {
@@ -324,6 +325,23 @@ export enum TeamRole {
   Teammate = "TEAMMATE",
 }
 
+export type TimezoneData = {
+  __typename?: "TimezoneData";
+  abbreviation: Scalars["String"];
+  alternativeName?: Maybe<Scalars["String"]>;
+  continentCode: Scalars["String"];
+  continentName: Scalars["String"];
+  countryCode?: Maybe<Scalars["CountryCode"]>;
+  countryName: Scalars["String"];
+  currentTimeFormat: Scalars["String"];
+  currentTimeOffsetInMinutes: Scalars["Int"];
+  group?: Maybe<Array<Maybe<Scalars["TimeZone"]>>>;
+  mainCities?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  name: Scalars["TimeZone"];
+  rawFormat: Scalars["String"];
+  rawOffsetInMinutes: Scalars["Int"];
+};
+
 export type UpdateTeamInput = {
   id: Scalars["ID"];
   name: Scalars["NonEmptyString"];
@@ -373,6 +391,17 @@ export type CreateTeamMutation = {
     isOwner: boolean;
     owner: { __typename?: "User"; id: string };
   };
+};
+
+export type TimezonesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TimezonesQuery = {
+  __typename?: "Query";
+  timezones: Array<{
+    __typename?: "TimezoneData";
+    name: any;
+    alternativeName?: string | null;
+  }>;
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
@@ -491,6 +520,35 @@ export const CreateTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateTeamMutation, CreateTeamMutationVariables>;
+export const TimezonesDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Timezones" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "timezones" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "alternativeName" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TimezonesQuery, TimezonesQueryVariables>;
 export const LoginWithSocialProviderDocument = {
   kind: "Document",
   definitions: [
