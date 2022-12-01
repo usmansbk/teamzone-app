@@ -1,4 +1,4 @@
-import { InMemoryCache } from "@apollo/client";
+import { InMemoryCache, Reference } from "@apollo/client";
 import { AppPreferences } from "src/types";
 import { tokenVar } from "./vars";
 
@@ -6,6 +6,15 @@ const cache = new InMemoryCache({
   typePolicies: {
     TimezoneData: {
       keyFields: ["name"],
+    },
+    User: {
+      fields: {
+        teams: {
+          merge(_existing, incoming: Reference[] = []) {
+            return incoming;
+          },
+        },
+      },
     },
     Query: {
       fields: {

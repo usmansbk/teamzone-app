@@ -316,8 +316,10 @@ export type TeamMember = {
   isMe?: Maybe<Scalars["Boolean"]>;
   joinedAt: Scalars["DateTime"];
   member: User;
+  memberId: Scalars["ID"];
   role?: Maybe<TeamRole>;
   team: Team;
+  teamId: Scalars["ID"];
 };
 
 export enum TeamRole {
@@ -475,7 +477,12 @@ export type LeaveTeamMutationVariables = Exact<{
 
 export type LeaveTeamMutation = {
   __typename?: "Mutation";
-  leaveTeam: { __typename?: "TeamMember"; id: string };
+  leaveTeam: {
+    __typename?: "TeamMember";
+    id: string;
+    teamId: string;
+    memberId: string;
+  };
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
@@ -906,6 +913,8 @@ export const LeaveTeamDocument = {
               kind: "SelectionSet",
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "teamId" } },
+                { kind: "Field", name: { kind: "Name", value: "memberId" } },
               ],
             },
           },
