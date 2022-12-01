@@ -21,6 +21,9 @@ export default gql(`
 				isMe
 				joinedAt
 				role
+				team {
+					isOwner
+				}
 				member {
 					id
 					fullName
