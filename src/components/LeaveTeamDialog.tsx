@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { Navigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { To, useNavigate, useParams } from "react-router-dom";
 import useLeaveTeam from "src/hooks/api/useLeaveTeam";
-import routeMap from "src/routeMap";
 
 interface Props {
   open: boolean;
@@ -12,10 +12,13 @@ interface Props {
 export default function LeaveTeamDialog({ open, onClose, title }: Props) {
   const { id } = useParams<{ id: string }>();
   const { handleLeave, data } = useLeaveTeam();
+  const navigate = useNavigate();
 
-  if (data) {
-    return <Navigate to={routeMap.home} />;
-  }
+  useEffect(() => {
+    if (data) {
+      navigate(-1 as To, { replace: true });
+    }
+  }, [data]);
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">

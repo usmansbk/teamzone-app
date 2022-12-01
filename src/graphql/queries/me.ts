@@ -17,6 +17,11 @@ export default gql(`
         name
         logo
       }
+      createdTeams {
+        id
+        name
+        logo
+      }
     }
   }
 `);

@@ -360,6 +360,7 @@ export type User = {
   __typename?: "User";
   countryCode?: Maybe<Scalars["CountryCode"]>;
   createdAt: Scalars["DateTime"];
+  createdTeams: Array<Maybe<Team>>;
   email: Scalars["EmailAddress"];
   emailVerified: Scalars["Boolean"];
   firstName: Scalars["String"];
@@ -510,6 +511,12 @@ export type MeQuery = {
     picture?: any | null;
     updatedAt?: any | null;
     teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      logo?: any | null;
+    } | null>;
+    createdTeams: Array<{
       __typename?: "Team";
       id: string;
       name: string;
@@ -1005,6 +1012,18 @@ export const MeDocument = {
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "logo" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "createdTeams" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [

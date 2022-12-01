@@ -16,7 +16,7 @@ import Login from "./Login";
 import Terms from "./Terms";
 import Dashboard from "./Dashboard";
 import Team from "./Team";
-import EditProfile from "./EditProfile";
+import Profile from "./Profile";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <EditProfile />,
+            element: <Profile />,
           },
         ],
       },
