@@ -1,4 +1,4 @@
-import { Modal, Paper, Stack, TextField } from "@mui/material";
+import { Dialog, DialogContent, Stack, TextField } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -50,40 +50,33 @@ export default function NewTeamModal({ open, onClose }: Props) {
   }, [data]);
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Paper
-        sx={{
-          position: "absolute" as "absolute",
-          top: "20%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          boxShadow: 24,
-          p: 4,
-          width: 400,
-        }}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={2}>
-            <TextField
-              autoFocus
-              fullWidth
-              label="Team name"
-              placeholder="My team name"
-              error={Boolean(touchedFields.name && errors.name)}
-              helperText={errors.name?.message as string}
-              {...register("name")}
-            />
-            <LoadingButton
-              loading={loading}
-              type="submit"
-              variant="contained"
-              size="large"
-            >
-              Create New Team
-            </LoadingButton>
-          </Stack>
-        </form>
-      </Paper>
-    </Modal>
+    <Dialog open={open} fullWidth onClose={onClose} maxWidth="xs">
+      <DialogContent>
+        <Stack
+          spacing={2}
+          p={1}
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <TextField
+            autoFocus
+            fullWidth
+            label="Team name"
+            placeholder="My team name"
+            error={Boolean(touchedFields.name && errors.name)}
+            helperText={errors.name?.message as string}
+            {...register("name")}
+          />
+          <LoadingButton
+            loading={loading}
+            type="submit"
+            variant="contained"
+            size="large"
+          >
+            Create New Team
+          </LoadingButton>
+        </Stack>
+      </DialogContent>
+    </Dialog>
   );
 }

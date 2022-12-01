@@ -9,6 +9,9 @@ import {
   ListItemAvatar,
   Avatar,
   Chip,
+  Grid,
+  Button,
+  Stack,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
@@ -51,20 +54,33 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates } = data!;
+  const { name, teammates, isOwner } = data!;
 
   return (
     <Container>
       <Typography variant="h4">{name}</Typography>
-      <List disablePadding>
-        <ListSubheader disableGutters>Team Members</ListSubheader>
-        {teammates.map((teammate) => (
-          <TeamMemberItem
-            key={teammate!.id}
-            teammate={teammate as TeamMember}
-          />
-        ))}
-      </List>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Stack spacing={2}>
+            <List disablePadding>
+              <ListSubheader disableGutters>Team Members</ListSubheader>
+              {teammates.map((teammate) => (
+                <TeamMemberItem
+                  key={teammate!.id}
+                  teammate={teammate as TeamMember}
+                />
+              ))}
+            </List>
+            <Stack>
+              <ListSubheader disableGutters>Danger Zone</ListSubheader>
+              <Stack spacing={1}>
+                <Button variant="outlined">Leave team</Button>
+                {isOwner && <Button variant="contained">Delete team</Button>}
+              </Stack>
+            </Stack>
+          </Stack>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
