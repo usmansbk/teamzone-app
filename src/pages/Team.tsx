@@ -59,7 +59,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates, isOwner } = data!;
+  const { name, teammates, isOwner, isMember } = data!;
 
   return (
     <Container>
@@ -77,12 +77,14 @@ export default function Team() {
               ))}
             </List>
             <Stack spacing={1}>
-              <Button
-                onClick={() => setOpenLeaveDialog(true)}
-                variant="outlined"
-              >
-                Leave team
-              </Button>
+              {isMember && (
+                <Button
+                  onClick={() => setOpenLeaveDialog(true)}
+                  variant="outlined"
+                >
+                  Leave team
+                </Button>
+              )}
               {isOwner && (
                 <Button
                   onClick={() => setOpenDeleteDialog(true)}
@@ -95,11 +97,13 @@ export default function Team() {
           </Stack>
         </Grid>
       </Grid>
-      <LeaveTeamDialog
-        title={name}
-        onClose={() => setOpenLeaveDialog(false)}
-        open={openLeaveDialog}
-      />
+      {isMember && (
+        <LeaveTeamDialog
+          title={name}
+          onClose={() => setOpenLeaveDialog(false)}
+          open={openLeaveDialog}
+        />
+      )}
       {isOwner && (
         <DeleteTeamDialog
           title={name}

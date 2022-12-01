@@ -297,6 +297,7 @@ export type Team = {
   createdAt: Scalars["DateTime"];
   id: Scalars["ID"];
   inviteCode?: Maybe<Scalars["ID"]>;
+  isMember: Scalars["Boolean"];
   isOwner: Scalars["Boolean"];
   logo?: Maybe<Scalars["URL"]>;
   name: Scalars["String"];
@@ -418,6 +419,7 @@ export type QueryQuery = {
     name: string;
     logo?: any | null;
     isOwner: boolean;
+    isMember: boolean;
     inviteCode?: string | null;
     createdAt: any;
     updatedAt?: any | null;
@@ -692,6 +694,7 @@ export const QueryDocument = {
                 { kind: "Field", name: { kind: "Name", value: "name" } },
                 { kind: "Field", name: { kind: "Name", value: "logo" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                { kind: "Field", name: { kind: "Name", value: "isMember" } },
                 { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
