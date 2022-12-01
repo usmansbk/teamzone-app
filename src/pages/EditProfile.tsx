@@ -5,6 +5,7 @@ import {
   Grid,
   Autocomplete,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -94,65 +95,66 @@ export default function EditProfile() {
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} alignItems="center">
         <Stack justifyContent="center" alignItems="center">
-          <UploadAvatar />
+          <Tooltip title="Upload new profile picture">
+            <UploadAvatar />
+          </Tooltip>
         </Stack>
-        <form
+        <Stack
+          mt={2}
+          spacing={2}
+          component="form"
           onSubmit={handleSubmit((values) =>
             onSubmit(schema.cast(values, { stripUnknown: true }))
           )}
         >
-          <Stack mt={2} spacing={2}>
-            <TextField
-              label="First name"
-              {...register("firstName")}
-              type="text"
-              autoComplete="given-name"
-              error={Boolean(
-                touchedFields.firstName && errors.firstName?.message
-              )}
-              helperText={errors.firstName?.message as string}
-            />
-            <TextField
-              label="Last name"
-              {...register("lastName")}
-              type="text"
-              autoComplete="family-name"
-              error={Boolean(
-                touchedFields.lastName && errors.lastName?.message
-              )}
-              helperText={errors.lastName?.message as string}
-            />
-            <Controller
-              control={control}
-              name="timezone"
-              render={({ field: { value, onChange } }) => (
-                <Autocomplete
-                  value={value}
-                  options={timezoneOptions}
-                  onChange={(e, val: string) => onChange(val)}
-                  disablePortal
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Timezone"
-                      helperText={errors.timezone?.message as string}
-                      error={Boolean(errors.timezone?.message)}
-                    />
-                  )}
-                />
-              )}
-            />
-            <LoadingButton
-              loading={loading}
-              type="submit"
-              variant="contained"
-              size="large"
-              disabled={!isDirty}
-            >
-              Save Profile Information
-            </LoadingButton>
-          </Stack>
-        </form>
+          <TextField
+            label="First name"
+            {...register("firstName")}
+            type="text"
+            autoComplete="given-name"
+            error={Boolean(
+              touchedFields.firstName && errors.firstName?.message
+            )}
+            helperText={errors.firstName?.message as string}
+          />
+          <TextField
+            label="Last name"
+            {...register("lastName")}
+            type="text"
+            autoComplete="family-name"
+            error={Boolean(touchedFields.lastName && errors.lastName?.message)}
+            helperText={errors.lastName?.message as string}
+          />
+          <Controller
+            control={control}
+            name="timezone"
+            render={({ field: { value, onChange } }) => (
+              <Autocomplete
+                value={value}
+                options={timezoneOptions}
+                onChange={(e, val: string) => onChange(val)}
+                disablePortal
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Timezone"
+                    helperText={errors.timezone?.message as string}
+                    error={Boolean(errors.timezone?.message)}
+                  />
+                )}
+              />
+            )}
+          />
+          <LoadingButton
+            loading={loading}
+            type="submit"
+            variant="contained"
+            size="large"
+            disabled={!isDirty}
+          >
+            Save Profile Information
+          </LoadingButton>
+        </Stack>
       </Grid>
     </Grid>
   );

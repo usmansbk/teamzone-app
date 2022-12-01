@@ -422,7 +422,6 @@ export type QueryQuery = {
       isMe?: boolean | null;
       joinedAt: any;
       role?: TeamRole | null;
-      team: { __typename?: "Team"; isOwner: boolean };
       member: {
         __typename?: "User";
         id: string;
@@ -652,19 +651,6 @@ export const QueryDocument = {
                         name: { kind: "Name", value: "joinedAt" },
                       },
                       { kind: "Field", name: { kind: "Name", value: "role" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "team" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "isOwner" },
-                            },
-                          ],
-                        },
-                      },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "member" },

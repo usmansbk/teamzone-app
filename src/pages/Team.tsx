@@ -12,17 +12,20 @@ import {
   Grid,
   Button,
   Stack,
+  Box,
 } from "@mui/material";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
 function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
-  const { member, id, team, role } = teammate;
+  const { member, id, role } = teammate;
 
   const { fullName, picture, tzData } = member;
 
-  const isAdmin = team.isOwner || role === TeamRole.Admin;
+  const isAdmin = role === TeamRole.Admin;
 
   return (
     <ListItem key={id} disablePadding>
@@ -43,6 +46,7 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
 
 export default function Team() {
   const { id } = useParams<{ id: string }>();
+  const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
 
   const { loading, data, error } = useGetTeamById(id!);
 
@@ -54,7 +58,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates, isOwner } = data!;
+  const { name, teammates } = data!;
 
   return (
     <Container>
@@ -71,16 +75,19 @@ export default function Team() {
                 />
               ))}
             </List>
-            <Stack>
-              <ListSubheader disableGutters>Danger Zone</ListSubheader>
-              <Stack spacing={1}>
-                <Button variant="outlined">Leave team</Button>
-                {isOwner && <Button variant="contained">Delete team</Button>}
-              </Stack>
-            </Stack>
+            <Box>
+              <Button onClick={() => setOpenLeaveDialog(true)}>
+                Leave team
+              </Button>
+            </Box>
           </Stack>
         </Grid>
       </Grid>
+      <LeaveTeamDialog
+        title={name}
+        onClose={() => setOpenLeaveDialog(false)}
+        open={openLeaveDialog}
+      />
     </Container>
   );
 }

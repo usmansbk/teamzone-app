@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography, Button } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import NewTeamModal from "src/components/NewTeamModal";
+import NewTeamDialog from "src/components/NewTeamDialog";
 import StyledPaper from "src/components/StyledPaper";
 import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
@@ -50,7 +50,7 @@ export default function Dashboard() {
           </Grid>
         ))}
       </Grid>
-      <NewTeamModal open={openTeamForm} onClose={closeTeamForm} />
+      <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
     </Box>
   );
 }
