@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
-import useLeaveTeam from "src/hooks/api/useLeaveTeam";
+import useDeleteTeam from "src/hooks/api/useDeleteTeam";
 import routeMap from "src/routeMap";
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
   title: string;
 }
 
-export default function LeaveTeamDialog({ open, onClose, title }: Props) {
+export default function DeleteTeamDialog({ open, onClose, title }: Props) {
   const { id } = useParams<{ id: string }>();
-  const { handleLeave, data } = useLeaveTeam();
+  const { handleDelete, data } = useDeleteTeam();
 
   if (data) {
     return <Navigate to={routeMap.home} />;
@@ -19,12 +19,14 @@ export default function LeaveTeamDialog({ open, onClose, title }: Props) {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Leave {title}?</DialogTitle>
+      <DialogTitle>Delete {title}?</DialogTitle>
       <DialogActions>
         <Button onClick={onClose}>No</Button>
         <Button
           onClick={() => {
-            handleLeave({ teamId: id! });
+            handleDelete({
+              id: id!,
+            });
           }}
         >
           Yes

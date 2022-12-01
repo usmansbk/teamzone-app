@@ -16,7 +16,6 @@ export default gql(`
         id
         name
         logo
-        isOwner
       }
     }
   }

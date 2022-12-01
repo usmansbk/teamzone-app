@@ -12,10 +12,10 @@ import {
   Grid,
   Button,
   Stack,
-  Box,
 } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
@@ -47,6 +47,7 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
 export default function Team() {
   const { id } = useParams<{ id: string }>();
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const { loading, data, error } = useGetTeamById(id!);
 
@@ -58,7 +59,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates } = data!;
+  const { name, teammates, isOwner } = data!;
 
   return (
     <Container>
@@ -75,11 +76,22 @@ export default function Team() {
                 />
               ))}
             </List>
-            <Box>
-              <Button onClick={() => setOpenLeaveDialog(true)}>
+            <Stack spacing={1}>
+              <Button
+                onClick={() => setOpenLeaveDialog(true)}
+                variant="outlined"
+              >
                 Leave team
               </Button>
-            </Box>
+              {isOwner && (
+                <Button
+                  onClick={() => setOpenDeleteDialog(true)}
+                  variant="contained"
+                >
+                  Delete team
+                </Button>
+              )}
+            </Stack>
           </Stack>
         </Grid>
       </Grid>
@@ -88,6 +100,13 @@ export default function Team() {
         onClose={() => setOpenLeaveDialog(false)}
         open={openLeaveDialog}
       />
+      {isOwner && (
+        <DeleteTeamDialog
+          title={name}
+          onClose={() => setOpenDeleteDialog(false)}
+          open={openDeleteDialog}
+        />
+      )}
     </Container>
   );
 }

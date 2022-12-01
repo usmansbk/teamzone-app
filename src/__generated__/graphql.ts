@@ -394,6 +394,15 @@ export type CreateTeamMutation = {
   };
 };
 
+export type DeleteTeamMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type DeleteTeamMutation = {
+  __typename?: "Mutation";
+  deleteTeam: { __typename?: "Team"; id: string };
+};
+
 export type QueryQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -460,6 +469,15 @@ export type TimezonesQuery = {
   }>;
 };
 
+export type LeaveTeamMutationVariables = Exact<{
+  teamId: Scalars["ID"];
+}>;
+
+export type LeaveTeamMutation = {
+  __typename?: "Mutation";
+  leaveTeam: { __typename?: "TeamMember"; id: string };
+};
+
 export type LoginWithSocialProviderMutationVariables = Exact<{
   input: SocialLoginInput;
 }>;
@@ -489,7 +507,6 @@ export type MeQuery = {
       id: string;
       name: string;
       logo?: any | null;
-      isOwner: boolean;
     } | null>;
   };
 };
@@ -576,6 +593,51 @@ export const CreateTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateTeamMutation, CreateTeamMutationVariables>;
+export const DeleteTeamDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteTeam" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteTeam" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "teamId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DeleteTeamMutation, DeleteTeamMutationVariables>;
 export const QueryDocument = {
   kind: "Document",
   definitions: [
@@ -804,6 +866,54 @@ export const TimezonesDocument = {
     },
   ],
 } as unknown as DocumentNode<TimezonesQuery, TimezonesQueryVariables>;
+export const LeaveTeamDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "LeaveTeam" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "teamId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "leaveTeam" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "teamId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "teamId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LeaveTeamMutation, LeaveTeamMutationVariables>;
 export const LoginWithSocialProviderDocument = {
   kind: "Document",
   definitions: [
@@ -892,10 +1002,6 @@ export const MeDocument = {
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "logo" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "isOwner" },
-                      },
                     ],
                   },
                 },
