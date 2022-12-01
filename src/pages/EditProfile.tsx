@@ -5,7 +5,6 @@ import {
   Grid,
   Autocomplete,
   CircularProgress,
-  Tooltip,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -95,9 +94,7 @@ export default function EditProfile() {
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} alignItems="center">
         <Stack justifyContent="center" alignItems="center">
-          <Tooltip title="Upload new profile picture">
-            <UploadAvatar />
-          </Tooltip>
+          <UploadAvatar />
         </Stack>
         <Stack
           mt={2}
