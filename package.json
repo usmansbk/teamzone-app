@@ -22,7 +22,7 @@
     "react-hook-form": "^7.40.0",
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.0.0",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.14.1",
+    "@graphql-codegen/cli": "^2.15.0",
     "@graphql-codegen/client-preset": "^1.2.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -63,8 +63,8 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "craco": "^0.0.3",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
