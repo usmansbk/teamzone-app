@@ -24,7 +24,13 @@ import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
-function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
+function TeamMemberItem({
+  teammate,
+  isOwner,
+}: {
+  teammate: TeamMember;
+  isOwner: boolean;
+}) {
   const { member, id, role } = teammate;
 
   const { fullName, picture, tzData } = member;
@@ -36,9 +42,11 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
       key={id}
       disablePadding
       secondaryAction={
-        <IconButton edge="end">
-          <MoreVert />
-        </IconButton>
+        !isOwner && (
+          <IconButton edge="end">
+            <MoreVert />
+          </IconButton>
+        )
       }
     >
       <ListItemAvatar>
@@ -77,7 +85,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates, isOwner, isMember, inviteCode } = data!;
+  const { name, teammates, isOwner, isMember, inviteCode, owner } = data!;
 
   return (
     <Container maxWidth="md">
@@ -102,6 +110,7 @@ export default function Team() {
             <TeamMemberItem
               key={teammate!.id}
               teammate={teammate as TeamMember}
+              isOwner={teammate?.member.id === owner.id}
             />
           ))}
         </List>
