@@ -164,7 +164,10 @@ export default function Profile() {
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <ListItem key={team!.id} divider>
-                <ListItemText primary={team?.name} />
+                <ListItemText
+                  primary={team?.name}
+                  primaryTypographyProps={{ noWrap: true }}
+                />
               </ListItem>
             </Link>
           ))}
