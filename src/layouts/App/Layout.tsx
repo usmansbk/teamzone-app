@@ -83,7 +83,7 @@ function Layout({ user }: Props) {
               <Box display="flex" flexGrow={1} />
               <ThemeButton />
               <Box>
-                <IconButton onClick={handleOpenUserMenu}>
+                <IconButton edge="end" onClick={handleOpenUserMenu}>
                   <Avatar
                     alt={user.fullName}
                     src={user.picture}
