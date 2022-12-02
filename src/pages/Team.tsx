@@ -19,7 +19,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
-import UpdateTeamModal from "src/components/UpdateTeamDialog";
+import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
@@ -132,7 +132,7 @@ export default function Team() {
         />
       )}
       {isOwner && (
-        <UpdateTeamModal
+        <UpdateTeamDialog
           open={openEditDialog}
           onClose={() => setOpenEditDialog(false)}
           defaultValues={{

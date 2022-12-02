@@ -13,7 +13,7 @@ interface Props {
   defaultValues: UpdateTeamInput;
 }
 
-export default function UpdateTeamModal({
+export default function UpdateTeamDialog({
   open,
   onClose,
   defaultValues,

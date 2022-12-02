@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function NewTeamModal({ open, onClose }: Props) {
+export default function NewTeamDialog({ open, onClose }: Props) {
   const navigate = useNavigate();
   const schema = useMemo(
     () =>
