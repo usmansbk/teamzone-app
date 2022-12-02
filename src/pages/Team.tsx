@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { Edit, PersonAdd } from "@mui/icons-material";
 import {
   Container,
   LinearProgress,
@@ -92,8 +92,12 @@ export default function Team() {
           ))}
         </List>
         <Stack spacing={1}>
+          <Button variant="contained" size="large" startIcon={<PersonAdd />}>
+            Invite Teammates
+          </Button>
           {isMember && (
             <Button
+              size="large"
               onClick={() => setOpenLeaveDialog(true)}
               variant="outlined"
               color="secondary"
@@ -103,6 +107,7 @@ export default function Team() {
           )}
           {isOwner && (
             <Button
+              size="large"
               onClick={() => setOpenDeleteDialog(true)}
               variant="contained"
               color="secondary"

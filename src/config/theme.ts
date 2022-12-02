@@ -102,6 +102,9 @@ const themeOptions: ThemeOptions = {
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+        sx: {
+          textTransform: "none",
+        },
       },
     },
   },
