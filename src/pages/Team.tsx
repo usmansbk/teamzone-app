@@ -77,7 +77,11 @@ export default function Team() {
         </List>
         <Stack spacing={1}>
           {isMember && (
-            <Button onClick={() => setOpenLeaveDialog(true)} variant="outlined">
+            <Button
+              onClick={() => setOpenLeaveDialog(true)}
+              variant="outlined"
+              color="secondary"
+            >
               Leave team
             </Button>
           )}
@@ -85,6 +89,7 @@ export default function Team() {
             <Button
               onClick={() => setOpenDeleteDialog(true)}
               variant="contained"
+              color="secondary"
             >
               Delete team
             </Button>
