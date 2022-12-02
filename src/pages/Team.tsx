@@ -1,4 +1,4 @@
-import { Edit, MoreVert, PersonAdd } from "@mui/icons-material";
+import { Delete, Edit, MoreVert, Person, PersonAdd } from "@mui/icons-material";
 import {
   Container,
   LinearProgress,
@@ -14,8 +14,11 @@ import {
   Stack,
   IconButton,
   Tooltip,
+  Menu,
+  MenuItem,
+  ListItemIcon,
 } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import InviteMemberDialog from "src/components/InviteMemberDialog";
@@ -31,6 +34,14 @@ function TeamMemberItem({
   teammate: TeamMember;
   isOwner: boolean;
 }) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const { member, id, role } = teammate;
 
   const { fullName, picture, tzData } = member;
@@ -38,33 +49,61 @@ function TeamMemberItem({
   const isAdmin = role === TeamRole.Admin;
 
   return (
-    <ListItem
-      key={id}
-      disablePadding
-      secondaryAction={
-        !isOwner && (
-          <IconButton edge="end">
-            <MoreVert />
-          </IconButton>
-        )
-      }
-    >
-      <ListItemAvatar>
-        <Avatar src={picture} alt={fullName} />
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <Typography sx={{ fontWeight: 600 }}>
-            {fullName}
-            {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
-          </Typography>
+    <>
+      <ListItem
+        key={id}
+        disablePadding
+        secondaryAction={
+          !isOwner && (
+            <IconButton edge="end" onClick={handleClick}>
+              <MoreVert />
+            </IconButton>
+          )
         }
-        primaryTypographyProps={{
-          fontWeight: 600,
+      >
+        <ListItemAvatar>
+          <Avatar src={picture} alt={fullName} />
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            <Typography sx={{ fontWeight: 600 }}>
+              {fullName}
+              {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
+            </Typography>
+          }
+          primaryTypographyProps={{
+            fontWeight: 600,
+          }}
+          secondary={`${tzData?.alternativeName}`}
+        />
+      </ListItem>
+      <Menu
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
         }}
-        secondary={`${tzData?.alternativeName}`}
-      />
-    </ListItem>
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <Person fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Make admin" />
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <Delete fontSize="small" color="secondary" />
+          </ListItemIcon>
+          <ListItemText primary="Remove from team" />
+        </MenuItem>
+      </Menu>
+    </>
   );
 }
 
