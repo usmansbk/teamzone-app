@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
+import InviteMemberDialog from "src/components/InviteMemberDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
@@ -52,6 +53,7 @@ export default function Team() {
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openInviteDialog, setOpenInviteDialog] = useState(false);
 
   const { loading, data, error } = useGetTeamById(id!);
 
@@ -63,7 +65,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates, isOwner, isMember } = data!;
+  const { name, teammates, isOwner, isMember, inviteCode } = data!;
 
   return (
     <Container maxWidth="md">
@@ -92,7 +94,12 @@ export default function Team() {
           ))}
         </List>
         <Stack spacing={1}>
-          <Button variant="contained" size="large" startIcon={<PersonAdd />}>
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<PersonAdd />}
+            onClick={() => setOpenInviteDialog(true)}
+          >
             Invite Teammates
           </Button>
           {isMember && (
@@ -141,6 +148,11 @@ export default function Team() {
           }}
         />
       )}
+      <InviteMemberDialog
+        code={inviteCode!}
+        open={openInviteDialog}
+        onClose={() => setOpenInviteDialog(false)}
+      />
     </Container>
   );
 }
