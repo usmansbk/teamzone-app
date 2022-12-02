@@ -35,7 +35,7 @@ export default function UpdateTeamModal({
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, isDirty },
   } = useForm<UpdateTeamInput>({
     resolver: yupResolver(schema),
     defaultValues,
@@ -72,6 +72,7 @@ export default function UpdateTeamModal({
             type="submit"
             variant="contained"
             size="large"
+            disabled={!isDirty}
           >
             Update Team
           </LoadingButton>

@@ -13,8 +13,12 @@ export default function Dashboard() {
 
   return (
     <Box px={3} display="flex" flexDirection="column" flexGrow={1}>
-      <Box>
-        <Button size="large" onClick={() => setOpenTeamForm(true)}>
+      <Box pb={1}>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => setOpenTeamForm(true)}
+        >
           Create new Team
         </Button>
       </Box>

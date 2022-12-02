@@ -99,6 +99,11 @@ const themeOptions: ThemeOptions = {
         color: "inherit",
       },
     },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
   },
   shape: {
     // borderRadius: 0,
