@@ -157,7 +157,7 @@ export default function Profile() {
           </LoadingButton>
         </Stack>
         <List>
-          <ListSubheader>My Teams</ListSubheader>
+          <ListSubheader>Created Teams</ListSubheader>
           {createdTeams?.map((team) => (
             <Link
               to={routeMap.team.replace(":id", team!.id)}
