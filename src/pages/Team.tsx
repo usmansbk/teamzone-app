@@ -1,4 +1,4 @@
-import { Edit, PersonAdd } from "@mui/icons-material";
+import { Edit, MoreVert, PersonAdd } from "@mui/icons-material";
 import {
   Container,
   LinearProgress,
@@ -32,7 +32,15 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
   const isAdmin = role === TeamRole.Admin;
 
   return (
-    <ListItem key={id} disablePadding>
+    <ListItem
+      key={id}
+      disablePadding
+      secondaryAction={
+        <IconButton edge="end">
+          <MoreVert />
+        </IconButton>
+      }
+    >
       <ListItemAvatar>
         <Avatar src={picture} alt={fullName} />
       </ListItemAvatar>
