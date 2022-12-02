@@ -524,6 +524,22 @@ export type MeQuery = {
       name: string;
       logo?: any | null;
     } | null>;
+    tzData?: {
+      __typename?: "TimezoneData";
+      name: any;
+      abbreviation: string;
+      alternativeName?: string | null;
+      continentCode: string;
+      continentName: string;
+      countryCode?: any | null;
+      countryName: string;
+      currentTimeFormat: string;
+      currentTimeOffsetInMinutes: number;
+      group?: Array<any | null> | null;
+      mainCities?: Array<string | null> | null;
+      rawFormat: string;
+      rawOffsetInMinutes: number;
+    } | null;
   };
 };
 
@@ -1033,6 +1049,64 @@ export const MeDocument = {
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "logo" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "tzData" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "abbreviation" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "alternativeName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "continentCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "continentName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "countryCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "countryName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "currentTimeFormat" },
+                      },
+                      {
+                        kind: "Field",
+                        name: {
+                          kind: "Name",
+                          value: "currentTimeOffsetInMinutes",
+                        },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "group" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "mainCities" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "rawFormat" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "rawOffsetInMinutes" },
+                      },
                     ],
                   },
                 },

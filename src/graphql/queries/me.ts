@@ -22,6 +22,21 @@ export default gql(`
         name
         logo
       }
+      tzData {
+        name
+        abbreviation
+        alternativeName
+        continentCode
+        continentName
+        countryCode
+        countryName
+        currentTimeFormat
+        currentTimeOffsetInMinutes
+        group
+        mainCities
+        rawFormat
+        rawOffsetInMinutes
+      }
     }
   }
 `);
