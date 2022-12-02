@@ -157,7 +157,9 @@ export default function Profile() {
           </LoadingButton>
         </Stack>
         <List>
-          <ListSubheader>Created Teams</ListSubheader>
+          <ListSubheader style={{ fontWeight: 900 }}>
+            Created Teams
+          </ListSubheader>
           {!createdTeams.length && (
             <ListItem divider>
               <ListItemText
