@@ -6,4 +6,5 @@ export default {
   team: "/app/team/:id",
   settings: "/settings",
   me: "/settings/me",
+  invite: "/invite/:code",
 };

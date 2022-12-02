@@ -17,6 +17,7 @@ import Terms from "./Terms";
 import Dashboard from "./Dashboard";
 import Team from "./Team";
 import Profile from "./Profile";
+import AcceptInvitation from "./AcceptInvitation";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -108,6 +109,22 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Profile />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: routeMap.invite,
+    element: <ProtectedRoute />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        element: <Landing />,
+        children: [
+          {
+            index: true,
+            element: <AcceptInvitation />,
           },
         ],
       },

@@ -21,6 +21,8 @@ const documents = {
     types.QueryDocument,
   "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n":
     types.TimezonesDocument,
+  "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tinviteCode\n\t\tcreatedAt\n\t\tupdatedAt\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\tjoinedAt\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tabbreviation\n\t\t\t\t\talternativeName\n\t\t\t\t\tcontinentCode\n\t\t\t\t\tcontinentName\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tcurrentTimeFormat\n\t\t\t\t\tcurrentTimeOffsetInMinutes\n\t\t\t\t\tgroup\n\t\t\t\t\tmainCities\n\t\t\t\t\trawFormat\n\t\t\t\t\trawOffsetInMinutes\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n":
+    types.JoinTeamDocument,
   "\n\tmutation LeaveTeam($teamId: ID!) {\n\t\tleaveTeam(teamId: $teamId) {\n\t\t\tid\n\t\t\tteamId\n\t\t\tmemberId\n\t\t}\n\t}\n":
     types.LeaveTeamDocument,
   "\n  mutation LoginWithSocialProvider($input: SocialLoginInput!) {\n    loginWithSocialProvider(input: $input) {\n      token\n    }\n  }\n":
@@ -57,6 +59,12 @@ export function gql(
 export function gql(
   source: "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n"
 ): typeof documents["\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tinviteCode\n\t\tcreatedAt\n\t\tupdatedAt\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\tjoinedAt\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tabbreviation\n\t\t\t\t\talternativeName\n\t\t\t\t\tcontinentCode\n\t\t\t\t\tcontinentName\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tcurrentTimeFormat\n\t\t\t\t\tcurrentTimeOffsetInMinutes\n\t\t\t\t\tgroup\n\t\t\t\t\tmainCities\n\t\t\t\t\trawFormat\n\t\t\t\t\trawOffsetInMinutes\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n"
+): typeof documents["\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tinviteCode\n\t\tcreatedAt\n\t\tupdatedAt\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\tjoinedAt\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tabbreviation\n\t\t\t\t\talternativeName\n\t\t\t\t\tcontinentCode\n\t\t\t\t\tcontinentName\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tcurrentTimeFormat\n\t\t\t\t\tcurrentTimeOffsetInMinutes\n\t\t\t\t\tgroup\n\t\t\t\t\tmainCities\n\t\t\t\t\trawFormat\n\t\t\t\t\trawOffsetInMinutes\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
