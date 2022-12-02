@@ -72,6 +72,7 @@ function Layout({ user }: Props) {
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <IconButton
+                edge="start"
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerToggle}
