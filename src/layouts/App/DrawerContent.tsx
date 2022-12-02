@@ -39,6 +39,16 @@ export default function DrawerContent({ teams }: Props) {
         <ListSubheader>
           <Typography style={{ fontWeight: 700 }}>Teams</Typography>
         </ListSubheader>
+        {!teams.length && (
+          <ListItem>
+            <ListItemText
+              primary="You don't have a team, yet!"
+              primaryTypographyProps={{
+                variant: "caption",
+              }}
+            />
+          </ListItem>
+        )}
         {teams.map((team) => (
           <ListItem key={team!.id} disablePadding>
             <ListItemButton

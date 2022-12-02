@@ -158,6 +158,14 @@ export default function Profile() {
         </Stack>
         <List>
           <ListSubheader>Created Teams</ListSubheader>
+          {!createdTeams.length && (
+            <ListItem divider>
+              <ListItemText
+                primary="You haven't created any team."
+                primaryTypographyProps={{ noWrap: true, variant: "caption" }}
+              />
+            </ListItem>
+          )}
           {createdTeams?.map((team) => (
             <Link
               to={routeMap.team.replace(":id", team!.id)}
