@@ -37,13 +37,17 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
         <Avatar src={picture} alt={fullName} />
       </ListItemAvatar>
       <ListItemText
-        primary={fullName}
+        primary={
+          <Typography sx={{ fontWeight: 600 }}>
+            {fullName}
+            {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
+          </Typography>
+        }
         primaryTypographyProps={{
           fontWeight: 600,
         }}
         secondary={`${tzData?.alternativeName}`}
       />
-      {isAdmin && <Chip label="Admin" size="small" />}
     </ListItem>
   );
 }
