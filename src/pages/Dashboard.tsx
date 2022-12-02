@@ -18,11 +18,8 @@ export default function Dashboard() {
           Create new Team
         </Button>
       </Box>
-      <Typography variant="h4" sx={{ display: "inline", fontWeight: 400 }}>
-        Time in{" "}
-        <Typography variant="h4" sx={{ display: "inline", fontWeight: 900 }}>
-          {tzData?.countryName}
-        </Typography>{" "}
+      <Typography variant="h4" sx={{ fontWeight: 400 }}>
+        Time in <span style={{ fontWeight: 900 }}>{tzData?.countryName}</span>{" "}
         now
       </Typography>
       <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
