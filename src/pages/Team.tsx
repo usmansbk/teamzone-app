@@ -1,3 +1,4 @@
+import { Edit } from "@mui/icons-material";
 import {
   Container,
   LinearProgress,
@@ -11,6 +12,8 @@ import {
   Chip,
   Button,
   Stack,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -36,7 +39,7 @@ function TeamMemberItem({ teammate }: { teammate: TeamMember }) {
         primaryTypographyProps={{
           fontWeight: 600,
         }}
-        secondary={`${tzData?.currentTimeFormat}`}
+        secondary={`${tzData?.alternativeName}`}
       />
       {isAdmin && <Chip label="Admin" size="small" />}
     </ListItem>
@@ -64,6 +67,13 @@ export default function Team() {
     <Container maxWidth="md">
       <Typography variant="h4" sx={{ wordBreak: "break-all" }}>
         {name}
+        {isOwner && (
+          <Tooltip title="Edit team name">
+            <IconButton sx={{ ml: 1 }} size="small">
+              <Edit fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        )}
       </Typography>
       <Stack spacing={2}>
         <List disablePadding>
