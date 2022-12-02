@@ -22,7 +22,7 @@ export default function DeleteTeamDialog({ open, onClose, title }: Props) {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Delete {title}?</DialogTitle>
+      <DialogTitle noWrap>Delete {title}?</DialogTitle>
       <DialogActions>
         <Button onClick={onClose}>No</Button>
         <Button

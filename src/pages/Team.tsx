@@ -9,7 +9,6 @@ import {
   ListItemAvatar,
   Avatar,
   Chip,
-  Grid,
   Button,
   Stack,
 } from "@mui/material";
@@ -62,41 +61,36 @@ export default function Team() {
   const { name, teammates, isOwner, isMember } = data!;
 
   return (
-    <Container>
-      <Typography variant="h4">{name}</Typography>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={2}>
-            <List disablePadding>
-              <ListSubheader disableGutters>Team Members</ListSubheader>
-              {teammates.map((teammate) => (
-                <TeamMemberItem
-                  key={teammate!.id}
-                  teammate={teammate as TeamMember}
-                />
-              ))}
-            </List>
-            <Stack spacing={1}>
-              {isMember && (
-                <Button
-                  onClick={() => setOpenLeaveDialog(true)}
-                  variant="outlined"
-                >
-                  Leave team
-                </Button>
-              )}
-              {isOwner && (
-                <Button
-                  onClick={() => setOpenDeleteDialog(true)}
-                  variant="contained"
-                >
-                  Delete team
-                </Button>
-              )}
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
+    <Container maxWidth="md">
+      <Typography variant="h4" sx={{ wordBreak: "break-all" }}>
+        {name}
+      </Typography>
+      <Stack spacing={2}>
+        <List disablePadding>
+          <ListSubheader disableGutters>Team Members</ListSubheader>
+          {teammates.map((teammate) => (
+            <TeamMemberItem
+              key={teammate!.id}
+              teammate={teammate as TeamMember}
+            />
+          ))}
+        </List>
+        <Stack spacing={1}>
+          {isMember && (
+            <Button onClick={() => setOpenLeaveDialog(true)} variant="outlined">
+              Leave team
+            </Button>
+          )}
+          {isOwner && (
+            <Button
+              onClick={() => setOpenDeleteDialog(true)}
+              variant="contained"
+            >
+              Delete team
+            </Button>
+          )}
+        </Stack>
+      </Stack>
       {isMember && (
         <LeaveTeamDialog
           title={name}

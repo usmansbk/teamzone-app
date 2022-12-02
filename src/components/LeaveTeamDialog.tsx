@@ -22,7 +22,7 @@ export default function LeaveTeamDialog({ open, onClose, title }: Props) {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Leave {title}?</DialogTitle>
+      <DialogTitle noWrap>Leave {title}?</DialogTitle>
       <DialogActions>
         <Button onClick={onClose}>No</Button>
         <Button
