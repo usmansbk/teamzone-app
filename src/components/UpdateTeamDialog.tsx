@@ -2,20 +2,22 @@ import { Dialog, DialogContent, Stack, TextField } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CreateTeamInput } from "src/__generated__/graphql";
-import useCreateTeam from "src/hooks/api/useCreateTeam";
 import { LoadingButton } from "@mui/lab";
-import { useNavigate } from "react-router-dom";
-import routeMap from "src/routeMap";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { UpdateTeamInput } from "src/__generated__/graphql";
+import useUpdateTeam from "src/hooks/api/useUpdateTeam";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  defaultValues: UpdateTeamInput;
 }
 
-export default function UpdateTeamModal({ open, onClose }: Props) {
-  const navigate = useNavigate();
+export default function UpdateTeamModal({
+  open,
+  onClose,
+  defaultValues,
+}: Props) {
   const schema = useMemo(
     () =>
       yup
@@ -34,18 +36,16 @@ export default function UpdateTeamModal({ open, onClose }: Props) {
     register,
     handleSubmit,
     formState: { errors, touchedFields },
-  } = useForm<CreateTeamInput>({
+  } = useForm<UpdateTeamInput>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      name: "",
-    },
+    defaultValues,
   });
 
-  const { onSubmit, loading, data } = useCreateTeam();
+  const { onSubmit, loading, data } = useUpdateTeam();
 
   useEffect(() => {
     if (data) {
-      navigate(routeMap.team.replace(":id", data.id));
+      onClose();
     }
   }, [data]);
 
@@ -73,7 +73,7 @@ export default function UpdateTeamModal({ open, onClose }: Props) {
             variant="contained"
             size="large"
           >
-            Create New Team
+            Update Team
           </LoadingButton>
         </Stack>
       </DialogContent>

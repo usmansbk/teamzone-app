@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
+import UpdateTeamModal from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
@@ -50,6 +51,7 @@ export default function Team() {
   const { id } = useParams<{ id: string }>();
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const { loading, data, error } = useGetTeamById(id!);
 
@@ -69,7 +71,11 @@ export default function Team() {
         {name}
         {isOwner && (
           <Tooltip title="Edit team name">
-            <IconButton sx={{ ml: 1 }} size="small">
+            <IconButton
+              sx={{ ml: 1 }}
+              size="small"
+              onClick={() => setOpenEditDialog(true)}
+            >
               <Edit fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -118,6 +124,16 @@ export default function Team() {
           title={name}
           onClose={() => setOpenDeleteDialog(false)}
           open={openDeleteDialog}
+        />
+      )}
+      {isOwner && (
+        <UpdateTeamModal
+          open={openEditDialog}
+          onClose={() => setOpenEditDialog(false)}
+          defaultValues={{
+            id: id!,
+            name,
+          }}
         />
       )}
     </Container>
