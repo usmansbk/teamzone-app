@@ -107,6 +107,20 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        InputProps: {
+          sx: {
+            fontWeight: 900,
+          },
+        },
+        InputLabelProps: {
+          sx: {
+            fontWeight: 800,
+          },
+        },
+      },
+    },
   },
   shape: {
     // borderRadius: 0,

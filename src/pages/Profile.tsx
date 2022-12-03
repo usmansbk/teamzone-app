@@ -141,6 +141,17 @@ export default function Profile() {
                     label="Timezone"
                     helperText={errors.timezone?.message as string}
                     error={Boolean(errors.timezone?.message)}
+                    InputLabelProps={{
+                      sx: {
+                        fontWeight: 800,
+                      },
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        fontWeight: 900,
+                      },
+                    }}
                   />
                 )}
               />

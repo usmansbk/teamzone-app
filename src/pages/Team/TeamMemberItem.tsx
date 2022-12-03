@@ -67,7 +67,7 @@ function TeamMemberItem({
         <ListItemText
           primary={
             <Stack direction="row">
-              <Typography sx={{ fontWeight: 600 }}>{fullName}</Typography>
+              <Typography sx={{ fontWeight: 800 }}>{fullName}</Typography>
               {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
             </Stack>
           }
