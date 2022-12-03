@@ -38,7 +38,7 @@ export default function Team() {
     return <LinearProgress />;
   }
 
-  const { name, teammates, isOwner, isMember, inviteCode, owner } = data!;
+  const { name, teammates, isOwner, isMember, inviteCode, isAdmin } = data!;
 
   return (
     <Container maxWidth="md">
@@ -73,7 +73,7 @@ export default function Team() {
               <TeamMemberItem
                 key={teammate!.id}
                 teammate={teammate as TeamMember}
-                isOwner={teammate?.member.id === owner.id}
+                hasPermission={isOwner || isAdmin}
               />
             ))}
           </List>

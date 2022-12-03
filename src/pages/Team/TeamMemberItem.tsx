@@ -19,10 +19,10 @@ import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
 function TeamMemberItem({
   teammate,
-  isOwner,
+  hasPermission,
 }: {
   teammate: TeamMember;
-  isOwner: boolean;
+  hasPermission: boolean;
 }) {
   const [openMakeAdminDialog, setOpenMakeAdminDialog] = useState(false);
   const [openMakeMemberDialog, setOpenMakeMemberDialog] = useState(false);
@@ -36,11 +36,11 @@ function TeamMemberItem({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { member, id, role } = teammate;
+  const { member, id, role, isMe } = teammate;
 
   const { fullName, picture, tzData } = member;
 
-  const isAdmin = role === TeamRole.Admin || isOwner;
+  const isAdmin = role === TeamRole.Admin;
 
   return (
     <>
@@ -48,7 +48,8 @@ function TeamMemberItem({
         key={id}
         disablePadding
         secondaryAction={
-          !isAdmin && (
+          hasPermission &&
+          !isMe && (
             <IconButton edge="end" onClick={handleClick}>
               <MoreVert />
             </IconButton>

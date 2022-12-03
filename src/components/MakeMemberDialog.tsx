@@ -1,4 +1,7 @@
+import { LoadingButton } from "@mui/lab";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { useEffect } from "react";
+import useMakeMember from "src/hooks/api/useMakeMember";
 
 interface Props {
   id: string;
@@ -8,7 +11,14 @@ interface Props {
 }
 
 export default function MakeMemberDialog({ name, onClose, open, id }: Props) {
-  console.log(id);
+  const { loading, data, onSubmit } = useMakeMember();
+
+  useEffect(() => {
+    if (data) {
+      onClose();
+    }
+  }, [data]);
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle>Are you sure you want to make {name} a member?</DialogTitle>
@@ -16,9 +26,14 @@ export default function MakeMemberDialog({ name, onClose, open, id }: Props) {
         <Button size="large" onClick={onClose}>
           No
         </Button>
-        <Button size="large" variant="contained">
+        <LoadingButton
+          loading={loading}
+          size="large"
+          variant="contained"
+          onClick={() => onSubmit(id)}
+        >
           Yes
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

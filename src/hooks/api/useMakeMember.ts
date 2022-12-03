@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import makeMember from "src/graphql/queries/makeMember";
 import { RemoveTeamMemberFromAdminMutationVariables } from "src/__generated__/graphql";
 
-export default function useMakeAdmin() {
+export default function useMakeMember() {
   const [mutate, { loading, data, error }] = useMutation(makeMember);
 
   const onSubmit = useCallback(

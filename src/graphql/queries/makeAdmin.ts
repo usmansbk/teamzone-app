@@ -5,5 +5,9 @@ export default gql(`
 		addTeamMemberToAdmin(memberId: $memberId) {
 			id
 			role
+			team {
+				id
+				isAdmin
+			}
 		}
 	}`);

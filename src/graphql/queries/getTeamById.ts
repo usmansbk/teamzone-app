@@ -8,6 +8,7 @@ export default gql(`
 			logo
 			isOwner
 			isMember
+			isAdmin
 			inviteCode
 			createdAt
 			updatedAt

@@ -5,6 +5,10 @@ export default gql(`
 		removeTeamMemberFromAdmin(memberId: $memberId) {
 			id
 			role
+			team {
+				id
+				isAdmin
+			}
 		}
 	}
 `);

@@ -284,6 +284,7 @@ export type Team = {
   createdAt: Scalars["DateTime"];
   id: Scalars["ID"];
   inviteCode?: Maybe<Scalars["ID"]>;
+  isAdmin: Scalars["Boolean"];
   isMember: Scalars["Boolean"];
   isOwner: Scalars["Boolean"];
   logo?: Maybe<Scalars["URL"]>;
@@ -407,6 +408,7 @@ export type QueryQuery = {
     logo?: any | null;
     isOwner: boolean;
     isMember: boolean;
+    isAdmin: boolean;
     inviteCode?: string | null;
     createdAt: any;
     updatedAt?: any | null;
@@ -503,6 +505,7 @@ export type AddTeamMemberToAdminMutation = {
     __typename?: "TeamMember";
     id: string;
     role?: TeamRole | null;
+    team: { __typename?: "Team"; id: string; isAdmin: boolean };
   };
 };
 
@@ -516,6 +519,7 @@ export type RemoveTeamMemberFromAdminMutation = {
     __typename?: "TeamMember";
     id: string;
     role?: TeamRole | null;
+    team: { __typename?: "Team"; id: string; isAdmin: boolean };
   };
 };
 
@@ -751,6 +755,7 @@ export const QueryDocument = {
                 { kind: "Field", name: { kind: "Name", value: "logo" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 { kind: "Field", name: { kind: "Name", value: "isMember" } },
+                { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
                 { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
@@ -1133,6 +1138,20 @@ export const AddTeamMemberToAdminDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "role" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "team" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isAdmin" },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -1185,6 +1204,20 @@ export const RemoveTeamMemberFromAdminDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "role" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "team" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isAdmin" },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
