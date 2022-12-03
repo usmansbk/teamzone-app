@@ -12,6 +12,14 @@ export default function useRemoveTeammate() {
         variables: {
           memberId,
         },
+        update(cache, response) {
+          if (response.data?.removeTeammate) {
+            cache.evict({
+              id: cache.identify(response.data.removeTeammate),
+            });
+            cache.gc();
+          }
+        },
       }),
     [mutate]
   );
