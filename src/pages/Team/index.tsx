@@ -90,17 +90,16 @@ export default function Team() {
               Leave team
             </Button>
           )}
-          {isOwner ||
-            (isAdmin && (
-              <Button
-                size="large"
-                onClick={() => setOpenDeleteDialog(true)}
-                variant="contained"
-                color="secondary"
-              >
-                Delete team
-              </Button>
-            ))}
+          {(isOwner || isAdmin) && (
+            <Button
+              size="large"
+              onClick={() => setOpenDeleteDialog(true)}
+              variant="contained"
+              color="secondary"
+            >
+              Delete team
+            </Button>
+          )}
         </Stack>
       </Stack>
       {isMember && (
@@ -110,14 +109,13 @@ export default function Team() {
           open={openLeaveDialog}
         />
       )}
-      {isOwner ||
-        (isAdmin && (
-          <DeleteTeamDialog
-            title={name}
-            onClose={() => setOpenDeleteDialog(false)}
-            open={openDeleteDialog}
-          />
-        ))}
+      {(isOwner || isAdmin) && (
+        <DeleteTeamDialog
+          title={name}
+          onClose={() => setOpenDeleteDialog(false)}
+          open={openDeleteDialog}
+        />
+      )}
       {isOwner ||
         (isAdmin && (
           <UpdateTeamDialog
