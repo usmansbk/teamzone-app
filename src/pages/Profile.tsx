@@ -188,7 +188,7 @@ export default function Profile() {
               <ListItem divider>
                 <ListItemText
                   primary={team?.name}
-                  primaryTypographyProps={{ noWrap: true, fontWeight: 500 }}
+                  primaryTypographyProps={{ noWrap: true, fontWeight: 700 }}
                 />
               </ListItem>
             </Link>
