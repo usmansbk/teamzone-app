@@ -493,6 +493,32 @@ export type LoginWithSocialProviderMutation = {
   loginWithSocialProvider: { __typename?: "AuthPayload"; token?: any | null };
 };
 
+export type AddTeamMemberToAdminMutationVariables = Exact<{
+  memberId: Scalars["ID"];
+}>;
+
+export type AddTeamMemberToAdminMutation = {
+  __typename?: "Mutation";
+  addTeamMemberToAdmin: {
+    __typename?: "TeamMember";
+    id: string;
+    role?: TeamRole | null;
+  };
+};
+
+export type RemoveTeamMemberFromAdminMutationVariables = Exact<{
+  memberId: Scalars["ID"];
+}>;
+
+export type RemoveTeamMemberFromAdminMutation = {
+  __typename?: "Mutation";
+  removeTeamMemberFromAdmin: {
+    __typename?: "TeamMember";
+    id: string;
+    role?: TeamRole | null;
+  };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -537,6 +563,15 @@ export type MeQuery = {
       rawOffsetInMinutes: number;
     } | null;
   };
+};
+
+export type RemoveTeammateMutationVariables = Exact<{
+  memberId: Scalars["ID"];
+}>;
+
+export type RemoveTeammateMutation = {
+  __typename?: "Mutation";
+  removeTeammate: { __typename?: "TeamMember"; id: string };
 };
 
 export type UpdateProfileMutationVariables = Exact<{
@@ -1057,6 +1092,110 @@ export const LoginWithSocialProviderDocument = {
   LoginWithSocialProviderMutation,
   LoginWithSocialProviderMutationVariables
 >;
+export const AddTeamMemberToAdminDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "AddTeamMemberToAdmin" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "memberId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "addTeamMemberToAdmin" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "memberId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "memberId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "role" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  AddTeamMemberToAdminMutation,
+  AddTeamMemberToAdminMutationVariables
+>;
+export const RemoveTeamMemberFromAdminDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RemoveTeamMemberFromAdmin" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "memberId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "removeTeamMemberFromAdmin" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "memberId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "memberId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "role" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  RemoveTeamMemberFromAdminMutation,
+  RemoveTeamMemberFromAdminMutationVariables
+>;
 export const MeDocument = {
   kind: "Document",
   definitions: [
@@ -1172,6 +1311,57 @@ export const MeDocument = {
     },
   ],
 } as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const RemoveTeammateDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RemoveTeammate" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "memberId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "removeTeammate" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "memberId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "memberId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  RemoveTeammateMutation,
+  RemoveTeammateMutationVariables
+>;
 export const UpdateProfileDocument = {
   kind: "Document",
   definitions: [

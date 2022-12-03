@@ -27,8 +27,14 @@ const documents = {
     types.LeaveTeamDocument,
   "\n  mutation LoginWithSocialProvider($input: SocialLoginInput!) {\n    loginWithSocialProvider(input: $input) {\n      token\n    }\n  }\n":
     types.LoginWithSocialProviderDocument,
+  "\n\tmutation AddTeamMemberToAdmin($memberId: ID!) {\n\t\taddTeamMemberToAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}":
+    types.AddTeamMemberToAdminDocument,
+  "\n\tmutation RemoveTeamMemberFromAdmin($memberId: ID!) {\n\t\tremoveTeamMemberFromAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}\n":
+    types.RemoveTeamMemberFromAdminDocument,
   "\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n      teams {\n        id\n        name\n        logo\n      }\n      createdTeams {\n        id\n        name\n        logo\n      }\n      tzData {\n        name\n        abbreviation\n        alternativeName\n        continentCode\n        continentName\n        countryCode\n        countryName\n        currentTimeFormat\n        currentTimeOffsetInMinutes\n        group\n        mainCities\n        rawFormat\n        rawOffsetInMinutes\n      }\n    }\n  }\n":
     types.MeDocument,
+  "\n\tmutation RemoveTeammate($memberId: ID!) {\n\t\tremoveTeammate(memberId: $memberId) {\n\t\t\tid\n\t\t}\n\t}\n":
+    types.RemoveTeammateDocument,
   "\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t}\n\t}\n":
     types.UpdateProfileDocument,
   "\n\tmutation UpdateTeam($input: UpdateTeamInput!) {\n\t\tupdateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n":
@@ -81,8 +87,26 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
+  source: "\n\tmutation AddTeamMemberToAdmin($memberId: ID!) {\n\t\taddTeamMemberToAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}"
+): typeof documents["\n\tmutation AddTeamMemberToAdmin($memberId: ID!) {\n\t\taddTeamMemberToAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\n\tmutation RemoveTeamMemberFromAdmin($memberId: ID!) {\n\t\tremoveTeamMemberFromAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}\n"
+): typeof documents["\n\tmutation RemoveTeamMemberFromAdmin($memberId: ID!) {\n\t\tremoveTeamMemberFromAdmin(memberId: $memberId) {\n\t\t\tid\n\t\t\trole\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
   source: "\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n      teams {\n        id\n        name\n        logo\n      }\n      createdTeams {\n        id\n        name\n        logo\n      }\n      tzData {\n        name\n        abbreviation\n        alternativeName\n        continentCode\n        continentName\n        countryCode\n        countryName\n        currentTimeFormat\n        currentTimeOffsetInMinutes\n        group\n        mainCities\n        rawFormat\n        rawOffsetInMinutes\n      }\n    }\n  }\n"
 ): typeof documents["\n  query Me {\n    me {\n      id\n      fullName\n      firstName\n      lastName\n      email\n      locale\n      timezone\n      picture\n      updatedAt\n      teams {\n        id\n        name\n        logo\n      }\n      createdTeams {\n        id\n        name\n        logo\n      }\n      tzData {\n        name\n        abbreviation\n        alternativeName\n        continentCode\n        continentName\n        countryCode\n        countryName\n        currentTimeFormat\n        currentTimeOffsetInMinutes\n        group\n        mainCities\n        rawFormat\n        rawOffsetInMinutes\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\n\tmutation RemoveTeammate($memberId: ID!) {\n\t\tremoveTeammate(memberId: $memberId) {\n\t\t\tid\n\t\t}\n\t}\n"
+): typeof documents["\n\tmutation RemoveTeammate($memberId: ID!) {\n\t\tremoveTeammate(memberId: $memberId) {\n\t\t\tid\n\t\t}\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
