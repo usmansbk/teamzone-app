@@ -36,6 +36,7 @@ export default function UpdateTeamDialog({
     register,
     handleSubmit,
     formState: { errors, touchedFields, isDirty },
+    reset,
   } = useForm<UpdateTeamInput>({
     resolver: yupResolver(schema),
     defaultValues,
@@ -48,6 +49,10 @@ export default function UpdateTeamDialog({
       onClose();
     }
   }, [data]);
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues]);
 
   return (
     <Dialog open={open} fullWidth onClose={onClose} maxWidth="xs">

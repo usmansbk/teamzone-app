@@ -11,7 +11,7 @@ import {
   Tooltip,
   Box,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import InviteMemberDialog from "src/components/InviteMemberDialog";

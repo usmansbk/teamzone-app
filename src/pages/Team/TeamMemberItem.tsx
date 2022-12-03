@@ -10,12 +10,14 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  Stack,
 } from "@mui/material";
 import React, { memo, useState } from "react";
 import MakeAdminDialog from "src/components/MakeAdminDialog";
 import MakeMemberDialog from "src/components/MakeMemberDialog";
 import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
+import { getLocalTime } from "src/utils/dateTime";
 
 function TeamMemberItem({
   teammate,
@@ -42,6 +44,8 @@ function TeamMemberItem({
 
   const isAdmin = role === TeamRole.Admin;
 
+  const { name, countryName, abbreviation } = tzData!;
+
   return (
     <>
       <ListItem
@@ -61,15 +65,19 @@ function TeamMemberItem({
         </ListItemAvatar>
         <ListItemText
           primary={
-            <Typography sx={{ fontWeight: 600 }}>
-              {fullName}
+            <Stack direction="row">
+              <Typography sx={{ fontWeight: 600 }}>{fullName}</Typography>
               {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
-            </Typography>
+            </Stack>
           }
           primaryTypographyProps={{
             fontWeight: 600,
           }}
-          secondary={`${tzData?.alternativeName}`}
+          secondary={
+            <Typography variant="caption" sx={{ fontWeight: 700 }}>
+              {getLocalTime(name)} {abbreviation}, {countryName}
+            </Typography>
+          }
         />
       </ListItem>
       <Menu
