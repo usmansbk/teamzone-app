@@ -37,6 +37,7 @@ export default function InviteMemberDialog({ open, onClose, code }: Props) {
               "& .MuiInputBase-input": {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                cursor: "pointer",
               },
             }}
             value={link}
