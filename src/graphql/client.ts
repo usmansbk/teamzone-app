@@ -32,7 +32,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     toast.error(e.message);
   });
   if (networkError) {
-    toast.error(`Network error: ${networkError.message}`);
+    if ((networkError as any).statusCode !== 400) {
+      toast.error(`Network error: ${networkError.message}`);
+    }
   }
 });
 
