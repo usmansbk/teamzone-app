@@ -45,6 +45,7 @@ export default function DrawerContent({ teams }: Props) {
               primary="You don't have a team, yet!"
               primaryTypographyProps={{
                 variant: "caption",
+                fontWeight: 800,
               }}
             />
           </ListItem>
@@ -60,7 +61,7 @@ export default function DrawerContent({ teams }: Props) {
                 primaryTypographyProps={{
                   noWrap: true,
                   style: {
-                    fontWeight: 600,
+                    fontWeight: 800,
                     fontSize: 16,
                   },
                 }}

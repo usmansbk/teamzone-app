@@ -175,7 +175,11 @@ export default function Profile() {
             <ListItem divider>
               <ListItemText
                 primary="You haven't created any team."
-                primaryTypographyProps={{ noWrap: true, variant: "caption" }}
+                primaryTypographyProps={{
+                  noWrap: true,
+                  variant: "caption",
+                  fontWeight: 800,
+                }}
               />
             </ListItem>
           )}
@@ -188,7 +192,7 @@ export default function Profile() {
               <ListItem divider>
                 <ListItemText
                   primary={team?.name}
-                  primaryTypographyProps={{ noWrap: true, fontWeight: 700 }}
+                  primaryTypographyProps={{ noWrap: true, fontWeight: 800 }}
                 />
               </ListItem>
             </Link>

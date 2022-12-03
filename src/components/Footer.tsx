@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <Box py={4} display="flex" justifyContent="center">
       <Stack justifyContent="center" alignItems="center" spacing={1}>
-        <Typography variant="caption">
+        <Typography variant="caption" sx={{ fontWeight: 900 }}>
           &copy; {new Date().getFullYear()} Teamzone
         </Typography>
         <Stack
