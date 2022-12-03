@@ -170,10 +170,11 @@ export default function Profile() {
           )}
           {createdTeams?.map((team) => (
             <Link
+              key={team!.id}
               to={routeMap.team.replace(":id", team!.id)}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              <ListItem key={team!.id} divider>
+              <ListItem divider>
                 <ListItemText
                   primary={team?.name}
                   primaryTypographyProps={{ noWrap: true, fontWeight: 500 }}

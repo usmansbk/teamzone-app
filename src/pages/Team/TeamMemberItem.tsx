@@ -11,6 +11,7 @@ import {
   MenuItem,
   ListItemIcon,
   Stack,
+  Tooltip,
 } from "@mui/material";
 import React, { memo, useState } from "react";
 import MakeAdminDialog from "src/components/MakeAdminDialog";
@@ -44,7 +45,7 @@ function TeamMemberItem({
 
   const isAdmin = role === TeamRole.Admin;
 
-  const { name, countryName, abbreviation } = tzData!;
+  const { name, countryName, abbreviation, alternativeName } = tzData!;
 
   return (
     <>
@@ -75,7 +76,12 @@ function TeamMemberItem({
           }}
           secondary={
             <Typography variant="caption" sx={{ fontWeight: 700 }}>
-              {getLocalTime(name)} {abbreviation}, {countryName}
+              {getLocalTime(name)}{" "}
+              <Tooltip title={alternativeName}>
+                <span>{abbreviation}</span>
+              </Tooltip>
+              {", "}
+              <span style={{ fontWeight: 500 }}>{countryName}</span>
             </Typography>
           }
         />
