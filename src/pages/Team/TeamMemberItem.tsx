@@ -12,6 +12,9 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import React, { memo, useState } from "react";
+import MakeAdminDialog from "src/components/MakeAdminDialog";
+import MakeMemberDialog from "src/components/MakeMemberDialog";
+import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
 function TeamMemberItem({
@@ -21,6 +24,10 @@ function TeamMemberItem({
   teammate: TeamMember;
   isOwner: boolean;
 }) {
+  const [openMakeAdminDialog, setOpenMakeAdminDialog] = useState(false);
+  const [openMakeMemberDialog, setOpenMakeMemberDialog] = useState(false);
+  const [openRemoveTeamMemberDialog, setOpenRemoveTeamMemberDialog] =
+    useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +40,7 @@ function TeamMemberItem({
 
   const { fullName, picture, tzData } = member;
 
-  const isAdmin = role === TeamRole.Admin;
+  const isAdmin = role === TeamRole.Admin || isOwner;
 
   return (
     <>
@@ -41,7 +48,7 @@ function TeamMemberItem({
         key={id}
         disablePadding
         secondaryAction={
-          !isOwner && (
+          !isAdmin && (
             <IconButton edge="end" onClick={handleClick}>
               <MoreVert />
             </IconButton>
@@ -77,16 +84,44 @@ function TeamMemberItem({
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Person fontSize="small" />
-          </ListItemIcon>
-          <ListItemText
-            primary="Make admin"
-            primaryTypographyProps={{ fontWeight: 500 }}
-          />
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {!isAdmin && (
+          <MenuItem
+            onClick={() => {
+              setOpenMakeAdminDialog(true);
+              handleClose();
+            }}
+          >
+            <ListItemIcon>
+              <Person fontSize="small" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Make admin"
+              primaryTypographyProps={{ fontWeight: 500 }}
+            />
+          </MenuItem>
+        )}
+        {isAdmin && (
+          <MenuItem
+            onClick={() => {
+              setOpenMakeMemberDialog(true);
+              handleClose();
+            }}
+          >
+            <ListItemIcon>
+              <Person fontSize="small" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Make member"
+              primaryTypographyProps={{ fontWeight: 500 }}
+            />
+          </MenuItem>
+        )}
+        <MenuItem
+          onClick={() => {
+            setOpenRemoveTeamMemberDialog(true);
+            handleClose();
+          }}
+        >
           <ListItemIcon>
             <Delete fontSize="small" color="secondary" />
           </ListItemIcon>
@@ -96,6 +131,24 @@ function TeamMemberItem({
           />
         </MenuItem>
       </Menu>
+      <MakeAdminDialog
+        id={id}
+        open={openMakeAdminDialog}
+        onClose={() => setOpenMakeAdminDialog(false)}
+        name={fullName}
+      />
+      <RemoveTeamMemberDialog
+        id={id}
+        open={openRemoveTeamMemberDialog}
+        onClose={() => setOpenRemoveTeamMemberDialog(false)}
+        name={fullName}
+      />
+      <MakeMemberDialog
+        id={id}
+        open={openMakeMemberDialog}
+        onClose={() => setOpenMakeMemberDialog(false)}
+        name={fullName}
+      />
     </>
   );
 }
