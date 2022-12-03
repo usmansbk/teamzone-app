@@ -9,6 +9,7 @@ import {
   Stack,
   IconButton,
   Tooltip,
+  Box,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -56,25 +57,28 @@ export default function Team() {
         )}
       </Typography>
       <Stack spacing={2}>
-        <List disablePadding>
-          <ListSubheader disableGutters>Team Members</ListSubheader>
-          {teammates.map((teammate) => (
-            <TeamMemberItem
-              key={teammate!.id}
-              teammate={teammate as TeamMember}
-              isOwner={teammate?.member.id === owner.id}
-            />
-          ))}
-        </List>
+        <Stack>
+          <Box>
+            <Button
+              size="large"
+              startIcon={<PersonAdd />}
+              onClick={() => setOpenInviteDialog(true)}
+            >
+              Invite Teammates
+            </Button>
+          </Box>
+          <List disablePadding>
+            <ListSubheader disableGutters>Team Members</ListSubheader>
+            {teammates.map((teammate) => (
+              <TeamMemberItem
+                key={teammate!.id}
+                teammate={teammate as TeamMember}
+                isOwner={teammate?.member.id === owner.id}
+              />
+            ))}
+          </List>
+        </Stack>
         <Stack spacing={1}>
-          <Button
-            variant="contained"
-            size="large"
-            startIcon={<PersonAdd />}
-            onClick={() => setOpenInviteDialog(true)}
-          >
-            Invite Teammates
-          </Button>
           {isMember && (
             <Button
               size="large"
