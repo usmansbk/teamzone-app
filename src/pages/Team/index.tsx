@@ -44,17 +44,18 @@ export default function Team() {
     <Container maxWidth="md">
       <Typography variant="h4" sx={{ wordBreak: "break-all" }}>
         {name}
-        {isOwner && (
-          <Tooltip title="Edit team name">
-            <IconButton
-              sx={{ ml: 1 }}
-              size="small"
-              onClick={() => setOpenEditDialog(true)}
-            >
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
+        {isOwner ||
+          (isAdmin && (
+            <Tooltip title="Edit team name">
+              <IconButton
+                sx={{ ml: 1 }}
+                size="small"
+                onClick={() => setOpenEditDialog(true)}
+              >
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          ))}
       </Typography>
       <Stack spacing={2}>
         <Stack>
@@ -89,16 +90,17 @@ export default function Team() {
               Leave team
             </Button>
           )}
-          {isOwner && (
-            <Button
-              size="large"
-              onClick={() => setOpenDeleteDialog(true)}
-              variant="contained"
-              color="secondary"
-            >
-              Delete team
-            </Button>
-          )}
+          {isOwner ||
+            (isAdmin && (
+              <Button
+                size="large"
+                onClick={() => setOpenDeleteDialog(true)}
+                variant="contained"
+                color="secondary"
+              >
+                Delete team
+              </Button>
+            ))}
         </Stack>
       </Stack>
       {isMember && (
@@ -108,23 +110,25 @@ export default function Team() {
           open={openLeaveDialog}
         />
       )}
-      {isOwner && (
-        <DeleteTeamDialog
-          title={name}
-          onClose={() => setOpenDeleteDialog(false)}
-          open={openDeleteDialog}
-        />
-      )}
-      {isOwner && (
-        <UpdateTeamDialog
-          open={openEditDialog}
-          onClose={() => setOpenEditDialog(false)}
-          defaultValues={{
-            id: id!,
-            name,
-          }}
-        />
-      )}
+      {isOwner ||
+        (isAdmin && (
+          <DeleteTeamDialog
+            title={name}
+            onClose={() => setOpenDeleteDialog(false)}
+            open={openDeleteDialog}
+          />
+        ))}
+      {isOwner ||
+        (isAdmin && (
+          <UpdateTeamDialog
+            open={openEditDialog}
+            onClose={() => setOpenEditDialog(false)}
+            defaultValues={{
+              id: id!,
+              name,
+            }}
+          />
+        ))}
       <InviteMemberDialog
         code={inviteCode!}
         open={openInviteDialog}
