@@ -3,13 +3,12 @@ import {
   Container,
   LinearProgress,
   Typography,
-  List,
-  ListSubheader,
   Button,
   Stack,
   IconButton,
   Tooltip,
   Box,
+  Grid,
 } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,8 +17,7 @@ import InviteMemberDialog from "src/components/InviteMemberDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
-import { TeamMember } from "src/__generated__/graphql";
-import TeamMemberItem from "./TeamMemberItem";
+import MemberCard from "./MemberCard";
 
 export default function Team() {
   const { id } = useParams<{ id: string }>();
@@ -57,27 +55,26 @@ export default function Team() {
         )}
       </Typography>
       <Stack spacing={2}>
-        <Stack>
-          <Box>
-            <Button
-              size="large"
-              startIcon={<PersonAdd />}
-              onClick={() => setOpenInviteDialog(true)}
-            >
-              Invite Teammates
-            </Button>
-          </Box>
-          <List disablePadding>
-            <ListSubheader disableGutters>Team Members</ListSubheader>
-            {teammates.map((teammate) => (
-              <TeamMemberItem
+        <Box>
+          <Button
+            size="large"
+            startIcon={<PersonAdd />}
+            onClick={() => setOpenInviteDialog(true)}
+          >
+            Invite Teammates
+          </Button>
+        </Box>
+        <Grid container rowSpacing={2}>
+          {teammates.map((teammate) => (
+            <Grid item xs={12} sm={6} lg={4}>
+              <MemberCard
+                teammate={teammate as any}
                 key={teammate!.id}
-                teammate={teammate as TeamMember}
                 hasPermission={isOwner || isAdmin}
               />
-            ))}
-          </List>
-        </Stack>
+            </Grid>
+          ))}
+        </Grid>
         <Stack spacing={1}>
           {isMember && (
             <Button
