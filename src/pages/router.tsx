@@ -5,8 +5,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
-import Landing from "src/layouts/Landing";
-import Settings from "src/layouts/Settings";
+import Root from "src/layouts/Root";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
 import App from "../layouts/App";
@@ -16,7 +15,7 @@ import Login from "./Login";
 import Terms from "./Terms";
 import Dashboard from "./Dashboard";
 import Team from "./Team";
-import Profile from "./Profile";
+import Settings from "./Settings";
 import AcceptInvitation from "./AcceptInvitation";
 
 function ProtectedRoute() {
@@ -50,7 +49,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <Landing />,
+        element: <Root />,
         children: [
           {
             index: true,
@@ -70,7 +69,7 @@ const router = createBrowserRouter([
   },
   {
     path: routeMap.terms,
-    element: <Landing />,
+    element: <Root />,
     children: [
       {
         index: true,
@@ -104,11 +103,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <Settings />,
+        element: <Root />,
         children: [
           {
             index: true,
-            element: <Profile />,
+            element: <Settings />,
           },
         ],
       },
@@ -120,7 +119,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <Landing />,
+        element: <Root />,
         children: [
           {
             index: true,

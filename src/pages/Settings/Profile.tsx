@@ -5,10 +5,6 @@ import {
   Grid,
   Autocomplete,
   CircularProgress,
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemText,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -19,8 +15,6 @@ import useUpdateProfile from "src/hooks/api/useUpdateProfile";
 import { UpdateProfileMutationVariables } from "src/__generated__/graphql";
 import toast from "react-hot-toast";
 import UploadAvatar from "src/components/UploadAvatar";
-import { Link, redirect } from "react-router-dom";
-import routeMap from "src/routeMap";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 
 export default function Profile() {
@@ -28,12 +22,7 @@ export default function Profile() {
   const { onSubmit, loading, data: updatedData } = useUpdateProfile();
   const { data } = useMe();
 
-  if (!data) {
-    redirect(routeMap.home);
-    return null;
-  }
-
-  const { firstName, lastName, locale, timezone, createdTeams } = data;
+  const { firstName, lastName, locale, timezone } = data!;
 
   const schema = useMemo(
     () =>
@@ -167,37 +156,6 @@ export default function Profile() {
             Save Profile Information
           </LoadingButton>
         </Stack>
-        <List>
-          <ListSubheader style={{ fontWeight: 900 }}>
-            Created Teams
-          </ListSubheader>
-          {!createdTeams.length && (
-            <ListItem divider>
-              <ListItemText
-                primary="You haven't created any team."
-                primaryTypographyProps={{
-                  noWrap: true,
-                  variant: "caption",
-                  fontWeight: 800,
-                }}
-              />
-            </ListItem>
-          )}
-          {createdTeams?.map((team) => (
-            <Link
-              key={team!.id}
-              to={routeMap.team.replace(":id", team!.id)}
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              <ListItem divider>
-                <ListItemText
-                  primary={team?.name}
-                  primaryTypographyProps={{ noWrap: true, fontWeight: 800 }}
-                />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
       </Grid>
     </Grid>
   );

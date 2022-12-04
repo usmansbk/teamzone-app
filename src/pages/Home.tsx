@@ -27,7 +27,7 @@ export default function Home() {
             Time zones.
           </Typography>
           <Typography>
-            It lets you see the countries and times of your teammates,.
+            It lets you see the countries and times of your teammates.
           </Typography>
         </Stack>
       </Box>
