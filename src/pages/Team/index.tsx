@@ -54,25 +54,34 @@ export default function Team() {
           </Tooltip>
         )}
       </Typography>
-      <Stack spacing={2}>
+      <Stack spacing={2} mt={4}>
         <Box>
-          <Button
-            size="large"
-            startIcon={<PersonAdd />}
-            onClick={() => setOpenInviteDialog(true)}
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            sx={{ justifyContent: "space-between" }}
           >
-            Invite Teammates
-          </Button>
+            <Typography variant="h6">Members</Typography>
+            <Box>
+              <Button
+                size="small"
+                startIcon={<PersonAdd fontSize="small" />}
+                onClick={() => setOpenInviteDialog(true)}
+              >
+                Invite Teammates
+              </Button>
+            </Box>
+          </Stack>
+          <List>
+            {teammates.map((teammate) => (
+              <TeamMemberItem
+                teammate={teammate as any}
+                key={teammate!.id}
+                hasPermission={isOwner || isAdmin}
+              />
+            ))}
+          </List>
         </Box>
-        <List>
-          {teammates.map((teammate) => (
-            <TeamMemberItem
-              teammate={teammate as any}
-              key={teammate!.id}
-              hasPermission={isOwner || isAdmin}
-            />
-          ))}
-        </List>
         <Stack spacing={1}>
           {isMember && (
             <Button
