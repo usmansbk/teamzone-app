@@ -1,7 +1,9 @@
 import {
+  Avatar,
   Divider,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemButton,
   ListItemText,
   ListSubheader,
@@ -56,6 +58,9 @@ export default function DrawerContent({ teams }: Props) {
               component={ThemedNavLink}
               to={routeMap.team.replace(":id", team!.id!)}
             >
+              <ListItemAvatar>
+                <Avatar variant="rounded">{team?.name![0]}</Avatar>
+              </ListItemAvatar>
               <ListItemText
                 primary={team!.name}
                 primaryTypographyProps={{

@@ -40,7 +40,7 @@ export default function CreatedTeams() {
               >
                 <ListItem divider>
                   <ListItemAvatar>
-                    <Avatar>{team?.name[0]}</Avatar>
+                    <Avatar variant="rounded">{team?.name[0]}</Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={team?.name}
