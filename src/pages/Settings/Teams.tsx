@@ -5,6 +5,8 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  ListItemAvatar,
+  Avatar,
 } from "@mui/material";
 import useMe from "src/hooks/api/useMe";
 import { Link } from "react-router-dom";
@@ -37,6 +39,9 @@ export default function CreatedTeams() {
                 style={{ color: "inherit", textDecoration: "none" }}
               >
                 <ListItem divider>
+                  <ListItemAvatar>
+                    <Avatar>{team?.name[0]}</Avatar>
+                  </ListItemAvatar>
                   <ListItemText
                     primary={team?.name}
                     primaryTypographyProps={{ noWrap: true, fontWeight: 800 }}
