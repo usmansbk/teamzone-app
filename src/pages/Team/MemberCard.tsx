@@ -1,4 +1,12 @@
-import { Avatar, Box, Stack, Tooltip, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { getLocalTime } from "src/utils/dateTime";
 import { TeamMember } from "src/__generated__/graphql";
 
@@ -22,6 +30,11 @@ export default function MemberCard({ teammate, hasPermission }: Props) {
           <Tooltip title={rawFormat}>
             <Typography>{getLocalTime(name)}</Typography>
           </Tooltip>
+        </Box>
+        <Box>
+          <IconButton edge="end">
+            <Delete />
+          </IconButton>
         </Box>
       </Stack>
     </Box>
