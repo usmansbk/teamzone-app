@@ -2,7 +2,6 @@ import {
   Grid,
   CircularProgress,
   List,
-  ListSubheader,
   ListItem,
   ListItemText,
   Typography,
@@ -31,9 +30,6 @@ export default function CreatedTeams() {
         )}
         {!!createdTeams?.length && (
           <List>
-            <ListSubheader style={{ fontWeight: 900 }}>
-              Created Teams
-            </ListSubheader>
             {createdTeams?.map((team) => (
               <Link
                 key={team!.id}

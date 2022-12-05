@@ -51,15 +51,15 @@ export default function Settings() {
         display: "flex",
         flexGrow: 1,
         bgcolor: "background.paper",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Tabs
-        orientation="vertical"
         variant="scrollable"
         value={value}
         onChange={handleChange}
         aria-label="Settings tabs"
-        sx={{ borderRight: 1, borderColor: "divider" }}
       >
         <Tab label="Profile" {...a11yProps(0)} />
         <Tab label="Teams" {...a11yProps(1)} />
