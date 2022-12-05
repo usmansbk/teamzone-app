@@ -67,7 +67,7 @@ function TeamMemberItem({
         <ListItemText
           primary={
             <Stack direction="row">
-              <Typography sx={{ fontWeight: 800 }}>{fullName}</Typography>
+              <Typography sx={{ fontWeight: 900 }}>{fullName}</Typography>
               {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
             </Stack>
           }
@@ -75,7 +75,7 @@ function TeamMemberItem({
             fontWeight: 600,
           }}
           secondary={
-            <Typography variant="caption" sx={{ fontWeight: 700 }}>
+            <Typography sx={{ fontWeight: 700 }}>
               {getLocalTime(name)}{" "}
               <Tooltip title={alternativeName}>
                 <span>{abbreviation}</span>

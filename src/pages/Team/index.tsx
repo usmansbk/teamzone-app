@@ -8,7 +8,7 @@ import {
   IconButton,
   Tooltip,
   Box,
-  Grid,
+  List,
 } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,7 +17,7 @@ import InviteMemberDialog from "src/components/InviteMemberDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
-import MemberCard from "./MemberCard";
+import TeamMemberItem from "./TeamMemberItem";
 
 export default function Team() {
   const { id } = useParams<{ id: string }>();
@@ -64,17 +64,15 @@ export default function Team() {
             Invite Teammates
           </Button>
         </Box>
-        <Grid container rowSpacing={2}>
+        <List>
           {teammates.map((teammate) => (
-            <Grid item xs={12} sm={6} lg={4}>
-              <MemberCard
-                teammate={teammate as any}
-                key={teammate!.id}
-                hasPermission={isOwner || isAdmin}
-              />
-            </Grid>
+            <TeamMemberItem
+              teammate={teammate as any}
+              key={teammate!.id}
+              hasPermission={isOwner || isAdmin}
+            />
           ))}
-        </Grid>
+        </List>
         <Stack spacing={1}>
           {isMember && (
             <Button
