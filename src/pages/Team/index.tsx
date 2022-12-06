@@ -10,14 +10,14 @@ import {
   Box,
   List,
 } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import uniqBy from "lodash.uniqby";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import InviteMemberDialog from "src/components/InviteMemberDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
+import { TeamMember } from "src/__generated__/graphql";
 import Clocks from "./Clocks";
 import TeamMemberItem from "./TeamMemberItem";
 
@@ -40,15 +40,6 @@ export default function Team() {
 
   const { name, teammates, isOwner, isMember, inviteCode, isAdmin } = data!;
 
-  const timezones = useMemo(
-    () =>
-      uniqBy(
-        teammates.map((t) => t?.member.tzData),
-        "name"
-      ),
-    [teammates]
-  );
-
   return (
     <Container maxWidth="md">
       <Typography variant="h4" sx={{ wordBreak: "break-all", mb: 2 }}>
@@ -65,7 +56,7 @@ export default function Team() {
           </Tooltip>
         )}
       </Typography>
-      <Clocks timezones={timezones} />
+      <Clocks teammates={teammates as TeamMember[]} />
       <Stack spacing={2} mt={4}>
         <Box>
           <Stack
