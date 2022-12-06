@@ -18,7 +18,7 @@ import MakeAdminDialog from "src/components/MakeAdminDialog";
 import MakeMemberDialog from "src/components/MakeMemberDialog";
 import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
-import { getLocalTime } from "src/utils/dateTime";
+import { formatUTCOffset, getLocalTime } from "src/utils/dateTime";
 
 function TeamMemberItem({
   teammate,
@@ -45,7 +45,13 @@ function TeamMemberItem({
 
   const isAdmin = role === TeamRole.Admin;
 
-  const { name, countryName, abbreviation, alternativeName } = tzData!;
+  const {
+    name,
+    countryName,
+    abbreviation,
+    alternativeName,
+    rawOffsetInMinutes,
+  } = tzData!;
 
   return (
     <>
@@ -77,7 +83,11 @@ function TeamMemberItem({
           secondary={
             <Typography>
               {getLocalTime(name)}{" "}
-              <Tooltip title={alternativeName}>
+              <Tooltip
+                title={`${alternativeName} UTC ${formatUTCOffset(
+                  rawOffsetInMinutes
+                )}`}
+              >
                 <span>{abbreviation}</span>
               </Tooltip>{" "}
               {countryName}
