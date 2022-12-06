@@ -57,7 +57,7 @@ export default function Team() {
       <Stack spacing={2} mt={4}>
         <Box>
           <Stack
-            direction={{ xs: "column", sm: "row" }}
+            direction="row"
             spacing={2}
             sx={{ justifyContent: "space-between" }}
           >
