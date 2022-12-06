@@ -75,13 +75,12 @@ function TeamMemberItem({
             fontWeight: 600,
           }}
           secondary={
-            <Typography sx={{ fontWeight: 700 }}>
+            <Typography>
               {getLocalTime(name)}{" "}
               <Tooltip title={alternativeName}>
                 <span>{abbreviation}</span>
-              </Tooltip>
-              {", "}
-              <span style={{ fontWeight: 500 }}>{countryName}</span>
+              </Tooltip>{" "}
+              {countryName}
             </Typography>
           }
         />
