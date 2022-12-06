@@ -24,7 +24,7 @@ export default function Dashboard() {
           Create new Team
         </Button>
       </Box>
-      <Stack spacing={2} pb={4}>
+      <Stack spacing={4} pb={4}>
         {teams.map((team) => (
           <Box key={team!.id}>
             <Link

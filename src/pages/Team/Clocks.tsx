@@ -7,6 +7,7 @@ import { TeamMember } from "src/__generated__/graphql";
 interface Props {
   teammates: TeamMember[];
 }
+
 export default function Clocks({ teammates }: Props) {
   const timezones = useMemo(
     () =>

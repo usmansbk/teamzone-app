@@ -5,6 +5,7 @@ import { User } from "src/__generated__/graphql";
 interface Props {
   tz: User["tzData"];
 }
+
 export default function Clock({ tz }: Props) {
   const { palette } = useTheme();
   const { countryName, name } = tz!;
@@ -16,6 +17,7 @@ export default function Clock({ tz }: Props) {
           palette.mode === "dark" ? palette.grey["800"] : palette.grey["100"],
         p: 2,
         width: "fit-content",
+        textAlign: "end",
       }}
     >
       <Typography variant="h6">{countryName}</Typography>
