@@ -543,6 +543,49 @@ export type MeQuery = {
       id: string;
       name: string;
       logo?: any | null;
+      isOwner: boolean;
+      isMember: boolean;
+      isAdmin: boolean;
+      inviteCode?: string | null;
+      createdAt: any;
+      updatedAt?: any | null;
+      owner: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        picture?: any | null;
+        isMe: boolean;
+      };
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        isMe?: boolean | null;
+        joinedAt: any;
+        role?: TeamRole | null;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          isMe: boolean;
+          picture?: any | null;
+          tzData?: {
+            __typename?: "TimezoneData";
+            name: any;
+            abbreviation: string;
+            alternativeName?: string | null;
+            continentCode: string;
+            continentName: string;
+            countryCode?: any | null;
+            countryName: string;
+            currentTimeFormat: string;
+            currentTimeOffsetInMinutes: number;
+            group?: Array<any | null> | null;
+            mainCities?: Array<string | null> | null;
+            rawFormat: string;
+            rawOffsetInMinutes: number;
+          } | null;
+        };
+      } | null>;
     } | null>;
     createdTeams: Array<{
       __typename?: "Team";
@@ -1263,6 +1306,202 @@ export const MeDocument = {
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "logo" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isOwner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isMember" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isAdmin" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "inviteCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "joinedAt" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "role" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "isMe" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "tzData" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "name" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "abbreviation",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "continentCode",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "continentName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "countryCode",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "countryName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "currentTimeFormat",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "currentTimeOffsetInMinutes",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "group",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "mainCities",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "rawFormat",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "rawOffsetInMinutes",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
