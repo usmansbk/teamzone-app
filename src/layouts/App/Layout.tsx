@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useCallback, cloneElement, ReactElement } from "react";
 import {
   useScrollTrigger,
   Avatar,
@@ -9,16 +9,18 @@ import {
   AppBar,
   Drawer,
   Popover,
+  Button,
 } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Menu as MenuIcon } from "@mui/icons-material";
+import NewTeamDialog from "src/components/NewTeamDialog";
 import { User } from "src/__generated__/graphql";
 import ThemeButton from "src/components/ThemeButton";
 import DropdownContent from "./DropdownContent";
 import DrawerContent from "./DrawerContent";
 
 interface ElevationScrollProps {
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
 const drawerWidth = 240;
@@ -30,7 +32,7 @@ function ElevationScroll(props: ElevationScrollProps) {
     threshold: 0,
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     elevation: trigger ? 1 : 0,
   });
 }
@@ -40,10 +42,11 @@ interface Props {
 }
 
 function Layout({ user }: Props) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [openTeamForm, setOpenTeamForm] = useState(false);
+
+  const closeTeamForm = useCallback(() => setOpenTeamForm(false), []);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -80,7 +83,15 @@ function Layout({ user }: Props) {
               >
                 <MenuIcon />
               </IconButton>
-              <Box display="flex" flexGrow={1} />
+              <Box display="flex" flexGrow={1}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => setOpenTeamForm(true)}
+                >
+                  Create new Team
+                </Button>
+              </Box>
               <ThemeButton />
               <Box>
                 <IconButton edge="end" onClick={handleOpenUserMenu}>
@@ -161,6 +172,7 @@ function Layout({ user }: Props) {
       >
         <Toolbar disableGutters />
         <Outlet />
+        <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
       </Box>
     </Box>
   );
