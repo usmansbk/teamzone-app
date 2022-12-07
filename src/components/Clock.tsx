@@ -16,7 +16,8 @@ export default function Clock({ tz }: Props) {
       sx={{
         background:
           palette.mode === "dark" ? palette.grey["800"] : palette.grey["100"],
-        p: 2,
+        px: 2,
+        py: 1,
         width: "fit-content",
         textAlign: "end",
       }}
@@ -35,8 +36,8 @@ export default function Clock({ tz }: Props) {
         />
         <Typography variant="h6">{countryName}</Typography>
       </Stack>
-      <Typography>{getLocalTime(name)}</Typography>
-      <Typography>{getLocalDate(name, "LL")}</Typography>
+      <Typography variant="subtitle1">{getLocalTime(name)}</Typography>
+      <Typography>{getLocalDate(name, "MMM D")}</Typography>
     </Box>
   );
 }

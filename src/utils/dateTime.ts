@@ -9,11 +9,11 @@ dayjs.extend(tz);
 dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 
-export function getLocalTime(timezone: string) {
-  return dayjs().tz(timezone).format("LT");
+export function getLocalTime(timezone: string, format = "HH:mm:ss") {
+  return dayjs().tz(timezone).format(format);
 }
 
-export function getLocalDate(timezone: string, format: string) {
+export function getLocalDate(timezone: string, format = "dddd, D MMMM, YYYY") {
   return dayjs().tz(timezone).format(format);
 }
 
