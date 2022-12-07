@@ -26,7 +26,7 @@ export default function CreatedTeams() {
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} alignItems="center">
         {!createdTeams.length && (
-          <Typography variant="h4">
+          <Typography variant="h4" sx={{ textAlign: "center" }}>
             You haven't created any teams yet!
           </Typography>
         )}

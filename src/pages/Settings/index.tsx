@@ -46,32 +46,29 @@ export default function Settings() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexGrow: 1,
-        bgcolor: "background.paper",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Tabs
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Settings tabs"
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <Tab label="Profile" {...a11yProps(0)} />
-        <Tab label="Teams" {...a11yProps(1)} />
-      </Tabs>
-      <Box sx={{ width: "100%" }}>
-        <TabPanel value={value} index={0}>
-          <Profile />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <CreatedTeams />
-        </TabPanel>
+        <Tabs
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Settings tabs"
+        >
+          <Tab label="Profile" {...a11yProps(0)} />
+          <Tab label="Teams" {...a11yProps(1)} />
+        </Tabs>
       </Box>
+      <TabPanel value={value} index={0}>
+        <Profile />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <CreatedTeams />
+      </TabPanel>
     </Box>
   );
 }

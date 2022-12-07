@@ -4,7 +4,7 @@ import {
   Stack,
   Grid,
   Autocomplete,
-  CircularProgress,
+  LinearProgress,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -80,12 +80,10 @@ export default function Profile() {
     [timezones]
   );
 
-  if (loadingTimezones) {
-    return <CircularProgress />;
-  }
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} alignItems="center">
+        {loadingTimezones && <LinearProgress sx={{ mb: 2 }} />}
         <Stack justifyContent="center" alignItems="center">
           <UploadAvatar />
         </Stack>
@@ -151,7 +149,7 @@ export default function Profile() {
             type="submit"
             variant="contained"
             size="large"
-            disabled={!isDirty}
+            disabled={!isDirty || loadingTimezones}
           >
             Save Profile Information
           </LoadingButton>
