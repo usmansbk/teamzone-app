@@ -7463,10 +7463,10 @@ i18next-http-backend@^2.0.2:
   dependencies:
     cross-fetch "3.1.5"
 
-i18next@^22.1.1:
-  version "22.1.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.1.1.tgz#91c69421783d8c48b7299a483f8b0cdb2491eaab"
-  integrity sha512-0c7qcQ6sjdQ/qB9I6OTDSKO17YeqtEmwBKcTeML51iJSIoFM6JQePV7igOfmlj0CR+AhmhpeUp71ZMfU4t6NZg==
+i18next@^22.1.4:
+  version "22.1.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.1.4.tgz#907a4e710889ae23fb92f3510a0f7147823f92ff"
+  integrity sha512-MCDtNRyovLY22rgLoZdCzg2QIza1V1A/3Hxb99akJzTDjcqCRWEsglTpFUt0vUjOxSxz+WmxmFETLHORRS+n6Q==
   dependencies:
     "@babel/runtime" "^7.20.6"
 

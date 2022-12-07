@@ -15,7 +15,7 @@
     "dayjs": "^1.11.7",
     "deepmerge": "^4.2.2",
     "graphql": "^16.6.0",
-    "i18next": "^22.1.1",
+    "i18next": "^22.1.4",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.0.2",
     "lodash.uniqby": "^4.7.0",
