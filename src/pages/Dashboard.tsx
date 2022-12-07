@@ -1,20 +1,14 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
 import NewTeamDialog from "src/components/NewTeamDialog";
-import useMe from "src/hooks/api/useMe";
-import routeMap from "src/routeMap";
-import Clocks from "./Team/Clocks";
 
 export default function Dashboard() {
   const [openTeamForm, setOpenTeamForm] = useState(false);
-  const { data } = useMe();
 
   const closeTeamForm = useCallback(() => setOpenTeamForm(false), []);
-  const { teams } = data!;
 
   return (
-    <Container maxWidth="md">
+    <Box px={3}>
       <Box mb={2}>
         <Button
           variant="contained"
@@ -24,22 +18,10 @@ export default function Dashboard() {
           Create new Team
         </Button>
       </Box>
-      <Stack spacing={4} pb={4}>
-        {teams.map((team) => (
-          <Box key={team!.id}>
-            <Link
-              to={routeMap.team.replace(":id", team!.id)}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Typography mb={1} variant="h5">
-                {team?.name}
-              </Typography>
-            </Link>
-            <Clocks teammates={team?.teammates as any} />
-          </Box>
-        ))}
-      </Stack>
+      <Box>
+        <Typography>Time in Nigeria now</Typography>
+      </Box>
       <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
-    </Container>
+    </Box>
   );
 }

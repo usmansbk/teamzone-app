@@ -1,6 +1,5 @@
 import { Edit, PersonAdd } from "@mui/icons-material";
 import {
-  Container,
   LinearProgress,
   Typography,
   Button,
@@ -41,7 +40,7 @@ export default function Team() {
   const { name, teammates, isOwner, isMember, inviteCode, isAdmin } = data!;
 
   return (
-    <Container maxWidth="md">
+    <Box maxWidth="md" px={3}>
       <Typography variant="h4" sx={{ wordBreak: "break-all", mb: 2 }}>
         {name}
         {(isOwner || isAdmin) && (
@@ -137,6 +136,6 @@ export default function Team() {
         open={openInviteDialog}
         onClose={() => setOpenInviteDialog(false)}
       />
-    </Container>
+    </Box>
   );
 }
