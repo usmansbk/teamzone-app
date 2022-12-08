@@ -24,14 +24,14 @@ export default function Dashboard() {
 
   return (
     <Box p={3}>
-      <Typography variant="h4" sx={{ fontWeight: 400 }}>
+      <Typography variant="h4" fontWeight={400}>
         Time in <span style={{ fontWeight: 900 }}>{countryName}</span> now
       </Typography>
       <Typography variant="h1">
         {dateTime.tz(name).format("HH:mm:ss")}
       </Typography>
       <Stack spacing={1}>
-        <Typography variant="h4" sx={{ fontWeight: 400 }}>
+        <Typography variant="h4" fontWeight={400}>
           {getLocalDate(name)}
         </Typography>
         <Countries teammates={teammates} />

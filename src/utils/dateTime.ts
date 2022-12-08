@@ -9,7 +9,7 @@ dayjs.extend(tz);
 dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 
-export function getLocalTime(timezone: string, format = "HH:mm:ss") {
+export function getLocalTime(timezone: string, format = "HH:mm") {
   return dayjs().tz(timezone).format(format);
 }
 
@@ -25,10 +25,8 @@ export function getLocalDate(timezone: string, format = "dddd, D MMMM, YYYY") {
   return dayjs().tz(timezone).format(format);
 }
 
-export function formatUTCOffset(offset: number) {
-  const utcOffset = dayjs.duration(offset, "minutes").format("HH:mm");
-
-  return offset > 0 ? `+${utcOffset}` : utcOffset;
+export function formatUTCOffset(timezone: string) {
+  return dayjs().tz(timezone).format("Z");
 }
 
 export default dayjs;

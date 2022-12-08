@@ -28,8 +28,8 @@ export default function DrawerContent({ teams }: Props) {
           component={Link}
           to={routeMap.home}
           noWrap
+          fontWeight={900}
           sx={{
-            fontWeight: 900,
             textDecoration: "none",
           }}
         >
@@ -39,7 +39,7 @@ export default function DrawerContent({ teams }: Props) {
       <Divider />
       <List>
         <ListSubheader>
-          <Typography style={{ fontWeight: 700 }}>Teams</Typography>
+          <Typography fontWeight={700}>Teams</Typography>
         </ListSubheader>
         {!teams.length && (
           <ListItem>

@@ -11,22 +11,19 @@ import {
   MenuItem,
   ListItemIcon,
   Stack,
-  Tooltip,
 } from "@mui/material";
 import React, { memo, useState } from "react";
 import MakeAdminDialog from "src/components/MakeAdminDialog";
 import MakeMemberDialog from "src/components/MakeMemberDialog";
 import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
-import { formatUTCOffset, getLocalTime } from "src/utils/dateTime";
 
-function TeamMemberItem({
-  teammate,
-  hasPermission,
-}: {
+interface Props {
   teammate: TeamMember;
   hasPermission: boolean;
-}) {
+}
+
+function TeamMemberItem({ teammate, hasPermission }: Props) {
   const [openMakeAdminDialog, setOpenMakeAdminDialog] = useState(false);
   const [openMakeMemberDialog, setOpenMakeMemberDialog] = useState(false);
   const [openRemoveTeamMemberDialog, setOpenRemoveTeamMemberDialog] =
@@ -45,13 +42,7 @@ function TeamMemberItem({
 
   const isAdmin = role === TeamRole.Admin;
 
-  const {
-    name,
-    countryName,
-    abbreviation,
-    alternativeName,
-    rawOffsetInMinutes,
-  } = tzData!;
+  const { countryName } = tzData!;
 
   return (
     <>
@@ -73,26 +64,14 @@ function TeamMemberItem({
         <ListItemText
           primary={
             <Stack direction="row">
-              <Typography sx={{ fontWeight: 900 }}>{fullName}</Typography>
+              <Typography fontWeight={900}>{fullName}</Typography>
               {isAdmin && <Chip sx={{ ml: 1 }} label="Admin" size="small" />}
             </Stack>
           }
           primaryTypographyProps={{
             fontWeight: 600,
           }}
-          secondary={
-            <Typography>
-              {getLocalTime(name)}{" "}
-              <Tooltip
-                title={`${alternativeName} UTC ${formatUTCOffset(
-                  rawOffsetInMinutes
-                )}`}
-              >
-                <span>{abbreviation}</span>
-              </Tooltip>{" "}
-              {countryName}
-            </Typography>
-          }
+          secondary={<Typography fontWeight={600}>{countryName}</Typography>}
         />
       </ListItem>
       <Menu

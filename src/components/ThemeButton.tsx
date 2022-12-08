@@ -77,7 +77,7 @@ export default function ThemeButton() {
             onClick={handleOption(value)}
           >
             <ListItemIcon>{icon}</ListItemIcon>
-            <Typography variant="caption" style={{ fontWeight: 700 }}>
+            <Typography variant="caption" fontWeight={700}>
               {value.toUpperCase()}
             </Typography>
           </MenuItem>

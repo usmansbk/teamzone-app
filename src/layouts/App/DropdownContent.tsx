@@ -30,7 +30,7 @@ export default function DropdownContent({ user }: Props) {
             <Avatar alt={user.fullName} src={user.picture} />
           </Grid>
           <Grid item zeroMinWidth>
-            <Typography sx={{ fontWeight: 700 }} noWrap>
+            <Typography fontWeight={700} noWrap>
               {user.fullName}
             </Typography>
             <Typography variant="caption">{user.email}</Typography>
