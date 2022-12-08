@@ -11,7 +11,7 @@ interface Props {
   teammates: TeamMember[];
 }
 
-export default function Countries({ teammates }: Props) {
+export default function CountriesClocks({ teammates }: Props) {
   const { dateTime } = useTime();
   const timezones = useMemo(
     () =>

@@ -8,7 +8,7 @@ import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
 import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember } from "src/__generated__/graphql";
-import Countries from "./Team/Countries";
+import Countries from "../components/CountriesClocks";
 
 export default function Dashboard() {
   const { data } = useMe();

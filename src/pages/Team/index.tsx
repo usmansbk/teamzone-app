@@ -16,7 +16,7 @@ import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember } from "src/__generated__/graphql";
-import Countries from "./Countries";
+import Countries from "src/components/CountriesClocks";
 import MembersList from "./MembersList";
 
 export default function Team() {
