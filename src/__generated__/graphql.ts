@@ -259,19 +259,24 @@ export type MutationUpdateTeamArgs = {
 export type Query = {
   __typename?: "Query";
   getTeamById: Team;
+  getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
-  timezones: Array<TimezoneData>;
+  timezones: Array<Scalars["String"]>;
 };
 
 export type QueryGetTeamByIdArgs = {
   id: Scalars["ID"];
 };
 
+export type QueryGetTimezonesByCountryArgs = {
+  countryCode: Scalars["CountryCode"];
+};
+
 export type SocialLoginInput = {
   code: Scalars["String"];
   locale?: InputMaybe<Scalars["Locale"]>;
   provider: SocialProvider;
-  timezone?: InputMaybe<Scalars["TimeZone"]>;
+  timezone?: InputMaybe<Scalars["NonEmptyString"]>;
 };
 
 export enum SocialProvider {
@@ -323,22 +328,14 @@ export type TimezoneData = {
   continentCode: Scalars["String"];
   continentName: Scalars["String"];
   countryCode?: Maybe<Scalars["CountryCode"]>;
-  countryFlag: Scalars["URL"];
   countryName: Scalars["String"];
   currentTimeFormat: Scalars["String"];
   currentTimeOffsetInMinutes: Scalars["Int"];
-  group?: Maybe<Array<Maybe<Scalars["TimeZone"]>>>;
+  group: Array<Maybe<Scalars["String"]>>;
   mainCities?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  name: Scalars["TimeZone"];
+  name: Scalars["String"];
   rawFormat: Scalars["String"];
   rawOffsetInMinutes: Scalars["Int"];
-  sunrise?: Maybe<Scalars["DateTime"]>;
-  sunset?: Maybe<Scalars["DateTime"]>;
-  teammates: Array<Maybe<TeamMember>>;
-};
-
-export type TimezoneDataCountryFlagArgs = {
-  height?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
 export type UpdateTeamInput = {
@@ -350,7 +347,7 @@ export type UpdateUserProfileInput = {
   firstName: Scalars["NonEmptyString"];
   lastName: Scalars["NonEmptyString"];
   locale: Scalars["Locale"];
-  timezone: Scalars["TimeZone"];
+  timezone: Scalars["NonEmptyString"];
 };
 
 export type User = {
@@ -368,7 +365,7 @@ export type User = {
   locale?: Maybe<Scalars["Locale"]>;
   picture?: Maybe<Scalars["URL"]>;
   teams: Array<Maybe<Team>>;
-  timezone?: Maybe<Scalars["TimeZone"]>;
+  timezone?: Maybe<Scalars["String"]>;
   tzData?: Maybe<TimezoneData>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -441,7 +438,7 @@ export type QueryQuery = {
         picture?: any | null;
         tzData?: {
           __typename?: "TimezoneData";
-          name: any;
+          name: string;
           abbreviation: string;
           alternativeName?: string | null;
           countryCode?: any | null;
@@ -454,14 +451,7 @@ export type QueryQuery = {
 
 export type TimezonesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type TimezonesQuery = {
-  __typename?: "Query";
-  timezones: Array<{
-    __typename?: "TimezoneData";
-    name: any;
-    alternativeName?: string | null;
-  }>;
-};
+export type TimezonesQuery = { __typename?: "Query"; timezones: Array<string> };
 
 export type JoinTeamMutationVariables = Exact<{
   inviteCode: Scalars["ID"];
@@ -535,7 +525,7 @@ export type MeQuery = {
     lastName: string;
     email: any;
     locale?: any | null;
-    timezone?: any | null;
+    timezone?: string | null;
     picture?: any | null;
     updatedAt?: any | null;
     teams: Array<{
@@ -570,7 +560,7 @@ export type MeQuery = {
           picture?: any | null;
           tzData?: {
             __typename?: "TimezoneData";
-            name: any;
+            name: string;
             abbreviation: string;
             alternativeName?: string | null;
             countryCode?: any | null;
@@ -587,7 +577,7 @@ export type MeQuery = {
     } | null>;
     tzData?: {
       __typename?: "TimezoneData";
-      name: any;
+      name: string;
       abbreviation: string;
       alternativeName?: string | null;
       countryCode?: any | null;
@@ -618,7 +608,7 @@ export type UpdateProfileMutation = {
     firstName: string;
     lastName: string;
     locale?: any | null;
-    timezone?: any | null;
+    timezone?: string | null;
     updatedAt?: any | null;
   };
 };
@@ -905,20 +895,7 @@ export const TimezonesDocument = {
       selectionSet: {
         kind: "SelectionSet",
         selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "timezones" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "name" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "alternativeName" },
-                },
-              ],
-            },
-          },
+          { kind: "Field", name: { kind: "Name", value: "timezones" } },
         ],
       },
     },

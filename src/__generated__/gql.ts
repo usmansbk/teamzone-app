@@ -19,8 +19,7 @@ const documents = {
     types.DeleteTeamDocument,
   "\n\tquery Query($id: ID!) {\n\t\tgetTeamById(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tinviteCode\n\t\t\tcreatedAt\n\t\t\tupdatedAt\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\tjoinedAt\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tabbreviation\n\t\t\t\t\t\talternativeName\n\t\t\t\t\t\tcountryCode\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n":
     types.QueryDocument,
-  "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n":
-    types.TimezonesDocument,
+  "\n\tquery Timezones {\n\t\ttimezones\n\t}\n": types.TimezonesDocument,
   "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n":
     types.JoinTeamDocument,
   "\n\tmutation LeaveTeam($teamId: ID!) {\n\t\tleaveTeam(teamId: $teamId) {\n\t\t\tid\n\t\t\tteamId\n\t\t\tmemberId\n\t\t}\n\t}\n":
@@ -63,8 +62,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n"
-): typeof documents["\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\talternativeName\n\t\t}\n\t}\n"];
+  source: "\n\tquery Timezones {\n\t\ttimezones\n\t}\n"
+): typeof documents["\n\tquery Timezones {\n\t\ttimezones\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

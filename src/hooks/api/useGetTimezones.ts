@@ -8,7 +8,7 @@ export default function useGetTimezones() {
 
   return {
     loading,
-    data: data?.timezones,
+    data: data?.timezones || [],
     error,
   };
 }

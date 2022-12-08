@@ -75,11 +75,6 @@ export default function Profile() {
     }
   }, [updatedData]);
 
-  const timezoneOptions = useMemo(
-    () => timezones?.map((t) => t.name) || [],
-    [timezones]
-  );
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6} alignItems="center">
@@ -119,7 +114,7 @@ export default function Profile() {
             render={({ field: { value, onChange } }) => (
               <Autocomplete
                 value={value}
-                options={timezoneOptions}
+                options={timezones}
                 onChange={(e, val: string) => onChange(val)}
                 disablePortal
                 renderInput={(params) => (
