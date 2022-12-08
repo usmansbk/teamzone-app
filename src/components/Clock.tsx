@@ -1,15 +1,14 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { getLocalDate } from "src/utils/dateTime";
-import { User } from "src/__generated__/graphql";
-import Time from "./Time";
 
 interface Props {
-  tz: User["tzData"];
+  time: string;
+  date?: string;
+  countryName: string;
+  countryCode: string;
 }
 
-export default function Clock({ tz }: Props) {
+export default function Clock({ time, date, countryName, countryCode }: Props) {
   const { palette } = useTheme();
-  const { countryName, name, countryCode } = tz!;
   const country = countryCode.toLowerCase();
 
   return (
@@ -37,8 +36,8 @@ export default function Clock({ tz }: Props) {
         />
         <Typography variant="h6">{countryName}</Typography>
       </Stack>
-      <Time variant="subtitle1" timezone={name} />
-      <Typography>{getLocalDate(name, "MMM D")}</Typography>
+      <Typography variant="subtitle1">{time}</Typography>
+      {!!date && <Typography>{date}</Typography>}
     </Box>
   );
 }

@@ -1,9 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import uniqueBy from "lodash.uniqby";
 import { useMemo } from "react";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import { getLocalDate } from "src/utils/dateTime";
+import { TeamMember } from "src/__generated__/graphql";
+import Countries from "./Team/Countries";
 
 export default function Dashboard() {
   const { data } = useMe();
@@ -11,16 +13,15 @@ export default function Dashboard() {
   const { countryName, name } = tzData!;
   const { dateTime } = useTime();
 
-  const timezones = useMemo(
+  const teammates = useMemo(
     () =>
       uniqueBy(
-        teams.flatMap((t) => t!.teammates.map((tm) => tm!.member.tzData)),
+        teams.flatMap((t) => t!.teammates),
         "name"
-      ).filter((t) => t?.name !== name),
+      ).filter((t) => t?.member.tzData?.name !== name),
     [teams, name]
-  );
+  ) as TeamMember[];
 
-  console.log(timezones);
   return (
     <Box p={3}>
       <Typography variant="h4" sx={{ fontWeight: 400 }}>
@@ -29,9 +30,12 @@ export default function Dashboard() {
       <Typography variant="h1">
         {dateTime.tz(name).format("HH:mm:ss")}
       </Typography>
-      <Typography variant="h4" sx={{ fontWeight: 400 }}>
-        {getLocalDate(name)}
-      </Typography>
+      <Stack spacing={1}>
+        <Typography variant="h4" sx={{ fontWeight: 400 }}>
+          {getLocalDate(name)}
+        </Typography>
+        <Countries teammates={teammates} />
+      </Stack>
     </Box>
   );
 }
