@@ -21,7 +21,12 @@ export default function CountryClock({ name, time, date, countryName }: Props) {
       }}
     >
       <Typography variant="h4">{countryName}</Typography>
-      <Typography variant="h3" lineHeight={1}>
+      <Typography
+        variant="h3"
+        lineHeight={1}
+        fontFamily="Azeret Mono"
+        fontWeight={900}
+      >
         {time}
       </Typography>
       <Typography>{name.replaceAll("_", " ")}</Typography>

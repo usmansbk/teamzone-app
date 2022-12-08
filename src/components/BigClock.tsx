@@ -11,9 +11,10 @@ export default function BigClock({ time, date }: Props) {
     <Box>
       <Typography
         variant="h1"
+        fontFamily="Azeret Mono"
         sx={{
           [theme.breakpoints.up("lg")]: {
-            fontSize: "30vh",
+            fontSize: 230,
           },
         }}
       >
