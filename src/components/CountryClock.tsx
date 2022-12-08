@@ -7,7 +7,12 @@ interface Props {
   countryCode: string;
 }
 
-export default function Clock({ time, date, countryName, countryCode }: Props) {
+export default function CountryClock({
+  time,
+  date,
+  countryName,
+  countryCode,
+}: Props) {
   const { palette } = useTheme();
   const country = countryCode.toLowerCase();
 
