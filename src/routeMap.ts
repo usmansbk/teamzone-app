@@ -7,5 +7,5 @@ export default {
   settings: "/settings",
   me: "/settings/me",
   invite: "/invite/:code",
-  country: "/app/country/:code",
+  country: "/app/:code",
 };

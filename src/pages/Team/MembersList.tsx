@@ -12,22 +12,19 @@ import {
   ListItemIcon,
   Stack,
   List,
-  Tooltip,
 } from "@mui/material";
 import React, { memo, useState } from "react";
 import MakeAdminDialog from "src/components/MakeAdminDialog";
 import MakeMemberDialog from "src/components/MakeMemberDialog";
 import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
-import useTime from "src/hooks/useTime";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
 interface Props {
   teammate: TeamMember;
   hasPermission: boolean;
-  time: string;
 }
 
-function TeamMemberItem({ teammate, hasPermission, time }: Props) {
+function TeamMemberItem({ teammate, hasPermission }: Props) {
   const [openMakeAdminDialog, setOpenMakeAdminDialog] = useState(false);
   const [openMakeMemberDialog, setOpenMakeMemberDialog] = useState(false);
   const [openRemoveTeamMemberDialog, setOpenRemoveTeamMemberDialog] =
@@ -46,7 +43,7 @@ function TeamMemberItem({ teammate, hasPermission, time }: Props) {
 
   const isAdmin = role === TeamRole.Admin;
 
-  const { abbreviation, countryName, alternativeName } = tzData!;
+  const { countryName, name } = tzData!;
 
   return (
     <>
@@ -77,11 +74,7 @@ function TeamMemberItem({ teammate, hasPermission, time }: Props) {
           }}
           secondary={
             <Typography fontWeight={500}>
-              {time}{" "}
-              <Tooltip title={alternativeName}>
-                <span>{abbreviation}</span>
-              </Tooltip>{" "}
-              {countryName}
+              {name} {countryName}
             </Typography>
           }
         />
@@ -173,12 +166,10 @@ interface MemberListProps {
 }
 
 function MembersList({ teammates, editable }: MemberListProps) {
-  const { dateTime } = useTime();
   return (
     <List>
       {teammates.map((teammate) => (
         <TeamMemberItem
-          time={dateTime.tz(teammate!.member!.tzData!.name).format("HH:mm")}
           teammate={teammate as any}
           key={teammate!.id}
           hasPermission={editable}
