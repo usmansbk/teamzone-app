@@ -11,23 +11,9 @@ export default gql(`
       locale
       timezone
       picture
-      updatedAt
       teams {
         id
         name
-        logo
-        isOwner
-        isMember
-        isAdmin
-        inviteCode
-        createdAt
-        updatedAt
-        owner {
-          id
-          fullName
-          picture
-          isMe
-        }
         teammates {
           id
           isMe
@@ -35,14 +21,9 @@ export default gql(`
           role
           member {
             id
-            fullName
-            isMe
-            picture
 					  timezone
             tzData {
               name
-              abbreviation
-              alternativeName
               countryCode
               countryName
             }
@@ -56,8 +37,6 @@ export default gql(`
       }
       tzData {
         name
-        abbreviation
-        alternativeName
         countryCode
         countryName
       }

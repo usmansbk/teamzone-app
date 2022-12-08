@@ -533,25 +533,10 @@ export type MeQuery = {
     locale?: any | null;
     timezone?: string | null;
     picture?: any | null;
-    updatedAt?: any | null;
     teams: Array<{
       __typename?: "Team";
       id: string;
       name: string;
-      logo?: any | null;
-      isOwner: boolean;
-      isMember: boolean;
-      isAdmin: boolean;
-      inviteCode?: string | null;
-      createdAt: any;
-      updatedAt?: any | null;
-      owner: {
-        __typename?: "User";
-        id: string;
-        fullName: string;
-        picture?: any | null;
-        isMe: boolean;
-      };
       teammates: Array<{
         __typename?: "TeamMember";
         id: string;
@@ -561,15 +546,10 @@ export type MeQuery = {
         member: {
           __typename?: "User";
           id: string;
-          fullName: string;
-          isMe: boolean;
-          picture?: any | null;
           timezone?: string | null;
           tzData?: {
             __typename?: "TimezoneData";
             name: string;
-            abbreviation: string;
-            alternativeName?: string | null;
             countryCode?: any | null;
             countryName: string;
           } | null;
@@ -585,8 +565,6 @@ export type MeQuery = {
     tzData?: {
       __typename?: "TimezoneData";
       name: string;
-      abbreviation: string;
-      alternativeName?: string | null;
       countryCode?: any | null;
       countryName: string;
     } | null;
@@ -1221,7 +1199,6 @@ export const MeDocument = {
                 { kind: "Field", name: { kind: "Name", value: "locale" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "picture" } },
-                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "teams" },
@@ -1230,56 +1207,6 @@ export const MeDocument = {
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
-                      { kind: "Field", name: { kind: "Name", value: "logo" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "isOwner" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "isMember" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "isAdmin" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "inviteCode" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "createdAt" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "updatedAt" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "owner" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "fullName" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "picture" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "isMe" },
-                            },
-                          ],
-                        },
-                      },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "teammates" },
@@ -1314,18 +1241,6 @@ export const MeDocument = {
                                   },
                                   {
                                     kind: "Field",
-                                    name: { kind: "Name", value: "fullName" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "isMe" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "picture" },
-                                  },
-                                  {
-                                    kind: "Field",
                                     name: { kind: "Name", value: "timezone" },
                                   },
                                   {
@@ -1337,20 +1252,6 @@ export const MeDocument = {
                                         {
                                           kind: "Field",
                                           name: { kind: "Name", value: "name" },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "abbreviation",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "alternativeName",
-                                          },
                                         },
                                         {
                                           kind: "Field",
@@ -1397,14 +1298,6 @@ export const MeDocument = {
                     kind: "SelectionSet",
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "name" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "abbreviation" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "alternativeName" },
-                      },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "countryCode" },
