@@ -36,7 +36,6 @@ export default gql(`
 						continentName
 						countryCode
 						countryName
-						countryFlag
 						currentTimeFormat
 						currentTimeOffsetInMinutes
 						group

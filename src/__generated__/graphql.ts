@@ -448,7 +448,6 @@ export type QueryQuery = {
           continentName: string;
           countryCode?: any | null;
           countryName: string;
-          countryFlag: any;
           currentTimeFormat: string;
           currentTimeOffsetInMinutes: number;
           group?: Array<any | null> | null;
@@ -586,7 +585,6 @@ export type MeQuery = {
             continentName: string;
             countryCode?: any | null;
             countryName: string;
-            countryFlag: any;
             currentTimeFormat: string;
             currentTimeOffsetInMinutes: number;
             group?: Array<any | null> | null;
@@ -612,7 +610,6 @@ export type MeQuery = {
       continentName: string;
       countryCode?: any | null;
       countryName: string;
-      countryFlag: any;
       currentTimeFormat: string;
       currentTimeOffsetInMinutes: number;
       group?: Array<any | null> | null;
@@ -917,13 +914,6 @@ export const QueryDocument = {
                                     name: {
                                       kind: "Name",
                                       value: "countryName",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "countryFlag",
                                     },
                                   },
                                   {
@@ -1473,13 +1463,6 @@ export const MeDocument = {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
-                                            value: "countryFlag",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
                                             value: "currentTimeFormat",
                                           },
                                         },
@@ -1572,10 +1555,6 @@ export const MeDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "countryName" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "countryFlag" },
                       },
                       {
                         kind: "Field",
