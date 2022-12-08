@@ -12,9 +12,8 @@ export default function BigClock({ time, date }: Props) {
       <Typography
         variant="h1"
         sx={{
-          lineHeight: 1,
           [theme.breakpoints.up("lg")]: {
-            fontSize: 280,
+            fontSize: 277,
           },
         }}
       >

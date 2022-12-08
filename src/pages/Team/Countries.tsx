@@ -4,6 +4,8 @@ import uniqBy from "lodash.uniqby";
 import Clock from "src/components/CountryClock";
 import { TeamMember } from "src/__generated__/graphql";
 import useTime from "src/hooks/useTime";
+import { Link } from "react-router-dom";
+import routeMap from "src/routeMap";
 
 interface Props {
   teammates: TeamMember[];
@@ -29,12 +31,17 @@ export default function Countries({ teammates }: Props) {
 
         return (
           <Grid item key={name}>
-            <Clock
-              date={date}
-              time={time}
-              countryCode={countryCode}
-              countryName={countryName}
-            />
+            <Link
+              to={routeMap.country.replace(":code", countryCode)}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Clock
+                date={date}
+                time={time}
+                countryCode={countryCode}
+                countryName={countryName}
+              />
+            </Link>
           </Grid>
         );
       })}

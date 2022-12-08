@@ -17,6 +17,7 @@ import Dashboard from "./Dashboard";
 import Team from "./Team";
 import Settings from "./Settings";
 import AcceptInvitation from "./AcceptInvitation";
+import Country from "./Country";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
           {
             path: routeMap.team,
             element: <Team />,
+          },
+          {
+            path: routeMap.country,
+            element: <Country />,
           },
         ],
       },

@@ -1,16 +1,18 @@
 import { Box, Stack, Typography } from "@mui/material";
 import uniqueBy from "lodash.uniqby";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import BigClock from "src/components/BigClock";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
+import routeMap from "src/routeMap";
 import { TeamMember } from "src/__generated__/graphql";
 import Countries from "./Team/Countries";
 
 export default function Dashboard() {
   const { data } = useMe();
   const { tzData, teams } = data!;
-  const { countryName, name } = tzData!;
+  const { countryName, name, countryCode } = tzData!;
   const { dateTime } = useTime();
 
   const teammates = useMemo(
@@ -25,7 +27,21 @@ export default function Dashboard() {
   return (
     <Box p={3}>
       <Typography variant="h4" fontWeight={400}>
-        Time in <span style={{ fontWeight: 900 }}>{countryName}</span> now
+        Time in{" "}
+        <Link
+          to={routeMap.country.replace(":code", countryCode)}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={900}
+            display="inline-block"
+            color="primary"
+          >
+            {countryName}
+          </Typography>
+        </Link>{" "}
+        now
       </Typography>
       <Stack spacing={1}>
         <BigClock
