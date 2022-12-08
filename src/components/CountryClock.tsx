@@ -4,17 +4,11 @@ interface Props {
   time: string;
   date?: string;
   countryName: string;
-  countryCode: string;
+  flag: string;
 }
 
-export default function CountryClock({
-  time,
-  date,
-  countryName,
-  countryCode,
-}: Props) {
+export default function CountryClock({ time, date, countryName, flag }: Props) {
   const { palette } = useTheme();
-  const country = countryCode.toLowerCase();
 
   return (
     <Box
@@ -32,11 +26,7 @@ export default function CountryClock({
         sx={{ alignItems: "center", justifyContent: "flex-end" }}
         spacing={1}
       >
-        <img
-          src={`https://flagcdn.com/h20/${country}.png`}
-          height="20"
-          alt={countryName}
-        />
+        <img src={flag} height="20" alt={countryName} />
         <Typography variant="h6">{countryName}</Typography>
       </Stack>
       <Typography variant="subtitle1">{time}</Typography>

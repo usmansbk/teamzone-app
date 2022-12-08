@@ -326,11 +326,16 @@ export type TimezoneData = {
   countryName: Scalars["String"];
   currentTimeFormat: Scalars["String"];
   currentTimeOffsetInMinutes: Scalars["Int"];
+  flag: Scalars["URL"];
   group?: Maybe<Array<Maybe<Scalars["TimeZone"]>>>;
   mainCities?: Maybe<Array<Maybe<Scalars["String"]>>>;
   name: Scalars["TimeZone"];
   rawFormat: Scalars["String"];
   rawOffsetInMinutes: Scalars["Int"];
+};
+
+export type TimezoneDataFlagArgs = {
+  height?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
 export type UpdateTeamInput = {
@@ -446,6 +451,7 @@ export type QueryQuery = {
           mainCities?: Array<string | null> | null;
           rawFormat: string;
           rawOffsetInMinutes: number;
+          flag: any;
         } | null;
       };
     } | null>;
@@ -583,6 +589,7 @@ export type MeQuery = {
             mainCities?: Array<string | null> | null;
             rawFormat: string;
             rawOffsetInMinutes: number;
+            flag: any;
           } | null;
         };
       } | null>;
@@ -940,6 +947,10 @@ export const QueryDocument = {
                                       kind: "Name",
                                       value: "rawOffsetInMinutes",
                                     },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "flag" },
                                   },
                                 ],
                               },
@@ -1492,6 +1503,10 @@ export const MeDocument = {
                                             kind: "Name",
                                             value: "rawOffsetInMinutes",
                                           },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "flag" },
                                         },
                                       ],
                                     },

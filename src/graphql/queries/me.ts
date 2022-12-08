@@ -52,6 +52,7 @@ export default gql(`
               mainCities
               rawFormat
               rawOffsetInMinutes
+              flag
             }
           }
         }
