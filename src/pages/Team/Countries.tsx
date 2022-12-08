@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material";
 import { useMemo } from "react";
 import uniqBy from "lodash.uniqby";
-import Clock from "src/components/CountryClock";
 import { TeamMember } from "src/__generated__/graphql";
 import useTime from "src/hooks/useTime";
 import { Link } from "react-router-dom";
 import routeMap from "src/routeMap";
+import Clock from "./CountryClock";
 
 interface Props {
   teammates: TeamMember[];
