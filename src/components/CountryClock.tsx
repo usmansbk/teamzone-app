@@ -1,13 +1,13 @@
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 interface Props {
   time: string;
   date?: string;
   countryName: string;
-  flag: string;
+  name: string;
 }
 
-export default function CountryClock({ time, date, countryName, flag }: Props) {
+export default function CountryClock({ name, time, date, countryName }: Props) {
   const { palette } = useTheme();
 
   return (
@@ -17,20 +17,15 @@ export default function CountryClock({ time, date, countryName, flag }: Props) {
           palette.mode === "dark" ? palette.grey["800"] : palette.grey["100"],
         px: 2,
         py: 1,
-        width: "fit-content",
         textAlign: "end",
       }}
     >
-      <Stack
-        direction="row"
-        sx={{ alignItems: "center", justifyContent: "flex-end" }}
-        spacing={1}
-      >
-        <img src={flag} height="20" alt={countryName} />
-        <Typography variant="h6">{countryName}</Typography>
-      </Stack>
-      <Typography variant="subtitle1">{time}</Typography>
-      {!!date && <Typography>{date}</Typography>}
+      <Typography variant="h4">{countryName}</Typography>
+      <Typography variant="h3" lineHeight={1}>
+        {time}
+      </Typography>
+      <Typography>{name}</Typography>
+      {!!date && <Typography variant="body2">{date}</Typography>}
     </Box>
   );
 }
