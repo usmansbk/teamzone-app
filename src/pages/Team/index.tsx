@@ -7,7 +7,6 @@ import {
   IconButton,
   Tooltip,
   Box,
-  List,
 } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,7 +17,7 @@ import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember } from "src/__generated__/graphql";
 import Countries from "./Countries";
-import TeamMemberItem from "./TeamMemberItem";
+import MembersList from "./MembersList";
 
 export default function Team() {
   const { id } = useParams<{ id: string }>();
@@ -74,15 +73,10 @@ export default function Team() {
               </Button>
             </Box>
           </Stack>
-          <List>
-            {teammates.map((teammate) => (
-              <TeamMemberItem
-                teammate={teammate as any}
-                key={teammate!.id}
-                hasPermission={isOwner || isAdmin}
-              />
-            ))}
-          </List>
+          <MembersList
+            teammates={teammates as TeamMember[]}
+            editable={isOwner || isAdmin}
+          />
         </Box>
         <Stack spacing={1}>
           {isMember && (
