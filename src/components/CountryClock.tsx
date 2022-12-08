@@ -24,7 +24,7 @@ export default function CountryClock({ name, time, date, countryName }: Props) {
       <Typography variant="h3" lineHeight={1}>
         {time}
       </Typography>
-      <Typography>{name}</Typography>
+      <Typography>{name.replaceAll("_", " ")}</Typography>
       {!!date && <Typography variant="body2">{date}</Typography>}
     </Box>
   );
