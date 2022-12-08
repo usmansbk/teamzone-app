@@ -33,10 +33,8 @@ export default function CountryClock({
         spacing={1}
       >
         <img
-          src={`https://flagcdn.com/24x16/${country}.png`}
-          srcSet={`https://flagcdn.com/32x24/${country}.png 2x, https://flagcdn.com/48x36/${country}.png 3x`}
-          width="24"
-          height="16"
+          src={`https://flagcdn.com/h20/${country}.png`}
+          height="20"
           alt={countryName}
         />
         <Typography variant="h6">{countryName}</Typography>
