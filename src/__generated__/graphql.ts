@@ -259,12 +259,17 @@ export type MutationUpdateTeamArgs = {
 export type Query = {
   __typename?: "Query";
   getTeamById: Team;
+  getTimezoneById?: Maybe<TimezoneData>;
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
   timezones: Array<Scalars["String"]>;
 };
 
 export type QueryGetTeamByIdArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryGetTimezoneByIdArgs = {
   id: Scalars["ID"];
 };
 
@@ -436,6 +441,7 @@ export type QueryQuery = {
         fullName: string;
         isMe: boolean;
         picture?: any | null;
+        timezone?: string | null;
         tzData?: {
           __typename?: "TimezoneData";
           name: string;
@@ -558,6 +564,7 @@ export type MeQuery = {
           fullName: string;
           isMe: boolean;
           picture?: any | null;
+          timezone?: string | null;
           tzData?: {
             __typename?: "TimezoneData";
             name: string;
@@ -829,6 +836,10 @@ export const QueryDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "picture" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "timezone" },
                             },
                             {
                               kind: "Field",
@@ -1312,6 +1323,10 @@ export const MeDocument = {
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "timezone" },
                                   },
                                   {
                                     kind: "Field",

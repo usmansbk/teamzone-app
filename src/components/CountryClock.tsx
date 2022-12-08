@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
+import formatTimezoneName from "src/utils/formatTimezoneName";
 
 interface Props {
   time: string;
@@ -29,7 +30,7 @@ export default function CountryClock({ name, time, date, countryName }: Props) {
       >
         {time}
       </Typography>
-      <Typography>{name.replaceAll("_", " ")}</Typography>
+      <Typography>{formatTimezoneName(name)}</Typography>
       {!!date && <Typography variant="body2">{date}</Typography>}
     </Box>
   );

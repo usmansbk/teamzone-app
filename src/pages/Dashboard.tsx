@@ -6,22 +6,23 @@ import BigClock from "src/components/BigClock";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
+import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember } from "src/__generated__/graphql";
 import Countries from "./Team/Countries";
 
 export default function Dashboard() {
   const { data } = useMe();
-  const { tzData, teams } = data!;
-  const { countryName, name, countryCode } = tzData!;
+  const { tzData, teams, timezone } = data!;
+  const { countryName, countryCode } = tzData! || {};
   const { dateTime } = useTime();
 
   const teammates = useMemo(
     () =>
       uniqueBy(
         teams.flatMap((t) => t!.teammates),
-        "name"
-      ).filter((t) => t?.member.tzData?.name !== name),
-    [teams, name]
+        "member.timezone"
+      ).filter((t) => t?.member.timezone !== timezone),
+    [teams, timezone]
   ) as TeamMember[];
 
   return (
@@ -38,17 +39,19 @@ export default function Dashboard() {
             display="inline-block"
             color="primary"
           >
-            {countryName}
+            {formatTimezoneName(timezone!)}, {countryName}
           </Typography>
         </Link>{" "}
         now
       </Typography>
-      <Stack spacing={1}>
+      <Stack spacing={2} alignItems="flex-end">
         <BigClock
-          time={dateTime.tz(name).format("HH:mm:ss")}
-          date={dateTime.tz(name).format("dddd, MMMM D, YYYY")}
+          time={dateTime.tz(timezone!).format("HH:mm:ss")}
+          date={dateTime.tz(timezone!).format("dddd, MMMM D, YYYY")}
         />
-        <Countries teammates={teammates} />
+        <Box>
+          <Countries teammates={teammates} />
+        </Box>
       </Stack>
     </Box>
   );

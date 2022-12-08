@@ -8,7 +8,7 @@ interface Props {
 export default function BigClock({ time, date }: Props) {
   const theme = useTheme();
   return (
-    <Box>
+    <Box textAlign="end">
       <Typography
         variant="h1"
         fontFamily="Azeret Mono"

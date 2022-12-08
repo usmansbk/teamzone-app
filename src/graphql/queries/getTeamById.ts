@@ -28,6 +28,7 @@ export default gql(`
 					fullName
 					isMe
 					picture
+					timezone
 					tzData {
 						name
 						abbreviation
