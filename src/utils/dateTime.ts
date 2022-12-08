@@ -17,6 +17,10 @@ export function getRawLocalTime(timezone: string) {
   return dayjs().tz(timezone);
 }
 
+export function getCurrentDateTime() {
+  return dayjs();
+}
+
 export function getLocalDate(timezone: string, format = "dddd, D MMMM, YYYY") {
   return dayjs().tz(timezone).format(format);
 }
