@@ -13,7 +13,7 @@ export default function BigClock({ time, date }: Props) {
         variant="h1"
         sx={{
           [theme.breakpoints.up("lg")]: {
-            fontSize: 277,
+            fontSize: "30vh",
           },
         }}
       >
