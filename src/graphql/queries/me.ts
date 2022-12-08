@@ -46,13 +46,13 @@ export default gql(`
               continentName
               countryCode
               countryName
+						  countryFlag
               currentTimeFormat
               currentTimeOffsetInMinutes
               group
               mainCities
               rawFormat
               rawOffsetInMinutes
-              flag
             }
           }
         }

@@ -25,7 +25,7 @@ export default function Countries({ teammates }: Props) {
   return (
     <Grid container spacing={1}>
       {timezones.map((tz) => {
-        const { name, countryName, countryCode, flag } = tz!;
+        const { name, countryName, countryCode, countryFlag } = tz!;
         const date = dateTime.tz(name).format("ddd, MMM D");
         const time = dateTime.tz(name).format("HH:mm");
 
@@ -38,7 +38,7 @@ export default function Countries({ teammates }: Props) {
               <Clock
                 date={date}
                 time={time}
-                flag={flag}
+                flag={countryFlag}
                 countryName={countryName}
               />
             </Link>

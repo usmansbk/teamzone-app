@@ -323,18 +323,21 @@ export type TimezoneData = {
   continentCode: Scalars["String"];
   continentName: Scalars["String"];
   countryCode?: Maybe<Scalars["CountryCode"]>;
+  countryFlag: Scalars["URL"];
   countryName: Scalars["String"];
   currentTimeFormat: Scalars["String"];
   currentTimeOffsetInMinutes: Scalars["Int"];
-  flag: Scalars["URL"];
   group?: Maybe<Array<Maybe<Scalars["TimeZone"]>>>;
   mainCities?: Maybe<Array<Maybe<Scalars["String"]>>>;
   name: Scalars["TimeZone"];
   rawFormat: Scalars["String"];
   rawOffsetInMinutes: Scalars["Int"];
+  sunrise?: Maybe<Scalars["DateTime"]>;
+  sunset?: Maybe<Scalars["DateTime"]>;
+  teammates: Array<Maybe<TeamMember>>;
 };
 
-export type TimezoneDataFlagArgs = {
+export type TimezoneDataCountryFlagArgs = {
   height?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
@@ -445,13 +448,13 @@ export type QueryQuery = {
           continentName: string;
           countryCode?: any | null;
           countryName: string;
+          countryFlag: any;
           currentTimeFormat: string;
           currentTimeOffsetInMinutes: number;
           group?: Array<any | null> | null;
           mainCities?: Array<string | null> | null;
           rawFormat: string;
           rawOffsetInMinutes: number;
-          flag: any;
         } | null;
       };
     } | null>;
@@ -583,13 +586,13 @@ export type MeQuery = {
             continentName: string;
             countryCode?: any | null;
             countryName: string;
+            countryFlag: any;
             currentTimeFormat: string;
             currentTimeOffsetInMinutes: number;
             group?: Array<any | null> | null;
             mainCities?: Array<string | null> | null;
             rawFormat: string;
             rawOffsetInMinutes: number;
-            flag: any;
           } | null;
         };
       } | null>;
@@ -919,6 +922,13 @@ export const QueryDocument = {
                                     kind: "Field",
                                     name: {
                                       kind: "Name",
+                                      value: "countryFlag",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
                                       value: "currentTimeFormat",
                                     },
                                   },
@@ -947,10 +957,6 @@ export const QueryDocument = {
                                       kind: "Name",
                                       value: "rawOffsetInMinutes",
                                     },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "flag" },
                                   },
                                 ],
                               },
@@ -1466,6 +1472,13 @@ export const MeDocument = {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
+                                            value: "countryFlag",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
                                             value: "currentTimeFormat",
                                           },
                                         },
@@ -1503,10 +1516,6 @@ export const MeDocument = {
                                             kind: "Name",
                                             value: "rawOffsetInMinutes",
                                           },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "flag" },
                                         },
                                       ],
                                     },
