@@ -42,16 +42,8 @@ export default gql(`
               name
               abbreviation
               alternativeName
-              continentCode
-              continentName
               countryCode
               countryName
-              currentTimeFormat
-              currentTimeOffsetInMinutes
-              group
-              mainCities
-              rawFormat
-              rawOffsetInMinutes
             }
           }
         }
@@ -65,16 +57,8 @@ export default gql(`
         name
         abbreviation
         alternativeName
-        continentCode
-        continentName
         countryCode
         countryName
-        currentTimeFormat
-        currentTimeOffsetInMinutes
-        group
-        mainCities
-        rawFormat
-        rawOffsetInMinutes
       }
     }
   }
