@@ -42,7 +42,7 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
 
   const isAdmin = role === TeamRole.Admin;
 
-  const { countryName } = tzData!;
+  const { countryName, name } = tzData!;
 
   return (
     <>
@@ -71,7 +71,11 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
           primaryTypographyProps={{
             fontWeight: 600,
           }}
-          secondary={<Typography fontWeight={600}>{countryName}</Typography>}
+          secondary={
+            <Typography fontWeight={500}>
+              {name.replaceAll("_", " ")}, {countryName}
+            </Typography>
+          }
         />
       </ListItem>
       <Menu
