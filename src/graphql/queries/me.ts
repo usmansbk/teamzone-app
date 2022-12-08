@@ -16,9 +16,6 @@ export default gql(`
         name
         teammates {
           id
-          isMe
-          joinedAt
-          role
           member {
             id
 					  timezone

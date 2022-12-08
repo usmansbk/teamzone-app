@@ -540,9 +540,6 @@ export type MeQuery = {
       teammates: Array<{
         __typename?: "TeamMember";
         id: string;
-        isMe?: boolean | null;
-        joinedAt: any;
-        role?: TeamRole | null;
         member: {
           __typename?: "User";
           id: string;
@@ -1216,18 +1213,6 @@ export const MeDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "isMe" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "joinedAt" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "role" },
                             },
                             {
                               kind: "Field",
