@@ -1,8 +1,5 @@
 import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Grid, Box, Typography, Tab, Tabs } from "@mui/material";
 import Profile from "./Profile";
 import CreatedTeams from "./Teams";
 
@@ -23,7 +20,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ py: 3 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -46,13 +43,8 @@ export default function Settings() {
   };
 
   return (
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+    <Grid container justifyContent="center">
+      <Grid xs={12} md={6}>
         <Tabs
           variant="scrollable"
           value={value}
@@ -62,13 +54,13 @@ export default function Settings() {
           <Tab label="Profile" {...a11yProps(0)} />
           <Tab label="Teams" {...a11yProps(1)} />
         </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <Profile />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <CreatedTeams />
-      </TabPanel>
-    </Box>
+        <TabPanel value={value} index={0}>
+          <Profile />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <CreatedTeams />
+        </TabPanel>
+      </Grid>
+    </Grid>
   );
 }

@@ -1,5 +1,5 @@
 import {
-  Grid,
+  Box,
   CircularProgress,
   List,
   ListItem,
@@ -23,35 +23,33 @@ export default function CreatedTeams() {
     return <CircularProgress />;
   }
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} md={6} alignItems="center">
-        {!createdTeams.length && (
-          <Typography variant="h4" sx={{ textAlign: "center" }}>
-            You haven't created any teams yet!
-          </Typography>
-        )}
-        {!!createdTeams?.length && (
-          <List>
-            {createdTeams?.map((team) => (
-              <Link
-                key={team!.id}
-                to={routeMap.team.replace(":id", team!.id)}
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                <ListItem divider>
-                  <ListItemAvatar>
-                    <Avatar variant="rounded">{team?.name[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={team?.name}
-                    primaryTypographyProps={{ noWrap: true, fontWeight: 800 }}
-                  />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-        )}
-      </Grid>
-    </Grid>
+    <Box>
+      {!createdTeams.length && (
+        <Typography variant="h4" sx={{ textAlign: "center" }}>
+          You haven't created any teams yet!
+        </Typography>
+      )}
+      {!!createdTeams?.length && (
+        <List>
+          {createdTeams?.map((team) => (
+            <Link
+              key={team!.id}
+              to={routeMap.team.replace(":id", team!.id)}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <ListItem divider>
+                <ListItemAvatar>
+                  <Avatar variant="rounded">{team?.name[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={team?.name}
+                  primaryTypographyProps={{ noWrap: true, fontWeight: 800 }}
+                />
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      )}
+    </Box>
   );
 }

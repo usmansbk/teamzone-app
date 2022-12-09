@@ -2,9 +2,9 @@ import { LoadingButton } from "@mui/lab";
 import {
   TextField,
   Stack,
-  Grid,
   Autocomplete,
   LinearProgress,
+  Box,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -76,80 +76,76 @@ export default function Profile() {
   }, [updatedData]);
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12} md={6} alignItems="center">
-        {loadingTimezones && <LinearProgress sx={{ mb: 2 }} />}
-        <Stack justifyContent="center" alignItems="center">
-          <UploadAvatar />
-        </Stack>
-        <Stack
-          mt={2}
-          spacing={2}
-          component="form"
-          onSubmit={handleSubmit((values) =>
-            onSubmit(schema.cast(values, { stripUnknown: true }))
+    <Box>
+      {loadingTimezones && <LinearProgress sx={{ mb: 2 }} />}
+      <Stack justifyContent="center" alignItems="center">
+        <UploadAvatar />
+      </Stack>
+      <Stack
+        mt={2}
+        spacing={2}
+        component="form"
+        onSubmit={handleSubmit((values) =>
+          onSubmit(schema.cast(values, { stripUnknown: true }))
+        )}
+      >
+        <TextField
+          label="First name"
+          {...register("firstName")}
+          type="text"
+          autoComplete="given-name"
+          error={Boolean(touchedFields.firstName && errors.firstName?.message)}
+          helperText={errors.firstName?.message as string}
+        />
+        <TextField
+          label="Last name"
+          {...register("lastName")}
+          type="text"
+          autoComplete="family-name"
+          error={Boolean(touchedFields.lastName && errors.lastName?.message)}
+          helperText={errors.lastName?.message as string}
+        />
+        <Controller
+          control={control}
+          name="timezone"
+          render={({ field: { value, onChange } }) => (
+            <Autocomplete
+              value={value}
+              options={timezones}
+              onChange={(e, val: string) => onChange(val)}
+              disablePortal
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Timezone"
+                  helperText={errors.timezone?.message as string}
+                  error={Boolean(errors.timezone?.message)}
+                  InputLabelProps={{
+                    sx: {
+                      fontWeight: 800,
+                    },
+                  }}
+                  InputProps={{
+                    ...params.InputProps,
+                    sx: {
+                      fontWeight: 900,
+                    },
+                  }}
+                />
+              )}
+            />
           )}
+        />
+        <LoadingButton
+          loading={loading}
+          type="submit"
+          variant="contained"
+          size="large"
+          disabled={!isDirty || loadingTimezones}
         >
-          <TextField
-            label="First name"
-            {...register("firstName")}
-            type="text"
-            autoComplete="given-name"
-            error={Boolean(
-              touchedFields.firstName && errors.firstName?.message
-            )}
-            helperText={errors.firstName?.message as string}
-          />
-          <TextField
-            label="Last name"
-            {...register("lastName")}
-            type="text"
-            autoComplete="family-name"
-            error={Boolean(touchedFields.lastName && errors.lastName?.message)}
-            helperText={errors.lastName?.message as string}
-          />
-          <Controller
-            control={control}
-            name="timezone"
-            render={({ field: { value, onChange } }) => (
-              <Autocomplete
-                value={value}
-                options={timezones}
-                onChange={(e, val: string) => onChange(val)}
-                disablePortal
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Timezone"
-                    helperText={errors.timezone?.message as string}
-                    error={Boolean(errors.timezone?.message)}
-                    InputLabelProps={{
-                      sx: {
-                        fontWeight: 800,
-                      },
-                    }}
-                    InputProps={{
-                      ...params.InputProps,
-                      sx: {
-                        fontWeight: 900,
-                      },
-                    }}
-                  />
-                )}
-              />
-            )}
-          />
-          <LoadingButton
-            loading={loading}
-            type="submit"
-            variant="contained"
-            size="large"
-            disabled={!isDirty || loadingTimezones}
-          >
-            Save Profile Information
-          </LoadingButton>
-        </Stack>
-      </Grid>
-    </Grid>
+          Save Profile Information
+        </LoadingButton>
+      </Stack>
+    </Box>
   );
 }
