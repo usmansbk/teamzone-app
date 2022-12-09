@@ -1,4 +1,4 @@
-import { Avatar, Box, CircularProgress, Tooltip } from "@mui/material";
+import { Avatar, Box, CircularProgress, IconButton } from "@mui/material";
 import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import useMe from "src/hooks/api/useMe";
@@ -18,26 +18,17 @@ export default function UploadAvatar() {
 
   return (
     <Box>
-      <Tooltip title="Upload profile image">
-        <button
-          type="button"
-          style={{
-            all: "unset",
-            cursor: "pointer",
-          }}
-          onClick={() => ref.current?.click()}
-        >
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Avatar
-              src={picture}
-              alt={fullName}
-              sx={{ width: 120, height: 120 }}
-            />
-          )}
-        </button>
-      </Tooltip>
+      <IconButton onClick={() => ref.current?.click()} disabled={loading}>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Avatar
+            src={picture}
+            alt={fullName}
+            sx={{ width: 120, height: 120 }}
+          />
+        )}
+      </IconButton>
       <input
         hidden
         ref={ref}
