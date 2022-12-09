@@ -60,47 +60,45 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
   const timeDiff = getTimeDifferenceInMs(me?.timezone!, timezone);
 
   return (
-    <Box p={3}>
+    <Stack p={3} spacing={4}>
       <Clock name={name} countryName={countryName} timezone={timezone} />
-      <Stack mt={4} spacing={4}>
+      <Box>
+        <Typography variant="h4" color="primary">
+          Time Zone
+        </Typography>
+        <Typography variant="h6">
+          {alternativeName} ({abbreviation})
+        </Typography>
+        <Typography variant="h6">UTC {formatUTCOffset(timezone)}</Typography>
+        <Typography variant="h6">{timezone}</Typography>
+      </Box>
+      {me?.timezone !== timezone && (
         <Box>
           <Typography variant="h4" color="primary">
-            Time Zone
+            Time difference
           </Typography>
           <Typography variant="h6">
-            {alternativeName} ({abbreviation})
-          </Typography>
-          <Typography variant="h6">UTC {formatUTCOffset(timezone)}</Typography>
-          <Typography variant="h6">{timezone}</Typography>
-        </Box>
-        {me?.timezone !== timezone && (
-          <Box>
-            <Typography variant="h4" color="primary">
-              Time difference
-            </Typography>
-            <Typography variant="h6">
-              {city} is {formatDuration(timeDiff)}{" "}
-              {timeDiff < 0 ? "behind" : "ahead of"} {myCity}.
-            </Typography>
-          </Box>
-        )}
-        <Box>
-          <Typography variant="h4" color="primary">
-            Main cities
-          </Typography>
-          {mainCities?.map((mainCity) => (
-            <Typography variant="h6" key={mainCity}>
-              {mainCity}
-            </Typography>
-          ))}
-        </Box>
-        <Box>
-          <Typography variant="h4" color="primary">
-            People in {city}
+            {city} is {formatDuration(timeDiff)}{" "}
+            {timeDiff < 0 ? "behind" : "ahead of"} {myCity}.
           </Typography>
         </Box>
-      </Stack>
-    </Box>
+      )}
+      <Box>
+        <Typography variant="h4" color="primary">
+          Main cities
+        </Typography>
+        {mainCities?.map((mainCity) => (
+          <Typography variant="h6" key={mainCity}>
+            {mainCity}
+          </Typography>
+        ))}
+      </Box>
+      <Box>
+        <Typography variant="h4" color="primary">
+          People in {city}
+        </Typography>
+      </Box>
+    </Stack>
   );
 }
 
