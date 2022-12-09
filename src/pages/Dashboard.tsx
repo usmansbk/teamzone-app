@@ -20,7 +20,7 @@ const Clock = memo(({ timezone }: { timezone: string }) => {
   );
 });
 
-export default function Dashboard() {
+const Dashboard = () => {
   const { data } = useMe();
   const { tzData, teams, timezone } = data!;
   const { countryName } = tzData! || {};
@@ -42,23 +42,22 @@ export default function Dashboard() {
           to={routeMap.timezone.replace(":id", encodeURIComponent(timezone!))}
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <Typography
-            variant="h4"
-            fontWeight={900}
-            display="inline-block"
-            color="primary"
+          <span
+            style={{
+              fontWeight: 900,
+            }}
           >
             {formatTimezoneName(timezone!)}, {countryName}
-          </Typography>
+          </span>
         </Link>{" "}
         now
       </Typography>
-      <Clock timezone={timezone!} />
-      <Stack spacing={2} alignItems="flex-end">
-        <Box>
-          <TimezoneClocks teammates={teammates} />
-        </Box>
+      <Stack spacing={2}>
+        <Clock timezone={timezone!} />
+        <TimezoneClocks teammates={teammates} />
       </Stack>
     </Box>
   );
-}
+};
+
+export default memo(Dashboard);
