@@ -11,7 +11,6 @@
     "@mui/lab": "^5.0.0-alpha.111",
     "@mui/material": "^5.10.17",
     "@react-oauth/google": "^0.5.1",
-    "apollo3-cache-persist": "^0.14.1",
     "dayjs": "^1.11.7",
     "deepmerge": "^4.2.2",
     "graphql": "^16.6.0",

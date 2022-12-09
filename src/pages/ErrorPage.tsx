@@ -11,6 +11,8 @@ export default function ErrorPage() {
       flexGrow={1}
       justifyContent="center"
       alignItems="center"
+      p={2}
+      textAlign="center"
     >
       <Stack spacing={4} justifyContent="center" alignItems="center">
         <Typography variant="h3">

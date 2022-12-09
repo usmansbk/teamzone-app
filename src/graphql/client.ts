@@ -1,17 +1,11 @@
 import { ApolloClient, HttpLink, ApolloLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import toast from "react-hot-toast";
-import { CachePersistor, LocalStorageWrapper } from "apollo3-cache-persist";
 import cache from "./cache";
 import { tokenVar } from "./vars";
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
-});
-
-export const persistor = new CachePersistor({
-  cache,
-  storage: new LocalStorageWrapper(localStorage),
 });
 
 const authLink = new ApolloLink((operation, forward) => {
