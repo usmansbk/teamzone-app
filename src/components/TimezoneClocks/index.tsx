@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import uniqBy from "lodash.uniqby";
 import { TeamMember } from "src/__generated__/graphql";
 import useTime from "src/hooks/useTime";
@@ -11,7 +11,7 @@ interface Props {
   teammates: TeamMember[];
 }
 
-export default function TimezoneClocks({ teammates }: Props) {
+const TimezoneClocks = ({ teammates }: Props) => {
   const { dateTime } = useTime();
   const members = useMemo(
     () =>
@@ -50,4 +50,6 @@ export default function TimezoneClocks({ teammates }: Props) {
         })}
     </Grid>
   );
-}
+};
+
+export default memo(TimezoneClocks);

@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import uniqueBy from "lodash.uniqby";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import BigClock from "src/components/BigClock";
 import useMe from "src/hooks/api/useMe";
@@ -10,11 +10,20 @@ import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
+const Clock = memo(({ timezone }: { timezone: string }) => {
+  const { dateTime } = useTime();
+  return (
+    <BigClock
+      time={dateTime.tz(timezone!).format("HH:mm:ss")}
+      date={dateTime.tz(timezone!).format("dddd, MMMM D, YYYY")}
+    />
+  );
+});
+
 export default function Dashboard() {
   const { data } = useMe();
   const { tzData, teams, timezone } = data!;
   const { countryName } = tzData! || {};
-  const { dateTime } = useTime();
 
   const teammates = useMemo(
     () =>
@@ -44,11 +53,8 @@ export default function Dashboard() {
         </Link>{" "}
         now
       </Typography>
+      <Clock timezone={timezone!} />
       <Stack spacing={2} alignItems="flex-end">
-        <BigClock
-          time={dateTime.tz(timezone!).format("HH:mm:ss")}
-          date={dateTime.tz(timezone!).format("dddd, MMMM D, YYYY")}
-        />
         <Box>
           <TimezoneClocks teammates={teammates} />
         </Box>
