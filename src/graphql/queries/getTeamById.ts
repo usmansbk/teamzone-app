@@ -10,8 +10,6 @@ export default gql(`
 			isMember
 			isAdmin
 			inviteCode
-			createdAt
-			updatedAt
 			owner {
 				id
 				fullName
@@ -21,7 +19,6 @@ export default gql(`
 			teammates {
 				id
 				isMe
-				joinedAt
 				role
 				member {
 					id
@@ -31,8 +28,6 @@ export default gql(`
 					timezone
 					tzData {
 						name
-						abbreviation
-						alternativeName
 						countryCode
 						countryName
 					}

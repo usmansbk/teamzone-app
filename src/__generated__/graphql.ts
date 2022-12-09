@@ -420,8 +420,6 @@ export type QueryQuery = {
     isMember: boolean;
     isAdmin: boolean;
     inviteCode?: string | null;
-    createdAt: any;
-    updatedAt?: any | null;
     owner: {
       __typename?: "User";
       id: string;
@@ -433,7 +431,6 @@ export type QueryQuery = {
       __typename?: "TeamMember";
       id: string;
       isMe?: boolean | null;
-      joinedAt: any;
       role?: TeamRole | null;
       member: {
         __typename?: "User";
@@ -445,8 +442,6 @@ export type QueryQuery = {
         tzData?: {
           __typename?: "TimezoneData";
           name: string;
-          abbreviation: string;
-          alternativeName?: string | null;
           countryCode?: any | null;
           countryName: string;
         } | null;
@@ -756,8 +751,6 @@ export const QueryDocument = {
                 { kind: "Field", name: { kind: "Name", value: "isMember" } },
                 { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
                 { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
-                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
-                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "owner" },
@@ -785,10 +778,6 @@ export const QueryDocument = {
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "isMe" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "joinedAt" },
-                      },
                       { kind: "Field", name: { kind: "Name", value: "role" } },
                       {
                         kind: "Field",
@@ -825,20 +814,6 @@ export const QueryDocument = {
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "abbreviation",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "alternativeName",
-                                    },
                                   },
                                   {
                                     kind: "Field",
