@@ -5,11 +5,11 @@ export default function useTime() {
   const [dateTime, setDateTime] = useState(getCurrentDateTime());
 
   useEffect(() => {
-    const ticker = setInterval(() => {
+    const ticker = setTimeout(() => {
       setDateTime(dateTime.add(1, "second"));
     }, 1000 - new Date().getMilliseconds());
 
-    return () => clearInterval(ticker);
+    return () => clearTimeout(ticker);
   }, [dateTime]);
 
   return {
