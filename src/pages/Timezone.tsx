@@ -16,9 +16,13 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
   const { dateTime } = useTime();
 
   return (
-    <Box px={3}>
-      <Typography variant="h3" fontWeight={800}>
-        {formatTimezoneName(timezone)}, {countryName}
+    <Box p={3}>
+      <Typography variant="h4" fontWeight={400}>
+        Time in{" "}
+        <Typography variant="h4" fontWeight={900} display="inline-block">
+          {formatTimezoneName(timezone!)}, {countryName}
+        </Typography>{" "}
+        now
       </Typography>
       <BigClock
         time={dateTime.tz(timezone).format("HH:mm:ss")}
