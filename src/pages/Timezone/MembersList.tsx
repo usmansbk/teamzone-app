@@ -22,7 +22,7 @@ const MembersList = ({ timezone }: { timezone: string }) => {
   }
 
   return (
-    <Grid container mt={2}>
+    <Grid container mt={2} gap={1}>
       {data.map((teammate) => {
         const { id, member, team } = teammate!;
         return (

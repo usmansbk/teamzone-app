@@ -23,7 +23,7 @@ const TimezoneClocks = ({ teammates }: Props) => {
   );
 
   return (
-    <Grid container spacing={1}>
+    <Grid container gap={1}>
       {members
         .filter((member) => member.tzData)
         .map((member) => {
