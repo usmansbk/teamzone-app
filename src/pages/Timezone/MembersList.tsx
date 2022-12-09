@@ -25,7 +25,7 @@ export default function MembersList({ timezone }: { timezone: string }) {
       {data.map((teammate) => {
         const { id, member, team } = teammate!;
         return (
-          <Grid item key={id} xs={12} sm={6} md={4} lg={3} zeroMinWidth>
+          <Grid item key={id} xs={12} md={4} lg={3} zeroMinWidth>
             <Stack
               direction={{ xs: "row", md: "column" }}
               alignItems={{ xs: "center", md: "flex-start" }}

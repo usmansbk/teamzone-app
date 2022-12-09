@@ -1,4 +1,5 @@
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
+import { memo } from "react";
 import { useParams } from "react-router-dom";
 import BigClock from "src/components/BigClock";
 import useGetTimezoneById from "src/hooks/api/useGetTimezoneById";
@@ -19,49 +20,50 @@ interface TimezoneDetailsProps {
   timezone: string;
 }
 
-function Clock({
-  name,
-  countryName,
-  timezone,
-}: {
-  name: string;
-  countryName: string;
-  timezone: string;
-}) {
-  const { dateTime } = useTime();
-  return (
-    <Box>
-      <Typography variant="h4" fontWeight={400}>
-        Time in{" "}
-        <span
-          style={{
-            fontWeight: 900,
-          }}
-        >
-          {name}, {countryName}
-        </span>{" "}
-        now
-      </Typography>
-      <BigClock
-        time={dateTime.tz(timezone).format("HH:mm:ss")}
-        date={dateTime.tz(timezone).format("dddd, MMMM D, YYYY")}
-      />
-    </Box>
-  );
-}
+const Clock = memo(
+  ({
+    name,
+    countryName,
+    timezone,
+  }: {
+    name: string;
+    countryName: string;
+    timezone: string;
+  }) => {
+    const { dateTime } = useTime();
+    return (
+      <Box>
+        <Typography variant="h4" fontWeight={400}>
+          Time in{" "}
+          <span
+            style={{
+              fontWeight: 900,
+            }}
+          >
+            {name}, {countryName}
+          </span>{" "}
+          now
+        </Typography>
+        <BigClock
+          time={dateTime.tz(timezone).format("HH:mm:ss")}
+          date={dateTime.tz(timezone).format("dddd, MMMM D, YYYY")}
+        />
+      </Box>
+    );
+  }
+);
 
-function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
-  const { countryName, alternativeName, abbreviation, mainCities } = data;
+const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const { data: me } = useMe();
+  const { countryName, alternativeName, abbreviation, mainCities } = data;
 
   const name = formatTimezoneName(timezone);
   const [city] = name.split(",");
   const [myCity] = formatTimezoneName(me?.timezone!).split(",");
-
   const timeDiff = getTimeDifferenceInMs(me?.timezone!, timezone);
 
   return (
-    <Stack p={3} spacing={4}>
+    <Stack p={3} spacing={4} overflow="scroll">
       <Clock name={name} countryName={countryName} timezone={timezone} />
       <Box>
         <Typography variant="h4" color="primary">
@@ -102,9 +104,9 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
       </Box>
     </Stack>
   );
-}
+});
 
-export default function Country() {
+export default function Timezone() {
   const { id } = useParams<{ id: string }>();
   const timezone = decodeURIComponent(id!);
   const { loading, error, data } = useGetTimezoneById(timezone);
