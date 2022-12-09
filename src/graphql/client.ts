@@ -22,9 +22,11 @@ const authLink = new ApolloLink((operation, forward) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  graphQLErrors?.forEach((e) => {
-    toast.error(e.message);
-  });
+  if (graphQLErrors) {
+    graphQLErrors?.forEach((e) => {
+      toast.error(e.message);
+    });
+  }
   if (networkError) {
     if ((networkError as any).statusCode !== 400) {
       toast.error(`Network error: ${networkError.message}`);

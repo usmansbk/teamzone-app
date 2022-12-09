@@ -20,7 +20,7 @@ export function useLogout() {
   const handleLogout = useCallback(async () => {
     localStorage.removeItem("token");
     tokenVar(null);
-    client.cache.reset();
+    await client.cache.reset();
   }, []);
 
   return handleLogout;

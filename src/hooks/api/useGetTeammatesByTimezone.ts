@@ -11,6 +11,7 @@ export default function useGetTeammatesByTimezone(
     variables: {
       id,
     },
+    fetchPolicy: "cache-first",
   });
 
   return {
