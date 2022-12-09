@@ -11,7 +11,8 @@ import {
 } from "src/utils/dateTime";
 import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TimezoneData } from "src/__generated__/graphql";
-import PageNotFound from "./404";
+import PageNotFound from "../404";
+import MembersList from "./MembersList";
 
 interface TimezoneDetailsProps {
   data: TimezoneData;
@@ -97,6 +98,7 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
         <Typography variant="h4" color="primary">
           People in {city}
         </Typography>
+        <MembersList timezone={timezone} />
       </Box>
     </Stack>
   );
