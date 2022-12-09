@@ -16,6 +16,7 @@ export default function LeaveTeamDialog({ open, onClose, title }: Props) {
 
   useEffect(() => {
     if (data) {
+      onClose();
       navigate(-1 as To, { replace: true });
     }
   }, [data]);

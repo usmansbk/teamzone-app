@@ -45,6 +45,7 @@ export default function NewTeamDialog({ open, onClose }: Props) {
 
   useEffect(() => {
     if (data) {
+      onClose();
       navigate(routeMap.team.replace(":id", data.id));
     }
   }, [data]);
