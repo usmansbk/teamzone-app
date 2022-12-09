@@ -15,9 +15,9 @@ export default function Terms() {
       <Box>
         <Typography variant="h4">Privacy policy</Typography>
         <Typography>
-          If you choose to sign up for an account with us the only data-point we
-          collect and store is your name and email address so that you can join
-          or create your teams. Your information is never sold or disclosed to
+          If you choose to sign up for an account with us the only data-points
+          we collect and store are your name and email address so that you can
+          create and join teams. Your information is never sold or disclosed to
           any 3rd party. For any mass email communication (i.e. newsletter)
           there will be an opt-out option. To request deletion of your account
           (and all of the data associated with it), please use the contact us

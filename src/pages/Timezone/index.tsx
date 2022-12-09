@@ -75,6 +75,15 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
         <Typography variant="h6">UTC {formatUTCOffset(timezone)}</Typography>
         <Typography variant="h6">{timezone}</Typography>
       </Box>
+      <Box>
+        <Typography variant="h4" color="primary">
+          Sunrise, sunset, day length and solar time for {city}
+        </Typography>
+        <Typography variant="h6">Sunset: N/A</Typography>
+        <Typography variant="h6">Sunrise: N/A</Typography>
+        <Typography variant="h6">Day length: N/A</Typography>
+        <Typography variant="h6">Solar noon: N/A</Typography>
+      </Box>
       {me?.timezone !== timezone && (
         <Box>
           <Typography variant="h4" color="primary">

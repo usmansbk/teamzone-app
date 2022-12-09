@@ -46,6 +46,18 @@ export default function Home() {
             </Link>
             .
           </Typography>
+          <Typography>
+            Teamzone relies on sunrise and sunset data from{" "}
+            <Link
+              color="inherit"
+              target="_blank"
+              rel="noreferrer"
+              href="https://sunrise-sunset.org/api"
+            >
+              Sunrise Sunset
+            </Link>
+            .
+          </Typography>
         </Stack>
       </Box>
       <Stack spacing={2}>
