@@ -44,8 +44,6 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
 
   const isAdmin = role === TeamRole.Admin;
 
-  const { countryName } = tzData!;
-
   return (
     <>
       <ListItem
@@ -74,9 +72,12 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
             fontWeight: 600,
           }}
           secondary={
-            <Typography fontWeight={500}>
-              {formatTimezoneName(timezone!)}, {countryName}
-            </Typography>
+            timezone &&
+            tzData && (
+              <Typography fontWeight={500}>
+                {formatTimezoneName(timezone!)}, {tzData.countryName}
+              </Typography>
+            )
           }
         />
       </ListItem>
@@ -169,15 +170,13 @@ interface MemberListProps {
 function MembersList({ teammates, editable }: MemberListProps) {
   return (
     <List>
-      {teammates
-        .filter((teammate) => teammate.member.tzData)
-        .map((teammate) => (
-          <TeamMemberItem
-            teammate={teammate as any}
-            key={teammate!.id}
-            hasPermission={editable}
-          />
-        ))}
+      {teammates.map((teammate) => (
+        <TeamMemberItem
+          teammate={teammate as any}
+          key={teammate!.id}
+          hasPermission={editable}
+        />
+      ))}
     </List>
   );
 }

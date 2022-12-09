@@ -5,6 +5,7 @@ import useGetTimezoneById from "src/hooks/api/useGetTimezoneById";
 import useTime from "src/hooks/useTime";
 import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TimezoneData } from "src/__generated__/graphql";
+import PageNotFound from "./404";
 
 interface TimezoneDetailsProps {
   data: TimezoneData;
@@ -19,7 +20,12 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
     <Box p={3}>
       <Typography variant="h4" fontWeight={400}>
         Time in{" "}
-        <Typography variant="h4" fontWeight={900} display="inline-block">
+        <Typography
+          variant="h4"
+          fontWeight={900}
+          display="inline-block"
+          color="primary"
+        >
           {formatTimezoneName(timezone!)}, {countryName}
         </Typography>{" "}
         now
@@ -43,6 +49,10 @@ export default function Country() {
 
   if (error) {
     throw error;
+  }
+
+  if (!data) {
+    return <PageNotFound />;
   }
 
   return <TimezoneDetails data={data as TimezoneData} timezone={timezone} />;
