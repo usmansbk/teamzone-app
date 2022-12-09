@@ -8,7 +8,7 @@ export default function MembersList({ timezone }: { timezone: string }) {
     return (
       <Grid container mt={2}>
         <Grid item>
-          <Skeleton variant="circular" width={100} height={100} />
+          <Skeleton variant="circular" width={80} height={80} />
           <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
           <Skeleton variant="text" />
         </Grid>
@@ -17,7 +17,7 @@ export default function MembersList({ timezone }: { timezone: string }) {
   }
 
   if (!data) {
-    return <Typography variant="h6">No teammate in this time zone</Typography>;
+    return <Typography variant="h6">No teammates in this time zone</Typography>;
   }
 
   return (
@@ -34,7 +34,7 @@ export default function MembersList({ timezone }: { timezone: string }) {
               <Avatar
                 alt={member.fullName}
                 src={member.picture}
-                sx={{ width: 100, height: 100 }}
+                sx={{ width: 80, height: 80 }}
               />
               <Stack>
                 <Typography variant="h6">{member.fullName}</Typography>
