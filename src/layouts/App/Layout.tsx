@@ -1,4 +1,10 @@
-import { useState, useCallback, cloneElement, ReactElement } from "react";
+import {
+  useState,
+  useCallback,
+  cloneElement,
+  ReactElement,
+  useMemo,
+} from "react";
 import {
   useScrollTrigger,
   Avatar,
@@ -48,20 +54,24 @@ function Layout({ user }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const handleOpenUserMenu = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElUser(event.currentTarget);
+    },
+    []
+  );
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const handleDrawerToggle = useCallback(() => {
+    setMobileOpen((prev) => !prev);
+  }, []);
 
-  const drawer = (
-    <DrawerContent teams={user.teams as any} onClose={handleDrawerToggle} />
+  const drawer = useMemo(
+    () => <DrawerContent teams={user.teams as any} />,
+    [user.teams, handleDrawerToggle]
   );
 
   return (
@@ -128,7 +138,6 @@ function Layout({ user }: Props) {
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
@@ -165,11 +174,8 @@ function Layout({ user }: Props) {
       <Box
         component="main"
         sx={{
-          display: "flex",
-          flexDirection: "column",
           flexGrow: 1,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          height: "100%",
         }}
       >
         <Toolbar disableGutters />

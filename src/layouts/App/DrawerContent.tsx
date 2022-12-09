@@ -17,9 +17,8 @@ import { Team } from "src/__generated__/graphql";
 
 interface Props {
   teams: Partial<Team>[];
-  onClose: () => void;
 }
-export default function DrawerContent({ teams, onClose }: Props) {
+export default function DrawerContent({ teams }: Props) {
   return (
     <div>
       <Toolbar>
@@ -57,7 +56,6 @@ export default function DrawerContent({ teams, onClose }: Props) {
             <ListItemButton
               component={ThemedNavLink}
               to={routeMap.team.replace(":id", team!.id!)}
-              onClick={onClose}
             >
               <ListItemAvatar>
                 <Avatar variant="rounded">{team?.name![0]}</Avatar>
