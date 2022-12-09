@@ -23,7 +23,7 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors?.forEach((e) => {
+    graphQLErrors.forEach?.((e) => {
       toast.error(e.message);
     });
   }
