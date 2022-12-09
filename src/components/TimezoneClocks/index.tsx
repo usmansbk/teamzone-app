@@ -5,13 +5,13 @@ import { TeamMember } from "src/__generated__/graphql";
 import useTime from "src/hooks/useTime";
 import { Link } from "react-router-dom";
 import routeMap from "src/routeMap";
-import Clock from "./CountryClock";
+import TimezoneClock from "./TimezoneClock";
 
 interface Props {
   teammates: TeamMember[];
 }
 
-export default function CountriesClocks({ teammates }: Props) {
+export default function TimezoneClocks({ teammates }: Props) {
   const { dateTime } = useTime();
   const timezones = useMemo(
     () =>
@@ -35,7 +35,7 @@ export default function CountriesClocks({ teammates }: Props) {
               to={routeMap.country.replace(":code", countryCode)}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Clock
+              <TimezoneClock
                 date={date}
                 time={time}
                 name={name}

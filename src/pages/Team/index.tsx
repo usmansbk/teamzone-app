@@ -16,7 +16,7 @@ import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
 import { TeamMember } from "src/__generated__/graphql";
-import Countries from "src/components/CountriesClocks";
+import TimezoneClocks from "src/components/TimezoneClocks";
 import MembersList from "./MembersList";
 
 export default function Team() {
@@ -54,7 +54,7 @@ export default function Team() {
           </Tooltip>
         )}
       </Typography>
-      <Countries teammates={teammates as TeamMember[]} />
+      <TimezoneClocks teammates={teammates as TeamMember[]} />
       <Stack spacing={2} mt={4}>
         <Box>
           <Stack

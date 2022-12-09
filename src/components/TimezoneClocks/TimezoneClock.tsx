@@ -8,7 +8,12 @@ interface Props {
   name: string;
 }
 
-export default function CountryClock({ name, time, date, countryName }: Props) {
+export default function TimezoneClock({
+  name,
+  time,
+  date,
+  countryName,
+}: Props) {
   const { palette } = useTheme();
 
   return (

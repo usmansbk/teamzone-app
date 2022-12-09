@@ -8,7 +8,7 @@ import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
 import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember } from "src/__generated__/graphql";
-import Countries from "../components/CountriesClocks";
+import TimezoneClocks from "../components/TimezoneClocks";
 
 export default function Dashboard() {
   const { data } = useMe();
@@ -50,7 +50,7 @@ export default function Dashboard() {
           date={dateTime.tz(timezone!).format("dddd, MMMM D, YYYY")}
         />
         <Box>
-          <Countries teammates={teammates} />
+          <TimezoneClocks teammates={teammates} />
         </Box>
       </Stack>
     </Box>
