@@ -24,28 +24,30 @@ export default function TimezoneClocks({ teammates }: Props) {
 
   return (
     <Grid container spacing={1}>
-      {members.map((member) => {
-        const name = member.timezone!;
-        const { countryCode, countryName } = member.tzData!;
-        const date = dateTime.tz(name).format("ddd, MMM D");
-        const time = dateTime.tz(name).format("HH:mm");
+      {members
+        .filter((member) => member.tzData)
+        .map((member) => {
+          const name = member.timezone!;
+          const { countryCode, countryName } = member.tzData!;
+          const date = dateTime.tz(name).format("ddd, MMM D");
+          const time = dateTime.tz(name).format("HH:mm");
 
-        return (
-          <Grid item key={name}>
-            <Link
-              to={routeMap.country.replace(":code", countryCode)}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <TimezoneClock
-                date={date}
-                time={time}
-                name={name}
-                countryName={countryName}
-              />
-            </Link>
-          </Grid>
-        );
-      })}
+          return (
+            <Grid item key={name}>
+              <Link
+                to={routeMap.country.replace(":code", countryCode)}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <TimezoneClock
+                  date={date}
+                  time={time}
+                  name={name}
+                  countryName={countryName}
+                />
+              </Link>
+            </Grid>
+          );
+        })}
     </Grid>
   );
 }

@@ -169,13 +169,15 @@ interface MemberListProps {
 function MembersList({ teammates, editable }: MemberListProps) {
   return (
     <List>
-      {teammates.map((teammate) => (
-        <TeamMemberItem
-          teammate={teammate as any}
-          key={teammate!.id}
-          hasPermission={editable}
-        />
-      ))}
+      {teammates
+        .filter((teammate) => teammate.member.tzData)
+        .map((teammate) => (
+          <TeamMemberItem
+            teammate={teammate as any}
+            key={teammate!.id}
+            hasPermission={editable}
+          />
+        ))}
     </List>
   );
 }
