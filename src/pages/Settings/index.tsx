@@ -44,7 +44,7 @@ export default function Settings() {
 
   return (
     <Grid container justifyContent="center">
-      <Grid xs={12} md={6}>
+      <Grid item xs={12} md={6}>
         <Tabs
           variant="scrollable"
           value={value}
