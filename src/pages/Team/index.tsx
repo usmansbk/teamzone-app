@@ -39,7 +39,7 @@ export default function Team() {
   const { name, teammates, isOwner, isMember, inviteCode, isAdmin } = data!;
 
   return (
-    <Box maxWidth="md" px={3} pb={4}>
+    <Box px={3} pb={4}>
       <Typography variant="h4" sx={{ wordBreak: "break-all", mb: 2 }}>
         {name}
         {(isOwner || isAdmin) && (
@@ -55,7 +55,7 @@ export default function Team() {
         )}
       </Typography>
       <TimezoneClocks teammates={teammates as TeamMember[]} />
-      <Stack spacing={2} mt={4}>
+      <Stack spacing={2} mt={4} maxWidth="md">
         <Box>
           <Stack
             direction="row"

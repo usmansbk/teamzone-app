@@ -28,14 +28,14 @@ export default function TimezoneClocks({ teammates }: Props) {
         .filter((member) => member.tzData)
         .map((member) => {
           const name = member.timezone!;
-          const { countryCode, countryName } = member.tzData!;
+          const { countryName } = member.tzData!;
           const date = dateTime.tz(name).format("ddd, MMM D");
           const time = dateTime.tz(name).format("HH:mm");
 
           return (
             <Grid item key={name}>
               <Link
-                to={routeMap.country.replace(":code", countryCode)}
+                to={routeMap.timezone.replace(":id", encodeURIComponent(name))}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <TimezoneClock

@@ -13,7 +13,7 @@ import TimezoneClocks from "../components/TimezoneClocks";
 export default function Dashboard() {
   const { data } = useMe();
   const { tzData, teams, timezone } = data!;
-  const { countryName, countryCode } = tzData! || {};
+  const { countryName } = tzData! || {};
   const { dateTime } = useTime();
 
   const teammates = useMemo(
@@ -30,7 +30,7 @@ export default function Dashboard() {
       <Typography variant="h4" fontWeight={400}>
         Time in{" "}
         <Link
-          to={routeMap.country.replace(":code", countryCode)}
+          to={routeMap.timezone.replace(":id", encodeURIComponent(timezone!))}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Typography
