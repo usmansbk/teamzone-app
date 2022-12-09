@@ -1,8 +1,8 @@
 import { gql } from "src/__generated__";
 
 export default gql(`
-query GetTimezoneById($getTimezoneByIdId: ID!) {
-  getTimezoneById(id: $getTimezoneByIdId) {
+query GetTimezoneById($id: ID!) {
+  getTimezoneById(id: $id) {
     name
     countryName
 		countryFlag

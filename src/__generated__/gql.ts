@@ -19,7 +19,7 @@ const documents = {
     types.DeleteTeamDocument,
   "\n\tquery Query($id: ID!) {\n\t\tgetTeamById(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tinviteCode\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttimezone\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcountryCode\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n":
     types.QueryDocument,
-  "\nquery GetTimezoneById($getTimezoneByIdId: ID!) {\n  getTimezoneById(id: $getTimezoneByIdId) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n":
+  "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n":
     types.GetTimezoneByIdDocument,
   "\n\tquery Timezones {\n\t\ttimezones\n\t}\n": types.TimezonesDocument,
   "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n":
@@ -64,8 +64,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\nquery GetTimezoneById($getTimezoneByIdId: ID!) {\n  getTimezoneById(id: $getTimezoneByIdId) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n"
-): typeof documents["\nquery GetTimezoneById($getTimezoneByIdId: ID!) {\n  getTimezoneById(id: $getTimezoneByIdId) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n"];
+  source: "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n"
+): typeof documents["\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

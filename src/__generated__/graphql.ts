@@ -456,7 +456,7 @@ export type QueryQuery = {
 };
 
 export type GetTimezoneByIdQueryVariables = Exact<{
-  getTimezoneByIdId: Scalars["ID"];
+  id: Scalars["ID"];
 }>;
 
 export type GetTimezoneByIdQuery = {
@@ -880,10 +880,7 @@ export const GetTimezoneByIdDocument = {
       variableDefinitions: [
         {
           kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "getTimezoneByIdId" },
-          },
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
           type: {
             kind: "NonNullType",
             type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
@@ -902,7 +899,7 @@ export const GetTimezoneByIdDocument = {
                 name: { kind: "Name", value: "id" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "getTimezoneByIdId" },
+                  name: { kind: "Name", value: "id" },
                 },
               },
             ],
