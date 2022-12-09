@@ -13,19 +13,20 @@ interface Props {
 
 export default function TimezoneClocks({ teammates }: Props) {
   const { dateTime } = useTime();
-  const timezones = useMemo(
+  const members = useMemo(
     () =>
       uniqBy(
-        teammates.map((t) => t?.member.tzData),
-        "name"
+        teammates.map((t) => t?.member),
+        "timezone"
       ),
     [teammates]
   );
 
   return (
     <Grid container spacing={1}>
-      {timezones.map((tz) => {
-        const { name, countryName, countryCode } = tz!;
+      {members.map((member) => {
+        const name = member.timezone!;
+        const { countryCode, countryName } = member.tzData!;
         const date = dateTime.tz(name).format("ddd, MMM D");
         const time = dateTime.tz(name).format("HH:mm");
 

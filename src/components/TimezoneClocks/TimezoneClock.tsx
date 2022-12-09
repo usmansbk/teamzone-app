@@ -4,8 +4,8 @@ import formatTimezoneName from "src/utils/formatTimezoneName";
 interface Props {
   time: string;
   date?: string;
-  countryName: string;
   name: string;
+  countryName: string;
 }
 
 export default function TimezoneClock({
@@ -26,17 +26,17 @@ export default function TimezoneClock({
         textAlign: "end",
       }}
     >
-      <Typography variant="h4">{countryName}</Typography>
+      <Typography variant="h6">{formatTimezoneName(name)}</Typography>
       <Typography
-        variant="h3"
+        variant="h4"
         lineHeight={1}
         fontFamily="Azeret Mono"
         fontWeight={900}
       >
         {time}
       </Typography>
-      <Typography>{formatTimezoneName(name)}</Typography>
       {!!date && <Typography variant="body2">{date}</Typography>}
+      <Typography>{countryName}</Typography>
     </Box>
   );
 }
