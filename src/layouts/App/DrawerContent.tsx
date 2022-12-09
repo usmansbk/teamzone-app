@@ -45,10 +45,9 @@ export default function DrawerContent({ teams, onClose }: Props) {
         {!teams.length && (
           <ListItem>
             <ListItemText
-              primary="You don't have a team, yet!"
+              primary="You are not a member of any teams yet"
               primaryTypographyProps={{
-                variant: "caption",
-                fontWeight: 800,
+                variant: "h6",
               }}
             />
           </ListItem>
