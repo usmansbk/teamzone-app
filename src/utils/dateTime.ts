@@ -35,7 +35,7 @@ export function getTimeDifferenceInMs(currentTz: string, targetTz: string) {
   const now = dayjs();
   const current = now.tz(currentTz, true);
   const target = now.tz(targetTz, true);
-  return target.diff(current);
+  return current.diff(target);
 }
 
 export function formatDuration(ms: number) {

@@ -79,8 +79,8 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
               Time difference
             </Typography>
             <Typography variant="h6">
-              {myCity} is {formatDuration(timeDiff)}{" "}
-              {timeDiff < 0 ? "behind" : "ahead of"} {city}.
+              {city} is {formatDuration(timeDiff)}{" "}
+              {timeDiff < 0 ? "behind" : "ahead of"} {myCity}.
             </Typography>
           </Box>
         )}
@@ -93,6 +93,11 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
               {mainCity}
             </Typography>
           ))}
+        </Box>
+        <Box>
+          <Typography variant="h4" color="primary">
+            Teammates in {city}
+          </Typography>
         </Box>
       </Stack>
     </Box>
