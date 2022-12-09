@@ -60,7 +60,9 @@ function Layout({ user }: Props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = <DrawerContent teams={user.teams as any} />;
+  const drawer = (
+    <DrawerContent teams={user.teams as any} onClose={handleDrawerToggle} />
+  );
 
   return (
     <Box sx={{ display: "flex" }}>
