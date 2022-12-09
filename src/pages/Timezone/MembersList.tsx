@@ -16,7 +16,7 @@ export default function MembersList({ timezone }: { timezone: string }) {
     );
   }
 
-  if (!data) {
+  if (!data?.length) {
     return <Typography variant="h6">No teammates in this time zone</Typography>;
   }
 

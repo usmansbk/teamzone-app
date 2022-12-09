@@ -86,11 +86,6 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
       )}
       <Box>
         <Typography variant="h4" color="primary">
-          Sunrise, sunset, day length and solar time for {city}
-        </Typography>
-      </Box>
-      <Box>
-        <Typography variant="h4" color="primary">
           Main cities
         </Typography>
         {mainCities?.map((mainCity) => (
