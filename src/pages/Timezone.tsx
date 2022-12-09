@@ -96,7 +96,7 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
         </Box>
         <Box>
           <Typography variant="h4" color="primary">
-            Teammates in {city}
+            People in {city}
           </Typography>
         </Box>
       </Stack>
