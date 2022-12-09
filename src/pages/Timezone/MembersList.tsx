@@ -1,7 +1,8 @@
 import { Grid, Skeleton, Avatar, Typography, Stack } from "@mui/material";
+import { memo } from "react";
 import useGetTeammatesByTimezone from "src/hooks/api/useGetTeammatesByTimezone";
 
-export default function MembersList({ timezone }: { timezone: string }) {
+const MembersList = ({ timezone }: { timezone: string }) => {
   const { loading, data } = useGetTeammatesByTimezone(timezone);
 
   if (loading) {
@@ -46,4 +47,6 @@ export default function MembersList({ timezone }: { timezone: string }) {
       })}
     </Grid>
   );
-}
+};
+
+export default memo(MembersList);
