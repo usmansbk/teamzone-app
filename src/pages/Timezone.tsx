@@ -50,7 +50,7 @@ function Clock({
 }
 
 function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
-  const { countryName, alternativeName, abbreviation } = data;
+  const { countryName, alternativeName, abbreviation, mainCities } = data;
   const { data: me } = useMe();
 
   const name = formatTimezoneName(timezone);
@@ -84,6 +84,16 @@ function TimezoneDetails({ data, timezone }: TimezoneDetailsProps) {
             </Typography>
           </Box>
         )}
+        <Box>
+          <Typography variant="h4" color="primary">
+            Main cities
+          </Typography>
+          {mainCities?.map((mainCity) => (
+            <Typography variant="h6" key={mainCity}>
+              {mainCity}
+            </Typography>
+          ))}
+        </Box>
       </Stack>
     </Box>
   );
