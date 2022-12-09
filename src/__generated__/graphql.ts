@@ -333,6 +333,7 @@ export type TimezoneData = {
   continentCode: Scalars["String"];
   continentName: Scalars["String"];
   countryCode?: Maybe<Scalars["CountryCode"]>;
+  countryFlag?: Maybe<Scalars["URL"]>;
   countryName: Scalars["String"];
   currentTimeFormat: Scalars["String"];
   currentTimeOffsetInMinutes: Scalars["Int"];
@@ -341,6 +342,10 @@ export type TimezoneData = {
   name: Scalars["String"];
   rawFormat: Scalars["String"];
   rawOffsetInMinutes: Scalars["Int"];
+};
+
+export type TimezoneDataCountryFlagArgs = {
+  height?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
 export type UpdateTeamInput = {
@@ -448,6 +453,25 @@ export type QueryQuery = {
       };
     } | null>;
   };
+};
+
+export type GetTimezoneByIdQueryVariables = Exact<{
+  getTimezoneByIdId: Scalars["ID"];
+}>;
+
+export type GetTimezoneByIdQuery = {
+  __typename?: "Query";
+  getTimezoneById?: {
+    __typename?: "TimezoneData";
+    name: string;
+    countryName: string;
+    countryFlag?: any | null;
+    continentName: string;
+    abbreviation: string;
+    alternativeName?: string | null;
+    group: Array<string | null>;
+    mainCities?: Array<string | null> | null;
+  } | null;
 };
 
 export type TimezonesQueryVariables = Exact<{ [key: string]: never }>;
@@ -846,6 +870,73 @@ export const QueryDocument = {
     },
   ],
 } as unknown as DocumentNode<QueryQuery, QueryQueryVariables>;
+export const GetTimezoneByIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetTimezoneById" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "getTimezoneByIdId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getTimezoneById" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "getTimezoneByIdId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "countryName" } },
+                { kind: "Field", name: { kind: "Name", value: "countryFlag" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "continentName" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "abbreviation" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "alternativeName" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "group" } },
+                { kind: "Field", name: { kind: "Name", value: "mainCities" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetTimezoneByIdQuery,
+  GetTimezoneByIdQueryVariables
+>;
 export const TimezonesDocument = {
   kind: "Document",
   definitions: [
