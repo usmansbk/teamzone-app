@@ -35,7 +35,7 @@ const MembersList = ({ timezone }: { timezone: string }) => {
               <Avatar
                 alt={member.fullName}
                 src={member.picture}
-                sx={{ width: 60, height: 60 }}
+                sx={{ width: 72, height: 72 }}
               />
               <Stack>
                 <Typography variant="h5">{member.fullName}</Typography>
