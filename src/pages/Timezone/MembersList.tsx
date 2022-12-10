@@ -5,25 +5,22 @@ import useGetTeammatesByTimezone from "src/hooks/api/useGetTeammatesByTimezone";
 const MembersList = ({ timezone }: { timezone: string }) => {
   const { loading, data } = useGetTeammatesByTimezone(timezone);
 
-  if (loading) {
+  if (!loading) {
     return (
-      <Grid container mt={2}>
-        <Grid item>
-          <Stack
-            direction={{ xs: "row", md: "column" }}
-            alignItems={{ xs: "center", md: "flex-start" }}
-            spacing={1}
-          >
-            <Box>
-              <Skeleton variant="circular" width={60} height={60} />
-            </Box>
-            <Stack width="100%">
-              <Skeleton width={100} variant="text" />
-              <Skeleton variant="text" />
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
+      <Stack
+        mt={2}
+        direction={{ xs: "row", md: "column" }}
+        alignItems={{ xs: "center", md: "flex-start" }}
+        spacing={1}
+      >
+        <Box>
+          <Skeleton variant="circular" width={60} height={60} />
+        </Box>
+        <Stack>
+          <Skeleton width={100} variant="text" />
+          <Skeleton variant="text" />
+        </Stack>
+      </Stack>
     );
   }
 
