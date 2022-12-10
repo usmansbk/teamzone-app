@@ -88,15 +88,6 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
       )}
       <Box>
         <Typography variant="h4" color="primary">
-          Sunrise, sunset, day length and solar time for {city}
-        </Typography>
-        <Typography variant="h6">Sunset: N/A</Typography>
-        <Typography variant="h6">Sunrise: N/A</Typography>
-        <Typography variant="h6">Day length: N/A</Typography>
-        <Typography variant="h6">Solar noon: N/A</Typography>
-      </Box>
-      <Box>
-        <Typography variant="h4" color="primary">
           People in this time zone
         </Typography>
         <MembersList timezone={timezone} />

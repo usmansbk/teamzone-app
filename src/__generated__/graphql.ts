@@ -258,18 +258,12 @@ export type MutationUpdateTeamArgs = {
 
 export type Query = {
   __typename?: "Query";
-  getCitySunriseSunset?: Maybe<SunriseSunset>;
   getTeamById: Team;
   getTeammatesByTimezone: Array<Maybe<TeamMember>>;
   getTimezoneById?: Maybe<TimezoneData>;
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
   timezones: Array<Scalars["String"]>;
-};
-
-export type QueryGetCitySunriseSunsetArgs = {
-  cityName: Scalars["String"];
-  countryCode: Scalars["CountryCode"];
 };
 
 export type QueryGetTeamByIdArgs = {
@@ -427,22 +421,6 @@ export type DeleteTeamMutationVariables = Exact<{
 export type DeleteTeamMutation = {
   __typename?: "Mutation";
   deleteTeam: { __typename?: "Team"; id: string };
-};
-
-export type GetCitySunriseSunsetQueryVariables = Exact<{
-  cityName: Scalars["String"];
-  countryCode: Scalars["CountryCode"];
-}>;
-
-export type GetCitySunriseSunsetQuery = {
-  __typename?: "Query";
-  getCitySunriseSunset?: {
-    __typename?: "SunriseSunset";
-    sunrise?: string | null;
-    sunset?: string | null;
-    solarNoon?: string | null;
-    dayLength?: string | null;
-  } | null;
 };
 
 export type QueryQueryVariables = Exact<{
@@ -791,85 +769,6 @@ export const DeleteTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<DeleteTeamMutation, DeleteTeamMutationVariables>;
-export const GetCitySunriseSunsetDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetCitySunriseSunset" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "cityName" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "countryCode" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "CountryCode" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "getCitySunriseSunset" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "cityName" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "cityName" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "countryCode" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "countryCode" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "sunrise" } },
-                { kind: "Field", name: { kind: "Name", value: "sunset" } },
-                { kind: "Field", name: { kind: "Name", value: "solarNoon" } },
-                { kind: "Field", name: { kind: "Name", value: "dayLength" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  GetCitySunriseSunsetQuery,
-  GetCitySunriseSunsetQueryVariables
->;
 export const QueryDocument = {
   kind: "Document",
   definitions: [
