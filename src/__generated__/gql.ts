@@ -38,7 +38,7 @@ const documents = {
     types.MeDocument,
   "\n\tmutation RemoveTeammate($memberId: ID!) {\n\t\tremoveTeammate(memberId: $memberId) {\n\t\t\tid\n\t\t}\n\t}\n":
     types.RemoveTeammateDocument,
-  "\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t}\n\t}\n":
+  "\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t\ttzData {\n\t\t\t\tname\n\t\t\t\tcountryName\n\t\t\t}\n\t\t}\n\t}\n":
     types.UpdateProfileDocument,
   "\n\tmutation UpdateTeam($input: UpdateTeamInput!) {\n\t\tupdateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n":
     types.UpdateTeamDocument,
@@ -126,8 +126,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t}\n\t}\n"
-): typeof documents["\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t}\n\t}\n"];
+  source: "\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t\ttzData {\n\t\t\t\tname\n\t\t\t\tcountryName\n\t\t\t}\n\t\t}\n\t}\n"
+): typeof documents["\n\tmutation UpdateProfile($input: UpdateUserProfileInput!) {\n\t\tupdateProfile(input: $input) {\n\t\t\tid\n\t\t\tfullName\n\t\t\tfirstName\n\t\t\tlastName\n\t\t\tlocale\n\t\t\ttimezone\n\t\t\tupdatedAt\n\t\t\ttzData {\n\t\t\t\tname\n\t\t\t\tcountryName\n\t\t\t}\n\t\t}\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

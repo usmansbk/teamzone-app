@@ -10,6 +10,10 @@ export default gql(`
 			locale
 			timezone
 			updatedAt
+			tzData {
+				name
+				countryName
+			}
 		}
 	}
 `);

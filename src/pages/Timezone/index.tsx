@@ -55,7 +55,7 @@ const Clock = memo(
 
 const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const { data: me } = useMe();
-  const { countryName, alternativeName, abbreviation, mainCities } = data;
+  const { countryName, alternativeName, abbreviation } = data;
 
   const name = formatTimezoneName(timezone);
   const [city] = name.split(",");
@@ -97,17 +97,7 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
       </Box>
       <Box>
         <Typography variant="h4" color="primary">
-          Main cities
-        </Typography>
-        {mainCities?.map((mainCity) => (
-          <Typography variant="h6" key={mainCity}>
-            {mainCity}
-          </Typography>
-        ))}
-      </Box>
-      <Box>
-        <Typography variant="h4" color="primary">
-          People in {city}
+          People in this timezone
         </Typography>
         <MembersList timezone={timezone} />
       </Box>

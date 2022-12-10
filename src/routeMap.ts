@@ -7,5 +7,5 @@ export default {
   settings: "/settings",
   me: "/settings/me",
   invite: "/invite/:code",
-  timezone: "/app/:id",
+  timezone: "/app/tz/:id",
 };
