@@ -32,7 +32,7 @@ export default function GitHubLoginButton() {
         provider: SocialProvider.Github,
       });
     }
-  }, [code]);
+  }, []);
 
   return (
     <LoadingButton

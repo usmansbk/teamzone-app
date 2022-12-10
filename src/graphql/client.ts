@@ -2,7 +2,6 @@ import { ApolloClient, HttpLink, ApolloLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import toast from "react-hot-toast";
 import cache from "./cache";
-import { tokenVar } from "./vars";
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -10,7 +9,7 @@ const httpLink = new HttpLink({
 
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => {
-    const token = tokenVar();
+    const token = localStorage.getItem("token");
     return {
       headers: {
         ...headers,
