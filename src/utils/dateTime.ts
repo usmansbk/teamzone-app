@@ -11,20 +11,8 @@ dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
-export function getLocalTime(timezone: string, format = "HH:mm") {
-  return dayjs().tz(timezone).format(format);
-}
-
-export function getRawLocalTime(timezone: string) {
-  return dayjs().tz(timezone);
-}
-
 export function getCurrentDateTime() {
   return dayjs();
-}
-
-export function getLocalDate(timezone: string, format = "dddd, D MMMM, YYYY") {
-  return dayjs().tz(timezone).format(format);
 }
 
 export function formatUTCOffset(timezone: string) {
