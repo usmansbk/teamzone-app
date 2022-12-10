@@ -45,3 +45,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Authors
+
+👤 **Babakolo Usman Suleiman**
+
+- GitHub: [@usmansbk](https://github.com/usmansbk)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/usmansbk/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
