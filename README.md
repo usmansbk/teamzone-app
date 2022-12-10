@@ -16,10 +16,6 @@
 
 - [ ] Calendar
 
-- [ ] Countdown Timers
-
-- [ ] Compare Time
-
 - [ ] In-app notifications (Timezone change)
 
 - [ ] Slack integration (Import slack teams if possible)
