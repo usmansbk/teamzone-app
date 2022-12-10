@@ -34,6 +34,7 @@ export default function NewTeamDialog({ open, onClose }: Props) {
     register,
     handleSubmit,
     formState: { errors, touchedFields },
+    reset,
   } = useForm<CreateTeamInput>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -42,6 +43,12 @@ export default function NewTeamDialog({ open, onClose }: Props) {
   });
 
   const { onSubmit, loading, data } = useCreateTeam();
+
+  useEffect(() => {
+    if (open) {
+      reset();
+    }
+  }, [open]);
 
   useEffect(() => {
     if (data) {
