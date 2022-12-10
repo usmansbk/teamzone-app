@@ -1,6 +1,5 @@
 import { InMemoryCache, Reference } from "@apollo/client";
 import { AppPreferences } from "src/types";
-import { tokenVar } from "./vars";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -18,11 +17,6 @@ const cache = new InMemoryCache({
     },
     Query: {
       fields: {
-        isLoggedIn: {
-          read() {
-            return !!tokenVar();
-          },
-        },
         appPreferences: {
           merge: true,
           read(

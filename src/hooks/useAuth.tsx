@@ -1,16 +1,12 @@
-import { useApolloClient, useQuery } from "@apollo/client";
+import { useApolloClient, useReactiveVar } from "@apollo/client";
 import { useCallback } from "react";
-import { GET_AUTH_STATE } from "src/graphql/localQueries";
 import { tokenVar } from "src/graphql/vars";
 
-interface Result {
-  isLoggedIn: boolean;
-}
 export default function useAuth() {
-  const { data } = useQuery<Result>(GET_AUTH_STATE);
+  const token = useReactiveVar(tokenVar);
 
   return {
-    isLoggedIn: data?.isLoggedIn,
+    isLoggedIn: !!token,
   };
 }
 
