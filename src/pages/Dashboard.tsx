@@ -49,9 +49,8 @@ const Dashboard = () => {
           >
             {formatTimezoneName(timezone!)},
           </span>{" "}
-          {countryName}
-        </Link>{" "}
-        now
+        </Link>
+        {countryName}
       </Typography>
       <Stack spacing={2}>
         <Clock timezone={timezone!} />

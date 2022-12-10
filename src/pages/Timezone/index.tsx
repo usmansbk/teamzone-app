@@ -42,7 +42,7 @@ const Clock = memo(
           >
             {name},
           </span>{" "}
-          {countryName} now
+          {countryName}
         </Typography>
         <BigClock
           time={dateTime.tz(timezone).format("HH:mm:ss")}
