@@ -14,11 +14,11 @@
 
 ## Todo
 
-- [ ] Team Calendar / Meeting
+- [ ] Calendar
 
-- [ ] Team Timers / Countdown
+- [ ] Countdown Timers
 
-- [ ] Date / Time picker (Compare time)
+- [ ] Compare Time
 
 - [ ] In-app notifications (Timezone change)
 
