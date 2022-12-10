@@ -5,7 +5,7 @@ import useGetTeammatesByTimezone from "src/hooks/api/useGetTeammatesByTimezone";
 const MembersList = ({ timezone }: { timezone: string }) => {
   const { loading, data } = useGetTeammatesByTimezone(timezone);
 
-  if (!loading) {
+  if (loading) {
     return (
       <Stack
         mt={2}
