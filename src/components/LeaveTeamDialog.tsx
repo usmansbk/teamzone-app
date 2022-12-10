@@ -26,6 +26,7 @@ export default function LeaveTeamDialog({ open, onClose, title }: Props) {
       <DialogActions>
         <Button onClick={onClose}>No</Button>
         <Button
+          variant="contained"
           onClick={() => {
             handleLeave({ teamId: id! });
           }}

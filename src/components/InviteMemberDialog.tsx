@@ -32,6 +32,9 @@ export default function InviteMemberDialog({ open, onClose, code }: Props) {
             InputProps={{
               startAdornment: <ContentCopy />,
               readOnly: true,
+              sx: {
+                borderRadius: 0,
+              },
             }}
             sx={{
               "& .MuiInputBase-input": {
@@ -45,7 +48,9 @@ export default function InviteMemberDialog({ open, onClose, code }: Props) {
         </CopyToClipboard>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Done</Button>
+        <Button variant="contained" onClick={onClose}>
+          Done
+        </Button>
       </DialogActions>
     </Dialog>
   );
