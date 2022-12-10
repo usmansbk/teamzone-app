@@ -3,8 +3,8 @@ import {
   TextField,
   Stack,
   Autocomplete,
-  LinearProgress,
   Box,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -20,9 +20,9 @@ import useGetTimezones from "src/hooks/api/useGetTimezones";
 export default function Profile() {
   const { loading: loadingTimezones, data: timezones } = useGetTimezones();
   const { onSubmit, loading, data: updatedData } = useUpdateProfile();
-  const { data } = useMe();
+  const { data, loading: loadingMe } = useMe();
 
-  const { firstName, lastName, locale, timezone } = data!;
+  const { firstName, lastName, locale, timezone } = data || {};
 
   const schema = useMemo(
     () =>
@@ -75,9 +75,16 @@ export default function Profile() {
     }
   }, [updatedData]);
 
+  if (loadingTimezones || loadingMe) {
+    return (
+      <Box textAlign="center">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Box>
-      {loadingTimezones && <LinearProgress sx={{ mb: 2 }} />}
       <Stack justifyContent="center" alignItems="center">
         <UploadAvatar />
       </Stack>
