@@ -47,8 +47,9 @@ const Dashboard = () => {
               fontWeight: 900,
             }}
           >
-            {formatTimezoneName(timezone!)}, {countryName}
-          </span>
+            {formatTimezoneName(timezone!)},
+          </span>{" "}
+          {countryName}
         </Link>{" "}
         now
       </Typography>

@@ -40,9 +40,9 @@ const Clock = memo(
               fontWeight: 900,
             }}
           >
-            {name}, {countryName}
+            {name},
           </span>{" "}
-          now
+          {countryName} now
         </Typography>
         <BigClock
           time={dateTime.tz(timezone).format("HH:mm:ss")}
