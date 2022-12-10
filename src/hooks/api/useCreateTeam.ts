@@ -22,9 +22,9 @@ export default function useCreateTeam() {
                   const newTeamRef = cache.writeFragment({
                     data: result,
                     fragment: gql`
-                      fragment NewComment on Comment {
+                      fragment NewTeam on Team {
                         id
-                        text
+                        name
                       }
                     `,
                   }) as unknown as Team;
