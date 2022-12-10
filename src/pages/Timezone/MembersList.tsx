@@ -1,4 +1,4 @@
-import { Grid, Skeleton, Avatar, Typography, Stack } from "@mui/material";
+import { Grid, Skeleton, Avatar, Typography, Stack, Box } from "@mui/material";
 import { memo } from "react";
 import useGetTeammatesByTimezone from "src/hooks/api/useGetTeammatesByTimezone";
 
@@ -9,9 +9,19 @@ const MembersList = ({ timezone }: { timezone: string }) => {
     return (
       <Grid container mt={2}>
         <Grid item>
-          <Skeleton variant="circular" width={60} height={60} />
-          <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
-          <Skeleton variant="text" />
+          <Stack
+            direction={{ xs: "row", md: "column" }}
+            alignItems={{ xs: "center", md: "flex-start" }}
+            spacing={1}
+          >
+            <Box>
+              <Skeleton variant="circular" width={60} height={60} />
+            </Box>
+            <Stack width="100%">
+              <Skeleton width={100} variant="text" />
+              <Skeleton variant="text" />
+            </Stack>
+          </Stack>
         </Grid>
       </Grid>
     );
