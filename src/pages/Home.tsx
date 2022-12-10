@@ -46,7 +46,7 @@ export default function Home() {
             </Link>
             .
           </Typography>
-          <Typography>
+          {/* <Typography>
             Teamzone relies on sunrise and sunset data from{" "}
             <Link
               color="inherit"
@@ -57,7 +57,7 @@ export default function Home() {
               Sunrise Sunset
             </Link>
             .
-          </Typography>
+          </Typography> */}
         </Stack>
       </Box>
       <Stack spacing={2}>
