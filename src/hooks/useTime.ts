@@ -1,27 +1,30 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getCurrentDateTime } from "src/utils/dateTime";
 
 export default function useTime() {
   const [dateTime, setDateTime] = useState(getCurrentDateTime());
+  const timerRef = useRef<NodeJS.Timeout>();
 
   const timer = useCallback(() => {
-    let clearId: NodeJS.Timeout;
-
     const tick = () => {
-      if (clearId) {
-        clearTimeout(clearId);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
       }
       setDateTime(getCurrentDateTime());
-      clearId = setTimeout(tick, 1000 - new Date().getMilliseconds());
+      timerRef.current = setTimeout(tick, 1000 - new Date().getMilliseconds());
     };
 
-    clearId = setTimeout(tick, 1000 - new Date().getMilliseconds());
+    timerRef.current = setTimeout(tick, 1000 - new Date().getMilliseconds());
   }, []);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(timer);
+    timer();
 
-    return () => cancelAnimationFrame(handle);
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, []);
 
   return {
