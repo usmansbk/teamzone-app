@@ -1,3 +1,4 @@
+import { GroupAdd } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -81,7 +82,11 @@ export default function DrawerContent({ teams }: Props) {
           </ListItem>
         ))}
       </List>
-      <Button fullWidth onClick={() => setOpenTeamForm(true)}>
+      <Button
+        startIcon={<GroupAdd />}
+        fullWidth
+        onClick={() => setOpenTeamForm(true)}
+      >
         Create new Team
       </Button>
       <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
