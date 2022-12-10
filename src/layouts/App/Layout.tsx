@@ -15,11 +15,9 @@ import {
   AppBar,
   Drawer,
   Popover,
-  Button,
 } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import NewTeamDialog from "src/components/NewTeamDialog";
 import { User } from "src/__generated__/graphql";
 import ThemeButton from "src/components/ThemeButton";
 import DropdownContent from "./DropdownContent";
@@ -48,9 +46,6 @@ interface Props {
 }
 
 function Layout({ user }: Props) {
-  const [openTeamForm, setOpenTeamForm] = useState(false);
-
-  const closeTeamForm = useCallback(() => setOpenTeamForm(false), []);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -71,7 +66,7 @@ function Layout({ user }: Props) {
 
   const drawer = useMemo(
     () => <DrawerContent teams={user.teams as any} />,
-    [user.teams, handleDrawerToggle]
+    [user.teams]
   );
 
   return (
@@ -95,15 +90,7 @@ function Layout({ user }: Props) {
               >
                 <MenuIcon />
               </IconButton>
-              <Box display="flex" flexGrow={1}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() => setOpenTeamForm(true)}
-                >
-                  Create new Team
-                </Button>
-              </Box>
+              <Box display="flex" flexGrow={1} />
               <ThemeButton />
               <Box>
                 <IconButton edge="end" onClick={handleOpenUserMenu}>
@@ -179,8 +166,9 @@ function Layout({ user }: Props) {
         }}
       >
         <Toolbar disableGutters />
-        <Outlet />
-        <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
+        <Box flexGrow={1} p={3} pt={0}>
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   );

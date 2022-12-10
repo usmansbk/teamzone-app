@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Divider,
   List,
   ListItem,
@@ -10,7 +11,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
+import NewTeamDialog from "src/components/NewTeamDialog";
 import ThemedNavLink from "src/components/ThemedNavLink";
 import routeMap from "src/routeMap";
 import { Team } from "src/__generated__/graphql";
@@ -19,6 +22,10 @@ interface Props {
   teams: Partial<Team>[];
 }
 export default function DrawerContent({ teams }: Props) {
+  const [openTeamForm, setOpenTeamForm] = useState(false);
+
+  const closeTeamForm = useCallback(() => setOpenTeamForm(false), []);
+
   return (
     <div>
       <Toolbar>
@@ -74,6 +81,10 @@ export default function DrawerContent({ teams }: Props) {
           </ListItem>
         ))}
       </List>
+      <Button fullWidth onClick={() => setOpenTeamForm(true)}>
+        Create new Team
+      </Button>
+      <NewTeamDialog open={openTeamForm} onClose={closeTeamForm} />
     </div>
   );
 }
