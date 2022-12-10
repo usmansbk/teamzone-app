@@ -208,7 +208,7 @@ export type Mutation = {
   createTeam: Team;
   deleteTeam: Team;
   joinTeam: Team;
-  leaveTeam: TeamMember;
+  leaveTeam: Team;
   loginWithSocialProvider: AuthPayload;
   removeTeamMemberFromAdmin: TeamMember;
   removeTeammate: TeamMember;
@@ -525,7 +525,7 @@ export type LeaveTeamMutationVariables = Exact<{
 
 export type LeaveTeamMutation = {
   __typename?: "Mutation";
-  leaveTeam: { __typename?: "TeamMember"; id: string; teamId: string };
+  leaveTeam: { __typename?: "Team"; id: string; isMember: boolean };
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
@@ -1148,7 +1148,7 @@ export const LeaveTeamDocument = {
               kind: "SelectionSet",
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "teamId" } },
+                { kind: "Field", name: { kind: "Name", value: "isMember" } },
               ],
             },
           },

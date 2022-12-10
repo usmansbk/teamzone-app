@@ -21,7 +21,7 @@ export default function useLeaveTeam() {
                 teams(existingRefs: Reference[], { readField }) {
                   return existingRefs?.filter(
                     (ref: Reference) =>
-                      readField("id", ref) !== leaveTeamData.teamId
+                      readField("id", ref) !== leaveTeamData.id
                   );
                 },
               },
