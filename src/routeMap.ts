@@ -8,4 +8,6 @@ export default {
   me: "/settings/me",
   invite: "/invite/:code",
   timezone: "/app/tz/:id",
+  timers: "/app/timers",
+  calendar: "/app/calendar",
 };

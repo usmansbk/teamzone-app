@@ -1,4 +1,4 @@
-import { GroupAdd } from "@mui/icons-material";
+import { CalendarMonth, GroupAdd, Timer } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -12,7 +12,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import NewTeamDialog from "src/components/NewTeamDialog";
 import ThemedNavLink from "src/components/ThemedNavLink";
@@ -26,6 +26,22 @@ export default function DrawerContent({ teams }: Props) {
   const [openTeamForm, setOpenTeamForm] = useState(false);
 
   const closeTeamForm = useCallback(() => setOpenTeamForm(false), []);
+
+  const navs = useMemo(
+    () => [
+      {
+        path: routeMap.calendar,
+        icon: <CalendarMonth />,
+        name: "Calendar",
+      },
+      {
+        path: routeMap.timers,
+        icon: <Timer />,
+        name: "Timers",
+      },
+    ],
+    []
+  );
 
   return (
     <div>
@@ -44,6 +60,27 @@ export default function DrawerContent({ teams }: Props) {
           Teamzone
         </Typography>
       </Toolbar>
+      <Divider />
+      <List>
+        {navs.map(({ path, icon, name }) => (
+          <ListItem key={path} disablePadding>
+            <ListItemButton component={ThemedNavLink} to={path}>
+              <ListItemAvatar>
+                <Avatar>{icon}</Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={name}
+                primaryTypographyProps={{
+                  noWrap: true,
+                  style: {
+                    fontWeight: 800,
+                  },
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
       <Divider />
       <List>
         <ListSubheader>
@@ -76,7 +113,6 @@ export default function DrawerContent({ teams }: Props) {
                   noWrap: true,
                   style: {
                     fontWeight: 800,
-                    fontSize: 16,
                   },
                 }}
               />
