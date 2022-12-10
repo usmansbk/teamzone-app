@@ -63,7 +63,7 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const timeDiff = getTimeDifferenceInMs(me?.timezone!, timezone);
 
   return (
-    <Stack spacing={4}>
+    <Stack p={3} pt={0} spacing={4}>
       <Clock name={name} countryName={countryName} timezone={timezone} />
       <Box>
         <Typography variant="h4" color="primary">

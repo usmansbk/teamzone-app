@@ -35,7 +35,7 @@ const Dashboard = () => {
   ) as TeamMember[];
 
   return (
-    <Box>
+    <Box p={3} pt={0}>
       <Typography variant="h4" fontWeight={400}>
         Time in{" "}
         <Link

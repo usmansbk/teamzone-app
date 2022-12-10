@@ -39,7 +39,7 @@ export default function Team() {
   const { name, teammates, isOwner, isMember, inviteCode, isAdmin } = data!;
 
   return (
-    <Box>
+    <Box p={3} pt={0}>
       <Typography variant="h4" sx={{ wordBreak: "break-all", mb: 2 }}>
         {name}
         {(isOwner || isAdmin) && (

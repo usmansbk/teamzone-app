@@ -166,9 +166,7 @@ function Layout({ user }: Props) {
         }}
       >
         <Toolbar disableGutters />
-        <Box flexGrow={1} p={3} pt={0}>
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );
