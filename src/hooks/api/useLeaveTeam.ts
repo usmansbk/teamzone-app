@@ -2,9 +2,11 @@ import { useMutation, Reference } from "@apollo/client";
 import { useCallback } from "react";
 import leaveTeam from "src/graphql/queries/leaveTeam";
 import { LeaveTeamMutationVariables } from "src/__generated__/graphql";
+import useMe from "./useMe";
 
 export default function useLeaveTeam() {
   const [mutate, { loading, data, error }] = useMutation(leaveTeam);
+  const { data: me } = useMe();
 
   const handleLeave = useCallback(
     (variables: LeaveTeamMutationVariables) =>
@@ -14,10 +16,7 @@ export default function useLeaveTeam() {
           if (response.data?.leaveTeam) {
             const { leaveTeam: leaveTeamData } = response.data;
             cache.modify({
-              id: cache.identify({
-                __typename: "User",
-                id: leaveTeamData.memberId,
-              }),
+              id: cache.identify(me!),
               fields: {
                 teams(existingRefs: Reference[], { readField }) {
                   return existingRefs?.filter(

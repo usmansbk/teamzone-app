@@ -525,12 +525,7 @@ export type LeaveTeamMutationVariables = Exact<{
 
 export type LeaveTeamMutation = {
   __typename?: "Mutation";
-  leaveTeam: {
-    __typename?: "TeamMember";
-    id: string;
-    teamId: string;
-    memberId: string;
-  };
+  leaveTeam: { __typename?: "TeamMember"; id: string; teamId: string };
 };
 
 export type LoginWithSocialProviderMutationVariables = Exact<{
@@ -1154,7 +1149,6 @@ export const LeaveTeamDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "teamId" } },
-                { kind: "Field", name: { kind: "Name", value: "memberId" } },
               ],
             },
           },

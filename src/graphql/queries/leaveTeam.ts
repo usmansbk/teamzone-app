@@ -5,7 +5,6 @@ export default gql(`
 		leaveTeam(teamId: $teamId) {
 			id
 			teamId
-			memberId
 		}
 	}
 `);
