@@ -1,5 +1,7 @@
 # Teamzone app
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c3454703-7f38-4168-a291-e299e427959d/deploy-status)](https://app.netlify.com/sites/teamzone/deploys)
+
 World clock for international remote teams
 
 ## Live
