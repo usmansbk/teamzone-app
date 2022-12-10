@@ -66,7 +66,9 @@ export default function DrawerContent({ teams }: Props) {
               to={routeMap.team.replace(":id", team!.id!)}
             >
               <ListItemAvatar>
-                <Avatar variant="rounded">{team?.name![0]}</Avatar>
+                <Avatar variant="rounded">
+                  {team?.name![0].toUpperCase()}
+                </Avatar>
               </ListItemAvatar>
               <ListItemText
                 primary={team!.name}
