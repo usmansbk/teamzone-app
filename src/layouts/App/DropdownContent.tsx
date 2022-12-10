@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useLogout } from "src/hooks/useAuth";
+import useAuth from "src/hooks/useAuth";
 import routeMap from "src/routeMap";
 import { User } from "src/__generated__/graphql";
 
@@ -17,7 +17,7 @@ interface Props {
   user: Partial<User>;
 }
 export default function DropdownContent({ user }: Props) {
-  const logout = useLogout();
+  const { logout } = useAuth();
 
   return (
     <Box maxWidth={300}>
