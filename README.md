@@ -14,12 +14,18 @@ World clock for international remote teams
 
 ## Todo
 
-[ ] Team Calendar / Meeting
+[] Team Calendar / Meeting
+
 [ ] Team Timers / Countdown
+
 [ ] Date / Time picker (Compare time)
+
 [ ] In-app notifications (Timezone change)
+
 [ ] Slack integration (Import slack teams if possible)
+
 [ ] Google calendar integration
+
 [ ] Zoom integration
 
 ## Techonologies
