@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useApolloClient, useQuery } from "@apollo/client";
 import { useCallback } from "react";
 import { GET_AUTH_STATE } from "src/graphql/localQueries";
 import { tokenVar } from "src/graphql/vars";
@@ -15,9 +15,13 @@ export default function useAuth() {
 }
 
 export function useLogout() {
+  const client = useApolloClient();
   const handleLogout = useCallback(async () => {
     localStorage.removeItem("token");
     tokenVar(null);
+    setTimeout(() => {
+      client.clearStore();
+    }, 400);
   }, []);
 
   return handleLogout;
