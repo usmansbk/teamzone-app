@@ -97,7 +97,7 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
       </Box>
       <Box>
         <Typography variant="h4" color="primary">
-          People in this timezone
+          People in this time zone
         </Typography>
         <MembersList timezone={timezone} />
       </Box>
