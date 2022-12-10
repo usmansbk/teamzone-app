@@ -27,7 +27,7 @@ const cache = new InMemoryCache({
           merge: true,
           read(
             preferences: AppPreferences = {
-              theme: "system",
+              is24Hour: true,
             }
           ) {
             return preferences;

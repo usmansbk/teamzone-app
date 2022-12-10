@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useCallback, useState } from "react";
-import useAppPreferences from "src/hooks/useAppPreferences";
+import useAppTheme from "src/hooks/useAppTheme";
 import { AppTheme } from "src/types";
 
 const themes: { icon: JSX.Element; value: AppTheme }[] = [
@@ -27,7 +27,7 @@ const themes: { icon: JSX.Element; value: AppTheme }[] = [
 ];
 export default function ThemeButton() {
   const { palette } = useTheme();
-  const { preferences, setTheme } = useAppPreferences();
+  const { appTheme, setTheme } = useAppTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -73,7 +73,7 @@ export default function ThemeButton() {
         {themes.map(({ icon, value }) => (
           <MenuItem
             key={value}
-            selected={value === preferences?.theme}
+            selected={value === appTheme}
             onClick={handleOption(value)}
           >
             <ListItemIcon>{icon}</ListItemIcon>

@@ -4,20 +4,18 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useMemo } from "react";
 import getAppTheme from "src/config/theme";
 import client from "./graphql/client";
-import useAppPreferences from "./hooks/useAppPreferences";
+import useAppTheme from "./hooks/useAppTheme";
 import Pages from "./pages";
 
 function Main() {
-  const { preferences } = useAppPreferences();
+  const { appTheme } = useAppTheme();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const theme = useMemo(
     () =>
       getAppTheme(
-        preferences?.theme === "system"
-          ? prefersDarkMode
-          : preferences?.theme === "dark"
+        appTheme === "system" ? prefersDarkMode : appTheme === "dark"
       ),
-    [prefersDarkMode, preferences?.theme]
+    [prefersDarkMode, appTheme]
   );
 
   return (
