@@ -55,7 +55,7 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
           </Button>
         </Stack>
       </Stack>
-      <Stack spacing={2}>
+      <Stack spacing={2} width="100%">
         <TextField label="Title" placeholder="Add title" />
         <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
@@ -115,11 +115,12 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
             />
           </Box>
         </Stack>
-        <FormControl>
+        <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
           <Select
             label="Teams"
             multiple
+            fullWidth
             value={[]}
             placeholder="Add teams"
             inputProps={{
