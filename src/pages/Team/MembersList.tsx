@@ -17,7 +17,6 @@ import React, { memo, useState } from "react";
 import MakeAdminDialog from "src/components/MakeAdminDialog";
 import MakeMemberDialog from "src/components/MakeMemberDialog";
 import RemoveTeamMemberDialog from "src/components/RemoveTeamMemberDialog";
-import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember, TeamRole } from "src/__generated__/graphql";
 
 interface Props {
@@ -43,6 +42,9 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
   const { fullName, picture, tzData, timezone } = member;
 
   const isAdmin = role === TeamRole.Admin;
+
+  const city = tzData?.mainCities?.[0]!;
+  const countryName = tzData?.countryName;
 
   return (
     <>
@@ -75,7 +77,7 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
             timezone &&
             tzData && (
               <Typography fontWeight={500}>
-                {formatTimezoneName(timezone!)}, {tzData.countryName}
+                {city}, {countryName}
               </Typography>
             )
           }

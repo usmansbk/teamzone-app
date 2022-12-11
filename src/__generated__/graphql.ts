@@ -462,6 +462,7 @@ export type QueryQuery = {
           name: string;
           countryCode?: any | null;
           countryName: string;
+          mainCities?: Array<string | null> | null;
         } | null;
       };
     } | null>;
@@ -595,6 +596,7 @@ export type MeQuery = {
             name: string;
             countryCode?: any | null;
             countryName: string;
+            mainCities?: Array<string | null> | null;
           } | null;
         };
       } | null>;
@@ -610,6 +612,7 @@ export type MeQuery = {
       name: string;
       countryCode?: any | null;
       countryName: string;
+      mainCities?: Array<string | null> | null;
     } | null;
   };
 };
@@ -884,6 +887,10 @@ export const QueryDocument = {
                                       kind: "Name",
                                       value: "countryName",
                                     },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "mainCities" },
                                   },
                                 ],
                               },
@@ -1423,6 +1430,13 @@ export const MeDocument = {
                                             value: "countryName",
                                           },
                                         },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "mainCities",
+                                          },
+                                        },
                                       ],
                                     },
                                   },
@@ -1461,6 +1475,10 @@ export const MeDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "countryName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "mainCities" },
                       },
                     ],
                   },

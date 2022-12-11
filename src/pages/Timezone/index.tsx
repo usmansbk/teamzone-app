@@ -10,7 +10,6 @@ import {
   formatUTCOffset,
   getTimeDifferenceInMs,
 } from "src/utils/dateTime";
-import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TimezoneData } from "src/__generated__/graphql";
 import PageNotFound from "../404";
 import MembersList from "./MembersList";
@@ -55,16 +54,15 @@ const Clock = memo(
 
 const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const { data: me } = useMe();
-  const { countryName, alternativeName, abbreviation } = data;
+  const { countryName, alternativeName, abbreviation, mainCities } = data;
 
-  const name = formatTimezoneName(timezone);
-  const [city] = name.split(",");
-  const [myCity] = formatTimezoneName(me?.timezone!).split(",");
+  const city = mainCities?.[0]!;
+  const myCity = me?.tzData?.mainCities?.[0]!;
   const timeDiff = getTimeDifferenceInMs(me?.timezone!, timezone);
 
   return (
     <Stack p={3} pt={0} spacing={4}>
-      <Clock name={name} countryName={countryName} timezone={timezone} />
+      <Clock name={city} countryName={countryName} timezone={timezone} />
       <Box>
         <Typography variant="h4" color="primary">
           Time Zone

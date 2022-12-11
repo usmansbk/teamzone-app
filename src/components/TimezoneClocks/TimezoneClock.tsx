@@ -1,15 +1,14 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import formatTimezoneName from "src/utils/formatTimezoneName";
 
 interface Props {
   time: string;
   date?: string;
-  name: string;
+  city: string;
   countryName: string;
 }
 
 export default function TimezoneClock({
-  name,
+  city,
   time,
   date,
   countryName,
@@ -26,7 +25,7 @@ export default function TimezoneClock({
         textAlign: "end",
       }}
     >
-      <Typography variant="h6">{formatTimezoneName(name)}</Typography>
+      <Typography variant="h6">{city}</Typography>
       <Typography
         variant="h4"
         lineHeight={1}

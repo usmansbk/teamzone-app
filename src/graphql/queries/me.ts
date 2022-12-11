@@ -23,6 +23,7 @@ export default gql(`
               name
               countryCode
               countryName
+              mainCities
             }
           }
         }
@@ -36,6 +37,7 @@ export default gql(`
         name
         countryCode
         countryName
+        mainCities
       }
     }
   }
