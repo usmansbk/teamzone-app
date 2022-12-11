@@ -30,9 +30,9 @@ export default function DrawerContent({ teams }: Props) {
   const navs = useMemo(
     () => [
       {
-        path: routeMap.calendar,
+        path: routeMap.meetings,
         icon: <CalendarMonth />,
-        name: "Calendar",
+        name: "Meetings",
       },
     ],
     []
