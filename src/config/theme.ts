@@ -106,7 +106,6 @@ const themeOptions: ThemeOptions = {
         disableElevation: true,
         sx: {
           textTransform: "none",
-          borderRadius: 0,
         },
       },
     },
@@ -115,7 +114,6 @@ const themeOptions: ThemeOptions = {
         InputProps: {
           sx: {
             fontWeight: 900,
-            borderRadius: 0,
           },
         },
         InputLabelProps: {
@@ -127,7 +125,7 @@ const themeOptions: ThemeOptions = {
     },
   },
   shape: {
-    // borderRadius: 0,
+    borderRadius: 0,
   },
 };
 

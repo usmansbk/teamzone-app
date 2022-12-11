@@ -1,9 +1,13 @@
-import { Typography, Box } from "@mui/material";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import MeetingForm from "src/components/MeetingForm";
 
 export default function NewMeeting() {
-  return (
-    <Box>
-      <Typography>New Meeting</Typography>
-    </Box>
-  );
+  const navigate = useNavigate();
+
+  const onClose = useCallback(() => {
+    navigate(-1);
+  }, []);
+
+  return <MeetingForm title="New Meeting" onClose={onClose} />;
 }

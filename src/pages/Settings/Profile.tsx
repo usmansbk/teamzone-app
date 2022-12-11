@@ -136,7 +136,6 @@ export default function Profile() {
                     ...params.InputProps,
                     sx: {
                       fontWeight: 900,
-                      borderRadius: 0,
                     },
                   }}
                 />
