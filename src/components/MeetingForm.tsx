@@ -4,8 +4,6 @@ import {
   TextField,
   Typography,
   Box,
-  FormControlLabel,
-  Switch,
   MenuItem,
   Select,
   FormControl,
@@ -77,41 +75,31 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
             ))}
           </Select>
         </FormControl>
-        <Stack>
-          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-            <Box flexGrow={1}>
-              <MobileDateTimePicker
-                label="From"
-                value={new Date()}
-                onChange={() => {}}
-                inputFormat={DATE_TIME_FORMAT}
-                InputProps={{
-                  sx: {
-                    fontWeight: 800,
-                  },
-                }}
-                renderInput={(params: any) => (
-                  <TextField {...params} fullWidth />
-                )}
-              />
-            </Box>
-            <Box flexGrow={1}>
-              <MobileDateTimePicker
-                label="To"
-                inputFormat={DATE_TIME_FORMAT}
-                value={new Date()}
-                onChange={() => {}}
-                InputProps={{ sx: { fontWeight: 800 } }}
-                renderInput={({ value, ...params }: any) => (
-                  <TextField {...params} fullWidth />
-                )}
-              />
-            </Box>
-          </Stack>
-          <Box>
-            <FormControlLabel
-              control={<Switch />}
-              label={<Typography fontWeight={800}>All day</Typography>}
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+          <Box flexGrow={1}>
+            <MobileDateTimePicker
+              label="From"
+              value={new Date()}
+              onChange={() => {}}
+              inputFormat={DATE_TIME_FORMAT}
+              InputProps={{
+                sx: {
+                  fontWeight: 800,
+                },
+              }}
+              renderInput={(params: any) => <TextField {...params} fullWidth />}
+            />
+          </Box>
+          <Box flexGrow={1}>
+            <MobileDateTimePicker
+              label="To"
+              inputFormat={DATE_TIME_FORMAT}
+              value={new Date()}
+              onChange={() => {}}
+              InputProps={{ sx: { fontWeight: 800 } }}
+              renderInput={({ value, ...params }: any) => (
+                <TextField {...params} fullWidth />
+              )}
             />
           </Box>
         </Stack>
