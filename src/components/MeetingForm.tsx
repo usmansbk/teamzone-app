@@ -27,11 +27,14 @@ import {
   getDuration,
 } from "src/utils/dateTime";
 
+const DATE_TIME_FORMAT = "lll";
+const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
+
 const schema = yup
   .object({
     title: yup
       .string()
-      .max(225, () => "Maximum number of characters reached")
+      .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
     from: yup.date().required(),
@@ -39,7 +42,7 @@ const schema = yup
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()
-      .max(2048, () => "Maximum number of characters reached")
+      .max(2048, () => MAX_CHARACTERS_MESSAGE)
       .nullable(),
   })
   .required();
@@ -52,8 +55,6 @@ interface Props {
   loading?: boolean;
   onSubmit: (values: MeetingInput) => void;
 }
-
-const DATE_TIME_FORMAT = "lll";
 
 const extractTimezones = (teams: Team[]) =>
   uniqBy(
