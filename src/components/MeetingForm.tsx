@@ -9,6 +9,7 @@ import {
   FormControl,
   InputLabel,
   MenuProps,
+  Chip,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
@@ -74,7 +75,7 @@ export default function MeetingForm({
   const { data } = useMe();
   const { teams, timezone } = data!;
 
-  const timezones = useMemo(() => extractTimezones(teams as Team[]), []);
+  const timezones = useMemo(() => extractTimezones(teams as Team[]), [teams]);
 
   const { register, control, handleSubmit, getValues, setValue } =
     useForm<MeetingInput>({
@@ -227,6 +228,16 @@ export default function MeetingForm({
                 value={value}
                 onChange={onChange}
                 MenuProps={menuProps}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((val) => (
+                      <Chip
+                        key={val}
+                        label={teams.find((t) => t?.id === val)?.name}
+                      />
+                    ))}
+                  </Box>
+                )}
               >
                 {teams.map((team) => (
                   <MenuItem key={team!.id} value={team!.id}>
