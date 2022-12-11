@@ -113,10 +113,19 @@ const themeOptions: ThemeOptions = {
       defaultProps: {
         InputProps: {
           sx: {
-            fontWeight: 900,
+            fontWeight: 800,
           },
         },
         InputLabelProps: {
+          sx: {
+            fontWeight: 800,
+          },
+        },
+      },
+    },
+    MuiDateTimePicker: {
+      defaultProps: {
+        InputProps: {
           sx: {
             fontWeight: 800,
           },

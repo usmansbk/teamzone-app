@@ -135,7 +135,7 @@ export default function Profile() {
                   InputProps={{
                     ...params.InputProps,
                     sx: {
-                      fontWeight: 900,
+                      fontWeight: 800,
                     },
                   }}
                 />
