@@ -165,15 +165,14 @@ export default function MeetingForm({
                 <MobileDateTimePicker
                   label="From"
                   value={value}
-                  onChange={(newValue) => {
-                    if (newValue) {
-                      const { to } = getValues();
-                      const duration = getDuration(to, value);
-                      const newEndTime = addDuration(newValue, duration);
-                      setValue("to", newEndTime.toDate());
+                  onChange={(from) => {
+                    if (from) {
+                      const duration = getDuration(getValues().to, value);
+                      const to = addDuration(from, duration).toDate();
+                      setValue("to", to);
                     }
 
-                    onChange(newValue);
+                    onChange(from);
                   }}
                   inputFormat={DATE_TIME_FORMAT}
                   InputProps={{
