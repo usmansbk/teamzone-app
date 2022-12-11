@@ -46,7 +46,7 @@ const Dashboard = () => {
               fontWeight: 900,
             }}
           >
-            {mainCities?.[0]},
+            {mainCities?.[0] || timezone},
           </span>{" "}
         </Link>
         {countryName}

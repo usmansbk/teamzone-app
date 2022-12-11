@@ -27,13 +27,14 @@ const TimezoneClocks = ({ teammates }: Props) => {
       {members
         .filter((member) => member.tzData)
         .map((member) => {
-          const name = member.timezone!;
-          const { countryName } = member.tzData!;
-          const date = dateTime.tz(name).format("ddd, MMM D");
-          const time = dateTime.tz(name).format("HH:mm");
+          const { id } = member!;
+          const city = member.tzData?.mainCities?.[0]!;
+          const { countryName, name } = member.tzData!;
+          const date = dateTime.tz(member.timezone!).format("ddd, MMM D");
+          const time = dateTime.tz(member.timezone!).format("HH:mm");
 
           return (
-            <Grid item key={name}>
+            <Grid item key={id}>
               <Link
                 to={routeMap.timezone.replace(":id", encodeURIComponent(name))}
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -41,7 +42,7 @@ const TimezoneClocks = ({ teammates }: Props) => {
                 <TimezoneClock
                   date={date}
                   time={time}
-                  name={name}
+                  city={city}
                   countryName={countryName}
                 />
               </Link>
