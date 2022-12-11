@@ -86,6 +86,16 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
       )}
       <Box>
         <Typography variant="h4" color="primary">
+          Main cities in this time zone
+        </Typography>
+        {mainCities?.map((mainCity) => (
+          <Typography key={mainCity} variant="h6">
+            {mainCity}
+          </Typography>
+        ))}
+      </Box>
+      <Box>
+        <Typography variant="h4" color="primary">
           People in this time zone
         </Typography>
         <MembersList timezone={timezone} />
