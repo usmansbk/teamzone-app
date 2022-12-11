@@ -19,7 +19,6 @@ import Settings from "./Settings";
 import AcceptInvitation from "./AcceptInvitation";
 import Timezone from "./Timezone";
 import Calendar from "./Calendar";
-import Timers from "./Timers";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -103,10 +102,6 @@ const router = createBrowserRouter([
           {
             path: routeMap.calendar,
             element: <Calendar />,
-          },
-          {
-            path: routeMap.timers,
-            element: <Timers />,
           },
         ],
       },

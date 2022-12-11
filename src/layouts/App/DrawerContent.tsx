@@ -1,4 +1,4 @@
-import { CalendarMonth, GroupAdd, Timer } from "@mui/icons-material";
+import { CalendarMonth, GroupAdd } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -33,11 +33,6 @@ export default function DrawerContent({ teams }: Props) {
         path: routeMap.calendar,
         icon: <CalendarMonth />,
         name: "Calendar",
-      },
-      {
-        path: routeMap.timers,
-        icon: <Timer />,
-        name: "Timers",
       },
     ],
     []
