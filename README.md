@@ -14,15 +14,15 @@
 
 ## Todo
 
-- [ ] Calendar
-
-- [ ] In-app notifications (Timezone change)
-
-- [ ] Slack integration (Import slack teams if possible)
+- [ ] Meetings
 
 - [ ] Google calendar integration
 
 - [ ] Zoom integration
+
+- [ ] In-app notifications (Timezone change)
+
+- [ ] Slack integration (Import slack teams if possible)
 
 ## Techonologies
 

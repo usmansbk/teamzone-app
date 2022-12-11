@@ -12,7 +12,7 @@ const ThemedNavLink = forwardRef<any, LinkProps>((props, ref) => {
       style={({ isActive }) => {
         if (isActive) {
           return {
-            backgroundColor: palette.primary.main,
+            backgroundColor: palette.primary.light,
             color: palette.primary.contrastText,
           };
         }
