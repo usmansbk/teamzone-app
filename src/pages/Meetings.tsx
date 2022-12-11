@@ -5,7 +5,7 @@ import routeMap from "src/routeMap";
 
 export default function Meetings() {
   return (
-    <Box flexGrow={1} p={3} pt={0}>
+    <Box>
       <Stack>
         <Box>
           <Button

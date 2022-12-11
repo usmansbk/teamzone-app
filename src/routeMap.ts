@@ -10,4 +10,6 @@ export default {
   timezone: "/app/tz/:id",
   meetings: "/app/meetings",
   newMeeting: "/app/meetings/new",
+  meeting: "/app/meetings/:id",
+  editMeeting: "/app/meetings/:id/edit",
 };

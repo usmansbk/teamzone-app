@@ -9,6 +9,7 @@ import Root from "src/layouts/Root";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
 import App from "../layouts/App";
+import MeetingsLayout from "../layouts/Meetings";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./Login";
@@ -18,8 +19,10 @@ import Team from "./Team";
 import Settings from "./Settings";
 import AcceptInvitation from "./AcceptInvitation";
 import Timezone from "./Timezone";
-import Calendar from "./Meetings";
+import Meetings from "./Meetings";
 import NewMeeting from "./NewMeeting";
+import Meeting from "./Meeting";
+import EditMeeting from "./EditMeeting";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -102,11 +105,25 @@ const router = createBrowserRouter([
           },
           {
             path: routeMap.meetings,
-            element: <Calendar />,
-          },
-          {
-            path: routeMap.newMeeting,
-            element: <NewMeeting />,
+            element: <MeetingsLayout />,
+            children: [
+              {
+                index: true,
+                element: <Meetings />,
+              },
+              {
+                path: routeMap.newMeeting,
+                element: <NewMeeting />,
+              },
+              {
+                path: routeMap.meeting,
+                element: <Meeting />,
+              },
+              {
+                path: routeMap.editMeeting,
+                element: <EditMeeting />,
+              },
+            ],
           },
         ],
       },
