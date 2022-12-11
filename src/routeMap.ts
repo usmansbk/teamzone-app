@@ -9,4 +9,5 @@ export default {
   invite: "/invite/:code",
   timezone: "/app/tz/:id",
   meetings: "/app/meetings",
+  newMeeting: "/app/meetings/new",
 };
