@@ -110,7 +110,13 @@ export default function MeetingForm({
         <TextField
           label="Title"
           type="text"
-          autoComplete="new-password"
+          autoComplete="off"
+          inputProps={{
+            autocomplete: "new-password",
+            form: {
+              autocomplete: "off",
+            },
+          }}
           placeholder="Add title"
           {...register("title")}
         />
