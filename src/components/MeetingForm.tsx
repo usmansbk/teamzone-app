@@ -31,7 +31,10 @@ const extractTimezones = (teams: Team[]) =>
   uniqBy(
     teams.flatMap((t) => t!.teammates),
     "member.timezone"
-  ).map((t) => t?.member.timezone);
+  ).map((t) => ({
+    timezone: t?.member.timezone,
+    name: t?.member.tzData?.alternativeName,
+  }));
 
 export default function MeetingForm({ title, onClose, loading }: Props) {
   const { data } = useMe();
@@ -54,11 +57,12 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
       </Stack>
       <Stack spacing={2}>
         <TextField label="Title" placeholder="Add title" />
-        <FormControl>
+        <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
           <Select
             label="Timezone"
             value={timezone}
+            fullWidth
             placeholder="Select timezone"
             inputProps={{
               sx: {
@@ -67,8 +71,8 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
             }}
           >
             {timezones.map((tz) => (
-              <MenuItem key={tz} value={tz!}>
-                {tz} (UTC{formatUTCOffset(tz!)})
+              <MenuItem key={tz.timezone} value={tz.timezone!}>
+                {tz.name} (UTC{formatUTCOffset(tz.timezone!)})
               </MenuItem>
             ))}
           </Select>

@@ -594,6 +594,7 @@ export type MeQuery = {
           tzData?: {
             __typename?: "TimezoneData";
             name: string;
+            alternativeName?: string | null;
             countryCode?: any | null;
             countryName: string;
             mainCities?: Array<string | null> | null;
@@ -1415,6 +1416,13 @@ export const MeDocument = {
                                         {
                                           kind: "Field",
                                           name: { kind: "Name", value: "name" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
                                         },
                                         {
                                           kind: "Field",

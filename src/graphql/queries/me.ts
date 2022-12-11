@@ -21,6 +21,7 @@ export default gql(`
 					  timezone
             tzData {
               name
+              alternativeName
               countryCode
               countryName
               mainCities
