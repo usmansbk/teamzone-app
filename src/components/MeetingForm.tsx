@@ -17,6 +17,7 @@ import uniqBy from "lodash.uniqby";
 import { useMemo } from "react";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
+import { formatUTCOffset } from "src/utils/dateTime";
 
 interface Props {
   title: string;
@@ -67,7 +68,7 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
           >
             {timezones.map((tz) => (
               <MenuItem key={tz} value={tz!}>
-                {tz}
+                {tz} (UTC{formatUTCOffset(tz!)})
               </MenuItem>
             ))}
           </Select>
