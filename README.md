@@ -18,7 +18,7 @@
 
 - [ ] Google calendar integration
 
-- [ ] Zoom integration
+- [ ] Google meet integration
 
 - [ ] In-app notifications (Timezone change)
 
