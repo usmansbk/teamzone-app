@@ -20,7 +20,7 @@ export default function Meetings() {
       </Stack>
       <Box>
         <Typography mt={4} variant="h3">
-          No Upcoming meetings yet
+          No upcoming meetings yet
         </Typography>
       </Box>
     </Box>
