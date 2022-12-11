@@ -2,6 +2,8 @@ import { ApolloProvider } from "@apollo/client";
 import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useMemo } from "react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import getAppTheme from "src/config/theme";
 import client from "./graphql/client";
 import useAppTheme from "./hooks/useAppTheme";
@@ -22,7 +24,9 @@ function Main() {
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-        <Pages />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Pages />
+        </LocalizationProvider>
       </GoogleOAuthProvider>
     </ThemeProvider>
   );

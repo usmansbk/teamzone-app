@@ -10,6 +10,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/lab": "^5.0.0-alpha.111",
     "@mui/material": "^5.10.17",
+    "@mui/x-date-pickers": "^5.0.10",
     "@react-oauth/google": "^0.5.1",
     "dayjs": "^1.11.7",
     "deepmerge": "^4.2.2",

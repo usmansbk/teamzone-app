@@ -6,6 +6,8 @@ import {
   PaletteOptions as ThemePaletteOptions,
 } from "@mui/material";
 import deepmerge from "deepmerge";
+import type {} from "@mui/lab/themeAugmentation";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 declare module "@mui/material" {
   interface Palette {
