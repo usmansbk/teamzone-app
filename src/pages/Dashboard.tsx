@@ -6,7 +6,6 @@ import BigClock from "src/components/BigClock";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
-import formatTimezoneName from "src/utils/formatTimezoneName";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
@@ -23,7 +22,7 @@ const Clock = memo(({ timezone }: { timezone: string }) => {
 const Dashboard = () => {
   const { data } = useMe();
   const { tzData, teams, timezone } = data!;
-  const { countryName } = tzData! || {};
+  const { countryName, mainCities } = tzData! || {};
 
   const teammates = useMemo(
     () =>
@@ -47,7 +46,7 @@ const Dashboard = () => {
               fontWeight: 900,
             }}
           >
-            {formatTimezoneName(timezone!)},
+            {mainCities?.[0]},
           </span>{" "}
         </Link>
         {countryName}

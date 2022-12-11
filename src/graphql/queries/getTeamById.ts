@@ -30,6 +30,7 @@ export default gql(`
 						name
 						countryCode
 						countryName
+						mainCities
 					}
 				}
 			}
