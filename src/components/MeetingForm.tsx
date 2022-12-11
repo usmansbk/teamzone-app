@@ -19,7 +19,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
-import { formatUTCOffset } from "src/utils/dateTime";
+import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
 
 const schema = yup
   .object({
@@ -167,6 +167,7 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
+                  minDate={getCurrentDateTime()}
                 />
               )}
             />
@@ -185,6 +186,7 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
+                  minDate={getCurrentDateTime()}
                 />
               )}
             />
