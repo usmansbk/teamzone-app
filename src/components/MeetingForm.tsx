@@ -29,12 +29,18 @@ import {
 
 const schema = yup
   .object({
-    title: yup.string().required(),
+    title: yup
+      .string()
+      .max(225, () => "Maximum number of characters reached")
+      .required(),
     timezone: yup.string().required(),
     from: yup.date().required(),
     to: yup.date().required(),
     teamIds: yup.array(yup.string().required()),
-    description: yup.string().nullable(),
+    description: yup
+      .string()
+      .max(2048, () => "Maximum number of characters reached")
+      .nullable(),
   })
   .required();
 
@@ -77,18 +83,24 @@ export default function MeetingForm({
 
   const timezones = useMemo(() => extractTimezones(teams as Team[]), [teams]);
 
-  const { register, control, handleSubmit, getValues, setValue } =
-    useForm<MeetingInput>({
-      defaultValues: {
-        title: "",
-        description: null,
-        teamIds: [],
-        timezone: timezone!,
-        from: getCurrentDateTime().toDate(),
-        to: getCurrentDateTime().add(30, "minutes").toDate(),
-      },
-      resolver: yupResolver(schema),
-    });
+  const {
+    register,
+    control,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { touchedFields, errors },
+  } = useForm<MeetingInput>({
+    defaultValues: {
+      title: "",
+      description: null,
+      teamIds: [],
+      timezone: timezone!,
+      from: getCurrentDateTime().toDate(),
+      to: getCurrentDateTime().add(30, "minutes").toDate(),
+    },
+    resolver: yupResolver(schema),
+  });
 
   return (
     <Stack
@@ -127,6 +139,8 @@ export default function MeetingForm({
             },
           }}
           placeholder="Add title"
+          error={touchedFields.title && !!errors.title?.message}
+          helperText={errors.title?.message}
           {...register("title")}
         />
         <Controller
@@ -256,6 +270,8 @@ export default function MeetingForm({
               fontWeight: 500,
             },
           }}
+          error={touchedFields.description && !!errors.description?.message}
+          helperText={errors.description?.message}
           {...register("description")}
         />
       </Stack>
