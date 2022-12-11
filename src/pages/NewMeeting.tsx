@@ -9,5 +9,7 @@ export default function NewMeeting() {
     navigate(-1);
   }, []);
 
-  return <MeetingForm title="New Meeting" onClose={onClose} />;
+  return (
+    <MeetingForm title="New Meeting" onClose={onClose} onSubmit={() => null} />
+  );
 }
