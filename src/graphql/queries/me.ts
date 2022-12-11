@@ -18,6 +18,8 @@ export default gql(`
           id
           member {
             id
+            fullName
+            picture
 					  timezone
             tzData {
               name

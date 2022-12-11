@@ -590,6 +590,8 @@ export type MeQuery = {
         member: {
           __typename?: "User";
           id: string;
+          fullName: string;
+          picture?: any | null;
           timezone?: string | null;
           tzData?: {
             __typename?: "TimezoneData";
@@ -1402,6 +1404,14 @@ export const MeDocument = {
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
                                   },
                                   {
                                     kind: "Field",
