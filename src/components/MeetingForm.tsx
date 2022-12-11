@@ -32,7 +32,7 @@ const schema = yup
     title: yup
       .string()
       .max(225, () => "Maximum number of characters reached")
-      .required(),
+      .required(() => "Add title"),
     timezone: yup.string().required(),
     from: yup.date().required(),
     to: yup.date().required(),
@@ -140,7 +140,7 @@ export default function MeetingForm({
           }}
           placeholder="Add title"
           error={touchedFields.title && !!errors.title?.message}
-          helperText={errors.title?.message}
+          helperText={touchedFields.title && errors.title?.message}
           {...register("title")}
         />
         <Controller
@@ -271,7 +271,7 @@ export default function MeetingForm({
             },
           }}
           error={touchedFields.description && !!errors.description?.message}
-          helperText={errors.description?.message}
+          helperText={touchedFields.description && errors.description?.message}
           {...register("description")}
         />
       </Stack>
