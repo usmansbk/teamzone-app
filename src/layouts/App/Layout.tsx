@@ -162,7 +162,7 @@ function Layout({ user }: Props) {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { sm: `calc(100% - ${drawerWidth}px)`, xs: "100%" },
         }}
       >
         <Toolbar disableGutters />
