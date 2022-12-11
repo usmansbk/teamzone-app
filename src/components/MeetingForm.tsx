@@ -19,7 +19,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
-import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
+import {
+  addDuration,
+  formatUTCOffset,
+  getCurrentDateTime,
+  getDuration,
+} from "src/utils/dateTime";
 
 const schema = yup
   .object({
@@ -71,15 +76,18 @@ export default function MeetingForm({
 
   const timezones = useMemo(() => extractTimezones(teams as Team[]), []);
 
-  const { register, control, handleSubmit } = useForm<MeetingInput>({
-    defaultValues: {
-      title: "",
-      description: null,
-      teamIds: [],
-      timezone: timezone!,
-    },
-    resolver: yupResolver(schema),
-  });
+  const { register, control, handleSubmit, getValues, setValue } =
+    useForm<MeetingInput>({
+      defaultValues: {
+        title: "",
+        description: null,
+        teamIds: [],
+        timezone: timezone!,
+        from: getCurrentDateTime().toDate(),
+        to: getCurrentDateTime().add(30, "minutes").toDate(),
+      },
+      resolver: yupResolver(schema),
+    });
 
   return (
     <Stack
@@ -157,7 +165,16 @@ export default function MeetingForm({
                 <MobileDateTimePicker
                   label="From"
                   value={value}
-                  onChange={onChange}
+                  onChange={(newValue) => {
+                    if (newValue) {
+                      const { to } = getValues();
+                      const duration = getDuration(to, value);
+                      const newEndTime = addDuration(newValue, duration);
+                      setValue("to", newEndTime.toDate());
+                    }
+
+                    onChange(newValue);
+                  }}
                   inputFormat={DATE_TIME_FORMAT}
                   InputProps={{
                     sx: {

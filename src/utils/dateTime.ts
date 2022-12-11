@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import tz from "dayjs/plugin/timezone";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -28,6 +28,14 @@ export function getTimeDifferenceInMs(currentTz: string, targetTz: string) {
 
 export function formatDuration(ms: number) {
   return dayjs.duration(ms, "milliseconds").humanize();
+}
+
+export function getDuration(source: Date, target: Date) {
+  return dayjs(source).diff(target, "milliseconds");
+}
+
+export function addDuration(source: Dayjs, ms: number) {
+  return dayjs(source).add(ms, "milliseconds");
 }
 
 export default dayjs;
