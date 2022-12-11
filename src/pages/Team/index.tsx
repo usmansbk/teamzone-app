@@ -55,7 +55,7 @@ export default function Team() {
         )}
       </Typography>
       <TimezoneClocks teammates={teammates as TeamMember[]} />
-      <Stack spacing={2} mt={4} maxWidth="md">
+      <Stack spacing={2} mt={4} maxWidth="sm">
         <Box>
           <Stack
             direction="row"
