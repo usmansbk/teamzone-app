@@ -13,9 +13,10 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
+import uniqBy from "lodash.uniqby";
+import { useMemo } from "react";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
-import uniqBy from "lodash.uniqby";
 
 interface Props {
   title: string;
@@ -35,7 +36,7 @@ export default function MeetingForm({ title, onClose, loading }: Props) {
   const { data } = useMe();
   const { teams, timezone } = data!;
 
-  const timezones = extractTimezones(teams as Team[]);
+  const timezones = useMemo(() => extractTimezones(teams as Team[]), []);
 
   return (
     <Stack spacing={1} maxWidth="sm">
