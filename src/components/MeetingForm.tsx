@@ -14,20 +14,24 @@ import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import uniqBy from "lodash.uniqby";
 import { useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
-// import * as yup from "yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
 import { formatUTCOffset } from "src/utils/dateTime";
 
-export interface MeetingInput {
-  title: string;
-  from: Date;
-  to: Date;
-  teamIds: string[];
-  timezone: string;
-  description: string | null;
-}
+const schema = yup
+  .object({
+    title: yup.string().required(),
+    timezone: yup.string().required(),
+    from: yup.date().required(),
+    to: yup.date().required(),
+    teamIds: yup.array(yup.string().required()),
+    description: yup.string().nullable(),
+  })
+  .required();
+
+export type MeetingInput = yup.InferType<typeof schema>;
 
 interface Props {
   title: string;
@@ -60,9 +64,12 @@ export default function MeetingForm({
 
   const { register, control, handleSubmit } = useForm<MeetingInput>({
     defaultValues: {
+      title: "",
+      description: null,
       teamIds: [],
       timezone: timezone!,
     },
+    resolver: yupResolver(schema),
   });
 
   return (
@@ -70,7 +77,9 @@ export default function MeetingForm({
       spacing={1}
       maxWidth="sm"
       component="form"
-      onSubmit={handleSubmit((values) => onSubmit(values))}
+      onSubmit={handleSubmit((values) =>
+        onSubmit(schema.cast(values, { stripUnknown: true }) as MeetingInput)
+      )}
     >
       <Stack direction="row" justifyContent="space-between" spacing={1}>
         <Typography variant="subtitle1">{title}</Typography>
@@ -91,6 +100,14 @@ export default function MeetingForm({
       <Stack spacing={2} width="100%">
         <TextField
           label="Title"
+          type="text"
+          autoComplete="off"
+          inputProps={{
+            autocomplete: "new-password",
+            form: {
+              autocomplete: "off",
+            },
+          }}
           placeholder="Add title"
           {...register("title")}
         />
