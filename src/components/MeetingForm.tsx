@@ -23,7 +23,7 @@ interface Props {
   loading?: boolean;
 }
 
-const DATE_TIME_FORMAT = "MMM DD, YYYY, HH:mm";
+const DATE_TIME_FORMAT = "lll";
 
 const extractTimezones = (teams: Team[]) =>
   uniqBy(
