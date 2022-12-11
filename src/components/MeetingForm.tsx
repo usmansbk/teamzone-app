@@ -8,6 +8,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  MenuProps,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
@@ -50,6 +51,14 @@ const extractTimezones = (teams: Team[]) =>
     timezone: t?.member.timezone,
     name: t?.member.tzData?.alternativeName,
   }));
+
+const menuProps: Partial<MenuProps> = {
+  PaperProps: {
+    style: {
+      overflowX: "scroll",
+    },
+  },
+};
 
 export default function MeetingForm({
   title,
@@ -101,13 +110,7 @@ export default function MeetingForm({
         <TextField
           label="Title"
           type="text"
-          autoComplete="off"
-          inputProps={{
-            autocomplete: "new-password",
-            form: {
-              autocomplete: "off",
-            },
-          }}
+          autoComplete="new-password"
           placeholder="Add title"
           {...register("title")}
         />
@@ -128,6 +131,7 @@ export default function MeetingForm({
                 }}
                 value={value}
                 onChange={onChange}
+                MenuProps={menuProps}
               >
                 {timezones.map((tz) => (
                   <MenuItem key={tz.timezone} value={tz.timezone!}>
@@ -198,6 +202,7 @@ export default function MeetingForm({
                 }}
                 value={value}
                 onChange={onChange}
+                MenuProps={menuProps}
               >
                 {teams.map((team) => (
                   <MenuItem key={team!.id} value={team!.id}>
