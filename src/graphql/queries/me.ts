@@ -14,6 +14,7 @@ export default gql(`
       teams {
         id
         name
+			  isPinned
         teammates {
           id
           member {

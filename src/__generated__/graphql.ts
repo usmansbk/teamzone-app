@@ -210,8 +210,10 @@ export type Mutation = {
   joinTeam: Team;
   leaveTeam: Team;
   loginWithSocialProvider: AuthPayload;
+  pinTeam: Team;
   removeTeamMemberFromAdmin: TeamMember;
   removeTeammate: TeamMember;
+  unpinTeam: Team;
   updateProfile: User;
   updateTeam: Team;
 };
@@ -240,12 +242,20 @@ export type MutationLoginWithSocialProviderArgs = {
   input: SocialLoginInput;
 };
 
+export type MutationPinTeamArgs = {
+  id: Scalars["ID"];
+};
+
 export type MutationRemoveTeamMemberFromAdminArgs = {
   memberId: Scalars["ID"];
 };
 
 export type MutationRemoveTeammateArgs = {
   memberId: Scalars["ID"];
+};
+
+export type MutationUnpinTeamArgs = {
+  id: Scalars["ID"];
 };
 
 export type MutationUpdateProfileArgs = {
@@ -315,6 +325,7 @@ export type Team = {
   isAdmin: Scalars["Boolean"];
   isMember: Scalars["Boolean"];
   isOwner: Scalars["Boolean"];
+  isPinned: Scalars["Boolean"];
   logo?: Maybe<Scalars["URL"]>;
   name: Scalars["String"];
   owner: User;
@@ -442,6 +453,7 @@ export type QueryQuery = {
     isOwner: boolean;
     isMember: boolean;
     isAdmin: boolean;
+    isPinned: boolean;
     inviteCode?: string | null;
     owner: {
       __typename?: "User";
@@ -598,6 +610,7 @@ export type MeQuery = {
       __typename?: "Team";
       id: string;
       name: string;
+      isPinned: boolean;
       teammates: Array<{
         __typename?: "TeamMember";
         id: string;
@@ -634,6 +647,15 @@ export type MeQuery = {
   };
 };
 
+export type PinTeamMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type PinTeamMutation = {
+  __typename?: "Mutation";
+  pinTeam: { __typename?: "Team"; id: string; isPinned: boolean };
+};
+
 export type RemoveTeammateMutationVariables = Exact<{
   memberId: Scalars["ID"];
 }>;
@@ -641,6 +663,15 @@ export type RemoveTeammateMutationVariables = Exact<{
 export type RemoveTeammateMutation = {
   __typename?: "Mutation";
   removeTeammate: { __typename?: "TeamMember"; id: string };
+};
+
+export type UnpinTeamMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type UnpinTeamMutation = {
+  __typename?: "Mutation";
+  unpinTeam: { __typename?: "Team"; id: string; isPinned: boolean };
 };
 
 export type UpdateProfileMutationVariables = Exact<{
@@ -826,6 +857,7 @@ export const QueryDocument = {
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 { kind: "Field", name: { kind: "Name", value: "isMember" } },
                 { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
                 { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
                 {
                   kind: "Field",
@@ -1443,6 +1475,10 @@ export const MeDocument = {
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       {
                         kind: "Field",
+                        name: { kind: "Name", value: "isPinned" },
+                      },
+                      {
+                        kind: "Field",
                         name: { kind: "Name", value: "teammates" },
                         selectionSet: {
                           kind: "SelectionSet",
@@ -1565,6 +1601,52 @@ export const MeDocument = {
     },
   ],
 } as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const PinTeamDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "PinTeam" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "pinTeam" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PinTeamMutation, PinTeamMutationVariables>;
 export const RemoveTeammateDocument = {
   kind: "Document",
   definitions: [
@@ -1616,6 +1698,52 @@ export const RemoveTeammateDocument = {
   RemoveTeammateMutation,
   RemoveTeammateMutationVariables
 >;
+export const UnpinTeamDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UnpinTeam" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "unpinTeam" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UnpinTeamMutation, UnpinTeamMutationVariables>;
 export const UpdateProfileDocument = {
   kind: "Document",
   definitions: [

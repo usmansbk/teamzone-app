@@ -9,6 +9,7 @@ export default gql(`
 			isOwner
 			isMember
 			isAdmin
+			isPinned
 			inviteCode
 			owner {
 				id
