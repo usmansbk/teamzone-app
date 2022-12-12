@@ -144,12 +144,6 @@ export default function MeetingForm({
           label="Title"
           type="text"
           autoComplete="off"
-          inputProps={{
-            autocomplete: "new-password",
-            form: {
-              autocomplete: "off",
-            },
-          }}
           placeholder="Add title"
           error={touchedFields.title && !!errors.title?.message}
           helperText={touchedFields.title && errors.title?.message}
