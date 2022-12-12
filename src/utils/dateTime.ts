@@ -38,4 +38,8 @@ export function addDuration(source: Dayjs, ms: number) {
   return dayjs(source).add(ms, "milliseconds");
 }
 
+export function getDay(utcDate: string, timezone: string) {
+  return dayjs.tz(utcDate, timezone);
+}
+
 export default dayjs;

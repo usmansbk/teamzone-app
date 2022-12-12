@@ -6,13 +6,12 @@ import {
   Button,
   CircularProgress,
   Grid,
-  Chip,
-  Avatar,
+  Paper,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import StyledPaper from "src/components/StyledPaper";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
 import routeMap from "src/routeMap";
+import { getDay } from "src/utils/dateTime";
 import { Meeting } from "src/__generated__/graphql";
 
 interface EventListProps {
@@ -24,65 +23,49 @@ interface EventItemProps {
 }
 
 const EventItem = ({ item }: EventItemProps) => {
-  const { title, owner, teams } = item;
+  const { title, from, timezone } = item;
+  console.log(title, from);
+  const date = getDay(from, timezone);
   return (
     <Box>
       <Grid container gap={2} wrap="nowrap">
-        <Grid item xs="auto">
-          <StyledPaper
+        <Grid item xs={2}>
+          <Paper
+            variant="outlined"
             sx={{
               p: 2,
-              py: 1,
-              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
             }}
-            elevation={0}
           >
             <Typography lineHeight={1} variant="h6" fontWeight={600}>
-              FEB
+              {date.format("MMM")}
             </Typography>
-            <Typography lineHeight={1} variant="h3">
-              25
+            <Typography lineHeight={1} variant="h3" color="primary">
+              {date.format("DD")}
             </Typography>
             <Typography lineHeight={1} variant="h6" fontWeight={700}>
-              Mon
+              {date.format("ddd")}
             </Typography>
-          </StyledPaper>
+          </Paper>
         </Grid>
         <Grid
           item
           zeroMinWidth
-          flexGrow={1}
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
           }}
         >
-          <Typography fontWeight={500}>10:00 - 12:00</Typography>
-          <Typography noWrap variant="h5" fontWeight={600}>
+          <Typography variant="subtitle1">
+            {date.format("HH:mm")} - 12:00
+          </Typography>
+          <Typography noWrap variant="h5">
             {title}
           </Typography>
-          <Stack direction="row" spacing={1}>
-            {teams.map((team) => (
-              <Chip
-                size="small"
-                variant="outlined"
-                sx={{ fontWeight: 500 }}
-                key={team!.id}
-                label={team?.name}
-              />
-            ))}
-          </Stack>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Avatar alt={owner.fullName} src={owner.picture} />
         </Grid>
       </Grid>
     </Box>
@@ -90,9 +73,10 @@ const EventItem = ({ item }: EventItemProps) => {
 };
 
 const EventList = ({ meetings }: EventListProps) => (
-  <Stack spacing={3}>
+  <Stack spacing={2}>
     {meetings.map((meeting) => (
       <Link
+        key={meeting.id}
         to={routeMap.meeting.replace(":id", meeting.id)}
         style={{ color: "inherit", textDecoration: "none" }}
       >
