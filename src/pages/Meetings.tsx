@@ -26,7 +26,7 @@ const EventItem = ({ item }: EventItemProps) => {
   const { title, teams } = item;
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} wrap="nowrap">
         <Grid item xs="auto">
           <StyledPaper
             sx={{
@@ -47,21 +47,23 @@ const EventItem = ({ item }: EventItemProps) => {
             </Typography>
           </StyledPaper>
         </Grid>
-        <Grid item>
-          <Stack>
-            <Typography variant="h6" fontWeight={600}>
-              {title}
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              {teams.map((team) => (
-                <Chip
-                  size="small"
-                  sx={{ fontWeight: 600 }}
-                  key={team!.id}
-                  label={team?.name}
-                />
-              ))}
-            </Stack>
+        <Grid item zeroMinWidth>
+          <Typography
+            sx={{ wordBreak: "break-all" }}
+            variant="h6"
+            fontWeight={600}
+          >
+            {title}
+          </Typography>
+          <Stack direction="row" spacing={1}>
+            {teams.map((team) => (
+              <Chip
+                size="small"
+                sx={{ fontWeight: 600 }}
+                key={team!.id}
+                label={team?.name}
+              />
+            ))}
           </Stack>
         </Grid>
       </Grid>
