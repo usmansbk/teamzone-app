@@ -26,12 +26,7 @@ export default function TimezoneClock({
       }}
     >
       <Typography variant="h6">{city}</Typography>
-      <Typography
-        variant="h4"
-        lineHeight={1}
-        fontFamily="Azeret Mono"
-        fontWeight={900}
-      >
+      <Typography variant="h4" lineHeight={1} fontWeight={900}>
         {time}
       </Typography>
       {!!date && <Typography variant="body2">{date}</Typography>}
