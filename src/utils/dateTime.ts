@@ -15,6 +15,10 @@ export function getCurrentDateTime() {
   return dayjs();
 }
 
+export function getCurrentTimezoneDateTime(timezone: string) {
+  return dayjs().tz(timezone);
+}
+
 export function formatUTCOffset(timezone: string) {
   return dayjs().tz(timezone).format("Z");
 }
@@ -30,7 +34,7 @@ export function formatDuration(ms: number) {
   return dayjs.duration(ms, "milliseconds").humanize();
 }
 
-export function getDuration(source: Date, target: Date) {
+export function getDuration(source: Dayjs, target: Dayjs) {
   return dayjs(source).diff(target, "milliseconds");
 }
 

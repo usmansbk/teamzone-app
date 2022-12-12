@@ -18,12 +18,13 @@ import { useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Dayjs } from "dayjs";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
 import {
   addDuration,
   formatUTCOffset,
-  getCurrentDateTime,
+  getCurrentTimezoneDateTime,
   getDuration,
 } from "src/utils/dateTime";
 
@@ -37,8 +38,8 @@ const schema = yup
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
-    from: yup.date().required(),
-    to: yup.date().required(),
+    from: yup.object().required(),
+    to: yup.object().required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()
@@ -47,7 +48,15 @@ const schema = yup
   })
   .required();
 
-export type MeetingInput = yup.InferType<typeof schema>;
+// export type MeetingInput = yup.InferType<typeof schema>;
+export interface MeetingInput {
+  title: string;
+  timezone: string;
+  from: Dayjs;
+  to: Dayjs;
+  teamIds: string[];
+  description?: string | null;
+}
 
 interface Props {
   title: string;
@@ -101,8 +110,8 @@ export default function MeetingForm({
       description: null,
       teamIds: [],
       timezone: timezone!,
-      from: getCurrentDateTime().toDate(),
-      to: getCurrentDateTime().add(30, "minutes").toDate(),
+      from: getCurrentTimezoneDateTime(timezone!),
+      to: getCurrentTimezoneDateTime(timezone!).add(30, "minutes"),
     },
     resolver: yupResolver(schema),
   });
@@ -112,9 +121,7 @@ export default function MeetingForm({
       spacing={1}
       maxWidth="sm"
       component="form"
-      onSubmit={handleSubmit((values) =>
-        onSubmit(schema.cast(values, { stripUnknown: true }) as MeetingInput)
-      )}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Stack direction="row" justifyContent="space-between" spacing={1}>
         <Typography variant="subtitle1">{title}</Typography>
@@ -188,7 +195,7 @@ export default function MeetingForm({
                   onChange={(from) => {
                     if (from) {
                       const duration = getDuration(getValues().to, value);
-                      const to = addDuration(from, duration).toDate();
+                      const to = addDuration(from, duration);
                       setValue("to", to);
                     }
 
@@ -203,7 +210,7 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
-                  minDate={getCurrentDateTime()}
+                  minDate={getCurrentTimezoneDateTime(timezone!)}
                 />
               )}
             />
@@ -222,7 +229,7 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
-                  minDate={getCurrentDateTime()}
+                  minDate={getCurrentTimezoneDateTime(timezone!)}
                 />
               )}
             />
