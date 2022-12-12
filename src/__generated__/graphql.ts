@@ -475,6 +475,46 @@ export type UserPictureArgs = {
   width?: InputMaybe<Scalars["PositiveInt"]>;
 };
 
+export type CreateMeetingMutationVariables = Exact<{
+  input: CreateMeetingInput;
+}>;
+
+export type CreateMeetingMutation = {
+  __typename?: "Mutation";
+  createMeeting: {
+    __typename?: "Meeting";
+    id: string;
+    title: string;
+    timezone: string;
+    from: any;
+    to: any;
+    description?: string | null;
+    isOwner: boolean;
+    teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      logo?: any | null;
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          picture?: any | null;
+          tzData?: {
+            __typename?: "TimezoneData";
+            alternativeName?: string | null;
+            countryName: string;
+            name: string;
+          } | null;
+        };
+      } | null>;
+    } | null>;
+  };
+};
+
 export type CreateTeamMutationVariables = Exact<{
   input: CreateTeamInput;
 }>;
@@ -489,6 +529,15 @@ export type CreateTeamMutation = {
     isOwner: boolean;
     owner: { __typename?: "User"; id: string };
   };
+};
+
+export type DeleteMeetingMutationVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type DeleteMeetingMutation = {
+  __typename?: "Mutation";
+  deleteMeeting: { __typename?: "Meeting"; id: string };
 };
 
 export type DeleteTeamMutationVariables = Exact<{
@@ -737,6 +786,46 @@ export type UnpinTeamMutation = {
   unpinTeam: { __typename?: "Team"; id: string; isPinned: boolean };
 };
 
+export type UpdateMeetingMutationVariables = Exact<{
+  input: UpdateMeetingInput;
+}>;
+
+export type UpdateMeetingMutation = {
+  __typename?: "Mutation";
+  updateMeeting: {
+    __typename?: "Meeting";
+    id: string;
+    title: string;
+    timezone: string;
+    from: any;
+    to: any;
+    description?: string | null;
+    isOwner: boolean;
+    teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      logo?: any | null;
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          picture?: any | null;
+          tzData?: {
+            __typename?: "TimezoneData";
+            alternativeName?: string | null;
+            countryName: string;
+            name: string;
+          } | null;
+        };
+      } | null>;
+    } | null>;
+  };
+};
+
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateUserProfileInput;
 }>;
@@ -769,6 +858,139 @@ export type UpdateTeamMutation = {
   updateTeam: { __typename?: "Team"; id: string; name: string };
 };
 
+export const CreateMeetingDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateMeeting" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateMeetingInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createMeeting" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "from" } },
+                { kind: "Field", name: { kind: "Name", value: "to" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "logo" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "tzData" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "countryName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "name" },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateMeetingMutation,
+  CreateMeetingMutationVariables
+>;
 export const CreateTeamDocument = {
   kind: "Document",
   definitions: [
@@ -833,6 +1055,54 @@ export const CreateTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateTeamMutation, CreateTeamMutationVariables>;
+export const DeleteMeetingDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteMeeting" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "deleteMeeting" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteMeetingMutation,
+  DeleteMeetingMutationVariables
+>;
 export const DeleteTeamDocument = {
   kind: "Document",
   definitions: [
@@ -1815,6 +2085,139 @@ export const UnpinTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<UnpinTeamMutation, UnpinTeamMutationVariables>;
+export const UpdateMeetingDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateMeeting" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "UpdateMeetingInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateMeeting" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "from" } },
+                { kind: "Field", name: { kind: "Name", value: "to" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "logo" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "tzData" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "countryName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "name" },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateMeetingMutation,
+  UpdateMeetingMutationVariables
+>;
 export const UpdateProfileDocument = {
   kind: "Document",
   definitions: [
