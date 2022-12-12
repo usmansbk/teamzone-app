@@ -13,13 +13,13 @@ function a11yProps(tab: string) {
 const tabsMap = {
   profile: {
     index: 0,
-    component: <Profile />,
+    component: <Profile key="profile" />,
     name: "Profile",
     path: "profile",
   },
   teams: {
     index: 1,
-    component: <CreatedTeams />,
+    component: <CreatedTeams key="teams" />,
     name: "Teams",
     path: "teams",
   },
@@ -43,6 +43,7 @@ export default function Settings() {
         >
           {tabs.map(({ path, name }) => (
             <Tab
+              key={path}
               label={name}
               {...a11yProps(path)}
               component={Link}
