@@ -29,7 +29,7 @@ const tabs = Object.values(tabsMap);
 
 export default function Settings() {
   const [q] = useSearchParams();
-  const value = (q.get("tab") || "profile") as keyof typeof tabsMap;
+  const value = (q.get("tab") || tabsMap.profile.path) as keyof typeof tabsMap;
 
   const selectedTab = tabsMap[value];
 
