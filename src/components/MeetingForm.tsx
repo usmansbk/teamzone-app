@@ -83,6 +83,10 @@ export default function MeetingForm({
   const { teams, timezone } = data!;
 
   const timezones = useMemo(() => extractTimezones(teams as Team[]), [teams]);
+  const authorizedTeams = useMemo(
+    () => teams.filter((team) => team?.isAdmin || team?.isOwner),
+    [teams]
+  );
 
   const {
     register,
@@ -248,13 +252,13 @@ export default function MeetingForm({
                     {selected.map((val) => (
                       <Chip
                         key={val}
-                        label={teams.find((t) => t?.id === val)?.name}
+                        label={authorizedTeams.find((t) => t?.id === val)?.name}
                       />
                     ))}
                   </Box>
                 )}
               >
-                {teams.map((team) => (
+                {authorizedTeams.map((team) => (
                   <MenuItem key={team!.id} value={team!.id}>
                     {team?.name}
                   </MenuItem>

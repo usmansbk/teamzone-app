@@ -15,6 +15,8 @@ export default gql(`
         id
         name
 			  isPinned
+        isAdmin
+        isOwner
         teammates {
           id
           member {

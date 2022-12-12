@@ -198,14 +198,44 @@ export enum AuthStrategy {
   Owner = "owner",
 }
 
+export type CreateMeetingInput = {
+  description?: InputMaybe<Scalars["NonEmptyString"]>;
+  from: Scalars["DateTime"];
+  teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  timezone: Scalars["NonEmptyString"];
+  title: Scalars["NonEmptyString"];
+  to: Scalars["DateTime"];
+};
+
 export type CreateTeamInput = {
   name: Scalars["NonEmptyString"];
+};
+
+export type Meeting = {
+  __typename?: "Meeting";
+  description?: Maybe<Scalars["String"]>;
+  from: Scalars["DateTime"];
+  id: Scalars["ID"];
+  isOwner: Scalars["Boolean"];
+  owner: User;
+  teams: Array<Maybe<Team>>;
+  timezone: Scalars["String"];
+  title: Scalars["String"];
+  to: Scalars["DateTime"];
+};
+
+export type MeetingConnection = {
+  __typename?: "MeetingConnection";
+  cursor?: Maybe<Scalars["ID"]>;
+  meetings: Array<Maybe<Meeting>>;
 };
 
 export type Mutation = {
   __typename?: "Mutation";
   addTeamMemberToAdmin: TeamMember;
+  createMeeting: Meeting;
   createTeam: Team;
+  deleteMeeting: Meeting;
   deleteTeam: Team;
   joinTeam: Team;
   leaveTeam: Team;
@@ -214,6 +244,7 @@ export type Mutation = {
   removeTeamMemberFromAdmin: TeamMember;
   removeTeammate: TeamMember;
   unpinTeam: Team;
+  updateMeeting: Meeting;
   updateProfile: User;
   updateTeam: Team;
 };
@@ -222,8 +253,17 @@ export type MutationAddTeamMemberToAdminArgs = {
   memberId: Scalars["ID"];
 };
 
+export type MutationCreateMeetingArgs = {
+  input: CreateMeetingInput;
+};
+
 export type MutationCreateTeamArgs = {
   input: CreateTeamInput;
+};
+
+export type MutationDeleteMeetingArgs = {
+  id: Scalars["ID"];
+  reason?: InputMaybe<Scalars["NonEmptyString"]>;
 };
 
 export type MutationDeleteTeamArgs = {
@@ -258,6 +298,10 @@ export type MutationUnpinTeamArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationUpdateMeetingArgs = {
+  input: UpdateMeetingInput;
+};
+
 export type MutationUpdateProfileArgs = {
   input: UpdateUserProfileInput;
 };
@@ -268,6 +312,8 @@ export type MutationUpdateTeamArgs = {
 
 export type Query = {
   __typename?: "Query";
+  getMeetingById: Meeting;
+  getMeetings: MeetingConnection;
   getTeamById: Team;
   getTeamPreviewByCode: Scalars["JSON"];
   getTeammatesByTimezone: Array<Maybe<TeamMember>>;
@@ -275,6 +321,10 @@ export type Query = {
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
   timezones: Array<Scalars["String"]>;
+};
+
+export type QueryGetMeetingByIdArgs = {
+  id: Scalars["ID"];
 };
 
 export type QueryGetTeamByIdArgs = {
@@ -330,6 +380,7 @@ export type Team = {
   name: Scalars["String"];
   owner: User;
   teammates: Array<Maybe<TeamMember>>;
+  upcomingMeetings?: Maybe<Array<Maybe<Meeting>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -375,6 +426,16 @@ export type TimezoneData = {
 
 export type TimezoneDataCountryFlagArgs = {
   height?: InputMaybe<Scalars["PositiveInt"]>;
+};
+
+export type UpdateMeetingInput = {
+  description?: InputMaybe<Scalars["NonEmptyString"]>;
+  from: Scalars["DateTime"];
+  id: Scalars["ID"];
+  teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  timezone: Scalars["NonEmptyString"];
+  title: Scalars["NonEmptyString"];
+  to: Scalars["DateTime"];
 };
 
 export type UpdateTeamInput = {
@@ -611,6 +672,8 @@ export type MeQuery = {
       id: string;
       name: string;
       isPinned: boolean;
+      isAdmin: boolean;
+      isOwner: boolean;
       teammates: Array<{
         __typename?: "TeamMember";
         id: string;
@@ -1476,6 +1539,14 @@ export const MeDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "isPinned" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isAdmin" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isOwner" },
                       },
                       {
                         kind: "Field",
