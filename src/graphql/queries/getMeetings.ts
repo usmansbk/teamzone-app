@@ -26,6 +26,11 @@ query GetMeetings {
             id
             fullName
             picture
+						tzData {
+							alternativeName
+							countryName
+							name
+						}
           }
         }
       }

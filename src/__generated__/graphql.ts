@@ -589,6 +589,12 @@ export type GetMeetingsQuery = {
             id: string;
             fullName: string;
             picture?: any | null;
+            tzData?: {
+              __typename?: "TimezoneData";
+              alternativeName?: string | null;
+              countryName: string;
+              name: string;
+            } | null;
           };
         } | null>;
       } | null>;
@@ -1319,6 +1325,39 @@ export const GetMeetingsDocument = {
                                           name: {
                                             kind: "Name",
                                             value: "picture",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "tzData",
+                                          },
+                                          selectionSet: {
+                                            kind: "SelectionSet",
+                                            selections: [
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "alternativeName",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "countryName",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "name",
+                                                },
+                                              },
+                                            ],
                                           },
                                         },
                                       ],
