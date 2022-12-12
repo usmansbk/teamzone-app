@@ -22,7 +22,7 @@ export default function PinTeamButton({ team }: Props) {
     }
   }, [team]);
 
-  const title = isPinned ? "Unpin" : "Pin clocks to dashboard";
+  const title = isPinned ? "Unpin clocks" : "Pin clocks to dashboard";
   return (
     <Tooltip placement="right" title={title}>
       <IconButton onClick={handleSubmit}>
