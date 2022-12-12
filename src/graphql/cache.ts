@@ -27,18 +27,26 @@ const cache = new InMemoryCache({
             return preferences;
           },
         },
-        team: {
+        getMeetingById: {
           read(_, { toReference, args }) {
             return toReference({
-              __typename: "Team",
+              __typename: "Meeting",
               id: (args as { id: string }).id,
             });
           },
         },
-        user: {
+        getTimezoneById: {
           read(_, { toReference, args }) {
             return toReference({
-              __typename: "User",
+              __typename: "TimezoneData",
+              name: (args as { id: string }).id,
+            });
+          },
+        },
+        getTeamById: {
+          read(_, { toReference, args }) {
+            return toReference({
+              __typename: "Team",
               id: (args as { id: string }).id,
             });
           },
