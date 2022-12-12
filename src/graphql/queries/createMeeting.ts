@@ -10,6 +10,11 @@ mutation CreateMeeting($input: CreateMeetingInput!) {
     to
     description
     isOwner
+    owner {
+      id
+      fullName
+      picture
+    }
     teams {
       id
       name

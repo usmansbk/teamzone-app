@@ -1,15 +1,29 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MeetingForm from "src/components/MeetingForm";
+import useCreateMeeting from "src/hooks/api/useCreateMeeting";
+import routeMap from "src/routeMap";
 
 export default function NewMeeting() {
+  const { loading, onSubmit, data } = useCreateMeeting();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) {
+      navigate(routeMap.meeting.replace(":id", data.id), { replace: true });
+    }
+  }, [data]);
 
   const onClose = useCallback(() => {
     navigate(-1);
   }, []);
 
   return (
-    <MeetingForm title="New Meeting" onClose={onClose} onSubmit={() => null} />
+    <MeetingForm
+      title="New Meeting"
+      onClose={onClose}
+      onSubmit={onSubmit}
+      loading={loading}
+    />
   );
 }
