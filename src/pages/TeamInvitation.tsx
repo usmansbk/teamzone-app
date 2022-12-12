@@ -50,31 +50,23 @@ export default function TeamInvitation() {
   }
 
   return (
-    <Box
-      display="flex"
-      flexGrow={1}
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-    >
-      <Stack spacing={1} justifyContent="center" alignItems="center">
-        <Stack textAlign="center">
-          <Typography variant="h3">{team?.name}</Typography>
-          <Typography>
-            Created by{" "}
-            <span style={{ fontWeight: 900 }}>{team?.owner?.firstName}</span>
-          </Typography>
-        </Stack>
-        <Box>
-          <LoadingButton
-            variant="contained"
-            onClick={handleSubmit}
-            loading={joining}
-          >
-            Join Team
-          </LoadingButton>
-        </Box>
+    <Stack flexGrow={1} spacing={2} justifyContent="center" alignItems="center">
+      <Stack textAlign="center" spacing={1}>
+        <Typography variant="h3">{team?.name}</Typography>
+        <Typography>
+          Created by{" "}
+          <span style={{ fontWeight: 900 }}>{team?.owner?.firstName}</span>
+        </Typography>
       </Stack>
-    </Box>
+      <Box>
+        <LoadingButton
+          variant="contained"
+          onClick={handleSubmit}
+          loading={joining}
+        >
+          Join Team
+        </LoadingButton>
+      </Box>
+    </Stack>
   );
 }
