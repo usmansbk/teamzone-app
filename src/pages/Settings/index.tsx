@@ -1,65 +1,56 @@
-import * as React from "react";
-import { Grid, Box, Typography, Tab, Tabs } from "@mui/material";
+import { Grid, Tab, Tabs } from "@mui/material";
+import { Link, useSearchParams } from "react-router-dom";
 import Profile from "./Profile";
 import CreatedTeams from "./Teams";
 
-interface TabPanelProps extends React.PropsWithChildren {
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ py: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
+function a11yProps(tab: string) {
   return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    id: `horizontal-tab-${tab}`,
+    "aria-controls": `horizontal-tabpanel-${tab}`,
   };
 }
+
+const tabsMap = {
+  profile: {
+    index: 0,
+    component: <Profile />,
+    name: "Profile",
+    path: "profile",
+  },
+  teams: {
+    index: 1,
+    component: <CreatedTeams />,
+    name: "Teams",
+    path: "teams",
+  },
+};
+
+const tabs = Object.values(tabsMap);
 
 export default function Settings() {
-  const [value, setValue] = React.useState(0);
+  const [q] = useSearchParams();
+  const value = (q.get("tab") || "profile") as keyof typeof tabsMap;
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const selectedTab = tabsMap[value];
 
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6}>
         <Tabs
           variant="scrollable"
-          value={value}
-          onChange={handleChange}
+          value={selectedTab.index}
           aria-label="Settings tabs"
         >
-          <Tab label="Profile" {...a11yProps(0)} />
-          <Tab label="Teams" {...a11yProps(1)} />
+          {tabs.map(({ path, name }) => (
+            <Tab
+              label={name}
+              {...a11yProps(path)}
+              component={Link}
+              to={`?tab=${path}`}
+            />
+          ))}
         </Tabs>
-        <TabPanel value={value} index={0}>
-          <Profile />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <CreatedTeams />
-        </TabPanel>
+        {tabs.map(({ path, component }) => value === path && component)}
       </Grid>
     </Grid>
   );
