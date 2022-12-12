@@ -101,18 +101,14 @@ export default function Meetings() {
 
   return (
     <Box>
-      <Stack>
-        <Box>
-          <Button
-            variant="outlined"
-            startIcon={<Add />}
-            component={Link}
-            to={routeMap.newMeeting}
-          >
-            New Meeting
-          </Button>
-        </Box>
-      </Stack>
+      <Button
+        variant="outlined"
+        startIcon={<Add />}
+        component={Link}
+        to={routeMap.newMeeting}
+      >
+        New Meeting
+      </Button>
       <Box maxWidth="sm" mt={2}>
         {data?.length === 0 && (
           <Typography variant="h3">No upcoming meetings yet</Typography>
