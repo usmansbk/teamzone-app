@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { Navigate, useParams } from "react-router-dom";
 import useJoinTeam from "src/hooks/api/useJoinTeam";
 import routeMap from "src/routeMap";
@@ -16,7 +15,6 @@ export default function AcceptInvitation() {
   }, [code]);
 
   if (data) {
-    toast.success("Success");
     return <Navigate to={routeMap.team.replace(":id", data.id)} replace />;
   }
 

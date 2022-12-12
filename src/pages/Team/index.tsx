@@ -8,7 +8,7 @@ import {
   Tooltip,
   Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteTeamDialog from "src/components/DeleteTeamDialog";
 import InviteMemberDialog from "src/components/InviteMemberDialog";
@@ -25,6 +25,11 @@ export default function Team() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openInviteDialog, setOpenInviteDialog] = useState(false);
+
+  const closeLeaveDialog = useCallback(() => setOpenLeaveDialog(false), []);
+  const closeDeleteDialog = useCallback(() => setOpenDeleteDialog(false), []);
+  const closeEditDialog = useCallback(() => setOpenEditDialog(false), []);
+  const closeInviteDialog = useCallback(() => setOpenInviteDialog(false), []);
 
   const { loading, data, error } = useGetTeamById(id!);
 
@@ -101,34 +106,28 @@ export default function Team() {
           )}
         </Stack>
       </Stack>
-      {isMember && (
-        <LeaveTeamDialog
-          title={name}
-          onClose={() => setOpenLeaveDialog(false)}
-          open={openLeaveDialog}
-        />
-      )}
-      {(isOwner || isAdmin) && (
-        <DeleteTeamDialog
-          title={name}
-          onClose={() => setOpenDeleteDialog(false)}
-          open={openDeleteDialog}
-        />
-      )}
-      {(isOwner || isAdmin) && (
-        <UpdateTeamDialog
-          open={openEditDialog}
-          onClose={() => setOpenEditDialog(false)}
-          defaultValues={{
-            id: id!,
-            name,
-          }}
-        />
-      )}
+      <LeaveTeamDialog
+        title={name}
+        onClose={closeLeaveDialog}
+        open={openLeaveDialog}
+      />
+      <DeleteTeamDialog
+        title={name}
+        onClose={closeDeleteDialog}
+        open={openDeleteDialog}
+      />
+      <UpdateTeamDialog
+        open={openEditDialog}
+        onClose={closeEditDialog}
+        defaultValues={{
+          id: id!,
+          name,
+        }}
+      />
       <InviteMemberDialog
         code={inviteCode!}
         open={openInviteDialog}
-        onClose={() => setOpenInviteDialog(false)}
+        onClose={closeInviteDialog}
       />
     </Box>
   );
