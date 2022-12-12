@@ -13,14 +13,14 @@ export default function PinTeamButton({ team }: Props) {
   const { onSubmit: pin } = usePinTeam();
   const { onSubmit: unpin } = useUnpinTeam();
 
-  const { id, isPinned } = team;
+  const { isPinned } = team;
   const handleSubmit = useCallback(() => {
     if (team.isPinned) {
-      unpin(id);
+      unpin(team);
     } else {
-      pin(id);
+      pin(team);
     }
-  }, [isPinned]);
+  }, [team]);
 
   const title = isPinned ? "Unpin" : "Pin to dashboard";
   return (

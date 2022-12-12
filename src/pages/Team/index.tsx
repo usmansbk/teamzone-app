@@ -46,29 +46,20 @@ export default function TeamPage() {
 
   return (
     <Box p={2}>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        mb={1}
-        spacing={1}
-        alignItems="center"
-      >
-        <Typography variant="h4" sx={{ wordBreak: "break-all" }}>
-          {name}
-        </Typography>
-        <Stack direction="row">
-          {(isOwner || isAdmin) && (
-            <Box>
-              <Tooltip title="Edit team name">
-                <IconButton onClick={() => setOpenEditDialog(true)}>
-                  <Edit fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          )}
+      <Stack direction="row" mb={1} spacing={1} flexWrap="wrap">
+        <Typography variant="h4">{name}</Typography>
+        {(isOwner || isAdmin) && (
           <Box>
-            <PinTeamButton team={data! as Team} />
+            <Tooltip title="Edit team name">
+              <IconButton onClick={() => setOpenEditDialog(true)}>
+                <Edit fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </Box>
-        </Stack>
+        )}
+        <Box>
+          <PinTeamButton team={data! as Team} />
+        </Box>
       </Stack>
       <TimezoneClocks teammates={teammates as TeamMember[]} />
       <Stack spacing={2} mt={4} maxWidth="sm">
