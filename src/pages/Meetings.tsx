@@ -67,7 +67,7 @@ const EventItem = ({ item }: EventItemProps) => {
               <Chip
                 size="small"
                 variant="outlined"
-                sx={{ fontWeight: 600 }}
+                sx={{ fontWeight: 500 }}
                 key={team!.id}
                 label={team?.name}
               />
