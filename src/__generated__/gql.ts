@@ -21,6 +21,8 @@ const documents = {
     types.DeleteMeetingDocument,
   "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n":
     types.DeleteTeamDocument,
+  "\nquery GetMeetings {\n  getMeetings {\n    cursor\n    meetings {\n      id\n      title\n      from\n      to\n      timezone\n      description\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          member {\n            id\n            fullName\n            picture\n          }\n        }\n      }\n    }\n  }\n}\n":
+    types.GetMeetingsDocument,
   "\n\tquery Query($id: ID!) {\n\t\tgetTeamById(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tisPinned\n\t\t\tinviteCode\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttimezone\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcountryCode\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t\tmainCities\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n":
     types.QueryDocument,
   "\n\tquery GetTeamPreviewByCode($code: ID!) {\n\t\tgetTeamPreviewByCode(code: $code)\n\t}\n":
@@ -80,6 +82,12 @@ export function gql(
 export function gql(
   source: "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n"
 ): typeof documents["\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nquery GetMeetings {\n  getMeetings {\n    cursor\n    meetings {\n      id\n      title\n      from\n      to\n      timezone\n      description\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          member {\n            id\n            fullName\n            picture\n          }\n        }\n      }\n    }\n  }\n}\n"
+): typeof documents["\nquery GetMeetings {\n  getMeetings {\n    cursor\n    meetings {\n      id\n      title\n      from\n      to\n      timezone\n      description\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          member {\n            id\n            fullName\n            picture\n          }\n        }\n      }\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -555,6 +555,47 @@ export type DeleteTeamMutation = {
   deleteTeam: { __typename?: "Team"; id: string };
 };
 
+export type GetMeetingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetMeetingsQuery = {
+  __typename?: "Query";
+  getMeetings: {
+    __typename?: "MeetingConnection";
+    cursor?: string | null;
+    meetings: Array<{
+      __typename?: "Meeting";
+      id: string;
+      title: string;
+      from: any;
+      to: any;
+      timezone: string;
+      description?: string | null;
+      isOwner: boolean;
+      owner: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        picture?: any | null;
+      };
+      teams: Array<{
+        __typename?: "Team";
+        id: string;
+        name: string;
+        teammates: Array<{
+          __typename?: "TeamMember";
+          id: string;
+          member: {
+            __typename?: "User";
+            id: string;
+            fullName: string;
+            picture?: any | null;
+          };
+        } | null>;
+      } | null>;
+    } | null>;
+  };
+};
+
 export type QueryQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -1172,6 +1213,134 @@ export const DeleteTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<DeleteTeamMutation, DeleteTeamMutationVariables>;
+export const GetMeetingsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMeetings" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getMeetings" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "cursor" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "meetings" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "title" } },
+                      { kind: "Field", name: { kind: "Name", value: "from" } },
+                      { kind: "Field", name: { kind: "Name", value: "to" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "timezone" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isOwner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teams" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "teammates" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "member" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "id" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "fullName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "picture",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMeetingsQuery, GetMeetingsQueryVariables>;
 export const QueryDocument = {
   kind: "Document",
   definitions: [
