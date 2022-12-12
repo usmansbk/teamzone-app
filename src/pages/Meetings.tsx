@@ -24,7 +24,6 @@ interface EventItemProps {
 
 const EventItem = ({ item }: EventItemProps) => {
   const { title, from, timezone } = item;
-  console.log(title, from);
   const date = getDay(from, timezone);
   return (
     <Box>
