@@ -170,6 +170,10 @@ interface MemberListProps {
 }
 
 function MembersList({ teammates, editable }: MemberListProps) {
+  if (!teammates.length) {
+    return <Typography fontWeight={700}>No team members yet</Typography>;
+  }
+
   return (
     <List>
       {teammates.map((teammate) => (
