@@ -17,7 +17,7 @@ import Terms from "./Terms";
 import Dashboard from "./Dashboard";
 import Team from "./Team";
 import Settings from "./Settings";
-import AcceptInvitation from "./AcceptInvitation";
+import TeamInvitation from "./TeamInvitation";
 import Timezone from "./Timezone";
 import Meetings from "./Meetings";
 import NewMeeting from "./NewMeeting";
@@ -155,7 +155,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <AcceptInvitation />,
+            element: <TeamInvitation />,
           },
         ],
       },

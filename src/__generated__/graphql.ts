@@ -259,6 +259,7 @@ export type MutationUpdateTeamArgs = {
 export type Query = {
   __typename?: "Query";
   getTeamById: Team;
+  getTeamPreviewByCode: Scalars["JSON"];
   getTeammatesByTimezone: Array<Maybe<TeamMember>>;
   getTimezoneById?: Maybe<TimezoneData>;
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
@@ -268,6 +269,10 @@ export type Query = {
 
 export type QueryGetTeamByIdArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryGetTeamPreviewByCodeArgs = {
+  code: Scalars["ID"];
 };
 
 export type QueryGetTeammatesByTimezoneArgs = {
@@ -467,6 +472,15 @@ export type QueryQuery = {
       };
     } | null>;
   };
+};
+
+export type GetTeamPreviewByCodeQueryVariables = Exact<{
+  code: Scalars["ID"];
+}>;
+
+export type GetTeamPreviewByCodeQuery = {
+  __typename?: "Query";
+  getTeamPreviewByCode: any;
 };
 
 export type GetTeammatesByTimezoneQueryVariables = Exact<{
@@ -912,6 +926,48 @@ export const QueryDocument = {
     },
   ],
 } as unknown as DocumentNode<QueryQuery, QueryQueryVariables>;
+export const GetTeamPreviewByCodeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetTeamPreviewByCode" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "code" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getTeamPreviewByCode" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "code" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "code" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetTeamPreviewByCodeQuery,
+  GetTeamPreviewByCodeQueryVariables
+>;
 export const GetTeammatesByTimezoneDocument = {
   kind: "Document",
   definitions: [
