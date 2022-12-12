@@ -8,8 +8,10 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
+import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
 import { getDay } from "src/utils/dateTime";
 import { Meeting } from "src/__generated__/graphql";
@@ -20,11 +22,12 @@ interface EventListProps {
 
 interface EventItemProps {
   item: Meeting;
+  currentTimezone: string;
 }
 
-const EventItem = ({ item }: EventItemProps) => {
-  const { title, from, timezone } = item;
-  const date = getDay(from, timezone);
+const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
+  const { title, from } = item;
+  const date = getDay(from, currentTimezone);
   return (
     <Box>
       <Grid container gap={2} wrap="nowrap">
@@ -69,21 +72,28 @@ const EventItem = ({ item }: EventItemProps) => {
       </Grid>
     </Box>
   );
-};
+});
 
-const EventList = ({ meetings }: EventListProps) => (
-  <Stack spacing={2}>
-    {meetings.map((meeting) => (
-      <Link
-        key={meeting.id}
-        to={routeMap.meeting.replace(":id", meeting.id)}
-        style={{ color: "inherit", textDecoration: "none" }}
-      >
-        <EventItem key={meeting.id} item={meeting} />
-      </Link>
-    ))}
-  </Stack>
-);
+const EventList = memo(({ meetings }: EventListProps) => {
+  const { data } = useMe();
+  return (
+    <Stack spacing={2}>
+      {meetings.map((meeting) => (
+        <Link
+          key={meeting.id}
+          to={routeMap.meeting.replace(":id", meeting.id)}
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <EventItem
+            key={meeting.id}
+            item={meeting}
+            currentTimezone={data?.timezone!}
+          />
+        </Link>
+      ))}
+    </Stack>
+  );
+});
 
 export default function Meetings() {
   const { data, loading } = useGetMeetings();
