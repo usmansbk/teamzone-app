@@ -15,11 +15,12 @@ import InviteMemberDialog from "src/components/InviteMemberDialog";
 import LeaveTeamDialog from "src/components/LeaveTeamDialog";
 import UpdateTeamDialog from "src/components/UpdateTeamDialog";
 import useGetTeamById from "src/hooks/api/useGetTeamById";
-import { TeamMember } from "src/__generated__/graphql";
+import { Team, TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "src/components/TimezoneClocks";
+import PinTeamButton from "src/components/PinTeamButton";
 import MembersList from "./MembersList";
 
-export default function Team() {
+export default function TeamPage() {
   const { id } = useParams<{ id: string }>();
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -45,20 +46,30 @@ export default function Team() {
 
   return (
     <Box p={2}>
-      <Typography variant="h4" sx={{ wordBreak: "break-all", mb: 2 }}>
-        {name}
-        {(isOwner || isAdmin) && (
-          <Tooltip title="Edit team name">
-            <IconButton
-              sx={{ ml: 1 }}
-              size="small"
-              onClick={() => setOpenEditDialog(true)}
-            >
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
-      </Typography>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        mb={1}
+        spacing={1}
+        alignItems="center"
+      >
+        <Typography variant="h4" sx={{ wordBreak: "break-all" }}>
+          {name}
+        </Typography>
+        <Stack direction="row">
+          {(isOwner || isAdmin) && (
+            <Box>
+              <Tooltip title="Edit team name">
+                <IconButton onClick={() => setOpenEditDialog(true)}>
+                  <Edit fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          <Box>
+            <PinTeamButton team={data! as Team} />
+          </Box>
+        </Stack>
+      </Stack>
       <TimezoneClocks teammates={teammates as TeamMember[]} />
       <Stack spacing={2} mt={4} maxWidth="sm">
         <Box>

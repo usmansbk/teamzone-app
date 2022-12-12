@@ -15,6 +15,7 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import NewTeamDialog from "src/components/NewTeamDialog";
+import PinTeamButton from "src/components/PinTeamButton";
 import ThemedNavLink from "src/components/ThemedNavLink";
 import routeMap from "src/routeMap";
 import { Team } from "src/__generated__/graphql";
@@ -92,16 +93,15 @@ export default function DrawerContent({ teams }: Props) {
           </ListItem>
         )}
         {teams.map((team) => (
-          <ListItem key={team!.id} disablePadding>
+          <ListItem
+            key={team!.id}
+            disablePadding
+            secondaryAction={<PinTeamButton team={team! as Team} />}
+          >
             <ListItemButton
               component={ThemedNavLink}
               to={routeMap.team.replace(":id", team!.id!)}
             >
-              <ListItemAvatar>
-                <Avatar variant="rounded">
-                  {team?.name![0].toUpperCase()}
-                </Avatar>
-              </ListItemAvatar>
               <ListItemText
                 primary={team!.name}
                 primaryTypographyProps={{

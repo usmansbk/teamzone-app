@@ -27,7 +27,7 @@ const Dashboard = () => {
   const teammates = useMemo(
     () =>
       uniqueBy(
-        teams.flatMap((t) => t!.teammates),
+        teams.filter((t) => t?.isPinned).flatMap((t) => t!.teammates),
         "member.timezone"
       ).filter((t) => t?.member.timezone !== timezone),
     [teams, timezone]
