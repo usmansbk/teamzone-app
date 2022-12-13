@@ -28,8 +28,11 @@ import {
   getDuration,
 } from "src/utils/dateTime";
 
-const DATE_TIME_FORMAT = "lll";
+const DATE_TIME_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
+
+const parseLocalDateTime = (_value: any, originalValue: Dayjs) =>
+  originalValue.format("YYYY-MM-DDTHH:mm:ss[Z]");
 
 const schema = yup
   .object({
@@ -38,8 +41,8 @@ const schema = yup
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
-    from: yup.object().required(),
-    to: yup.object().required(),
+    from: yup.string().transform(parseLocalDateTime).required(),
+    to: yup.string().transform(parseLocalDateTime).required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()

@@ -26,8 +26,10 @@ interface EventItemProps {
 }
 
 const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
-  const { title, from } = item;
+  const { title, from, to } = item;
+  console.log(from);
   const date = getDay(from, currentTimezone);
+  const endDate = getDay(to, currentTimezone);
   return (
     <Box>
       <Grid container gap={2} wrap="nowrap">
@@ -63,7 +65,7 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
           }}
         >
           <Typography variant="subtitle1">
-            {date.format("HH:mm")} - 12:00
+            {date.format("HH:mm")} - {endDate.format("HH:mm")}
           </Typography>
           <Typography noWrap variant="h5">
             {title}
