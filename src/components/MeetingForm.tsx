@@ -238,7 +238,7 @@ export default function MeetingForm({
                     />
                   )}
                   disablePast
-                  minDateTime={getCurrentTimezoneDateTime(timezone!)}
+                  minDateTime={getValues().from}
                   disableIgnoringDatePartForTimeValidation
                   minutesStep={5}
                   ampm={false}
