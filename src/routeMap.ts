@@ -4,7 +4,7 @@ export default {
   terms: "/terms",
   app: "/app",
   team: "/app/team/:id",
-  settings: "/settings",
+  settings: "/app/settings",
   me: "/settings/me",
   invite: "/invite/:code",
   timezone: "/app/tz/:id",

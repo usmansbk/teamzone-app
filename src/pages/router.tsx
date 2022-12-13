@@ -125,14 +125,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-    ],
-  },
-  {
-    path: routeMap.settings,
-    element: <ProtectedRoute />,
-    errorElement: <ErrorPage />,
-    children: [
       {
+        path: routeMap.settings,
         element: <Root />,
         children: [
           {
