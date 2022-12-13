@@ -1,4 +1,4 @@
-import { CalendarMonth, GroupAdd } from "@mui/icons-material";
+import { CalendarMonth, Dashboard, GroupAdd } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -30,6 +30,11 @@ export default function DrawerContent({ teams }: Props) {
 
   const navs = useMemo(
     () => [
+      {
+        path: routeMap.app,
+        icon: <Dashboard />,
+        name: "Dashboard",
+      },
       {
         path: routeMap.meetings,
         icon: <CalendarMonth />,
