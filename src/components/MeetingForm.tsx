@@ -35,11 +35,11 @@ const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
 const parseDateTime = (_value: any, originalValue: Dayjs) =>
   originalValue.format(DATE_TIME_FORMAT);
-
 const schema = yup
   .object({
     title: yup
       .string()
+      .trim()
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
@@ -48,6 +48,7 @@ const schema = yup
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()
+      .trim()
       .max(2048, () => MAX_CHARACTERS_MESSAGE)
       .nullable(),
   })

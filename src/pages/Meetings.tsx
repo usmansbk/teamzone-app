@@ -27,7 +27,6 @@ interface EventItemProps {
 
 const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
   const { title, from, to } = item;
-  console.log(from);
   const date = getDay(from, currentTimezone);
   const endDate = getDay(to, currentTimezone);
   return (
