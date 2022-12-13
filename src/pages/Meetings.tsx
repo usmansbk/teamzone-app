@@ -4,9 +4,9 @@ import {
   Box,
   Stack,
   Button,
-  CircularProgress,
   Grid,
   Paper,
+  LinearProgress,
 } from "@mui/material";
 import { memo } from "react";
 import { Link } from "react-router-dom";
@@ -100,21 +100,11 @@ export default function Meetings() {
   const { data, loading } = useGetMeetings();
 
   if (loading) {
-    return (
-      <Box
-        maxWidth="sm"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexGrow={1}
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <LinearProgress />;
   }
 
   return (
-    <Box>
+    <Box p={2}>
       <Button
         variant="outlined"
         startIcon={<Add />}

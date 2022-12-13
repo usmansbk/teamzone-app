@@ -9,7 +9,6 @@ import Root from "src/layouts/Root";
 import routeMap from "src/routeMap";
 import PageNotFound from "./404";
 import App from "../layouts/App";
-import MeetingsLayout from "../layouts/Meetings";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./Login";
@@ -105,7 +104,6 @@ const router = createBrowserRouter([
           },
           {
             path: routeMap.meetings,
-            element: <MeetingsLayout />,
             children: [
               {
                 index: true,

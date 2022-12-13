@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MeetingForm from "src/components/MeetingForm";
@@ -19,11 +20,13 @@ export default function NewMeeting() {
   }, []);
 
   return (
-    <MeetingForm
-      title="New Meeting"
-      onClose={onClose}
-      onSubmit={onSubmit}
-      loading={loading}
-    />
+    <Box p={2}>
+      <MeetingForm
+        title="New Meeting"
+        onClose={onClose}
+        onSubmit={onSubmit}
+        loading={loading}
+      />
+    </Box>
   );
 }
