@@ -211,6 +211,7 @@ export default function MeetingForm({
                   disablePast
                   minTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
+                  minutesStep={5}
                 />
               )}
             />
@@ -232,6 +233,7 @@ export default function MeetingForm({
                   disablePast
                   minTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
+                  minutesStep={5}
                 />
               )}
             />
