@@ -29,11 +29,12 @@ import {
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 
-const DATE_TIME_FORMAT = "MMM DD, YYYY, HH:mm";
+const DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm";
+const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
-const parseLocalDateTime = (_value: any, originalValue: Dayjs) =>
-  originalValue.format("YYYY-MM-DDTHH:mm:ss[Z]");
+const parseDateTime = (_value: any, originalValue: Dayjs) =>
+  originalValue.format(DATE_TIME_FORMAT);
 
 const schema = yup
   .object({
@@ -42,8 +43,8 @@ const schema = yup
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
-    from: yup.string().transform(parseLocalDateTime).required(),
-    to: yup.string().transform(parseLocalDateTime).required(),
+    from: yup.string().transform(parseDateTime).required(),
+    to: yup.string().transform(parseDateTime).required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()
@@ -52,7 +53,6 @@ const schema = yup
   })
   .required();
 
-// export type MeetingInput = yup.InferType<typeof schema>;
 export interface MeetingInput {
   title: string;
   timezone: string;
@@ -199,7 +199,7 @@ export default function MeetingForm({
 
                     onChange(from);
                   }}
-                  inputFormat={DATE_TIME_FORMAT}
+                  inputFormat={DATE_TIME_VALUE_FORMAT}
                   InputProps={{
                     sx: {
                       fontWeight: 800,
@@ -220,7 +220,7 @@ export default function MeetingForm({
               render={({ field: { onChange, value } }) => (
                 <MobileDateTimePicker
                   label="To"
-                  inputFormat={DATE_TIME_FORMAT}
+                  inputFormat={DATE_TIME_VALUE_FORMAT}
                   value={value}
                   onChange={onChange}
                   InputProps={{ sx: { fontWeight: 800 } }}
