@@ -46,4 +46,12 @@ export function getDay(utcDate: string, timezone: string) {
   return dayjs.tz(utcDate, timezone);
 }
 
+export function getRoundUpCurrentDateTime(timezone: string) {
+  const interval = 15;
+  const currentDate = getCurrentTimezoneDateTime(timezone);
+  const roundUp = Math.ceil(currentDate.minute() / interval) * interval;
+
+  return currentDate.add(Math.abs(roundUp - currentDate.minute()), "minutes");
+}
+
 export default dayjs;

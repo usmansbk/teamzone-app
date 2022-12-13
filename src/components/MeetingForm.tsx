@@ -26,6 +26,7 @@ import {
   formatUTCOffset,
   getCurrentTimezoneDateTime,
   getDuration,
+  getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 
 const DATE_TIME_FORMAT = "MMM DD, YYYY, HH:mm";
@@ -113,8 +114,8 @@ export default function MeetingForm({
       description: null,
       teamIds: [],
       timezone: timezone!,
-      from: getCurrentTimezoneDateTime(timezone!),
-      to: getCurrentTimezoneDateTime(timezone!).add(30, "minutes"),
+      from: getRoundUpCurrentDateTime(timezone!),
+      to: getRoundUpCurrentDateTime(timezone!).add(30, "minutes"),
     },
     resolver: yupResolver(schema),
   });
