@@ -212,6 +212,7 @@ export default function MeetingForm({
                   minTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
                   minutesStep={5}
+                  ampm={false}
                 />
               )}
             />
@@ -234,6 +235,7 @@ export default function MeetingForm({
                   minTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
                   minutesStep={5}
+                  ampm={false}
                 />
               )}
             />
