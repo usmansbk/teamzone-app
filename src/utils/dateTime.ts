@@ -12,7 +12,7 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 export function getCurrentDateTime() {
-  return dayjs();
+  return dayjs().tz();
 }
 
 export function getCurrentTimezoneDateTime(timezone: string) {
@@ -51,6 +51,10 @@ export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
   const roundUp = Math.ceil(currentDate.minute() / interval) * interval;
 
   return currentDate.add(Math.abs(roundUp - currentDate.minute()), "minutes");
+}
+
+export function setDefaultTimezone(timezone: string) {
+  dayjs.tz.setDefault(timezone);
 }
 
 export default dayjs;
