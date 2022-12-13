@@ -23,6 +23,7 @@ export default function useCreateMeeting() {
               },
               (getMeetingsData) => ({
                 getMeetings: {
+                  ...getMeetingsData?.getMeetings,
                   meetings: [
                     ...getMeetingsData!.getMeetings.meetings,
                     newMeeting,

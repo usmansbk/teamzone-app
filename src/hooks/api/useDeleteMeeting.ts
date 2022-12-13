@@ -19,6 +19,7 @@ export default function useDeleteMeeting() {
               },
               (meetingsData) => ({
                 getMeetings: {
+                  ...meetingsData?.getMeetings,
                   meetings: meetingsData!.getMeetings.meetings.filter(
                     (meeting) => meeting?.id !== result.data?.deleteMeeting.id
                   ),
