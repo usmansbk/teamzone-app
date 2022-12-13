@@ -35,6 +35,7 @@ const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
 const parseDateTime = (_value: any, originalValue: Dayjs) =>
   originalValue.format(DATE_TIME_FORMAT);
+
 const schema = yup
   .object({
     title: yup
@@ -210,7 +211,7 @@ export default function MeetingForm({
                     <TextField {...params} fullWidth />
                   )}
                   disablePast
-                  minTime={getCurrentTimezoneDateTime(timezone!)}
+                  minDateTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
                   minutesStep={5}
                   ampm={false}
@@ -230,10 +231,15 @@ export default function MeetingForm({
                   onChange={onChange}
                   InputProps={{ sx: { fontWeight: 800 } }}
                   renderInput={(params: any) => (
-                    <TextField {...params} fullWidth />
+                    <TextField
+                      {...params}
+                      fullWidth
+                      error={touchedFields.to && !errors.to?.message}
+                      helperText={touchedFields.to && errors.to?.message}
+                    />
                   )}
                   disablePast
-                  minTime={getCurrentTimezoneDateTime(timezone!)}
+                  minDateTime={getCurrentTimezoneDateTime(timezone!)}
                   disableIgnoringDatePartForTimeValidation
                   minutesStep={5}
                   ampm={false}
