@@ -21,15 +21,20 @@ export default function useCreateMeeting() {
               {
                 query: getMeetings,
               },
-              (getMeetingsData) => ({
-                getMeetings: {
-                  ...getMeetingsData?.getMeetings,
-                  meetings: [
-                    ...getMeetingsData!.getMeetings.meetings,
-                    newMeeting,
-                  ],
-                },
-              })
+              (getMeetingsData) => {
+                if (!getMeetingsData) {
+                  return getMeetingsData;
+                }
+                return {
+                  getMeetings: {
+                    ...getMeetingsData?.getMeetings,
+                    meetings: [
+                      ...getMeetingsData!.getMeetings.meetings,
+                      newMeeting,
+                    ],
+                  },
+                };
+              }
             );
           }
         },

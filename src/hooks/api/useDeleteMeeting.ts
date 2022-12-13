@@ -17,14 +17,19 @@ export default function useDeleteMeeting() {
               {
                 query: getMeetings,
               },
-              (meetingsData) => ({
-                getMeetings: {
-                  ...meetingsData?.getMeetings,
-                  meetings: meetingsData!.getMeetings.meetings.filter(
-                    (meeting) => meeting?.id !== result.data?.deleteMeeting.id
-                  ),
-                },
-              })
+              (meetingsData) => {
+                if (!meetingsData) {
+                  return meetingsData;
+                }
+                return {
+                  getMeetings: {
+                    ...meetingsData?.getMeetings,
+                    meetings: meetingsData!.getMeetings.meetings.filter(
+                      (meeting) => meeting?.id !== result.data?.deleteMeeting.id
+                    ),
+                  },
+                };
+              }
             );
           }
         },
