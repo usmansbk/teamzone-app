@@ -29,12 +29,8 @@ import {
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 
-const DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm";
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
-
-const parseDateTime = (_value: any, originalValue: Dayjs) =>
-  originalValue.format(DATE_TIME_FORMAT);
 
 const schema = yup
   .object({
@@ -44,8 +40,11 @@ const schema = yup
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     timezone: yup.string().required(),
-    from: yup.string().transform(parseDateTime).required(),
-    to: yup.string().transform(parseDateTime).required(),
+    from: yup.date().required(),
+    to: yup
+      .date()
+      .min(yup.ref("from"), "End time must be after start")
+      .required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
       .string()
@@ -234,8 +233,8 @@ export default function MeetingForm({
                     <TextField
                       {...params}
                       fullWidth
-                      error={touchedFields.to && !errors.to?.message}
-                      helperText={touchedFields.to && errors.to?.message}
+                      error={!!errors.to?.message}
+                      helperText={errors.to?.message}
                     />
                   )}
                   disablePast
