@@ -208,7 +208,9 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
-                  minDate={getCurrentTimezoneDateTime(timezone!)}
+                  disablePast
+                  minTime={getCurrentTimezoneDateTime(timezone!)}
+                  disableIgnoringDatePartForTimeValidation
                 />
               )}
             />
@@ -227,7 +229,9 @@ export default function MeetingForm({
                   renderInput={(params: any) => (
                     <TextField {...params} fullWidth />
                   )}
-                  minDate={getCurrentTimezoneDateTime(timezone!)}
+                  disablePast
+                  minTime={getCurrentTimezoneDateTime(timezone!)}
+                  disableIgnoringDatePartForTimeValidation
                 />
               )}
             />
