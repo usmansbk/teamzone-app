@@ -541,6 +541,7 @@ export type CreateTeamMutation = {
 
 export type DeleteMeetingMutationVariables = Exact<{
   id: Scalars["ID"];
+  reason?: InputMaybe<Scalars["NonEmptyString"]>;
 }>;
 
 export type DeleteMeetingMutation = {
@@ -1194,6 +1195,17 @@ export const DeleteMeetingDocument = {
             type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "reason" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "NonEmptyString" },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -1208,6 +1220,14 @@ export const DeleteMeetingDocument = {
                 value: {
                   kind: "Variable",
                   name: { kind: "Name", value: "id" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "reason" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "reason" },
                 },
               },
             ],

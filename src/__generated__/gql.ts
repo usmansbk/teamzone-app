@@ -17,7 +17,7 @@ const documents = {
     types.CreateMeetingDocument,
   "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n":
     types.CreateTeamDocument,
-  "\nmutation DeleteMeeting($id: ID!) {\n  deleteMeeting(id: $id) {\n    id\n  }\n}\n":
+  "\nmutation DeleteMeeting($id: ID!, $reason: NonEmptyString) {\n  deleteMeeting(id: $id, reason: $reason) {\n    id\n  }\n}\n":
     types.DeleteMeetingDocument,
   "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n":
     types.DeleteTeamDocument,
@@ -76,8 +76,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\nmutation DeleteMeeting($id: ID!) {\n  deleteMeeting(id: $id) {\n    id\n  }\n}\n"
-): typeof documents["\nmutation DeleteMeeting($id: ID!) {\n  deleteMeeting(id: $id) {\n    id\n  }\n}\n"];
+  source: "\nmutation DeleteMeeting($id: ID!, $reason: NonEmptyString) {\n  deleteMeeting(id: $id, reason: $reason) {\n    id\n  }\n}\n"
+): typeof documents["\nmutation DeleteMeeting($id: ID!, $reason: NonEmptyString) {\n  deleteMeeting(id: $id, reason: $reason) {\n    id\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
