@@ -213,6 +213,7 @@ export type CreateTeamInput = {
 
 export type Meeting = {
   __typename?: "Meeting";
+  createdAt: Scalars["DateTime"];
   description?: Maybe<Scalars["String"]>;
   from: Scalars["DateTime"];
   id: Scalars["ID"];
@@ -222,6 +223,7 @@ export type Meeting = {
   timezone: Scalars["String"];
   title: Scalars["String"];
   to: Scalars["DateTime"];
+  updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
 export type MeetingConnection = {
@@ -553,6 +555,56 @@ export type DeleteTeamMutationVariables = Exact<{
 export type DeleteTeamMutation = {
   __typename?: "Mutation";
   deleteTeam: { __typename?: "Team"; id: string };
+};
+
+export type GetMeetingByIdQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetMeetingByIdQuery = {
+  __typename?: "Query";
+  getMeetingById: {
+    __typename?: "Meeting";
+    id: string;
+    title: string;
+    from: any;
+    to: any;
+    timezone: string;
+    updatedAt?: any | null;
+    createdAt: any;
+    description?: string | null;
+    isOwner: boolean;
+    owner: {
+      __typename?: "User";
+      id: string;
+      fullName: string;
+      picture?: any | null;
+      isMe: boolean;
+    };
+    teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      logo?: any | null;
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          picture?: any | null;
+          timezone?: string | null;
+          tzData?: {
+            __typename?: "TimezoneData";
+            name: string;
+            abbreviation: string;
+            countryName: string;
+          } | null;
+        };
+      } | null>;
+    } | null>;
+  };
 };
 
 export type GetMeetingsQueryVariables = Exact<{ [key: string]: never }>;
@@ -1219,6 +1271,155 @@ export const DeleteTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<DeleteTeamMutation, DeleteTeamMutationVariables>;
+export const GetMeetingByIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMeetingById" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getMeetingById" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "from" } },
+                { kind: "Field", name: { kind: "Name", value: "to" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "picture" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "logo" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "timezone" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "tzData" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "name" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "abbreviation",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "countryName",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMeetingByIdQuery, GetMeetingByIdQueryVariables>;
 export const GetMeetingsDocument = {
   kind: "Document",
   definitions: [
