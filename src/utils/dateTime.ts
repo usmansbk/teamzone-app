@@ -17,7 +17,7 @@ export function getCurrentDateTime() {
 }
 
 export function getCurrentTimezoneDateTime(timezone: string) {
-  return dayjs().tz(timezone);
+  return dayjs().tz(timezone).second(0).millisecond(0);
 }
 
 export function formatUTCOffset(timezone: string) {
@@ -25,7 +25,7 @@ export function formatUTCOffset(timezone: string) {
 }
 
 export function getTimeDifferenceInMs(currentTz: string, targetTz: string) {
-  const now = dayjs();
+  const now = dayjs().second(0).millisecond(0);
   const current = now.tz(currentTz, true);
   const target = now.tz(targetTz, true);
   return current.diff(target);
@@ -44,17 +44,14 @@ export function addDuration(source: Dayjs, ms: number) {
 }
 
 export function getTimezoneDateTime(utcDate: Dayjs, timezone: string) {
-  return dayjs.utc(utcDate).tz(timezone);
+  return dayjs.utc(utcDate).tz(timezone).second(0).millisecond(0);
 }
 
 export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
   const currentDate = getCurrentTimezoneDateTime(timezone);
   const roundUp = Math.ceil(currentDate.minute() / interval) * interval;
 
-  return currentDate
-    .add(Math.abs(roundUp - currentDate.minute()), "minutes")
-    .second(0)
-    .millisecond(0);
+  return currentDate.add(Math.abs(roundUp - currentDate.minute()), "minutes");
 }
 
 export function setDefaultTimezone(timezone: string) {
