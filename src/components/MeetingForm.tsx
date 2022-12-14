@@ -33,6 +33,7 @@ const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
 export interface MeetingInput {
+  id: string;
   title: string;
   timezone: string;
   from: Dayjs;
@@ -76,6 +77,7 @@ interface Props {
   onClose: () => void;
   loading?: boolean;
   onSubmit: (values: MeetingInput) => void;
+  disabled?: boolean;
 }
 
 const extractTimezones = (teams: Team[]) =>
@@ -100,6 +102,7 @@ export default function MeetingForm({
   onClose,
   loading,
   onSubmit,
+  disabled,
 }: Props) {
   const { data } = useMe();
   const { teams, timezone } = data!;
@@ -144,6 +147,7 @@ export default function MeetingForm({
             size="small"
             variant="contained"
             loading={loading}
+            disabled={disabled || loading}
           >
             Save
           </LoadingButton>
