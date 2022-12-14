@@ -132,7 +132,7 @@ export default function MeetingForm({
   return (
     <Stack
       spacing={1}
-      maxWidth="sm"
+      maxWidth="md"
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
