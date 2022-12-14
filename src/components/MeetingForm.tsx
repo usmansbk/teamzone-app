@@ -13,14 +13,12 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
-import uniqBy from "lodash.uniqby";
 import { useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { Dayjs } from "dayjs";
 import useMe from "src/hooks/api/useMe";
-import { Team } from "src/__generated__/graphql";
 import {
   addDuration,
   formatUTCOffset,
@@ -28,6 +26,7 @@ import {
   getDuration,
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
+import useGetTimezones from "src/hooks/api/useGetTimezones";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
@@ -81,15 +80,6 @@ interface Props {
   defaultValues?: Partial<MeetingInput>;
 }
 
-const extractTimezones = (teams: Team[]) =>
-  uniqBy(
-    teams.flatMap((t) => t!.teammates),
-    "member.timezone"
-  ).map((t) => ({
-    timezone: t?.member.timezone,
-    name: t?.member.tzData?.alternativeName,
-  }));
-
 const menuProps: Partial<MenuProps> = {
   PaperProps: {
     style: {
@@ -109,7 +99,7 @@ export default function MeetingForm({
   const { data } = useMe();
   const { teams, timezone } = data!;
 
-  const timezones = useMemo(() => extractTimezones(teams as Team[]), [teams]);
+  const { timezones } = useGetTimezones();
   const authorizedTeams = useMemo(
     () => teams.filter((team) => team?.isAdmin || team?.isOwner),
     [teams]
@@ -195,8 +185,10 @@ export default function MeetingForm({
                 MenuProps={menuProps}
               >
                 {timezones.map((tz) => (
-                  <MenuItem key={tz.timezone} value={tz.timezone!}>
-                    {tz.name} (UTC{formatUTCOffset(tz.timezone!)})
+                  <MenuItem key={tz.name} value={tz.name}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {tz.name} ({formatUTCOffset(tz.name!)})
+                    </Typography>
                   </MenuItem>
                 ))}
               </Select>

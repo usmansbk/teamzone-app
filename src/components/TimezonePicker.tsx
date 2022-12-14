@@ -8,8 +8,8 @@ export default function TimezonePicker({
   error,
   helperText,
 }: TextFieldProps) {
-  const { loading, data } = useGetTimezones();
-  const options = useMemo(() => data.map((t) => t.name), [data]);
+  const { loading, timezones } = useGetTimezones();
+  const options = useMemo(() => timezones.map((t) => t.name), [timezones]);
 
   return (
     <Autocomplete
