@@ -8,9 +8,9 @@
 
 - [Netlify](https://teamzone.netlify.app/)
 
-![light](https://user-images.githubusercontent.com/10219539/206932982-0947fc40-5429-46a3-8cd7-d7cfaaa75cd8.png)
+![light](https://user-images.githubusercontent.com/10219539/207712076-04c9cdb0-7960-4a21-8d2a-ce2ab4aeffc1.png)
 
-![dark](https://user-images.githubusercontent.com/10219539/206932976-ceb22b42-09a9-4315-bcb8-af2acc5d20ab.png)
+![dark](https://user-images.githubusercontent.com/10219539/207712039-92c02116-4a9a-4b17-bf2d-ca7057628ede.png)
 
 ## Todo
 
