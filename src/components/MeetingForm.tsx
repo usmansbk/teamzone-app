@@ -43,6 +43,7 @@ export interface MeetingInput {
 
 const schema = yup
   .object({
+    id: yup.string().optional(),
     title: yup
       .string()
       .trim()
@@ -69,9 +70,11 @@ const schema = yup
       to: to.tz(timezone, true).utc(),
     };
   })
+  .noUnknown()
   .required();
 
 interface Props {
+  id?: string;
   title: string;
   onClose: () => void;
   loading?: boolean;
@@ -111,7 +114,7 @@ export default function MeetingForm({
     handleSubmit,
     getValues,
     setValue,
-    formState: { touchedFields, errors },
+    formState: { touchedFields, errors, isDirty },
     reset,
   } = useForm<MeetingInput>({
     defaultValues: {
@@ -146,7 +149,7 @@ export default function MeetingForm({
             size="small"
             variant="contained"
             loading={loading}
-            disabled={disabled || loading}
+            disabled={!isDirty || disabled || loading}
           >
             Save
           </LoadingButton>
@@ -159,7 +162,6 @@ export default function MeetingForm({
         <TextField
           label="Title"
           type="text"
-          autoComplete="off"
           placeholder="Add title"
           error={touchedFields.title && !!errors.title?.message}
           helperText={touchedFields.title && errors.title?.message}

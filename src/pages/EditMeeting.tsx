@@ -1,5 +1,5 @@
 import { Box, LinearProgress } from "@mui/material";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MeetingForm from "src/components/MeetingForm";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
@@ -9,9 +9,15 @@ export default function EditMeeting() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { loading: fetching, data } = useGetMeetingById(id!);
-  const { onSubmit, loading } = useUpdateMeeting();
+  const { onSubmit, loading, data: updated } = useUpdateMeeting();
 
   const onClose = useCallback(() => navigate(-1), []);
+
+  useEffect(() => {
+    if (updated) {
+      navigate(-1);
+    }
+  }, [updated]);
 
   return (
     <>
