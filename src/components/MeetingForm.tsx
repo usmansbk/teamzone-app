@@ -18,7 +18,7 @@ import { useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 import useMe from "src/hooks/api/useMe";
 import { Team } from "src/__generated__/graphql";
 import {
@@ -31,6 +31,15 @@ import {
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
+
+export interface MeetingInput {
+  title: string;
+  timezone: string;
+  from: Dayjs;
+  to: Dayjs;
+  teamIds: string[];
+  description?: string | null;
+}
 
 const schema = yup
   .object({
@@ -52,16 +61,15 @@ const schema = yup
       .max(2048, () => MAX_CHARACTERS_MESSAGE)
       .nullable(),
   })
+  .transform((value, original) => {
+    const { from, to, timezone } = original as MeetingInput;
+    return {
+      ...original,
+      from: from.tz(timezone, true).utc(),
+      to: to.tz(timezone, true).utc(),
+    };
+  })
   .required();
-
-export interface MeetingInput {
-  title: string;
-  timezone: string;
-  from: Dayjs;
-  to: Dayjs;
-  teamIds: string[];
-  description?: string | null;
-}
 
 interface Props {
   title: string;

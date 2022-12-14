@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
 import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
-import { getDay } from "src/utils/dateTime";
+import { getTimezoneDateTime } from "src/utils/dateTime";
 import { Meeting } from "src/__generated__/graphql";
 
 interface EventListProps {
@@ -27,8 +27,8 @@ interface EventItemProps {
 
 const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
   const { title, from, to } = item;
-  const date = getDay(from, currentTimezone);
-  const endDate = getDay(to, currentTimezone);
+  const start = getTimezoneDateTime(from, currentTimezone);
+  const end = getTimezoneDateTime(to, currentTimezone);
   return (
     <Box>
       <Grid container gap={2} wrap="nowrap">
@@ -44,13 +44,13 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
             }}
           >
             <Typography lineHeight={1} variant="h6" fontWeight={600}>
-              {date.format("MMM")}
+              {start.format("MMM")}
             </Typography>
             <Typography lineHeight={1} variant="h3" color="primary">
-              {date.format("DD")}
+              {start.format("DD")}
             </Typography>
             <Typography lineHeight={1} variant="h6" fontWeight={700}>
-              {date.format("ddd")}
+              {start.format("ddd")}
             </Typography>
           </Paper>
         </Grid>
@@ -64,7 +64,7 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
           }}
         >
           <Typography variant="subtitle1">
-            {date.format("HH:mm")} - {endDate.format("HH:mm")}
+            {start.format("HH:mm")} - {end.format("HH:mm")}
           </Typography>
           <Typography noWrap variant="h5">
             {title}

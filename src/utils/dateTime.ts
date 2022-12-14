@@ -42,8 +42,8 @@ export function addDuration(source: Dayjs, ms: number) {
   return dayjs(source).add(ms, "milliseconds");
 }
 
-export function getDay(utcDate: string, timezone: string) {
-  return dayjs.tz(utcDate, timezone);
+export function getTimezoneDateTime(utcDate: Dayjs, timezone: string) {
+  return dayjs.utc(utcDate).tz(timezone);
 }
 
 export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
