@@ -2,6 +2,14 @@ import { gql } from "src/__generated__";
 
 export default gql(`
 	query Timezones {
-		timezones
+		timezones {
+			name
+			abbreviation
+			alternativeName
+			countryCode
+			countryName
+			countryFlag
+			mainCities
+		}
 	}
 `);

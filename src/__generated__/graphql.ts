@@ -322,7 +322,7 @@ export type Query = {
   getTimezoneById?: Maybe<TimezoneData>;
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
-  timezones: Array<Scalars["String"]>;
+  timezones: Array<TimezoneData>;
 };
 
 export type QueryGetMeetingByIdArgs = {
@@ -751,7 +751,19 @@ export type GetTimezoneByIdQuery = {
 
 export type TimezonesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type TimezonesQuery = { __typename?: "Query"; timezones: Array<string> };
+export type TimezonesQuery = {
+  __typename?: "Query";
+  timezones: Array<{
+    __typename?: "TimezoneData";
+    name: string;
+    abbreviation: string;
+    alternativeName?: string | null;
+    countryCode?: any | null;
+    countryName: string;
+    countryFlag?: any | null;
+    mainCities?: Array<string | null> | null;
+  }>;
+};
 
 export type JoinTeamMutationVariables = Exact<{
   inviteCode: Scalars["ID"];
@@ -1937,7 +1949,28 @@ export const TimezonesDocument = {
       selectionSet: {
         kind: "SelectionSet",
         selections: [
-          { kind: "Field", name: { kind: "Name", value: "timezones" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "timezones" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "abbreviation" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "alternativeName" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "countryCode" } },
+                { kind: "Field", name: { kind: "Name", value: "countryName" } },
+                { kind: "Field", name: { kind: "Name", value: "countryFlag" } },
+                { kind: "Field", name: { kind: "Name", value: "mainCities" } },
+              ],
+            },
+          },
         ],
       },
     },

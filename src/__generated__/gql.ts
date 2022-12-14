@@ -33,7 +33,8 @@ const documents = {
     types.GetTeammatesByTimezoneDocument,
   "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n\t\tcountryFlag\n    continentName\n    abbreviation\n    alternativeName\n    group\n    mainCities\n  }\n}\n":
     types.GetTimezoneByIdDocument,
-  "\n\tquery Timezones {\n\t\ttimezones\n\t}\n": types.TimezonesDocument,
+  "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n":
+    types.TimezonesDocument,
   "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n":
     types.JoinTeamDocument,
   "\n\tmutation LeaveTeam($teamId: ID!) {\n\t\tleaveTeam(teamId: $teamId) {\n\t\t\tid\n\t\t\tisMember\n\t\t}\n\t}\n":
@@ -124,8 +125,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n\tquery Timezones {\n\t\ttimezones\n\t}\n"
-): typeof documents["\n\tquery Timezones {\n\t\ttimezones\n\t}\n"];
+  source: "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n"
+): typeof documents["\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

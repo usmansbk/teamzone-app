@@ -1,11 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import {
-  TextField,
-  Stack,
-  Autocomplete,
-  Box,
-  CircularProgress,
-} from "@mui/material";
+import { TextField, Stack, Box, LinearProgress } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -13,16 +7,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useUpdateProfile from "src/hooks/api/useUpdateProfile";
 import { UpdateProfileMutationVariables } from "src/__generated__/graphql";
-import toast from "react-hot-toast";
 import UploadAvatar from "src/components/UploadAvatar";
-import useGetTimezones from "src/hooks/api/useGetTimezones";
+import TimezonePicker from "src/components/TimezonePicker";
 
 export default function Profile() {
-  const { loading: loadingTimezones, data: timezones } = useGetTimezones();
-  const { onSubmit, loading, data: updatedData } = useUpdateProfile();
+  const { onSubmit, loading } = useUpdateProfile();
   const { data, loading: loadingMe } = useMe();
-
-  const { firstName, lastName, locale, timezone } = data || {};
 
   const schema = useMemo(
     () =>
@@ -60,27 +50,15 @@ export default function Profile() {
     reset,
   } = useForm<UpdateProfileMutationVariables["input"]>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      firstName,
-      lastName,
-      locale,
-      timezone,
-    },
+    defaultValues: data,
   });
 
   useEffect(() => {
-    if (updatedData) {
-      toast.success("Your profile has been updated");
-      reset(updatedData);
-    }
-  }, [updatedData]);
+    reset(data);
+  }, [data]);
 
-  if (loadingTimezones || loadingMe) {
-    return (
-      <Box textAlign="center">
-        <CircularProgress />
-      </Box>
-    );
+  if (loadingMe) {
+    return <LinearProgress />;
   }
 
   return (
@@ -116,30 +94,11 @@ export default function Profile() {
           control={control}
           name="timezone"
           render={({ field: { value, onChange } }) => (
-            <Autocomplete
+            <TimezonePicker
               value={value}
-              options={timezones}
-              onChange={(e, val: string) => onChange(val)}
-              disablePortal
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Timezone"
-                  helperText={errors.timezone?.message as string}
-                  error={Boolean(errors.timezone?.message)}
-                  InputLabelProps={{
-                    sx: {
-                      fontWeight: 800,
-                    },
-                  }}
-                  InputProps={{
-                    ...params.InputProps,
-                    sx: {
-                      fontWeight: 800,
-                    },
-                  }}
-                />
-              )}
+              onChange={onChange}
+              error={!!errors.timezone}
+              helperText={errors.timezone?.message as string}
             />
           )}
         />
@@ -148,7 +107,7 @@ export default function Profile() {
           type="submit"
           variant="contained"
           size="large"
-          disabled={!isDirty || loadingTimezones}
+          disabled={!isDirty}
         >
           Save Profile Information
         </LoadingButton>
