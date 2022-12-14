@@ -25,7 +25,7 @@ function DeleteMeetingDialog({ open, onClose, id }: Props) {
   const handleSubmit = useCallback(() => {
     onSubmit({
       id,
-      reason: reason || undefined,
+      reason: reason.trim() || undefined,
     });
   }, [onSubmit, id, reason]);
 
