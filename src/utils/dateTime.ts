@@ -51,7 +51,10 @@ export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
   const currentDate = getCurrentTimezoneDateTime(timezone);
   const roundUp = Math.ceil(currentDate.minute() / interval) * interval;
 
-  return currentDate.add(Math.abs(roundUp - currentDate.minute()), "minutes");
+  return currentDate
+    .add(Math.abs(roundUp - currentDate.minute()), "minutes")
+    .second(0)
+    .millisecond(0);
 }
 
 export function setDefaultTimezone(timezone: string) {
