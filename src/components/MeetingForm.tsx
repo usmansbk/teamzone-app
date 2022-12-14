@@ -103,6 +103,10 @@ export default function MeetingForm({
   const { teams, timezone } = data!;
 
   const { timezones } = useGetTimezones();
+  const sortedTimezones = useMemo(
+    () => timezones.sort((a, b) => -b.name.localeCompare(a.name)),
+    [timezones]
+  );
   const authorizedTeams = useMemo(
     () => teams.filter((team) => team?.isAdmin || team?.isOwner),
     [teams]
@@ -182,14 +186,14 @@ export default function MeetingForm({
                     fontWeight: 800,
                   },
                 }}
-                value={timezones.length ? value : ""}
+                value={sortedTimezones.length ? value : ""}
                 onChange={onChange}
                 MenuProps={menuProps}
                 renderValue={(tz) => (
                   <Typography fontWeight={800}>{tz}</Typography>
                 )}
               >
-                {timezones.map((tz) => (
+                {sortedTimezones.map((tz) => (
                   <MenuItem key={tz.name} value={tz.name}>
                     <Typography variant="body2" fontWeight={500}>
                       {tz.name} ({formatUTCOffset(tz.name!)})

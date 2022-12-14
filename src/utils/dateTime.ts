@@ -4,6 +4,7 @@ import tz from "dayjs/plugin/timezone";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 dayjs.extend(utc);
 dayjs.extend(tz);
@@ -55,6 +56,23 @@ export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
 
 export function setDefaultTimezone(timezone: string) {
   dayjs.tz.setDefault(timezone);
+}
+
+export function DayjsAdapter(this: any, props: any) {
+  Object.assign(this, new AdapterDayjs(props));
+
+  const tzOrUtc = (date: { $u: any }) =>
+    (date?.$u ? this.dayjs.utc : this.dayjs)(date);
+
+  this.date = (value: null) => {
+    if (value === null) {
+      return null;
+    }
+
+    return tzOrUtc(value);
+  };
+
+  return this;
 }
 
 export default dayjs;
