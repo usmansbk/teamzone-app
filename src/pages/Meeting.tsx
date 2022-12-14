@@ -1,5 +1,6 @@
+import { Delete, Edit } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, LinearProgress, Stack, Typography } from "@mui/material";
+import { Box, Button, LinearProgress, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useDeleteMeeting from "src/hooks/api/useDeleteMeeting";
@@ -25,7 +26,13 @@ export default function Meeting() {
 
   return (
     <Box p={2} maxWidth="md">
-      <Stack mb={1} direction="row" justifyContent="flex-end">
+      <Stack
+        mb={1}
+        direction="row"
+        justifyContent="flex-end"
+        spacing={1}
+        flexWrap="wrap"
+      >
         <LoadingButton
           variant="contained"
           size="small"
@@ -36,9 +43,16 @@ export default function Meeting() {
               id: id!,
             })
           }
+          startIcon={<Delete />}
         >
           Delete
         </LoadingButton>
+        <Button variant="contained" size="small" startIcon={<Edit />}>
+          Edit
+        </Button>
+        <Button variant="outlined" size="small" onClick={() => navigate(-1)}>
+          Close
+        </Button>
       </Stack>
       <Typography variant="h5">{title}</Typography>
     </Box>
