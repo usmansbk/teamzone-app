@@ -7,6 +7,8 @@ import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
 import { getLocalDateTime } from "src/utils/dateTime";
 
+const TIME_FORMAT = "HH:mm";
+
 export default function Meeting() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
@@ -19,9 +21,10 @@ export default function Meeting() {
     return <LinearProgress />;
   }
 
-  const { title, isOwner, from, timezone } = data!;
+  const { title, isOwner, from, to } = data!;
 
   const localFrom = getLocalDateTime(from);
+  const localTo = getLocalDateTime(to);
 
   return (
     <Box p={2} maxWidth="md">
@@ -60,8 +63,10 @@ export default function Meeting() {
       </Stack>
       <Stack>
         <Typography variant="h3">{title}</Typography>
-        <Typography>{timezone}</Typography>
         <Typography>{localFrom.format("LLL")}</Typography>
+        <Typography variant="h6">
+          {localFrom.format(TIME_FORMAT)} - {localTo.format(TIME_FORMAT)}
+        </Typography>
       </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}

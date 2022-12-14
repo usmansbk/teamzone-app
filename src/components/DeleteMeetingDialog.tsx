@@ -48,6 +48,7 @@ function DeleteMeetingDialog({ open, onClose, id }: Props) {
           multiline
           value={reason}
           onChange={(e) => setReason(e.target.value)}
+          placeholder="Let your teammates know why"
         />
       </DialogContent>
       <DialogActions>
