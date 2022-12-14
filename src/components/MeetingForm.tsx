@@ -180,7 +180,7 @@ export default function MeetingForm({
                     fontWeight: 800,
                   },
                 }}
-                value={value}
+                value={timezones.length ? value : ""}
                 onChange={onChange}
                 MenuProps={menuProps}
                 renderValue={(tz) => (
