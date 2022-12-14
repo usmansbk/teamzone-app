@@ -16,7 +16,7 @@ export default function Meeting() {
   }, [data]);
 
   return (
-    <Box>
+    <Box p={2}>
       <Typography>Meeting</Typography>
       <LoadingButton
         loading={loading}

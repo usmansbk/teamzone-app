@@ -53,7 +53,7 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
             <Typography variant="subtitle1">
               {start.format("HH:mm")} - {end.format("HH:mm")}
             </Typography>
-            <Typography noWrap variant="h5">
+            <Typography noWrap fontWeight={600}>
               {title}
             </Typography>
           </Paper>
