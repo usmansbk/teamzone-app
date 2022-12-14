@@ -183,6 +183,9 @@ export default function MeetingForm({
                 value={value}
                 onChange={onChange}
                 MenuProps={menuProps}
+                renderValue={(tz) => (
+                  <Typography fontWeight={800}>{tz}</Typography>
+                )}
               >
                 {timezones.map((tz) => (
                   <MenuItem key={tz.name} value={tz.name}>
@@ -292,7 +295,9 @@ export default function MeetingForm({
               >
                 {authorizedTeams.map((team) => (
                   <MenuItem key={team!.id} value={team!.id}>
-                    {team?.name}
+                    <Typography variant="body2" fontWeight={500}>
+                      {team?.name}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Select>
