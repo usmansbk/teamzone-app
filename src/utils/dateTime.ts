@@ -16,6 +16,10 @@ export function getCurrentDateTime() {
   return dayjs().tz();
 }
 
+export function getLocalDateTime(date: Dayjs) {
+  return dayjs.tz(date);
+}
+
 export function getCurrentTimezoneDateTime(timezone: string) {
   return dayjs().tz(timezone).second(0).millisecond(0);
 }

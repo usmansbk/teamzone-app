@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
+import { getLocalDateTime } from "src/utils/dateTime";
 
 export default function Meeting() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ export default function Meeting() {
   }
 
   const { title, isOwner, from, timezone } = data!;
+
+  const localFrom = getLocalDateTime(from);
 
   return (
     <Box p={2} maxWidth="md">
@@ -56,9 +59,9 @@ export default function Meeting() {
         </Button>
       </Stack>
       <Stack>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h3">{title}</Typography>
         <Typography>{timezone}</Typography>
-        <Typography>{from.format("LLL")}</Typography>
+        <Typography>{localFrom.format("LLL")}</Typography>
       </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}
