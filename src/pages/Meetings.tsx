@@ -32,43 +32,31 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
   return (
     <Box>
       <Grid container gap={2} wrap="nowrap">
-        <Grid item xs={2}>
+        <Grid item xs="auto" alignItems="center" textAlign="center">
+          <Typography lineHeight={1} variant="h6" fontWeight={600}>
+            {start.format("MMM")}
+          </Typography>
+          <Typography lineHeight={1} variant="h3" color="primary">
+            {start.format("DD")}
+          </Typography>
+          <Typography lineHeight={1} variant="h6" fontWeight={700}>
+            {start.format("ddd")}
+          </Typography>
+        </Grid>
+        <Grid item zeroMinWidth width="100%">
           <Paper
             variant="outlined"
             sx={{
               p: 2,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
             }}
           >
-            <Typography lineHeight={1} variant="h6" fontWeight={600}>
-              {start.format("MMM")}
+            <Typography variant="subtitle1">
+              {start.format("HH:mm")} - {end.format("HH:mm")}
             </Typography>
-            <Typography lineHeight={1} variant="h3" color="primary">
-              {start.format("DD")}
-            </Typography>
-            <Typography lineHeight={1} variant="h6" fontWeight={700}>
-              {start.format("ddd")}
+            <Typography noWrap variant="h5">
+              {title}
             </Typography>
           </Paper>
-        </Grid>
-        <Grid
-          item
-          zeroMinWidth
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Typography variant="subtitle1">
-            {start.format("HH:mm")} - {end.format("HH:mm")}
-          </Typography>
-          <Typography noWrap variant="h5">
-            {title}
-          </Typography>
         </Grid>
       </Grid>
     </Box>
@@ -78,7 +66,7 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
 const EventList = memo(({ meetings }: EventListProps) => {
   const { data } = useMe();
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       {meetings.map((meeting) => (
         <Link
           key={meeting.id}
@@ -105,15 +93,20 @@ export default function Meetings() {
 
   return (
     <Box p={2}>
-      <Button
-        variant="outlined"
-        startIcon={<Add />}
-        component={Link}
-        to={routeMap.newMeeting}
-      >
-        New Meeting
-      </Button>
-      <Box maxWidth="sm" mt={2}>
+      <Box maxWidth="md">
+        <Stack mb={1} direction="row" justifyContent="flex-end">
+          <Box>
+            <Button
+              size="small"
+              variant="contained"
+              startIcon={<Add />}
+              component={Link}
+              to={routeMap.newMeeting}
+            >
+              New Meeting
+            </Button>
+          </Box>
+        </Stack>
         {meetings?.length === 0 && (
           <Typography variant="h3">No upcoming meetings yet</Typography>
         )}
