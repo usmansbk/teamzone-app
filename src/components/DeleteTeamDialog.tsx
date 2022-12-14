@@ -28,6 +28,7 @@ export default function DeleteTeamDialog({ open, onClose, title }: Props) {
         <Button onClick={onClose}>No</Button>
         <Button
           variant="contained"
+          color="warning"
           onClick={() => {
             handleDelete({
               id: id!,

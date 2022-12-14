@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, LinearProgress, Typography } from "@mui/material";
+import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useDeleteMeeting from "src/hooks/api/useDeleteMeeting";
@@ -24,17 +24,22 @@ export default function Meeting() {
   const { title } = data!;
 
   return (
-    <Box p={2}>
-      <LoadingButton
-        loading={deleting}
-        onClick={() =>
-          onSubmit({
-            id: id!,
-          })
-        }
-      >
-        Delete
-      </LoadingButton>
+    <Box p={2} maxWidth="md">
+      <Stack mb={1} direction="row" justifyContent="flex-end">
+        <LoadingButton
+          variant="contained"
+          size="small"
+          color="warning"
+          loading={deleting}
+          onClick={() =>
+            onSubmit({
+              id: id!,
+            })
+          }
+        >
+          Delete
+        </LoadingButton>
+      </Stack>
       <Typography variant="h5">{title}</Typography>
     </Box>
   );

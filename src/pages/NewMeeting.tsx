@@ -19,7 +19,7 @@ export default function NewMeeting() {
   }, []);
 
   return (
-    <Box p={2}>
+    <Box p={2} maxWidth="md">
       <MeetingForm
         title="New Meeting"
         onClose={onClose}

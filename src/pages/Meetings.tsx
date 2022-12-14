@@ -92,26 +92,24 @@ export default function Meetings() {
   }
 
   return (
-    <Box p={2}>
-      <Box maxWidth="md">
-        <Stack mb={1} direction="row" justifyContent="flex-end">
-          <Box>
-            <Button
-              size="small"
-              variant="contained"
-              startIcon={<Add />}
-              component={Link}
-              to={routeMap.newMeeting}
-            >
-              New Meeting
-            </Button>
-          </Box>
-        </Stack>
-        {meetings?.length === 0 && (
-          <Typography variant="h3">No upcoming meetings yet</Typography>
-        )}
-        <EventList meetings={meetings as Meeting[]} />
-      </Box>
+    <Box p={2} maxWidth="md">
+      <Stack mb={1} direction="row" justifyContent="flex-end">
+        <Box>
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<Add />}
+            component={Link}
+            to={routeMap.newMeeting}
+          >
+            New Meeting
+          </Button>
+        </Box>
+      </Stack>
+      {meetings?.length === 0 && (
+        <Typography variant="h3">No upcoming meetings yet</Typography>
+      )}
+      <EventList meetings={meetings as Meeting[]} />
     </Box>
   );
 }
