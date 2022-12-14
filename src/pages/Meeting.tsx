@@ -1,9 +1,10 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, Button, LinearProgress, Stack, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
+import routeMap from "src/routeMap";
 
 export default function Meeting() {
   const navigate = useNavigate();
@@ -39,7 +40,13 @@ export default function Meeting() {
             >
               Delete
             </Button>
-            <Button variant="contained" size="small" startIcon={<Edit />}>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<Edit />}
+              component={Link}
+              to={routeMap.editMeeting.replace(":id", id!)}
+            >
               Edit
             </Button>
           </>
