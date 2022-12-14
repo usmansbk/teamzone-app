@@ -16,7 +16,7 @@ export default function EditMeeting() {
   return (
     <>
       {fetching && <LinearProgress />}
-      <Box p={2}>
+      <Box p={2} maxWidth="md">
         <MeetingForm
           title="Edit meeting"
           onClose={onClose}
