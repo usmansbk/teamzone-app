@@ -31,15 +31,15 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
   const end = getTimezoneDateTime(to, currentTimezone);
   return (
     <Box>
-      <Grid container gap={2} wrap="nowrap">
-        <Grid item xs="auto" alignItems="center" textAlign="center">
-          <Typography lineHeight={1} variant="h6" fontWeight={600}>
+      <Grid container gap={1} wrap="nowrap">
+        <Grid item xs={1} textAlign="center">
+          <Typography lineHeight={1} variant="overline" fontWeight={600}>
             {start.format("MMM")}
           </Typography>
-          <Typography lineHeight={1} variant="h3" color="primary">
+          <Typography lineHeight={1} variant="h4" color="primary">
             {start.format("DD")}
           </Typography>
-          <Typography lineHeight={1} variant="h6" fontWeight={700}>
+          <Typography lineHeight={1} variant="overline" fontWeight={700}>
             {start.format("ddd")}
           </Typography>
         </Grid>
