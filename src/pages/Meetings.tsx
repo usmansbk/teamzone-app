@@ -97,7 +97,7 @@ const EventList = memo(({ meetings }: EventListProps) => {
 });
 
 export default function Meetings() {
-  const { data, loading } = useGetMeetings();
+  const { meetings, loading } = useGetMeetings();
 
   if (loading) {
     return <LinearProgress />;
@@ -114,10 +114,10 @@ export default function Meetings() {
         New Meeting
       </Button>
       <Box maxWidth="sm" mt={2}>
-        {data?.length === 0 && (
+        {meetings?.length === 0 && (
           <Typography variant="h3">No upcoming meetings yet</Typography>
         )}
-        <EventList meetings={data! as Meeting[]} />
+        <EventList meetings={meetings as Meeting[]} />
       </Box>
     </Box>
   );

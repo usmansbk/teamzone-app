@@ -3,7 +3,6 @@ import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MeetingForm from "src/components/MeetingForm";
 import useCreateMeeting from "src/hooks/api/useCreateMeeting";
-import routeMap from "src/routeMap";
 
 export default function NewMeeting() {
   const { loading, onSubmit, data } = useCreateMeeting();
@@ -11,7 +10,7 @@ export default function NewMeeting() {
 
   useEffect(() => {
     if (data) {
-      navigate(routeMap.meeting.replace(":id", data.id), { replace: true });
+      navigate(-1);
     }
   }, [data]);
 
