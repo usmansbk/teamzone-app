@@ -14,7 +14,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import uniqBy from "lodash.uniqby";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -78,6 +78,7 @@ interface Props {
   loading?: boolean;
   onSubmit: (values: MeetingInput) => void;
   disabled?: boolean;
+  defaultValues?: Partial<MeetingInput>;
 }
 
 const extractTimezones = (teams: Team[]) =>
@@ -103,6 +104,7 @@ export default function MeetingForm({
   loading,
   onSubmit,
   disabled,
+  defaultValues,
 }: Props) {
   const { data } = useMe();
   const { teams, timezone } = data!;
@@ -120,6 +122,7 @@ export default function MeetingForm({
     getValues,
     setValue,
     formState: { touchedFields, errors },
+    reset,
   } = useForm<MeetingInput>({
     defaultValues: {
       title: "",
@@ -131,6 +134,12 @@ export default function MeetingForm({
     },
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues]);
 
   return (
     <Stack

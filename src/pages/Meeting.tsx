@@ -18,7 +18,7 @@ export default function Meeting() {
     return <LinearProgress />;
   }
 
-  const { title, isOwner } = data!;
+  const { title, isOwner, from, timezone } = data!;
 
   return (
     <Box p={2} maxWidth="md">
@@ -55,7 +55,11 @@ export default function Meeting() {
           Close
         </Button>
       </Stack>
-      <Typography variant="h5">{title}</Typography>
+      <Stack>
+        <Typography variant="h5">{title}</Typography>
+        <Typography>{timezone}</Typography>
+        <Typography>{from.format("LLL")}</Typography>
+      </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}
         onClose={closeDeleteDialog}

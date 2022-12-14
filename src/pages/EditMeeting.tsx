@@ -8,7 +8,7 @@ import useUpdateMeeting from "src/hooks/api/useUpdateMeeting";
 export default function EditMeeting() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { loading: fetching } = useGetMeetingById(id!);
+  const { loading: fetching, data } = useGetMeetingById(id!);
   const { onSubmit, loading } = useUpdateMeeting();
 
   const onClose = useCallback(() => navigate(-1), []);
@@ -23,6 +23,7 @@ export default function EditMeeting() {
           onSubmit={onSubmit}
           loading={loading}
           disabled={fetching}
+          defaultValues={data}
         />
       </Box>
     </>
