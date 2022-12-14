@@ -63,7 +63,7 @@ export default function Meeting() {
       </Stack>
       <Stack>
         <Typography variant="h3">{title}</Typography>
-        <Typography>{localFrom.format("LLL")}</Typography>
+        <Typography>{localFrom.format("LL")}</Typography>
         <Typography variant="h6">
           {localFrom.format(TIME_FORMAT)} - {localTo.format(TIME_FORMAT)}
         </Typography>

@@ -81,6 +81,7 @@ interface Props {
   onSubmit: (values: MeetingInput) => void;
   disabled?: boolean;
   defaultValues?: Partial<MeetingInput>;
+  autoFocus?: boolean;
 }
 
 const menuProps: Partial<MenuProps> = {
@@ -98,6 +99,7 @@ export default function MeetingForm({
   onSubmit,
   disabled,
   defaultValues,
+  autoFocus = true,
 }: Props) {
   const { data } = useMe();
   const { teams, timezone } = data!;
@@ -164,6 +166,7 @@ export default function MeetingForm({
       </Stack>
       <Stack spacing={2} width="100%">
         <TextField
+          autoFocus={autoFocus}
           label="Title"
           type="text"
           placeholder="Add title"

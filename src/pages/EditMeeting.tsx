@@ -24,6 +24,7 @@ export default function EditMeeting() {
       {fetching && <LinearProgress />}
       <Box p={2} maxWidth="md">
         <MeetingForm
+          autoFocus={false}
           title="Edit meeting"
           onClose={onClose}
           onSubmit={onSubmit}
