@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useLeaveTeam from "src/hooks/api/useLeaveTeam";
 import routeMap from "src/routeMap";
@@ -10,7 +10,7 @@ interface Props {
   title: string;
 }
 
-export default function LeaveTeamDialog({ open, onClose, title }: Props) {
+function LeaveTeamDialog({ open, onClose, title }: Props) {
   const { id } = useParams<{ id: string }>();
   const { handleLeave, data } = useLeaveTeam();
   const navigate = useNavigate();
@@ -38,3 +38,5 @@ export default function LeaveTeamDialog({ open, onClose, title }: Props) {
     </Dialog>
   );
 }
+
+export default memo(LeaveTeamDialog);

@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, Stack, TextField } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { LoadingButton } from "@mui/lab";
@@ -13,11 +13,7 @@ interface Props {
   defaultValues: UpdateTeamInput;
 }
 
-export default function UpdateTeamDialog({
-  open,
-  onClose,
-  defaultValues,
-}: Props) {
+function UpdateTeamDialog({ open, onClose, defaultValues }: Props) {
   const schema = useMemo(
     () =>
       yup
@@ -86,3 +82,5 @@ export default function UpdateTeamDialog({
     </Dialog>
   );
 }
+
+export default memo(UpdateTeamDialog);

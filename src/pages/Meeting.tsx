@@ -52,6 +52,7 @@ export default function Meeting() {
       <DeleteMeetingDialog
         open={openDeleteDialog}
         onClose={closeDeleteDialog}
+        id={id!}
       />
     </Box>
   );

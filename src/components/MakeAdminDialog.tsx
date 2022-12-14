@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import useMakeAdmin from "src/hooks/api/useMakeAdmin";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function MakeAdminDialog({ name, onClose, open, id }: Props) {
+function MakeAdminDialog({ name, onClose, open, id }: Props) {
   const { loading, data, onSubmit } = useMakeAdmin();
 
   useEffect(() => {
@@ -38,3 +38,5 @@ export default function MakeAdminDialog({ name, onClose, open, id }: Props) {
     </Dialog>
   );
 }
+
+export default memo(MakeAdminDialog);

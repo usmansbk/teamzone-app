@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, Stack, TextField } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function NewTeamDialog({ open, onClose }: Props) {
+function NewTeamDialog({ open, onClose }: Props) {
   const navigate = useNavigate();
   const schema = useMemo(
     () =>
@@ -88,3 +88,5 @@ export default function NewTeamDialog({ open, onClose }: Props) {
     </Dialog>
   );
 }
+
+export default memo(NewTeamDialog);

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useDeleteTeam from "src/hooks/api/useDeleteTeam";
 import routeMap from "src/routeMap";
@@ -10,7 +10,7 @@ interface Props {
   title: string;
 }
 
-export default function DeleteTeamDialog({ open, onClose, title }: Props) {
+function DeleteTeamDialog({ open, onClose, title }: Props) {
   const { id } = useParams<{ id: string }>();
   const { handleDelete, data } = useDeleteTeam();
   const navigate = useNavigate();
@@ -41,3 +41,5 @@ export default function DeleteTeamDialog({ open, onClose, title }: Props) {
     </Dialog>
   );
 }
+
+export default memo(DeleteTeamDialog);

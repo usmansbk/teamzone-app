@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import useRemoveTeammate from "src/hooks/api/useRemoveTeammate";
 
 interface Props {
@@ -10,12 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-export default function RemoveTeamMemberDialog({
-  name,
-  onClose,
-  open,
-  id,
-}: Props) {
+function RemoveTeamMemberDialog({ name, onClose, open, id }: Props) {
   const { loading, data, onSubmit } = useRemoveTeammate();
 
   useEffect(() => {
@@ -45,3 +40,5 @@ export default function RemoveTeamMemberDialog({
     </Dialog>
   );
 }
+
+export default memo(RemoveTeamMemberDialog);
