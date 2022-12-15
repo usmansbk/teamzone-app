@@ -57,6 +57,13 @@ export default gql(`
         countryName
         mainCities
       }
+      upcomingMeeting {
+        id
+        title
+        from
+        to
+        timezone
+      }
     }
   }
 `);

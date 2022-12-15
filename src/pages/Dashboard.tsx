@@ -6,6 +6,8 @@ import BigClock from "src/components/BigClock";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
+import { getLocalDateTime } from "src/utils/dateTime";
+import { formatEventTime } from "src/utils/event";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
@@ -21,7 +23,7 @@ const Clock = memo(({ timezone }: { timezone: string }) => {
 
 const Dashboard = () => {
   const { data } = useMe();
-  const { tzData, teams, timezone } = data!;
+  const { tzData, teams, timezone, upcomingMeeting } = data!;
   const { countryName, mainCities } = tzData! || {};
 
   const teammates = useMemo(
@@ -52,7 +54,23 @@ const Dashboard = () => {
         {countryName}
       </Typography>
       <Stack spacing={2}>
-        <Clock timezone={timezone!} />
+        <Box>
+          <Clock timezone={timezone!} />
+          {upcomingMeeting && (
+            <Link
+              to={routeMap.meeting.replace(":id", upcomingMeeting.id)}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <Typography>
+                {upcomingMeeting.title}{" "}
+                {formatEventTime(
+                  getLocalDateTime(upcomingMeeting.from),
+                  getLocalDateTime(upcomingMeeting.to)
+                )}
+              </Typography>
+            </Link>
+          )}
+        </Box>
         <TimezoneClocks teammates={teammates} />
       </Stack>
     </Box>
