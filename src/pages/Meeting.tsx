@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
+import uniqBy from "lodash.uniqby";
 import { memo, useCallback, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
@@ -97,9 +98,12 @@ export default function Meeting() {
       return [];
     }
 
-    return data.teams
-      .flatMap((t) => t?.teammates.map((tm) => tm?.member))
-      .filter((m) => m!.id !== data.owner.id);
+    return uniqBy(
+      data.teams
+        .flatMap((t) => t?.teammates.map((tm) => tm?.member))
+        .filter((m) => m!.id !== data.owner.id),
+      "id"
+    ).sort((a, b) => -b!.fullName.localeCompare(a!.fullName));
   }, [data?.teams]);
 
   if (loading) {
