@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 
 const TIME_FORMAT = "HH:mm";
-const DATE_FORMAT = "dddd, MMMM DD";
+const DATE_FORMAT = "dddd, MMMM Do";
 
 export function formatEventDateTime(start: Dayjs, end: Dayjs): string {
   if (start.isSame(end, "day")) {

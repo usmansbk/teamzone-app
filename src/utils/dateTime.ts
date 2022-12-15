@@ -4,6 +4,7 @@ import tz from "dayjs/plugin/timezone";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 dayjs.extend(utc);
@@ -11,6 +12,7 @@ dayjs.extend(tz);
 dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+dayjs.extend(advancedFormat);
 
 export function getCurrentDateTime() {
   return dayjs().tz();

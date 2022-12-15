@@ -62,10 +62,10 @@ export default function Meeting() {
         </Button>
       </Stack>
       <Stack>
-        <Typography variant="h3" color="primary">
-          {title}
+        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h4" fontWeight={500}>
+          {time}
         </Typography>
-        <Typography variant="h6">{time}</Typography>
       </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}
