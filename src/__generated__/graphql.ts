@@ -955,14 +955,6 @@ export type MeQuery = {
       countryName: string;
       mainCities?: Array<string | null> | null;
     } | null;
-    upcomingMeeting?: {
-      __typename?: "Meeting";
-      id: string;
-      title: string;
-      from: any;
-      to: any;
-      timezone: string;
-    } | null;
   };
 };
 
@@ -2774,23 +2766,6 @@ export const MeDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "mainCities" },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "upcomingMeeting" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      { kind: "Field", name: { kind: "Name", value: "title" } },
-                      { kind: "Field", name: { kind: "Name", value: "from" } },
-                      { kind: "Field", name: { kind: "Name", value: "to" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "timezone" },
                       },
                     ],
                   },

@@ -1,12 +1,13 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import uniqueBy from "lodash.uniqby";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import BigClock from "src/components/BigClock";
+import useGetMeetings from "src/hooks/api/useGetMeetings";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
-import { getLocalDateTime } from "src/utils/dateTime";
+import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
 import { formatEventTime } from "src/utils/event";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
@@ -23,7 +24,8 @@ const Clock = memo(({ timezone }: { timezone: string }) => {
 
 const Dashboard = () => {
   const { data } = useMe();
-  const { tzData, teams, timezone, upcomingMeeting } = data!;
+  const { loading, meetings } = useGetMeetings();
+  const { tzData, teams, timezone } = data!;
   const { countryName, mainCities } = tzData! || {};
 
   const teammates = useMemo(
@@ -34,6 +36,11 @@ const Dashboard = () => {
       ).filter((t) => t?.member.timezone !== timezone),
     [teams, timezone]
   ) as TeamMember[];
+
+  const upcomingMeeting = useMemo(
+    () => meetings.find((m) => m?.from.isSame(getCurrentDateTime(), "day")),
+    [meetings]
+  );
 
   return (
     <Box p={2}>
@@ -56,6 +63,11 @@ const Dashboard = () => {
       <Stack spacing={2}>
         <Box>
           <Clock timezone={timezone!} />
+          {loading && (
+            <Skeleton variant="text">
+              <Typography>Loading upcoming meeting</Typography>
+            </Skeleton>
+          )}
           {upcomingMeeting && (
             <Link
               to={routeMap.meeting.replace(":id", upcomingMeeting.id)}
