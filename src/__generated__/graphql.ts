@@ -520,6 +520,7 @@ export type CreateMeetingMutation = {
             name: string;
             abbreviation: string;
             countryName: string;
+            alternativeName?: string | null;
           } | null;
         };
       } | null>;
@@ -625,6 +626,7 @@ export type GetMeetingByIdQuery = {
             name: string;
             abbreviation: string;
             countryName: string;
+            alternativeName?: string | null;
           } | null;
         };
       } | null>;
@@ -646,6 +648,8 @@ export type GetMeetingsQuery = {
       from: any;
       to: any;
       timezone: string;
+      updatedAt?: any | null;
+      createdAt: any;
       description?: string | null;
       isOwner: boolean;
       owner: {
@@ -653,11 +657,13 @@ export type GetMeetingsQuery = {
         id: string;
         fullName: string;
         picture?: any | null;
+        isMe: boolean;
       };
       teams: Array<{
         __typename?: "Team";
         id: string;
         name: string;
+        logo?: any | null;
         teammates: Array<{
           __typename?: "TeamMember";
           id: string;
@@ -666,11 +672,13 @@ export type GetMeetingsQuery = {
             id: string;
             fullName: string;
             picture?: any | null;
+            timezone?: string | null;
             tzData?: {
               __typename?: "TimezoneData";
-              alternativeName?: string | null;
-              countryName: string;
               name: string;
+              abbreviation: string;
+              countryName: string;
+              alternativeName?: string | null;
             } | null;
           };
         } | null>;
@@ -900,22 +908,34 @@ export type MeQuery = {
       __typename?: "Team";
       id: string;
       name: string;
-      isPinned: boolean;
-      isAdmin: boolean;
+      logo?: any | null;
       isOwner: boolean;
+      isMember: boolean;
+      isAdmin: boolean;
+      isPinned: boolean;
+      inviteCode?: string | null;
+      owner: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        picture?: any | null;
+        isMe: boolean;
+      };
       teammates: Array<{
         __typename?: "TeamMember";
         id: string;
+        isMe?: boolean | null;
+        role?: TeamRole | null;
         member: {
           __typename?: "User";
           id: string;
           fullName: string;
+          isMe: boolean;
           picture?: any | null;
           timezone?: string | null;
           tzData?: {
             __typename?: "TimezoneData";
             name: string;
-            alternativeName?: string | null;
             countryCode?: any | null;
             countryName: string;
             mainCities?: Array<string | null> | null;
@@ -1171,6 +1191,13 @@ export const CreateMeetingDocument = {
                                           name: {
                                             kind: "Name",
                                             value: "countryName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
                                           },
                                         },
                                       ],
@@ -1575,6 +1602,13 @@ export const GetMeetingByIdDocument = {
                                             value: "countryName",
                                           },
                                         },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
+                                        },
                                       ],
                                     },
                                   },
@@ -1628,6 +1662,14 @@ export const GetMeetingsDocument = {
                       },
                       {
                         kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
                         name: { kind: "Name", value: "description" },
                       },
                       {
@@ -1652,6 +1694,10 @@ export const GetMeetingsDocument = {
                               kind: "Field",
                               name: { kind: "Name", value: "picture" },
                             },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
                           ],
                         },
                       },
@@ -1668,6 +1714,10 @@ export const GetMeetingsDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "logo" },
                             },
                             {
                               kind: "Field",
@@ -1707,6 +1757,13 @@ export const GetMeetingsDocument = {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
+                                            value: "timezone",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
                                             value: "tzData",
                                           },
                                           selectionSet: {
@@ -1716,7 +1773,14 @@ export const GetMeetingsDocument = {
                                                 kind: "Field",
                                                 name: {
                                                   kind: "Name",
-                                                  value: "alternativeName",
+                                                  value: "name",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "abbreviation",
                                                 },
                                               },
                                               {
@@ -1730,7 +1794,7 @@ export const GetMeetingsDocument = {
                                                 kind: "Field",
                                                 name: {
                                                   kind: "Name",
-                                                  value: "name",
+                                                  value: "alternativeName",
                                                 },
                                               },
                                             ],
@@ -2532,9 +2596,14 @@ export const MeDocument = {
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "logo" } },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "isPinned" },
+                        name: { kind: "Name", value: "isOwner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isMember" },
                       },
                       {
                         kind: "Field",
@@ -2542,7 +2611,36 @@ export const MeDocument = {
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "isOwner" },
+                        name: { kind: "Name", value: "isPinned" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "inviteCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                          ],
+                        },
                       },
                       {
                         kind: "Field",
@@ -2553,6 +2651,14 @@ export const MeDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "role" },
                             },
                             {
                               kind: "Field",
@@ -2567,6 +2673,10 @@ export const MeDocument = {
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "isMe" },
                                   },
                                   {
                                     kind: "Field",
@@ -2585,13 +2695,6 @@ export const MeDocument = {
                                         {
                                           kind: "Field",
                                           name: { kind: "Name", value: "name" },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "alternativeName",
-                                          },
                                         },
                                         {
                                           kind: "Field",

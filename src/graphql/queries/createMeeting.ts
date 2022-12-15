@@ -33,6 +33,7 @@ mutation CreateMeeting($input: CreateMeetingInput!) {
 						name
             abbreviation
             countryName
+            alternativeName
           }
         }
       }

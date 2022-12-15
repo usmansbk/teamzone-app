@@ -33,6 +33,7 @@ query GetMeetingById($id: ID!) {
 						name
             abbreviation
             countryName
+            alternativeName
           }
         }
       }

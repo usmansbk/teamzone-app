@@ -10,27 +10,33 @@ query GetMeetings {
       from
       to
       timezone
+      updatedAt
+      createdAt
       description
       isOwner
       owner {
         id
         fullName
         picture
+        isMe
       }
       teams {
         id
         name
+        logo
         teammates {
           id
           member {
             id
             fullName
             picture
-						tzData {
-							alternativeName
-							countryName
-							name
-						}
+            timezone
+            tzData {
+              name
+              abbreviation
+              countryName
+              alternativeName
+            }
           }
         }
       }

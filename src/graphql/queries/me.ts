@@ -14,19 +14,30 @@ export default gql(`
       teams {
         id
         name
-			  isPinned
-        isAdmin
+        logo
         isOwner
+        isMember
+        isAdmin
+        isPinned
+        inviteCode
+        owner {
+          id
+          fullName
+          picture
+          isMe
+        }
         teammates {
           id
+          isMe
+          role
           member {
             id
             fullName
+            isMe
             picture
-					  timezone
+            timezone
             tzData {
               name
-              alternativeName
               countryCode
               countryName
               mainCities
