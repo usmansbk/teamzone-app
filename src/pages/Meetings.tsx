@@ -31,8 +31,8 @@ const EventItem = memo(({ item }: EventItemProps) => {
   const end = getLocalDateTime(to);
   return (
     <Box>
-      <Grid container gap={1} wrap="nowrap">
-        <Grid item xs={1} textAlign="center">
+      <Grid container wrap="nowrap">
+        <Grid item xs={3} lg={1} p={0} textAlign="center">
           <Typography
             lineHeight={1}
             variant="overline"
