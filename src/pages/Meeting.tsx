@@ -36,14 +36,16 @@ const MemberItem = ({
   from: Dayjs;
   to: Dayjs;
 }) => {
-  const { fullName, timezone, tzData } = member;
+  const { fullName, timezone, tzData, picture } = member;
   const startAt = getTimezoneLocalDateTime(from, timezone!);
   const endAt = getTimezoneLocalDateTime(to, timezone!);
 
   return (
     <ListItem disablePadding>
       <ListItemAvatar>
-        <Avatar alt={fullName}>{fullName[0]}</Avatar>
+        <Avatar alt={fullName} src={picture}>
+          {fullName[0]}
+        </Avatar>
       </ListItemAvatar>
       <ListItemText
         primary={fullName}
