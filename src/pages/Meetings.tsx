@@ -18,15 +18,11 @@ import { getLocalDateTime } from "src/utils/dateTime";
 import { formatEventTime } from "src/utils/event";
 import { Meeting } from "src/__generated__/graphql";
 
-interface EventListProps {
-  meetings: Meeting[];
-}
-
-interface EventItemProps {
+interface AgendaItemProps {
   item: Meeting;
 }
 
-const EventItem = memo(({ item }: EventItemProps) => {
+const AgendaItem = memo(({ item }: AgendaItemProps) => {
   const { title, from, to, teams } = item;
   const start = getLocalDateTime(from);
   const end = getLocalDateTime(to);
@@ -97,34 +93,36 @@ function SectionHeader({ title }: { title: string }) {
   );
 }
 
-const CalendarSection = memo(
-  ({ section }: { section: [string, Meeting[]] }) => {
-    const [title, data] = section;
-    return (
-      <Grid container wrap="nowrap">
-        <Grid item xs={3} lg={1} p={0}>
-          <SectionHeader title={title} />
-        </Grid>
-        <Grid item zeroMinWidth width="100%">
-          <Stack rowGap={1}>
-            {data.map((item) => (
-              <Link
-                key={item.id}
-                to={routeMap.meeting.replace(":id", item.id)}
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                <EventItem item={item} />
-              </Link>
-            ))}
-          </Stack>
-        </Grid>
+const AgendaSection = memo(({ section }: { section: [string, Meeting[]] }) => {
+  const [title, data] = section;
+  return (
+    <Grid container wrap="nowrap">
+      <Grid item xs={3} lg={1} p={0}>
+        <SectionHeader title={title} />
       </Grid>
-    );
-  }
-);
+      <Grid item zeroMinWidth width="100%">
+        <Stack rowGap={1}>
+          {data.map((item) => (
+            <Link
+              key={item.id}
+              to={routeMap.meeting.replace(":id", item.id)}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <AgendaItem item={item} />
+            </Link>
+          ))}
+        </Stack>
+      </Grid>
+    </Grid>
+  );
+});
 
-const EventList = memo(({ meetings }: EventListProps) => {
-  const groups = useMemo(
+interface AgendaProps {
+  meetings: Meeting[];
+}
+
+const Agenda = memo(({ meetings }: AgendaProps) => {
+  const agendas = useMemo(
     () =>
       Object.entries(
         groupBy(meetings, (meeting) => meeting?.from.format("YYYY-MM-DD"))
@@ -134,8 +132,8 @@ const EventList = memo(({ meetings }: EventListProps) => {
 
   return (
     <Stack spacing={3}>
-      {groups.map((section) => (
-        <CalendarSection key={section[0]} section={section} />
+      {agendas.map((section) => (
+        <AgendaSection key={section[0]} section={section} />
       ))}
     </Stack>
   );
@@ -166,7 +164,7 @@ export default function Meetings() {
       {meetings?.length === 0 && (
         <Typography variant="h3">No upcoming meetings yet</Typography>
       )}
-      <EventList meetings={meetings as Meeting[]} />
+      <Agenda meetings={meetings as Meeting[]} />
     </Box>
   );
 }
