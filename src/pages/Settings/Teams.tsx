@@ -1,12 +1,12 @@
 import {
   Box,
-  CircularProgress,
   List,
   ListItem,
   ListItemText,
   Typography,
   ListItemAvatar,
   Avatar,
+  LinearProgress,
 } from "@mui/material";
 import useMe from "src/hooks/api/useMe";
 import { Link } from "react-router-dom";
@@ -20,8 +20,9 @@ export default function CreatedTeams() {
   const { createdTeams } = data!;
 
   if (loadingTimezones) {
-    return <CircularProgress />;
+    return <LinearProgress />;
   }
+
   return (
     <Box>
       {!createdTeams.length && (
