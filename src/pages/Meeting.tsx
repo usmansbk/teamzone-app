@@ -79,7 +79,7 @@ export default function Meeting() {
         </Typography>
         <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
           {teams.map((t) => (
-            <Box>
+            <Box key={t!.id}>
               <Chip
                 label={
                   <Typography variant="caption" fontWeight={700}>
@@ -87,7 +87,6 @@ export default function Meeting() {
                   </Typography>
                 }
                 size="small"
-                key={t!.id}
               />
             </Box>
           ))}
