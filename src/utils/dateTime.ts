@@ -22,6 +22,10 @@ export function getLocalDateTime(date: Dayjs) {
   return dayjs.tz(date);
 }
 
+export function getTimezoneLocalDateTime(date: Dayjs, timezone: string) {
+  return dayjs.tz(date, timezone);
+}
+
 export function getCurrentTimezoneDateTime(timezone: string) {
   return dayjs().tz(timezone).second(0).millisecond(0);
 }
@@ -49,7 +53,7 @@ export function addDuration(source: Dayjs, ms: number) {
   return dayjs(source).add(ms, "milliseconds");
 }
 
-export function getTimezoneDateTime(utcDate: Dayjs, timezone: string) {
+export function getTimezoneDateTimeFromUTC(utcDate: Dayjs, timezone: string) {
   return dayjs.utc(utcDate).tz(timezone).second(0).millisecond(0);
 }
 

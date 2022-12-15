@@ -10,14 +10,78 @@ import {
   Stack,
   Typography,
   Chip,
+  List,
+  Tooltip,
 } from "@mui/material";
-import { useCallback, useState } from "react";
+import { Dayjs } from "dayjs";
+import { memo, useCallback, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
-import { getLocalDateTime } from "src/utils/dateTime";
+import {
+  formatUTCOffset,
+  getLocalDateTime,
+  getTimezoneLocalDateTime,
+} from "src/utils/dateTime";
 import { formatEventDateTime } from "src/utils/event";
+import { User } from "src/__generated__/graphql";
+
+const MemberItem = ({
+  member,
+  from,
+  to,
+}: {
+  member: User;
+  from: Dayjs;
+  to: Dayjs;
+}) => {
+  const { fullName, timezone, tzData } = member;
+  const startAt = getTimezoneLocalDateTime(from, timezone!);
+  const endAt = getTimezoneLocalDateTime(to, timezone!);
+
+  return (
+    <ListItem disablePadding>
+      <ListItemAvatar>
+        <Avatar alt={fullName}>{fullName[0]}</Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={fullName}
+        primaryTypographyProps={{
+          fontWeight: 700,
+        }}
+        secondary={
+          <Tooltip
+            title={`${tzData?.alternativeName} UTC${formatUTCOffset(
+              timezone!
+            )}`}
+            placement="top"
+          >
+            <Typography variant="body2" fontWeight={500}>
+              {formatEventDateTime(startAt, endAt)} {tzData?.abbreviation}
+            </Typography>
+          </Tooltip>
+        }
+      />
+    </ListItem>
+  );
+};
+
+const MembersList = memo(
+  ({ members, from, to }: { members: User[]; from: Dayjs; to: Dayjs }) => (
+    <>
+      <Typography variant="subtitle1" color="primary">
+        Members
+      </Typography>
+      {!members.length && <Typography variant="h6">No members</Typography>}
+      <List disablePadding>
+        {members.map((member) => (
+          <MemberItem key={member.id} member={member} from={from} to={to} />
+        ))}
+      </List>
+    </>
+  )
+);
 
 export default function Meeting() {
   const navigate = useNavigate();
@@ -26,12 +90,21 @@ export default function Meeting() {
   const { loading, data } = useGetMeetingById(id!);
 
   const closeDeleteDialog = useCallback(() => setOpenDeleteDialog(false), []);
+  const members = useMemo(() => {
+    if (!data?.teams) {
+      return [];
+    }
+
+    return data.teams
+      .flatMap((t) => t?.teammates.map((tm) => tm?.member))
+      .filter((m) => m!.id !== data.owner.id);
+  }, [data?.teams]);
 
   if (loading) {
     return <LinearProgress />;
   }
 
-  const { title, isOwner, from, to, owner, teams } = data!;
+  const { title, isOwner, from, to, owner, teams, description } = data!;
 
   const localFrom = getLocalDateTime(from);
   const localTo = getLocalDateTime(to);
@@ -97,9 +170,19 @@ export default function Meeting() {
               {owner.fullName[0].toLocaleUpperCase()}
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={owner.fullName} secondary="Organizer" />
+          <ListItemText
+            primary={owner.fullName}
+            primaryTypographyProps={{
+              fontWeight: 500,
+            }}
+            secondary="Organizer"
+          />
         </ListItem>
       </Stack>
+      <Typography>{description}</Typography>
+      <Box mt={2}>
+        <MembersList members={members as User[]} from={from} to={to} />
+      </Box>
       <DeleteMeetingDialog
         open={openDeleteDialog}
         onClose={closeDeleteDialog}

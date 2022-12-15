@@ -1,6 +1,6 @@
 import { InMemoryCache, Reference } from "@apollo/client";
 import { AppPreferences } from "src/types";
-import { getTimezoneDateTime } from "src/utils/dateTime";
+import { getTimezoneDateTimeFromUTC } from "src/utils/dateTime";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -20,12 +20,18 @@ const cache = new InMemoryCache({
       fields: {
         from: {
           read(from, { readField }) {
-            return getTimezoneDateTime(from, readField("timezone") as string);
+            return getTimezoneDateTimeFromUTC(
+              from,
+              readField("timezone") as string
+            );
           },
         },
         to: {
           read(to, { readField }) {
-            return getTimezoneDateTime(to, readField("timezone") as string);
+            return getTimezoneDateTimeFromUTC(
+              to,
+              readField("timezone") as string
+            );
           },
         },
       },
