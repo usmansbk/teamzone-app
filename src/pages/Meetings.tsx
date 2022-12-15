@@ -98,8 +98,10 @@ const AgendaSection = memo(({ section }: { section: [string, Meeting[]] }) => {
   const data = section[1];
   return (
     <Grid container wrap="nowrap">
-      <Grid item xs={3} lg={1} p={0}>
-        <SectionHeader day={data[0].from} />
+      <Grid item xs="auto" lg={1} p={0}>
+        <Box minWidth={60}>
+          <SectionHeader day={data[0].from} />
+        </Box>
       </Grid>
       <Grid item zeroMinWidth width="100%">
         <Stack rowGap={1}>
@@ -148,7 +150,7 @@ export default function Meetings() {
   }
 
   return (
-    <Box p={2} maxWidth="md">
+    <Box pr={2} py={2} maxWidth="md">
       <Stack mb={1} direction="row" justifyContent="flex-end">
         <Box>
           <Button
