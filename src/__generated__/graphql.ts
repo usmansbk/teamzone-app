@@ -772,11 +772,8 @@ export type GetTimezoneByIdQuery = {
     __typename?: "TimezoneData";
     name: string;
     countryName: string;
-    countryFlag?: any | null;
-    continentName: string;
     abbreviation: string;
     alternativeName?: string | null;
-    group: Array<string | null>;
     mainCities?: Array<string | null> | null;
   } | null;
 };
@@ -936,9 +933,10 @@ export type MeQuery = {
           tzData?: {
             __typename?: "TimezoneData";
             name: string;
-            countryCode?: any | null;
             countryName: string;
             mainCities?: Array<string | null> | null;
+            alternativeName?: string | null;
+            abbreviation: string;
           } | null;
         };
       } | null>;
@@ -2120,11 +2118,6 @@ export const GetTimezoneByIdDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "name" } },
                 { kind: "Field", name: { kind: "Name", value: "countryName" } },
-                { kind: "Field", name: { kind: "Name", value: "countryFlag" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "continentName" },
-                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "abbreviation" },
@@ -2133,7 +2126,6 @@ export const GetTimezoneByIdDocument = {
                   kind: "Field",
                   name: { kind: "Name", value: "alternativeName" },
                 },
-                { kind: "Field", name: { kind: "Name", value: "group" } },
                 { kind: "Field", name: { kind: "Name", value: "mainCities" } },
               ],
             },
@@ -2700,13 +2692,6 @@ export const MeDocument = {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
-                                            value: "countryCode",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
                                             value: "countryName",
                                           },
                                         },
@@ -2715,6 +2700,20 @@ export const MeDocument = {
                                           name: {
                                             kind: "Name",
                                             value: "mainCities",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "alternativeName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "abbreviation",
                                           },
                                         },
                                       ],
