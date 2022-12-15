@@ -6,8 +6,7 @@ import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
 import { getLocalDateTime } from "src/utils/dateTime";
-
-const TIME_FORMAT = "HH:mm";
+import { formatEventDateTime } from "src/utils/event";
 
 export default function Meeting() {
   const navigate = useNavigate();
@@ -25,6 +24,7 @@ export default function Meeting() {
 
   const localFrom = getLocalDateTime(from);
   const localTo = getLocalDateTime(to);
+  const time = formatEventDateTime(localFrom, localTo);
 
   return (
     <Box p={2} maxWidth="md">
@@ -62,11 +62,10 @@ export default function Meeting() {
         </Button>
       </Stack>
       <Stack>
-        <Typography variant="h3">{title}</Typography>
-        <Typography>{localFrom.format("LL")}</Typography>
-        <Typography variant="h6">
-          {localFrom.format(TIME_FORMAT)} - {localTo.format(TIME_FORMAT)}
+        <Typography variant="h3" color="primary">
+          {title}
         </Typography>
+        <Typography variant="h6">{time}</Typography>
       </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}

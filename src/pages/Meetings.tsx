@@ -7,13 +7,14 @@ import {
   Grid,
   Paper,
   LinearProgress,
+  Chip,
 } from "@mui/material";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
-import useMe from "src/hooks/api/useMe";
 import routeMap from "src/routeMap";
-import { getTimezoneDateTime } from "src/utils/dateTime";
+import { getLocalDateTime } from "src/utils/dateTime";
+import { formatEventTime } from "src/utils/event";
 import { Meeting } from "src/__generated__/graphql";
 
 interface EventListProps {
@@ -22,13 +23,12 @@ interface EventListProps {
 
 interface EventItemProps {
   item: Meeting;
-  currentTimezone: string;
 }
 
-const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
-  const { title, from, to } = item;
-  const start = getTimezoneDateTime(from, currentTimezone);
-  const end = getTimezoneDateTime(to, currentTimezone);
+const EventItem = memo(({ item }: EventItemProps) => {
+  const { title, from, to, teams } = item;
+  const start = getLocalDateTime(from);
+  const end = getLocalDateTime(to);
   return (
     <Box>
       <Grid container gap={1} wrap="nowrap">
@@ -50,12 +50,31 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
               p: 2,
             }}
           >
-            <Typography variant="subtitle1">
-              {start.format("HH:mm")} - {end.format("HH:mm")}
-            </Typography>
-            <Typography noWrap fontWeight={600}>
-              {title}
-            </Typography>
+            <Stack rowGap={1}>
+              <Box>
+                <Typography variant="subtitle1">
+                  {formatEventTime(start, end)}
+                </Typography>
+                <Typography noWrap fontWeight={600}>
+                  {title}
+                </Typography>
+              </Box>
+              <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
+                {teams.map((t) => (
+                  <Box>
+                    <Chip
+                      label={
+                        <Typography variant="caption" fontWeight={700}>
+                          {t?.name}
+                        </Typography>
+                      }
+                      size="small"
+                      key={t!.id}
+                    />
+                  </Box>
+                ))}
+              </Stack>
+            </Stack>
           </Paper>
         </Grid>
       </Grid>
@@ -63,26 +82,19 @@ const EventItem = memo(({ item, currentTimezone }: EventItemProps) => {
   );
 });
 
-const EventList = memo(({ meetings }: EventListProps) => {
-  const { data } = useMe();
-  return (
-    <Stack spacing={3}>
-      {meetings.map((meeting) => (
-        <Link
-          key={meeting.id}
-          to={routeMap.meeting.replace(":id", meeting.id)}
-          style={{ color: "inherit", textDecoration: "none" }}
-        >
-          <EventItem
-            key={meeting.id}
-            item={meeting}
-            currentTimezone={data?.timezone!}
-          />
-        </Link>
-      ))}
-    </Stack>
-  );
-});
+const EventList = memo(({ meetings }: EventListProps) => (
+  <Stack spacing={3}>
+    {meetings.map((meeting) => (
+      <Link
+        key={meeting.id}
+        to={routeMap.meeting.replace(":id", meeting.id)}
+        style={{ color: "inherit", textDecoration: "none" }}
+      >
+        <EventItem key={meeting.id} item={meeting} />
+      </Link>
+    ))}
+  </Stack>
+));
 
 export default function Meetings() {
   const { meetings, loading } = useGetMeetings();
