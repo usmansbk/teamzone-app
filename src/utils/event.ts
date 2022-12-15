@@ -1,6 +1,5 @@
 import { Dayjs } from "dayjs";
 
-export default {};
 const TIME_FORMAT = "HH:mm";
 const DATE_FORMAT = "dddd, MMMM DD";
 
