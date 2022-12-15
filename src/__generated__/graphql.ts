@@ -725,9 +725,10 @@ export type QueryQuery = {
         tzData?: {
           __typename?: "TimezoneData";
           name: string;
-          countryCode?: any | null;
           countryName: string;
           mainCities?: Array<string | null> | null;
+          alternativeName?: string | null;
+          abbreviation: string;
         } | null;
       };
     } | null>;
@@ -1930,19 +1931,26 @@ export const QueryDocument = {
                                     kind: "Field",
                                     name: {
                                       kind: "Name",
-                                      value: "countryCode",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
                                       value: "countryName",
                                     },
                                   },
                                   {
                                     kind: "Field",
                                     name: { kind: "Name", value: "mainCities" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "alternativeName",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "abbreviation",
+                                    },
                                   },
                                 ],
                               },
