@@ -1,5 +1,5 @@
 import { Box, LinearProgress } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MeetingForm from "src/components/MeetingForm";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
@@ -19,6 +19,11 @@ export default function EditMeeting() {
     }
   }, [updated]);
 
+  const defaultValues = useMemo(
+    () => ({ ...data, teamIds: data!.teams.map((t) => t!.id) }),
+    [data]
+  );
+
   return (
     <>
       {fetching && <LinearProgress />}
@@ -30,7 +35,7 @@ export default function EditMeeting() {
           onSubmit={onSubmit}
           loading={loading}
           disabled={fetching}
-          defaultValues={data}
+          defaultValues={defaultValues}
         />
       </Box>
     </>

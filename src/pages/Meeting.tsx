@@ -1,5 +1,16 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Box, Button, LinearProgress, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  LinearProgress,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Stack,
+  Typography,
+  Chip,
+} from "@mui/material";
 import { useCallback, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
@@ -20,7 +31,7 @@ export default function Meeting() {
     return <LinearProgress />;
   }
 
-  const { title, isOwner, from, to } = data!;
+  const { title, isOwner, from, to, owner, teams } = data!;
 
   const localFrom = getLocalDateTime(from);
   const localTo = getLocalDateTime(to);
@@ -66,6 +77,29 @@ export default function Meeting() {
         <Typography variant="h4" fontWeight={500}>
           {time}
         </Typography>
+        <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
+          {teams.map((t) => (
+            <Box>
+              <Chip
+                label={
+                  <Typography variant="caption" fontWeight={700}>
+                    {t?.name}
+                  </Typography>
+                }
+                size="small"
+                key={t!.id}
+              />
+            </Box>
+          ))}
+        </Stack>
+        <ListItem disablePadding>
+          <ListItemAvatar>
+            <Avatar alt={owner.fullName} src={owner.picture}>
+              {owner.fullName[0].toLocaleUpperCase()}
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={owner.fullName} secondary="Organizer" />
+        </ListItem>
       </Stack>
       <DeleteMeetingDialog
         open={openDeleteDialog}
