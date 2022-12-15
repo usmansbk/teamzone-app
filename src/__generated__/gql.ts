@@ -13,9 +13,9 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-  "\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    timezone\n    from\n    to\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          tzData {\n            alternativeName\n            countryName\n            name\n          }\n        }\n      }\n    }\n  }\n}\n":
+  "\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    from\n    to\n    timezone\n    updatedAt\n    createdAt\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n      isMe\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          timezone\n          tzData {\n\t\t\t\t\t\tname\n            abbreviation\n            countryName\n          }\n        }\n      }\n    }\n  }\n}\n":
     types.CreateMeetingDocument,
-  "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n":
+  "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n      id\n      name\n\t\t\tisPinned\n      isAdmin\n      isOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n\t\t\t  \ttimezone\n          tzData {\n            name\n            alternativeName\n            countryCode\n            countryName\n            mainCities\n          }\n        }\n      }\n\t\t}\n\t}\n":
     types.CreateTeamDocument,
   "\nmutation DeleteMeeting($id: ID!, $reason: NonEmptyString) {\n  deleteMeeting(id: $id, reason: $reason) {\n    id\n  }\n}\n":
     types.DeleteMeetingDocument,
@@ -35,7 +35,7 @@ const documents = {
     types.GetTimezoneByIdDocument,
   "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n":
     types.TimezonesDocument,
-  "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n":
+  "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tisAdmin\n\t\tisPinned\n\t\tinviteCode\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttimezone\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tmainCities\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n":
     types.JoinTeamDocument,
   "\n\tmutation LeaveTeam($teamId: ID!) {\n\t\tleaveTeam(teamId: $teamId) {\n\t\t\tid\n\t\t\tisMember\n\t\t}\n\t}\n":
     types.LeaveTeamDocument,
@@ -65,14 +65,14 @@ const documents = {
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    timezone\n    from\n    to\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          tzData {\n            alternativeName\n            countryName\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"
-): typeof documents["\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    timezone\n    from\n    to\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          tzData {\n            alternativeName\n            countryName\n            name\n          }\n        }\n      }\n    }\n  }\n}\n"];
+  source: "\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    from\n    to\n    timezone\n    updatedAt\n    createdAt\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n      isMe\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          timezone\n          tzData {\n\t\t\t\t\t\tname\n            abbreviation\n            countryName\n          }\n        }\n      }\n    }\n  }\n}\n"
+): typeof documents["\nmutation CreateMeeting($input: CreateMeetingInput!) {\n  createMeeting(input: $input) {\n    id\n    title\n    from\n    to\n    timezone\n    updatedAt\n    createdAt\n    description\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n      isMe\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          timezone\n          tzData {\n\t\t\t\t\t\tname\n            abbreviation\n            countryName\n          }\n        }\n      }\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n"
-): typeof documents["\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n\t\t}\n\t}\n"];
+  source: "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n      id\n      name\n\t\t\tisPinned\n      isAdmin\n      isOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n\t\t\t  \ttimezone\n          tzData {\n            name\n            alternativeName\n            countryCode\n            countryName\n            mainCities\n          }\n        }\n      }\n\t\t}\n\t}\n"
+): typeof documents["\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n      id\n      name\n\t\t\tisPinned\n      isAdmin\n      isOwner\n\t\t\towner {\n\t\t\t\tid\n\t\t\t}\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n\t\t\t  \ttimezone\n          tzData {\n            name\n            alternativeName\n            countryCode\n            countryName\n            mainCities\n          }\n        }\n      }\n\t\t}\n\t}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -131,8 +131,8 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n"
-): typeof documents["\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n  }\n}\n"];
+  source: "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tisAdmin\n\t\tisPinned\n\t\tinviteCode\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttimezone\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tmainCities\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n"
+): typeof documents["\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tisAdmin\n\t\tisPinned\n\t\tinviteCode\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttimezone\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tmainCities\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

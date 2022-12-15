@@ -382,7 +382,6 @@ export type Team = {
   name: Scalars["String"];
   owner: User;
   teammates: Array<Maybe<TeamMember>>;
-  upcomingMeetings?: Maybe<Array<Maybe<Meeting>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -469,6 +468,7 @@ export type User = {
   teams: Array<Maybe<Team>>;
   timezone?: Maybe<Scalars["String"]>;
   tzData?: Maybe<TimezoneData>;
+  upcomingMeeting?: Maybe<Meeting>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -487,9 +487,11 @@ export type CreateMeetingMutation = {
     __typename?: "Meeting";
     id: string;
     title: string;
-    timezone: string;
     from: any;
     to: any;
+    timezone: string;
+    updatedAt?: any | null;
+    createdAt: any;
     description?: string | null;
     isOwner: boolean;
     owner: {
@@ -497,6 +499,7 @@ export type CreateMeetingMutation = {
       id: string;
       fullName: string;
       picture?: any | null;
+      isMe: boolean;
     };
     teams: Array<{
       __typename?: "Team";
@@ -511,11 +514,12 @@ export type CreateMeetingMutation = {
           id: string;
           fullName: string;
           picture?: any | null;
+          timezone?: string | null;
           tzData?: {
             __typename?: "TimezoneData";
-            alternativeName?: string | null;
-            countryName: string;
             name: string;
+            abbreviation: string;
+            countryName: string;
           } | null;
         };
       } | null>;
@@ -533,9 +537,29 @@ export type CreateTeamMutation = {
     __typename?: "Team";
     id: string;
     name: string;
-    logo?: any | null;
+    isPinned: boolean;
+    isAdmin: boolean;
     isOwner: boolean;
     owner: { __typename?: "User"; id: string };
+    teammates: Array<{
+      __typename?: "TeamMember";
+      id: string;
+      member: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        picture?: any | null;
+        timezone?: string | null;
+        tzData?: {
+          __typename?: "TimezoneData";
+          name: string;
+          alternativeName?: string | null;
+          countryCode?: any | null;
+          countryName: string;
+          mainCities?: Array<string | null> | null;
+        } | null;
+      };
+    } | null>;
   };
 };
 
@@ -771,7 +795,45 @@ export type JoinTeamMutationVariables = Exact<{
 
 export type JoinTeamMutation = {
   __typename?: "Mutation";
-  joinTeam: { __typename?: "Team"; id: string; name: string };
+  joinTeam: {
+    __typename?: "Team";
+    id: string;
+    name: string;
+    logo?: any | null;
+    isOwner: boolean;
+    isMember: boolean;
+    isAdmin: boolean;
+    isPinned: boolean;
+    inviteCode?: string | null;
+    owner: {
+      __typename?: "User";
+      id: string;
+      fullName: string;
+      picture?: any | null;
+      isMe: boolean;
+    };
+    teammates: Array<{
+      __typename?: "TeamMember";
+      id: string;
+      isMe?: boolean | null;
+      role?: TeamRole | null;
+      member: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        isMe: boolean;
+        picture?: any | null;
+        timezone?: string | null;
+        tzData?: {
+          __typename?: "TimezoneData";
+          name: string;
+          countryCode?: any | null;
+          countryName: string;
+          mainCities?: Array<string | null> | null;
+        } | null;
+      };
+    } | null>;
+  };
 };
 
 export type LeaveTeamMutationVariables = Exact<{
@@ -1020,9 +1082,11 @@ export const CreateMeetingDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "from" } },
                 { kind: "Field", name: { kind: "Name", value: "to" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
@@ -1040,6 +1104,7 @@ export const CreateMeetingDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "picture" },
                       },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
                     ],
                   },
                 },
@@ -1082,15 +1147,23 @@ export const CreateMeetingDocument = {
                                   },
                                   {
                                     kind: "Field",
+                                    name: { kind: "Name", value: "timezone" },
+                                  },
+                                  {
+                                    kind: "Field",
                                     name: { kind: "Name", value: "tzData" },
                                     selectionSet: {
                                       kind: "SelectionSet",
                                       selections: [
                                         {
                                           kind: "Field",
+                                          name: { kind: "Name", value: "name" },
+                                        },
+                                        {
+                                          kind: "Field",
                                           name: {
                                             kind: "Name",
-                                            value: "alternativeName",
+                                            value: "abbreviation",
                                           },
                                         },
                                         {
@@ -1099,10 +1172,6 @@ export const CreateMeetingDocument = {
                                             kind: "Name",
                                             value: "countryName",
                                           },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "name" },
                                         },
                                       ],
                                     },
@@ -1171,7 +1240,8 @@ export const CreateTeamDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "name" } },
-                { kind: "Field", name: { kind: "Name", value: "logo" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
+                { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
                   kind: "Field",
@@ -1180,6 +1250,79 @@ export const CreateTeamDocument = {
                     kind: "SelectionSet",
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teammates" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "member" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "timezone" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "tzData" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "name" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "alternativeName",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "countryCode",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "countryName",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "mainCities" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
@@ -2017,6 +2160,103 @@ export const JoinTeamDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "logo" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                { kind: "Field", name: { kind: "Name", value: "isMember" } },
+                { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
+                { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "picture" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teammates" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "member" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "timezone" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "tzData" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "name" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "countryCode",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
+                                      value: "countryName",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "mainCities" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },

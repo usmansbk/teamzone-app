@@ -5,15 +5,18 @@ mutation CreateMeeting($input: CreateMeetingInput!) {
   createMeeting(input: $input) {
     id
     title
-    timezone
     from
     to
+    timezone
+    updatedAt
+    createdAt
     description
     isOwner
     owner {
       id
       fullName
       picture
+      isMe
     }
     teams {
       id
@@ -25,10 +28,11 @@ mutation CreateMeeting($input: CreateMeetingInput!) {
           id
           fullName
           picture
+          timezone
           tzData {
-            alternativeName
+						name
+            abbreviation
             countryName
-            name
           }
         }
       }
