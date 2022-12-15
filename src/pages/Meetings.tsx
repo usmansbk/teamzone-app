@@ -9,6 +9,7 @@ import {
   LinearProgress,
   Chip,
 } from "@mui/material";
+import { Dayjs } from "dayjs";
 import groupBy from "lodash.groupby";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -61,8 +62,8 @@ const AgendaItem = memo(({ item }: AgendaItemProps) => {
   );
 });
 
-function SectionHeader({ title }: { title: string }) {
-  const date = getLocalDateTime(title as any);
+function SectionHeader({ day }: { day: Dayjs }) {
+  const date = getLocalDateTime(day);
   return (
     <Box textAlign="center">
       <Typography
@@ -94,11 +95,11 @@ function SectionHeader({ title }: { title: string }) {
 }
 
 const AgendaSection = memo(({ section }: { section: [string, Meeting[]] }) => {
-  const [title, data] = section;
+  const data = section[1];
   return (
     <Grid container wrap="nowrap">
       <Grid item xs={3} lg={1} p={0}>
-        <SectionHeader title={title} />
+        <SectionHeader day={data[0].from} />
       </Grid>
       <Grid item zeroMinWidth width="100%">
         <Stack rowGap={1}>
