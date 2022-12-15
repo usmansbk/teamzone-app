@@ -33,13 +33,28 @@ const EventItem = memo(({ item }: EventItemProps) => {
     <Box>
       <Grid container gap={1} wrap="nowrap">
         <Grid item xs={1} textAlign="center">
-          <Typography lineHeight={1} variant="overline" fontWeight={600}>
+          <Typography
+            lineHeight={1}
+            variant="overline"
+            fontWeight={600}
+            fontFamily="Inter"
+          >
             {start.format("MMM")}
           </Typography>
-          <Typography lineHeight={1} variant="h4" color="primary">
+          <Typography
+            lineHeight={1}
+            variant="h4"
+            color="primary"
+            fontFamily="Inter"
+          >
             {start.format("DD")}
           </Typography>
-          <Typography lineHeight={1} variant="overline" fontWeight={700}>
+          <Typography
+            lineHeight={1}
+            variant="overline"
+            fontWeight={700}
+            fontFamily="Inter"
+          >
             {start.format("ddd")}
           </Typography>
         </Grid>
@@ -52,7 +67,7 @@ const EventItem = memo(({ item }: EventItemProps) => {
           >
             <Stack rowGap={1}>
               <Box>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" fontFamily="Inter">
                   {formatEventTime(start, end)}
                 </Typography>
                 <Typography noWrap fontWeight={600}>
