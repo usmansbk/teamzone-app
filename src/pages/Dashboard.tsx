@@ -68,6 +68,9 @@ const Dashboard = () => {
               <Typography>Loading upcoming meeting</Typography>
             </Skeleton>
           )}
+          {!(loading || upcomingMeeting) && (
+            <Typography>You have no meetings scheduled for today</Typography>
+          )}
           {upcomingMeeting && (
             <Link
               to={routeMap.meeting.replace(":id", upcomingMeeting.id)}
