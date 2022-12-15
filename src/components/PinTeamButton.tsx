@@ -25,7 +25,7 @@ export default function PinTeamButton({ team }: Props) {
   const title = isPinned ? "Unpin clocks" : "Pin clocks to dashboard";
   return (
     <Tooltip placement="right" title={title}>
-      <IconButton onClick={handleSubmit}>
+      <IconButton size="small" onClick={handleSubmit}>
         {isPinned ? (
           <PushPin fontSize="small" />
         ) : (

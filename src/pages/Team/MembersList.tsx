@@ -54,8 +54,8 @@ function TeamMemberItem({ teammate, hasPermission }: Props) {
         secondaryAction={
           hasPermission &&
           !isMe && (
-            <IconButton edge="end" onClick={handleClick}>
-              <MoreVert />
+            <IconButton size="small" edge="end" onClick={handleClick}>
+              <MoreVert fontSize="small" />
             </IconButton>
           )
         }

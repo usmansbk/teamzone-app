@@ -53,6 +53,7 @@ export default function TeamPage() {
             <Box>
               <Tooltip title="Edit team name">
                 <IconButton
+                  size="small"
                   edge="start"
                   onClick={() => setOpenEditDialog(true)}
                 >

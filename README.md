@@ -16,13 +16,13 @@
 
 - [ ] Meetings
 
+- [ ] Countdowns
+
 - [ ] Google calendar integration
 
 - [ ] Google meet integration
 
-- [ ] In-app notifications (Timezone change)
-
-- [ ] Slack integration (Import slack teams if possible)
+- [ ] Slack integration (Notifications & Import slack teams if possible)
 
 ## Techonologies
 
