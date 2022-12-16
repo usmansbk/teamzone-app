@@ -56,7 +56,7 @@ export const schema = yup
 
 interface Props {
   value?: RecurrenceRule;
-  onChange: (value: RecurrenceRule) => void;
+  onChange: (value: RecurrenceRule | null) => void;
 }
 
 export default function RecurrenceField({ onChange, value }: Props) {
@@ -84,27 +84,26 @@ export default function RecurrenceField({ onChange, value }: Props) {
   });
 
   useEffect(() => {
-    if (value) {
-      reset(value);
-    }
+    reset(value);
   }, [value]);
 
   return (
     <>
       <TextField
         label="Repeat"
-        value="Does not repeat"
+        value={value?.freq || "Does not repeat"}
         multiline
         InputProps={{
           readOnly: true,
           sx: {
             fontWeight: 800,
           },
-          endAdornment: (
+          endAdornment: value && (
             <InputAdornment position="end">
               <IconButton
                 size="small"
                 onClick={(e) => {
+                  onChange(null);
                   e.stopPropagation();
                 }}
               >
