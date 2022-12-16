@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useCallback } from "react";
 import createMeeting from "src/graphql/queries/createMeeting";
 import getMeetings from "src/graphql/queries/getMeetings";
-import { CreateMeetingInput } from "src/__generated__/graphql";
+import { CreateMeetingInput, MeetingSort } from "src/__generated__/graphql";
 
 export default function useCreateMeeting() {
   const [mutate, { loading, data, error }] = useMutation(createMeeting);
@@ -20,6 +20,9 @@ export default function useCreateMeeting() {
             cache.updateQuery(
               {
                 query: getMeetings,
+                variables: {
+                  sort: MeetingSort.Upcoming,
+                },
               },
               (getMeetingsData) => {
                 if (!getMeetingsData) {
