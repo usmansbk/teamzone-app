@@ -16,10 +16,7 @@ const MembersList = ({ timezone }: { timezone: string }) => {
         <Box>
           <Skeleton variant="circular" width={60} height={60} />
         </Box>
-        <Stack>
-          <Skeleton width={100} variant="text" />
-          <Skeleton variant="text" />
-        </Stack>
+        <Skeleton width={100} variant="text" />
       </Stack>
     );
   }
