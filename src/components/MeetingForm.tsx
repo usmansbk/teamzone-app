@@ -65,6 +65,7 @@ const schema = yup
       .string()
       .trim()
       .max(2048, () => MAX_CHARACTERS_MESSAGE)
+      .transform((val, original) => original || null)
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
   })

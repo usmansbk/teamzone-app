@@ -160,7 +160,9 @@ export default function RecurrenceField({ onChange, value }: Props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onSubmit}>Done</Button>
+          <Button variant="contained" onClick={onSubmit}>
+            Done
+          </Button>
         </DialogActions>
       </Dialog>
     </>
