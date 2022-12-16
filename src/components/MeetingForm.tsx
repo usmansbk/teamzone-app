@@ -27,10 +27,8 @@ import {
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import RecurrenceField, {
-  RecurrenceRule,
-  schema as repeatSchema,
-} from "./RecurrenceField";
+import { RecurrenceRule } from "src/types";
+import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";

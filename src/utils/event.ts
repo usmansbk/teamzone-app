@@ -1,4 +1,7 @@
 import { Dayjs } from "dayjs";
+import capitalize from "lodash.capitalize";
+import { Frequency, RRule } from "rrule";
+import { RecurrenceRule } from "src/types";
 
 const TIME_FORMAT = "HH:mm";
 const DATE_FORMAT = "dddd, MMMM Do";
@@ -20,4 +23,15 @@ export function formatEventTime(start: Dayjs, end: Dayjs): string {
   }
 
   return start.format(TIME_FORMAT);
+}
+
+export function formatRepeat(repeat: RecurrenceRule) {
+  const { interval, freq } = repeat;
+
+  const rule = new RRule({
+    interval,
+    freq: Frequency[freq],
+  });
+
+  return capitalize(rule.toText());
 }

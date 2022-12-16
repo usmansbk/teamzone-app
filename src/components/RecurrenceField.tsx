@@ -16,6 +16,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { RecurrenceRule } from "src/types";
+import { formatRepeat } from "src/utils/event";
 
 const options = [
   {
@@ -35,12 +37,6 @@ const options = [
     label: "year",
   },
 ];
-
-type RepeatT = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
-export interface RecurrenceRule {
-  freq: RepeatT;
-  interval: number;
-}
 
 export const schema = yup
   .object({
@@ -90,7 +86,7 @@ export default function RecurrenceField({ onChange, value }: Props) {
     <>
       <TextField
         label="Repeat"
-        value={value?.freq || "Does not repeat"}
+        value={value ? formatRepeat(value) : "Does not repeat"}
         multiline
         InputProps={{
           readOnly: true,
