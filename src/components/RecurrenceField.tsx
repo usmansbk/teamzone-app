@@ -51,8 +51,7 @@ export const schema = yup
       .required(),
     interval: yup.number().positive().integer().min(1).max(31).default(1),
   })
-  .noUnknown()
-  .required();
+  .noUnknown();
 
 interface Props {
   value?: RecurrenceRule;

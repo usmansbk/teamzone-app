@@ -66,7 +66,7 @@ const schema = yup
       .trim()
       .max(2048, () => MAX_CHARACTERS_MESSAGE)
       .nullable(),
-    repeat: repeatSchema.nullable().optional(),
+    repeat: repeatSchema.nullable().optional().default(null),
   })
   .transform((value, original) => {
     const { from, to, timezone } = original as MeetingInput;
