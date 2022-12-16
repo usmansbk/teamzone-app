@@ -20,7 +20,7 @@ import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
 import { getLocalDateTime, getTimezoneLocalDateTime } from "src/utils/dateTime";
-import { formatEventDateTime } from "src/utils/event";
+import { formatEventDateTime, formatRepeat } from "src/utils/event";
 import { User } from "src/__generated__/graphql";
 
 const MemberItem = ({
@@ -98,7 +98,7 @@ export default function Meeting() {
     return <LinearProgress />;
   }
 
-  const { title, isOwner, from, to, owner, teams, description } = data!;
+  const { title, isOwner, from, to, owner, teams, description, repeat } = data!;
 
   const localFrom = getLocalDateTime(from);
   const localTo = getLocalDateTime(to);
@@ -139,11 +139,18 @@ export default function Meeting() {
           Close
         </Button>
       </Stack>
-      <Stack>
-        <Typography variant="h3">{title}</Typography>
-        <Typography variant="h4" fontWeight={500}>
-          {time}
-        </Typography>
+      <Stack spacing={1}>
+        <Box>
+          <Typography variant="h3">{title}</Typography>
+          <Typography variant="h4" fontWeight={500}>
+            {time}
+          </Typography>
+          {repeat && (
+            <Typography variant="h5" fontWeight={500}>
+              {formatRepeat(repeat)}
+            </Typography>
+          )}
+        </Box>
         <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
           {teams.map((t) => (
             <Box key={t!.id}>
