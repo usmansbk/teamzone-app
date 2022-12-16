@@ -49,7 +49,7 @@ export const schema = yup
       .oneOf(options.map((opt) => opt.value))
       .default("DAILY")
       .required(),
-    interval: yup.number().positive().integer().min(1).max(31).default(1),
+    interval: yup.number().positive().integer().min(1).max(100).default(1),
   })
   .noUnknown();
 
@@ -128,6 +128,7 @@ export default function RecurrenceField({ onChange, value }: Props) {
                 InputProps={{
                   inputProps: {
                     min: 1,
+                    max: 100,
                     step: 1,
                   },
                   sx: {
