@@ -159,14 +159,19 @@ export default function Meeting() {
         <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
           {teams.map((t) => (
             <Box key={t!.id}>
-              <Chip
-                label={
-                  <Typography variant="caption" fontWeight={700}>
-                    {t?.name}
-                  </Typography>
-                }
-                size="small"
-              />
+              <Link
+                to={routeMap.team.replace(":id", t!.id)}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Chip
+                  label={
+                    <Typography variant="caption" fontWeight={700}>
+                      {t?.name}
+                    </Typography>
+                  }
+                  size="small"
+                />
+              </Link>
             </Box>
           ))}
         </Stack>

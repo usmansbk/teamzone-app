@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import { Add, Sort } from "@mui/icons-material";
 import {
   Typography,
   Box,
@@ -8,10 +8,12 @@ import {
   Paper,
   LinearProgress,
   Chip,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
 import groupBy from "lodash.groupby";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
 import routeMap from "src/routeMap";
@@ -143,7 +145,18 @@ const Agenda = memo(({ meetings }: AgendaProps) => {
 });
 
 export default function Meetings() {
+  const [sort, setSort] = useState<"upcoming" | "past">("upcoming");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { meetings, loading } = useGetMeetings();
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (selectedSort: typeof sort) => () => {
+    setSort(selectedSort);
+    setAnchorEl(null);
+  };
 
   if (loading) {
     return <LinearProgress />;
@@ -151,7 +164,40 @@ export default function Meetings() {
 
   return (
     <Box pr={2} py={2} maxWidth="md">
-      <Stack mb={1} direction="row" justifyContent="flex-end">
+      <Stack mb={1} direction="row" justifyContent="flex-end" spacing={1}>
+        <Box>
+          <Button
+            onClick={handleClick}
+            size="small"
+            startIcon={<Sort fontSize="small" />}
+          >
+            {sort === "upcoming" ? "Upcoming" : "Past"}
+          </Button>
+          <Menu
+            id="sort-options"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose(sort)}
+            MenuListProps={{
+              "aria-labelledby": "sort-button",
+            }}
+          >
+            <MenuItem
+              dense
+              selected={sort === "upcoming"}
+              onClick={handleClose("upcoming")}
+            >
+              Upcoming
+            </MenuItem>
+            <MenuItem
+              selected={sort === "past"}
+              dense
+              onClick={handleClose("past")}
+            >
+              Past
+            </MenuItem>
+          </Menu>
+        </Box>
         <Box>
           <Button
             size="small"
