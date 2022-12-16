@@ -8,7 +8,6 @@ import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
 import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
-import { formatEventTime } from "src/utils/event";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
@@ -76,12 +75,10 @@ const Dashboard = () => {
               to={routeMap.meeting.replace(":id", upcomingMeeting.id)}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              <Typography>
-                {upcomingMeeting.title}{" "}
-                {formatEventTime(
-                  getLocalDateTime(upcomingMeeting.from),
-                  getLocalDateTime(upcomingMeeting.to)
-                )}
+              <Typography variant="h5" color="primary">
+                {upcomingMeeting.title}
+                {" - "}
+                {getLocalDateTime(upcomingMeeting.from).format("HH:mm")}
               </Typography>
             </Link>
           )}
