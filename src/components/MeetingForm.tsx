@@ -27,6 +27,10 @@ import {
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
+import RecurrenceField, {
+  RecurrenceRule,
+  schema as repeatSchema,
+} from "./RecurrenceField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
@@ -39,6 +43,7 @@ export interface MeetingInput {
   to: Dayjs;
   teamIds: string[];
   description?: string | null;
+  repeat?: RecurrenceRule;
 }
 
 const schema = yup
@@ -61,6 +66,7 @@ const schema = yup
       .trim()
       .max(2048, () => MAX_CHARACTERS_MESSAGE)
       .nullable(),
+    repeat: repeatSchema.optional(),
   })
   .transform((value, original) => {
     const { from, to, timezone } = original as MeetingInput;
@@ -272,6 +278,13 @@ export default function MeetingForm({
             />
           </Box>
         </Stack>
+        <Controller
+          control={control}
+          name="repeat"
+          render={({ field: { onChange, value } }) => (
+            <RecurrenceField onChange={onChange} value={value} />
+          )}
+        />
         <Controller
           control={control}
           name="teamIds"
