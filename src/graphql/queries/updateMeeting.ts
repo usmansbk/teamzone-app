@@ -10,6 +10,10 @@ mutation UpdateMeeting($input: UpdateMeetingInput!) {
     to
     description
     isOwner
+    repeat {
+      freq
+      interval
+    }
     teams {
       id
       name

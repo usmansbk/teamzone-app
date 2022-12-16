@@ -14,6 +14,10 @@ query GetMeetings($sort: MeetingSort) {
       createdAt
       description
       isOwner
+      repeat {
+        freq
+        interval
+      }
       owner {
         id
         fullName

@@ -201,6 +201,7 @@ export enum AuthStrategy {
 export type CreateMeetingInput = {
   description?: InputMaybe<Scalars["NonEmptyString"]>;
   from: Scalars["DateTime"];
+  repeat?: InputMaybe<RecurrenceInput>;
   teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   timezone: Scalars["NonEmptyString"];
   title: Scalars["NonEmptyString"];
@@ -211,6 +212,13 @@ export type CreateTeamInput = {
   name: Scalars["NonEmptyString"];
 };
 
+export enum Frequency {
+  Daily = "DAILY",
+  Monthly = "MONTHLY",
+  Weekly = "WEEKLY",
+  Yearly = "YEARLY",
+}
+
 export type Meeting = {
   __typename?: "Meeting";
   createdAt: Scalars["DateTime"];
@@ -219,6 +227,7 @@ export type Meeting = {
   id: Scalars["ID"];
   isOwner: Scalars["Boolean"];
   owner: User;
+  repeat?: Maybe<Recurrence>;
   teams: Array<Maybe<Team>>;
   timezone: Scalars["String"];
   title: Scalars["String"];
@@ -358,6 +367,17 @@ export type QueryGetTimezonesByCountryArgs = {
   countryCode: Scalars["CountryCode"];
 };
 
+export type Recurrence = {
+  __typename?: "Recurrence";
+  freq: Frequency;
+  interval: Scalars["Int"];
+};
+
+export type RecurrenceInput = {
+  freq: Frequency;
+  interval: Scalars["PositiveInt"];
+};
+
 export type SocialLoginInput = {
   code: Scalars["String"];
   locale?: InputMaybe<Scalars["Locale"]>;
@@ -442,6 +462,7 @@ export type UpdateMeetingInput = {
   description?: InputMaybe<Scalars["NonEmptyString"]>;
   from: Scalars["DateTime"];
   id: Scalars["ID"];
+  repeat?: InputMaybe<RecurrenceInput>;
   teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   timezone: Scalars["NonEmptyString"];
   title: Scalars["NonEmptyString"];
@@ -502,6 +523,11 @@ export type CreateMeetingMutation = {
     createdAt: any;
     description?: string | null;
     isOwner: boolean;
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
     owner: {
       __typename?: "User";
       id: string;
@@ -608,6 +634,11 @@ export type GetMeetingByIdQuery = {
     createdAt: any;
     description?: string | null;
     isOwner: boolean;
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
     owner: {
       __typename?: "User";
       id: string;
@@ -662,6 +693,11 @@ export type GetMeetingsQuery = {
       createdAt: any;
       description?: string | null;
       isOwner: boolean;
+      repeat?: {
+        __typename?: "Recurrence";
+        freq: Frequency;
+        interval: number;
+      } | null;
       owner: {
         __typename?: "User";
         id: string;
@@ -1009,6 +1045,11 @@ export type UpdateMeetingMutation = {
     to: any;
     description?: string | null;
     isOwner: boolean;
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
     teams: Array<{
       __typename?: "Team";
       id: string;
@@ -1117,6 +1158,20 @@ export const CreateMeetingDocument = {
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
+                      },
+                    ],
+                  },
+                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "owner" },
@@ -1528,6 +1583,20 @@ export const GetMeetingByIdDocument = {
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
                   kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
                   name: { kind: "Name", value: "owner" },
                   selectionSet: {
                     kind: "SelectionSet",
@@ -1703,6 +1772,23 @@ export const GetMeetingsDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "isOwner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "repeat" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "freq" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "interval" },
+                            },
+                          ],
+                        },
                       },
                       {
                         kind: "Field",
@@ -2988,6 +3074,20 @@ export const UpdateMeetingDocument = {
                 { kind: "Field", name: { kind: "Name", value: "to" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
+                      },
+                    ],
+                  },
+                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "teams" },

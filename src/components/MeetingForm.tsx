@@ -17,7 +17,6 @@ import { useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { Dayjs } from "dayjs";
 import useMe from "src/hooks/api/useMe";
 import {
   addDuration,
@@ -27,22 +26,11 @@ import {
   getRoundUpCurrentDateTime,
 } from "src/utils/dateTime";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import { RecurrenceRule } from "src/types";
+import { UpdateMeetingInput } from "src/__generated__/graphql";
 import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
-
-export interface MeetingInput {
-  id: string;
-  title: string;
-  timezone: string;
-  from: Dayjs;
-  to: Dayjs;
-  teamIds: string[];
-  description?: string | null;
-  repeat?: RecurrenceRule;
-}
 
 const schema = yup
   .object({
@@ -68,7 +56,7 @@ const schema = yup
     repeat: repeatSchema.nullable().optional().default(null),
   })
   .transform((value, original) => {
-    const { from, to, timezone } = original as MeetingInput;
+    const { from, to, timezone } = original;
     return {
       ...original,
       from: from.tz(timezone, true).utc(),
@@ -83,9 +71,9 @@ interface Props {
   title: string;
   onClose: () => void;
   loading?: boolean;
-  onSubmit: (values: MeetingInput) => void;
+  onSubmit: (values: UpdateMeetingInput) => void;
   disabled?: boolean;
-  defaultValues?: Partial<MeetingInput>;
+  defaultValues?: Partial<UpdateMeetingInput>;
   autoFocus?: boolean;
 }
 
@@ -127,7 +115,7 @@ export default function MeetingForm({
     setValue,
     formState: { touchedFields, errors, isDirty },
     reset,
-  } = useForm<MeetingInput>({
+  } = useForm<UpdateMeetingInput>({
     defaultValues: {
       title: "",
       description: null,
@@ -305,7 +293,7 @@ export default function MeetingForm({
                 MenuProps={menuProps}
                 renderValue={(selected) => (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                    {selected.map((val) => (
+                    {selected?.map((val) => (
                       <Chip
                         key={val}
                         label={authorizedTeams.find((t) => t?.id === val)?.name}

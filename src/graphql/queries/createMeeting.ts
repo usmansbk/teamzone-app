@@ -12,6 +12,10 @@ mutation CreateMeeting($input: CreateMeetingInput!) {
     createdAt
     description
     isOwner
+    repeat {
+      freq
+      interval
+    }
     owner {
       id
       fullName

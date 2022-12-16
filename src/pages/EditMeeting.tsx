@@ -20,7 +20,7 @@ export default function EditMeeting() {
   }, [updated]);
 
   const defaultValues = useMemo(
-    () => ({ ...data, teamIds: data!.teams.map((t) => t!.id) }),
+    () => data?.teams && { ...data, teamIds: data!.teams.map((t) => t!.id) },
     [data]
   );
 

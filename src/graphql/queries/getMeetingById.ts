@@ -12,6 +12,10 @@ query GetMeetingById($id: ID!) {
     createdAt
     description
     isOwner
+    repeat {
+      freq
+      interval
+    }
     owner {
       id
       fullName

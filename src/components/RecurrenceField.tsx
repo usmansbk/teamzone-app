@@ -50,7 +50,7 @@ export const schema = yup
   .noUnknown();
 
 interface Props {
-  value?: RecurrenceRule;
+  value?: RecurrenceRule | null;
   onChange: (value: RecurrenceRule | null) => void;
 }
 
@@ -79,7 +79,9 @@ export default function RecurrenceField({ onChange, value }: Props) {
   });
 
   useEffect(() => {
-    reset(value);
+    if (value) {
+      reset(value);
+    }
   }, [value]);
 
   return (
