@@ -14,7 +14,7 @@ import {
 import { Dayjs } from "dayjs";
 import groupBy from "lodash.groupby";
 import { memo, useMemo, useState, MouseEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
 import routeMap from "src/routeMap";
 import { getLocalDateTime } from "src/utils/dateTime";
@@ -145,7 +145,11 @@ const Agenda = memo(({ meetings }: AgendaProps) => {
 });
 
 export default function Meetings() {
-  const [sort, setSort] = useState<MeetingSort>(MeetingSort.Upcoming);
+  const [q] = useSearchParams();
+  const sort =
+    q.get("sort") === MeetingSort.Past
+      ? MeetingSort.Past
+      : MeetingSort.Upcoming;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { meetings, loading } = useGetMeetings({
     sort,
@@ -155,8 +159,7 @@ export default function Meetings() {
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (selectedSort: typeof sort) => () => {
-    setSort(selectedSort);
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
@@ -179,22 +182,26 @@ export default function Meetings() {
             id="sort-options"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose(sort)}
+            onClose={handleClose}
             MenuListProps={{
               "aria-labelledby": "sort-button",
             }}
           >
             <MenuItem
+              component={Link}
+              to={`?sort=${MeetingSort.Upcoming}`}
               dense
               selected={sort === MeetingSort.Upcoming}
-              onClick={handleClose(MeetingSort.Upcoming)}
+              onClick={handleClose}
             >
               Upcoming
             </MenuItem>
             <MenuItem
+              component={Link}
+              to={`?sort=${MeetingSort.Past}`}
               selected={sort === MeetingSort.Past}
               dense
-              onClick={handleClose(MeetingSort.Past)}
+              onClick={handleClose}
             >
               Past
             </MenuItem>

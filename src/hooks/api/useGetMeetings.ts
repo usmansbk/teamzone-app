@@ -11,8 +11,7 @@ export default function useGetMeetings(variables: GetMeetingsQueryVariables) {
   const { loading, data, error } = useQuery(getMeetings, {
     variables,
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-first",
+    fetchPolicy: "cache-first",
   });
 
   const meetings = useMemo(() => {
