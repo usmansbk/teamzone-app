@@ -468,7 +468,6 @@ export type User = {
   teams: Array<Maybe<Team>>;
   timezone?: Maybe<Scalars["String"]>;
   tzData?: Maybe<TimezoneData>;
-  upcomingMeeting?: Maybe<Meeting>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -759,7 +758,6 @@ export type GetTeammatesByTimezoneQuery = {
       fullName: string;
       picture?: any | null;
     };
-    team: { __typename?: "Team"; id: string; name: string };
   } | null>;
 };
 
@@ -2063,17 +2061,6 @@ export const GetTeammatesByTimezoneDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "picture" },
                       },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "team" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      { kind: "Field", name: { kind: "Name", value: "name" } },
                     ],
                   },
                 },

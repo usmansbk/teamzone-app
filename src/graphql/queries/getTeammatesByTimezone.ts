@@ -9,10 +9,6 @@ query GetTeammatesByTimezone($id: ID!) {
       fullName
       picture
     }
-    team {
-      id
-      name
-    }
   }
 }
 `);

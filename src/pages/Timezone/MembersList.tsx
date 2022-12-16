@@ -31,7 +31,7 @@ const MembersList = ({ timezone }: { timezone: string }) => {
   return (
     <Grid container mt={2} gap={1}>
       {data.map((teammate) => {
-        const { id, member, team } = teammate!;
+        const { id, member } = teammate!;
         return (
           <Grid item key={id} xs={12} md={4} lg={3} zeroMinWidth>
             <Stack
@@ -44,10 +44,7 @@ const MembersList = ({ timezone }: { timezone: string }) => {
                 src={member.picture}
                 sx={{ width: 72, height: 72 }}
               />
-              <Stack>
-                <Typography variant="h5">{member.fullName}</Typography>
-                <Typography variant="subtitle1">{team.name}</Typography>
-              </Stack>
+              <Typography variant="h5">{member.fullName}</Typography>
             </Stack>
           </Grid>
         );
