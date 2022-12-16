@@ -11,7 +11,6 @@ import {
   Typography,
   Chip,
   List,
-  Tooltip,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
 import uniqBy from "lodash.uniqby";
@@ -20,11 +19,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
-import {
-  formatUTCOffset,
-  getLocalDateTime,
-  getTimezoneLocalDateTime,
-} from "src/utils/dateTime";
+import { getLocalDateTime, getTimezoneLocalDateTime } from "src/utils/dateTime";
 import { formatEventDateTime } from "src/utils/event";
 import { User } from "src/__generated__/graphql";
 
@@ -54,16 +49,9 @@ const MemberItem = ({
           fontWeight: 700,
         }}
         secondary={
-          <Tooltip
-            title={`${tzData?.alternativeName} UTC${formatUTCOffset(
-              timezone!
-            )}`}
-            placement="top"
-          >
-            <Typography variant="body2" fontWeight={500}>
-              {formatEventDateTime(startAt, endAt)} {tzData?.abbreviation}
-            </Typography>
-          </Tooltip>
+          <Typography variant="body2" fontWeight={500}>
+            {formatEventDateTime(startAt, endAt)} {tzData?.abbreviation}
+          </Typography>
         }
       />
     </ListItem>

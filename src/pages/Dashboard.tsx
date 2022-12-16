@@ -8,7 +8,7 @@ import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
 import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
-import { TeamMember } from "src/__generated__/graphql";
+import { MeetingSort, TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
 const Clock = memo(({ timezone }: { timezone: string }) => {
@@ -23,7 +23,9 @@ const Clock = memo(({ timezone }: { timezone: string }) => {
 
 const Dashboard = () => {
   const { data } = useMe();
-  const { loading, meetings } = useGetMeetings();
+  const { loading, meetings } = useGetMeetings({
+    sort: MeetingSort.Upcoming,
+  });
   const { tzData, teams, timezone } = data!;
   const { countryName, mainCities } = tzData! || {};
 

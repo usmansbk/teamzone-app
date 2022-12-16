@@ -232,6 +232,11 @@ export type MeetingConnection = {
   meetings: Array<Maybe<Meeting>>;
 };
 
+export enum MeetingSort {
+  Past = "past",
+  Upcoming = "upcoming",
+}
+
 export type Mutation = {
   __typename?: "Mutation";
   addTeamMemberToAdmin: TeamMember;
@@ -327,6 +332,10 @@ export type Query = {
 
 export type QueryGetMeetingByIdArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryGetMeetingsArgs = {
+  sort?: InputMaybe<MeetingSort>;
 };
 
 export type QueryGetTeamByIdArgs = {
@@ -633,7 +642,9 @@ export type GetMeetingByIdQuery = {
   };
 };
 
-export type GetMeetingsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetMeetingsQueryVariables = Exact<{
+  sort?: InputMaybe<MeetingSort>;
+}>;
 
 export type GetMeetingsQuery = {
   __typename?: "Query";
@@ -1633,12 +1644,32 @@ export const GetMeetingsDocument = {
       kind: "OperationDefinition",
       operation: "query",
       name: { kind: "Name", value: "GetMeetings" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "sort" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "MeetingSort" },
+          },
+        },
+      ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
             name: { kind: "Name", value: "getMeetings" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "sort" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "sort" },
+                },
+              },
+            ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [

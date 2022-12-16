@@ -1,8 +1,8 @@
 import { gql } from "src/__generated__";
 
 export default gql(`
-query GetMeetings {
-  getMeetings {
+query GetMeetings($sort: MeetingSort) {
+  getMeetings(sort: $sort) {
     cursor
     meetings {
       id

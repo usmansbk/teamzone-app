@@ -19,7 +19,7 @@ import useGetMeetings from "src/hooks/api/useGetMeetings";
 import routeMap from "src/routeMap";
 import { getLocalDateTime } from "src/utils/dateTime";
 import { formatEventTime } from "src/utils/event";
-import { Meeting } from "src/__generated__/graphql";
+import { Meeting, MeetingSort } from "src/__generated__/graphql";
 
 interface AgendaItemProps {
   item: Meeting;
@@ -48,19 +48,14 @@ const AgendaItem = memo(({ item }: AgendaItemProps) => {
         <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
           {teams.map((t) => (
             <Box key={t!.id}>
-              <Link
-                to={routeMap.team.replace(":id", t!.id)}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Chip
-                  label={
-                    <Typography variant="caption" fontWeight={700}>
-                      {t?.name}
-                    </Typography>
-                  }
-                  size="small"
-                />
-              </Link>
+              <Chip
+                label={
+                  <Typography variant="caption" fontWeight={700}>
+                    {t?.name}
+                  </Typography>
+                }
+                size="small"
+              />
             </Box>
           ))}
         </Stack>
@@ -150,9 +145,11 @@ const Agenda = memo(({ meetings }: AgendaProps) => {
 });
 
 export default function Meetings() {
-  const [sort, setSort] = useState<"upcoming" | "past">("upcoming");
+  const [sort, setSort] = useState<MeetingSort>(MeetingSort.Upcoming);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { meetings, loading } = useGetMeetings();
+  const { meetings, loading } = useGetMeetings({
+    sort,
+  });
 
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -176,7 +173,7 @@ export default function Meetings() {
             size="small"
             startIcon={<Sort fontSize="small" />}
           >
-            {sort === "upcoming" ? "Upcoming" : "Past"}
+            {sort === MeetingSort.Upcoming ? "Upcoming" : "Past"}
           </Button>
           <Menu
             id="sort-options"
@@ -189,15 +186,15 @@ export default function Meetings() {
           >
             <MenuItem
               dense
-              selected={sort === "upcoming"}
-              onClick={handleClose("upcoming")}
+              selected={sort === MeetingSort.Upcoming}
+              onClick={handleClose(MeetingSort.Upcoming)}
             >
               Upcoming
             </MenuItem>
             <MenuItem
-              selected={sort === "past"}
+              selected={sort === MeetingSort.Past}
               dense
-              onClick={handleClose("past")}
+              onClick={handleClose(MeetingSort.Past)}
             >
               Past
             </MenuItem>

@@ -72,6 +72,9 @@ const cache = new InMemoryCache({
             });
           },
         },
+        getMeetings: {
+          keyArgs: false,
+        },
       },
     },
   },
