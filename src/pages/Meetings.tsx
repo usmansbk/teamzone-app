@@ -10,12 +10,10 @@ import {
   Chip,
   Menu,
   MenuItem,
-  AvatarGroup,
   Avatar,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
 import groupBy from "lodash.groupby";
-import uniqBy from "lodash.uniqby";
 import { memo, useMemo, useState, MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
@@ -29,17 +27,9 @@ interface AgendaItemProps {
 }
 
 const AgendaItem = memo(({ item }: AgendaItemProps) => {
-  const { title, from, to, teams } = item;
+  const { title, from, to, teams, owner } = item;
   const start = getLocalDateTime(from);
   const end = getLocalDateTime(to);
-  const members = useMemo(
-    () =>
-      uniqBy(
-        teams.flatMap((t) => t?.teammates.map((t) => t?.member)),
-        "id"
-      ),
-    [teams]
-  );
   return (
     <Paper
       variant="outlined"
@@ -56,33 +46,31 @@ const AgendaItem = memo(({ item }: AgendaItemProps) => {
             {title}
           </Typography>
         </Box>
-        <Stack direction="row" rowGap={1} columnGap={1} flexWrap="wrap">
-          {teams.map((t) => (
-            <Box key={t!.id}>
-              <Chip
-                label={
-                  <Typography variant="caption" fontWeight={700}>
-                    {t?.name}
-                  </Typography>
-                }
-                size="small"
-              />
-            </Box>
-          ))}
-        </Stack>
-        {!!members.length && (
-          <AvatarGroup max={4} total={members.length}>
-            {members.map((member) => (
-              <Avatar
-                alt={member!.fullName}
-                key={member?.id}
-                src={member?.picture}
-              >
-                {member?.fullName[0]}
-              </Avatar>
+        {!!teams.length && (
+          <Stack
+            direction="row"
+            rowGap={1}
+            columnGap={1}
+            flexWrap="wrap"
+            alignItems="center"
+          >
+            {teams.map((t) => (
+              <Box key={t!.id}>
+                <Chip
+                  label={
+                    <Typography variant="caption" fontWeight={700}>
+                      {t?.name}
+                    </Typography>
+                  }
+                  size="small"
+                />
+              </Box>
             ))}
-          </AvatarGroup>
+          </Stack>
         )}
+        <Avatar alt={owner!.fullName} src={owner?.picture}>
+          {owner?.fullName[0]}
+        </Avatar>
       </Stack>
     </Paper>
   );
