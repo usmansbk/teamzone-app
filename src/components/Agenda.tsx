@@ -143,7 +143,7 @@ function Agenda({ meetings, isPast }: AgendaProps) {
   const calendar = useMemo(
     () =>
       calendarGenerator(meetings, {
-        selectedDate: getCurrentDateTime(),
+        selectedDate: getCurrentDateTime().utc().startOf("day").toDate(),
         isPast,
       }),
     [meetings, isPast]

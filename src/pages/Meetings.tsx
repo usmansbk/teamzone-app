@@ -91,7 +91,9 @@ export default function Meetings() {
         </Box>
       </Stack>
       {meetings?.length === 0 && (
-        <Typography variant="h3">No upcoming meetings yet</Typography>
+        <Typography px={2} variant="h3">
+          No meetings
+        </Typography>
       )}
       <Agenda
         meetings={meetings as Meeting[]}

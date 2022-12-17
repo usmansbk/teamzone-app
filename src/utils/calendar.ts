@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { Frequency, Options, RRule, RRuleSet } from "rrule";
+import { Frequency, RRule, RRuleSet } from "rrule";
 import { Meeting } from "src/__generated__/graphql";
 import { getDateTimeFromUTC } from "./dateTime";
 
@@ -9,21 +9,27 @@ export interface AgendaSectionT {
 }
 
 export interface AgendaOptions {
-  selectedDate: Dayjs;
+  selectedDate: Date;
   isPast?: boolean;
 }
 
 function createRule(item: Meeting) {
   const { from, repeat } = item;
-  const options: Partial<Options> = {
-    dtstart: from.utc().startOf("day").toDate(),
-  };
 
-  if (repeat) {
-    options.freq = Frequency[repeat.freq];
-    options.interval = repeat.interval;
+  const date = from.utc().startOf("day").toDate();
+  if (!repeat) {
+    return new RRule({
+      dtstart: date,
+      until: date,
+      freq: Frequency.DAILY,
+    });
   }
-  return new RRule(options);
+
+  return new RRule({
+    dtstart: date,
+    freq: Frequency[repeat.freq],
+    interval: repeat.interval,
+  });
 }
 
 function createDateRules(items: Meeting[]) {
@@ -41,7 +47,7 @@ function matches(item: Meeting, utcDate: Date) {
 
   const nextDate = rule.after(utcDate, true);
 
-  return !!nextDate && getDateTimeFromUTC(utcDate).isSame(nextDate, "date");
+  return !!nextDate && getDateTimeFromUTC(utcDate).isSame(nextDate, "day");
 }
 
 const byTime = (a: Meeting, b: Meeting) => {
@@ -76,11 +82,9 @@ export default function* calendarGenerator(
 
   const rules = createDateRules(items);
 
-  const initialDate = selectedDate.utc().toDate();
-
   let date = isPast
-    ? rules.before(initialDate, true)
-    : rules.after(initialDate, true);
+    ? rules.before(selectedDate, true)
+    : rules.after(selectedDate, true);
 
   while (date) {
     const events = getEventsByDate(items, date);
