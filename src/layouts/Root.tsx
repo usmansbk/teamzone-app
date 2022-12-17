@@ -1,5 +1,5 @@
 import { Box, Container } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Footer from "src/components/Footer";
 import Header from "src/components/Header";
 import usePageTracking from "src/hooks/usePageTracking";
@@ -12,6 +12,7 @@ export default function Landing() {
         <Header />
         <Box display="flex" flexDirection="column" flexGrow={1}>
           <Outlet />
+          <ScrollRestoration />
         </Box>
         <Footer />
       </Box>

@@ -152,11 +152,13 @@ function Agenda({ meetings, isPast }: AgendaProps) {
   useEffect(() => {
     const loadInitialData = () => {
       const sections: AgendaSectionT[] = [];
+      let dataLength = 0;
       let hasMore = true;
       for (let i = 0; i < 50; i += 1) {
         const { done, value } = calendar.next();
         if (value) {
           sections.push(value);
+          dataLength += value.data.length;
         }
         if (done) {
           hasMore = false;
@@ -164,6 +166,7 @@ function Agenda({ meetings, isPast }: AgendaProps) {
         }
       }
       setItems(sections);
+      setDataLength(dataLength);
       setHasMore(hasMore);
     };
 
@@ -190,14 +193,12 @@ function Agenda({ meetings, isPast }: AgendaProps) {
         </Box>
       }
     >
-      <Stack rowGap={2}>
-        {items.map((section) => (
-          <AgendaSection
-            key={section.title.format("YYYY-MM-DD")}
-            section={section}
-          />
-        ))}
-      </Stack>
+      {items.map((section) => (
+        <AgendaSection
+          key={section.title.format("YYYY-MM-DD")}
+          section={section}
+        />
+      ))}
     </InfiniteScroll>
   );
 }
