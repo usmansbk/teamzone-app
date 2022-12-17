@@ -57,6 +57,10 @@ export function getTimezoneDateTimeFromUTC(utcDate: Dayjs, timezone: string) {
   return dayjs.utc(utcDate).tz(timezone).second(0).millisecond(0);
 }
 
+export function getDateTimeFromUTC(utcDate: Dayjs | Date) {
+  return dayjs.utc(utcDate).tz();
+}
+
 export function getRoundUpCurrentDateTime(timezone: string, interval = 15) {
   const currentDate = getCurrentTimezoneDateTime(timezone);
   const roundUp = Math.ceil(currentDate.minute() / interval) * interval;

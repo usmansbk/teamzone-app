@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
   Paper,
   Stack,
@@ -7,14 +7,16 @@ import {
   Chip,
   Avatar,
   Grid,
+  CircularProgress,
 } from "@mui/material";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { Dayjs } from "dayjs";
-import groupBy from "lodash.groupby";
-import { getLocalDateTime } from "src/utils/dateTime";
+import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
 import { formatEventTime } from "src/utils/event";
 import { Meeting } from "src/__generated__/graphql";
 import routeMap from "src/routeMap";
+import calendarGenerator, { AgendaSectionT } from "src/utils/calendar";
 
 interface AgendaItemProps {
   item: Meeting;
@@ -102,13 +104,13 @@ function SectionHeader({ day }: { day: Dayjs }) {
   );
 }
 
-const AgendaSection = memo(({ section }: { section: [string, Meeting[]] }) => {
-  const data = section[1];
+const AgendaSection = memo(({ section }: { section: AgendaSectionT }) => {
+  const { data, title } = section;
   return (
     <Grid container wrap="nowrap">
       <Grid item xs="auto" lg={1} p={0}>
         <Box minWidth={60}>
-          <SectionHeader day={data[0].from} />
+          <SectionHeader day={title} />
         </Box>
       </Grid>
       <Grid item zeroMinWidth width="100%">
@@ -130,24 +132,74 @@ const AgendaSection = memo(({ section }: { section: [string, Meeting[]] }) => {
 
 interface AgendaProps {
   meetings: Meeting[];
+  isPast: boolean;
 }
 
-const Agenda = memo(({ meetings }: AgendaProps) => {
-  const agendas = useMemo(
+function Agenda({ meetings, isPast }: AgendaProps) {
+  const [dataLength, setDataLength] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [items, setItems] = useState<AgendaSectionT[]>([]);
+
+  const calendar = useMemo(
     () =>
-      Object.entries(
-        groupBy(meetings, (meeting) => meeting?.from.format("YYYY-MM-DD"))
-      ),
-    [meetings]
+      calendarGenerator(meetings, {
+        selectedDate: getCurrentDateTime(),
+        isPast,
+      }),
+    [meetings, isPast]
   );
 
+  useEffect(() => {
+    const loadInitialData = () => {
+      const sections: AgendaSectionT[] = [];
+      let hasMore = true;
+      for (let i = 0; i < 50; i += 1) {
+        const { done, value } = calendar.next();
+        if (value) {
+          sections.push(value);
+        }
+        if (done) {
+          hasMore = false;
+          break;
+        }
+      }
+      setItems(sections);
+      setHasMore(hasMore);
+    };
+
+    loadInitialData();
+  }, [calendar]);
+
+  const loadMoreItems = useCallback(() => {
+    const { value, done } = calendar.next();
+    if (value) {
+      setDataLength(dataLength + value.data.length);
+      setItems((items) => items.concat(value));
+    }
+    setHasMore(!done);
+  }, [calendar]);
+
   return (
-    <Stack spacing={3}>
-      {agendas.map((section) => (
-        <AgendaSection key={section[0]} section={section} />
-      ))}
-    </Stack>
+    <InfiniteScroll
+      dataLength={dataLength}
+      hasMore={hasMore}
+      next={loadMoreItems}
+      loader={
+        <Box textAlign="center" pt={1}>
+          <CircularProgress size={16} />
+        </Box>
+      }
+    >
+      <Stack rowGap={2}>
+        {items.map((section) => (
+          <AgendaSection
+            key={section.title.format("YYYY-MM-DD")}
+            section={section}
+          />
+        ))}
+      </Stack>
+    </InfiniteScroll>
   );
-});
+}
 
 export default memo(Agenda);

@@ -93,7 +93,10 @@ export default function Meetings() {
       {meetings?.length === 0 && (
         <Typography variant="h3">No upcoming meetings yet</Typography>
       )}
-      <Agenda meetings={meetings as Meeting[]} />
+      <Agenda
+        meetings={meetings as Meeting[]}
+        isPast={sort === MeetingSort.Past}
+      />
     </Box>
   );
 }
