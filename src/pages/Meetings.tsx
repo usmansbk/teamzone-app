@@ -10,9 +10,12 @@ import {
   Chip,
   Menu,
   MenuItem,
+  AvatarGroup,
+  Avatar,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
 import groupBy from "lodash.groupby";
+import uniqBy from "lodash.uniqby";
 import { memo, useMemo, useState, MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
@@ -29,6 +32,14 @@ const AgendaItem = memo(({ item }: AgendaItemProps) => {
   const { title, from, to, teams } = item;
   const start = getLocalDateTime(from);
   const end = getLocalDateTime(to);
+  const members = useMemo(
+    () =>
+      uniqBy(
+        teams.flatMap((t) => t?.teammates.map((t) => t?.member)),
+        "id"
+      ),
+    [teams]
+  );
   return (
     <Paper
       variant="outlined"
@@ -59,6 +70,19 @@ const AgendaItem = memo(({ item }: AgendaItemProps) => {
             </Box>
           ))}
         </Stack>
+        {!!members.length && (
+          <AvatarGroup max={4} total={members.length}>
+            {members.map((member) => (
+              <Avatar
+                alt={member!.fullName}
+                key={member?.id}
+                src={member?.picture}
+              >
+                {member?.fullName[0]}
+              </Avatar>
+            ))}
+          </AvatarGroup>
+        )}
       </Stack>
     </Paper>
   );
