@@ -193,12 +193,14 @@ function Agenda({ meetings, isPast }: AgendaProps) {
         </Box>
       }
     >
-      {items.map((section) => (
-        <AgendaSection
-          key={section.title.format("YYYY-MM-DD")}
-          section={section}
-        />
-      ))}
+      <Stack rowGap={2}>
+        {items.map((section) => (
+          <AgendaSection
+            key={section.title.format("YYYY-MM-DD")}
+            section={section}
+          />
+        ))}
+      </Stack>
     </InfiniteScroll>
   );
 }
