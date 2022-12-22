@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import {
   Paper,
   Stack,
@@ -7,9 +7,8 @@ import {
   Chip,
   Avatar,
   Grid,
-  CircularProgress,
 } from "@mui/material";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { Waypoint } from "react-waypoint";
 import { Link } from "react-router-dom";
 import { Dayjs } from "dayjs";
 import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
@@ -17,6 +16,8 @@ import { formatEventTime } from "src/utils/event";
 import { Meeting } from "src/__generated__/graphql";
 import routeMap from "src/routeMap";
 import calendarGenerator, { AgendaSectionT } from "src/utils/calendar";
+
+const DAYS_PER_PAGE = 31;
 
 interface AgendaItemProps {
   item: Meeting;
@@ -136,8 +137,7 @@ interface AgendaProps {
 }
 
 function Agenda({ meetings, isPast }: AgendaProps) {
-  const [dataLength, setDataLength] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<AgendaSectionT[]>([]);
 
   const calendar = useMemo(
@@ -149,59 +149,34 @@ function Agenda({ meetings, isPast }: AgendaProps) {
     [meetings, isPast]
   );
 
-  useEffect(() => {
-    const loadInitialData = () => {
-      const sections: AgendaSectionT[] = [];
-      let dataLength = 0;
-      let hasMore = true;
-      for (let i = 0; i < 50; i += 1) {
-        const { done, value } = calendar.next();
-        if (value) {
-          sections.push(value);
-          dataLength += value.data.length;
-        }
-        if (done) {
-          hasMore = false;
-          break;
-        }
-      }
-      setItems(sections);
-      setDataLength(dataLength);
-      setHasMore(hasMore);
-    };
-
-    loadInitialData();
-  }, [calendar]);
-
   const loadMoreItems = useCallback(() => {
-    const { value, done } = calendar.next();
-    if (value) {
-      setDataLength(dataLength + value.data.length);
-      setItems((items) => items.concat(value));
+    const sections: AgendaSectionT[] = [];
+    let hasMore = true;
+
+    for (let i = 0; i < DAYS_PER_PAGE; i += 1) {
+      const { done, value } = calendar.next();
+      if (value) {
+        sections.push(value);
+      }
+      if (done) {
+        hasMore = false;
+        break;
+      }
     }
-    setHasMore(!done);
+    setItems((items) => items.concat(sections));
+    setHasMore(hasMore);
   }, [calendar]);
 
   return (
-    <InfiniteScroll
-      dataLength={dataLength}
-      hasMore={hasMore}
-      next={loadMoreItems}
-      loader={
-        <Box textAlign="center" pt={1}>
-          <CircularProgress size={16} />
-        </Box>
-      }
-    >
-      <Stack rowGap={2}>
-        {items.map((section) => (
-          <AgendaSection
-            key={section.title.format("YYYY-MM-DD")}
-            section={section}
-          />
-        ))}
-      </Stack>
-    </InfiniteScroll>
+    <Stack rowGap={2}>
+      {items.map((section) => (
+        <AgendaSection
+          key={section.title.format("YYYY-MM-DD")}
+          section={section}
+        />
+      ))}
+      {hasMore && <Waypoint onEnter={loadMoreItems} />}
+    </Stack>
   );
 }
 
