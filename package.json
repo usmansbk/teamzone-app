@@ -29,7 +29,7 @@
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.1.1",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-router-dom": "^6.5.0",
+    "react-router-dom": "^6.6.0",
     "react-scripts": "5.0.1",
     "rrule": "^2.7.1",
     "web-vitals": "^2.1.0",
