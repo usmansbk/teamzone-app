@@ -1,5 +1,6 @@
-import { Grid, Tab, Tabs } from "@mui/material";
+import { CircularProgress, Grid, Tab, Tabs, Box } from "@mui/material";
 import { Link, useSearchParams } from "react-router-dom";
+import useMe from "src/hooks/api/useMe";
 import Profile from "./Profile";
 import CreatedTeams from "./Teams";
 
@@ -28,7 +29,26 @@ const tabsMap = {
 const tabs = Object.values(tabsMap);
 
 export default function Settings() {
+  const { loading, error } = useMe();
   const [q] = useSearchParams();
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        flexGrow={1}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    throw error;
+  }
+
   const value = (q.get("tab") || tabsMap.profile.path) as keyof typeof tabsMap;
 
   const selectedTab = tabsMap[value];

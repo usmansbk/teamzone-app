@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { TextField, Stack, Box, LinearProgress } from "@mui/material";
+import { TextField, Stack, Box } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -12,7 +12,7 @@ import TimezonePicker from "src/components/TimezonePicker";
 
 export default function Profile() {
   const { onSubmit, loading } = useUpdateProfile();
-  const { data, loading: loadingMe } = useMe();
+  const { data } = useMe();
 
   const schema = useMemo(
     () =>
@@ -56,10 +56,6 @@ export default function Profile() {
   useEffect(() => {
     reset(data);
   }, [data]);
-
-  if (loadingMe) {
-    return <LinearProgress />;
-  }
 
   return (
     <Box>
