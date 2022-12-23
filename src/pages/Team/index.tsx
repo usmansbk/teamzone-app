@@ -88,7 +88,7 @@ export default function TeamPage() {
           </Stack>
           <MembersList
             teammates={teammates as TeamMember[]}
-            editable={isOwner || isAdmin}
+            editable={isAdmin}
           />
         </Box>
         <Stack spacing={1}>
