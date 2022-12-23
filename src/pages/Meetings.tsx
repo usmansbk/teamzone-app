@@ -96,6 +96,7 @@ export default function Meetings() {
         </Box>
       )}
       <Agenda
+        key={sort}
         meetings={meetings as Meeting[]}
         isPast={sort === MeetingSort.Past}
       />
