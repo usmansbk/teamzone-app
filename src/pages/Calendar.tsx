@@ -15,7 +15,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Agenda from "src/components/Agenda";
 import useGetMeetings from "src/hooks/api/useGetMeetings";
 import routeMap from "src/routeMap";
-import { getCurrentDateTime, parseDay } from "src/utils/dateTime";
+import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
 import { Meeting } from "src/__generated__/graphql";
 
 const DATE_FORMAT = "YYYY-MM-DD";
@@ -25,7 +25,7 @@ function CalendarHeader({ date }: { date: Dayjs }) {
     <Stack spacing={1}>
       <Stack spacing={1} direction="row" alignItems="center">
         <Button
-          variant="contained"
+          variant="outlined"
           size="small"
           component={Link}
           to={`?day=${getCurrentDateTime().format(DATE_FORMAT)}`}
@@ -66,7 +66,7 @@ export default function Calendar() {
 
   useEffect(() => {
     if (day) {
-      setDate(parseDay(day));
+      setDate(getLocalDateTime(day));
     }
   }, [day]);
 
@@ -123,7 +123,7 @@ export default function Calendar() {
               value={date}
               onChange={(value) => {
                 if (value) {
-                  navigate(`?day=${value.format(DATE_FORMAT)}`);
+                  navigate(`?day=${value.tz().format(DATE_FORMAT)}`);
                 }
               }}
               renderInput={() => <div />}

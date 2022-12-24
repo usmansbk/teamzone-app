@@ -5,7 +5,7 @@ import { getDateTimeFromUTC } from "./dateTime";
 function createRule(item: Meeting) {
   const { from, repeat } = item;
 
-  const date = from.utc().startOf("day").toDate();
+  const date = from.startOf("day").utc().toDate();
   if (!repeat) {
     return new RRule({
       dtstart: date,
@@ -24,9 +24,10 @@ function createRule(item: Meeting) {
 export function matches(item: Meeting, utcDate: Date) {
   const rule = createRule(item);
 
+  const selectedDate = getDateTimeFromUTC(utcDate);
   const nextDate = rule.after(utcDate, true);
 
-  return !!nextDate && getDateTimeFromUTC(utcDate).isSame(nextDate, "day");
+  return !!nextDate && selectedDate.isSame(nextDate, "day");
 }
 
 const byTime = (a: Meeting, b: Meeting) => {

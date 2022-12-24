@@ -5,6 +5,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 dayjs.extend(utc);
@@ -13,12 +14,13 @@ dayjs.extend(localizedFormat);
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(advancedFormat);
+dayjs.extend(customParseFormat);
 
 export function getCurrentDateTime() {
   return dayjs().tz();
 }
 
-export function getLocalDateTime(date: Dayjs) {
+export function getLocalDateTime(date: Dayjs | string) {
   return dayjs.tz(date);
 }
 
@@ -87,10 +89,6 @@ export function DayjsAdapter(this: any, props: any) {
   };
 
   return this;
-}
-
-export function parseDay(date: string) {
-  return dayjs.tz(date);
 }
 
 export default dayjs;
