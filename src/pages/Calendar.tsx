@@ -158,6 +158,11 @@ export default function Calendar() {
                     navigate(`?day=${value.tz().format(DATE_FORMAT)}`);
                   }
                 }}
+                InputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
                 renderInput={(params) => <TextField fullWidth {...params} />}
                 inputFormat="ddd MMMM DD, YYYY"
               />
