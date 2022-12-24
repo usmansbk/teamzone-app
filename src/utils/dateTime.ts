@@ -89,4 +89,8 @@ export function DayjsAdapter(this: any, props: any) {
   return this;
 }
 
+export function parseDay(date: string) {
+  return dayjs.tz(date);
+}
+
 export default dayjs;

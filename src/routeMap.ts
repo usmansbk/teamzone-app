@@ -8,8 +8,8 @@ export default {
   me: "/settings/me",
   invite: "/invite/:code",
   timezone: "/app/tz/:id",
-  meetings: "/app/meetings",
-  newMeeting: "/app/meetings/new",
-  meeting: "/app/meetings/:id",
-  editMeeting: "/app/meetings/:id/edit",
+  meetings: "/app/calendar",
+  newMeeting: "/app/calendar/new",
+  meeting: "/app/calendar/:id",
+  editMeeting: "/app/calendar/:id/edit",
 };

@@ -18,7 +18,7 @@ import Team from "./Team";
 import Settings from "./Settings";
 import TeamInvitation from "./TeamInvitation";
 import Timezone from "./Timezone";
-import Meetings from "./Meetings";
+import Calendar from "./Calendar";
 import NewMeeting from "./NewMeeting";
 import Meeting from "./Meeting";
 import EditMeeting from "./EditMeeting";
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Meetings />,
+                element: <Calendar />,
               },
               {
                 path: routeMap.newMeeting,

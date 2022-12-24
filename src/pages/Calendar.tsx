@@ -1,0 +1,139 @@
+import { Add, ArrowBack, ArrowForward } from "@mui/icons-material";
+import {
+  Typography,
+  Box,
+  Stack,
+  Button,
+  LinearProgress,
+  IconButton,
+  Grid,
+} from "@mui/material";
+import { StaticDatePicker } from "@mui/x-date-pickers";
+import type { Dayjs } from "dayjs";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Agenda from "src/components/Agenda";
+import useGetMeetings from "src/hooks/api/useGetMeetings";
+import routeMap from "src/routeMap";
+import { getCurrentDateTime, parseDay } from "src/utils/dateTime";
+import { Meeting } from "src/__generated__/graphql";
+
+const DATE_FORMAT = "YYYY-MM-DD";
+
+function CalendarHeader({ date }: { date: Dayjs }) {
+  return (
+    <Stack spacing={1}>
+      <Stack spacing={1} direction="row" alignItems="center">
+        <Button
+          variant="contained"
+          size="small"
+          component={Link}
+          to={`?day=${getCurrentDateTime().format(DATE_FORMAT)}`}
+        >
+          Today
+        </Button>
+        <Stack direction="row">
+          <Box>
+            <IconButton
+              size="small"
+              component={Link}
+              to={`?day=${date.subtract(1, "day").format(DATE_FORMAT)}`}
+            >
+              <ArrowBack fontSize="small" />
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton
+              size="small"
+              component={Link}
+              to={`?day=${date.add(1, "day").format(DATE_FORMAT)}`}
+            >
+              <ArrowForward fontSize="small" />
+            </IconButton>
+          </Box>
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+}
+
+export default function Calendar() {
+  const { meetings, loading } = useGetMeetings();
+  const [q] = useSearchParams();
+  const day = q.get("day");
+  const [date, setDate] = useState(getCurrentDateTime());
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (day) {
+      setDate(parseDay(day));
+    }
+  }, [day]);
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  return (
+    <Box p={2}>
+      <Stack mb={1} direction="row" justifyContent="space-between" spacing={1}>
+        <CalendarHeader date={date} />
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "block",
+            },
+          }}
+        >
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<Add fontSize="small" />}
+            component={Link}
+            to={routeMap.newMeeting}
+          >
+            New Meeting
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+        >
+          <IconButton size="small" component={Link} to={routeMap.newMeeting}>
+            <Add fontSize="small" />
+          </IconButton>
+        </Box>
+      </Stack>
+      {meetings?.length === 0 && (
+        <Box p={2}>
+          <Typography variant="h3">No meetings</Typography>
+        </Box>
+      )}
+      {!!meetings.length && (
+        <Grid container>
+          <Grid item>
+            <StaticDatePicker
+              showDaysOutsideCurrentMonth
+              displayStaticWrapperAs="desktop"
+              value={date}
+              onChange={(value) => {
+                if (value) {
+                  navigate(`?day=${value.format(DATE_FORMAT)}`);
+                }
+              }}
+              renderInput={() => <div />}
+            />
+          </Grid>
+          <Grid item flex="auto">
+            <Agenda meetings={meetings as Meeting[]} selectedDate={date} />
+          </Grid>
+        </Grid>
+      )}
+    </Box>
+  );
+}

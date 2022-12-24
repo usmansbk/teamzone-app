@@ -36,9 +36,9 @@ export default function DrawerContent({ teams }: Props) {
         name: "Dashboard",
       },
       {
-        path: `${routeMap.meetings}?sort=upcoming`,
+        path: routeMap.meetings,
         icon: <CalendarMonth />,
-        name: "Meetings",
+        name: "Calendar",
       },
     ],
     []
