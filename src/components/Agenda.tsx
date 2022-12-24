@@ -66,7 +66,7 @@ interface AgendaProps {
 
 function Agenda({ meetings, selectedDate }: AgendaProps) {
   const items = useMemo(
-    () => getEventsByDate(meetings, selectedDate.utc().toDate()),
+    () => getEventsByDate(meetings, selectedDate.startOf("day").utc().toDate()),
     [selectedDate, meetings]
   );
 
