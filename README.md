@@ -14,7 +14,7 @@
 
 ## Todo
 
-- [ ] Meetings
+- [x] Meetings
 
 - [ ] Countdowns
 

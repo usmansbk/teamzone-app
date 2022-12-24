@@ -7,8 +7,9 @@ import {
   LinearProgress,
   IconButton,
   Grid,
+  TextField,
 } from "@mui/material";
-import { StaticDatePicker } from "@mui/x-date-pickers";
+import { MobileDatePicker, StaticDatePicker } from "@mui/x-date-pickers";
 import type { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -117,20 +118,50 @@ export default function Calendar() {
         </Box>
       )}
       {!!meetings.length && (
-        <Grid container>
-          <Grid item>
-            <StaticDatePicker
-              reduceAnimations
-              showDaysOutsideCurrentMonth
-              displayStaticWrapperAs="desktop"
-              value={date}
-              onChange={(value) => {
-                if (value) {
-                  navigate(`?day=${value.tz().format(DATE_FORMAT)}`);
-                }
+        <Grid container rowGap={1}>
+          <Grid item xs={12} lg="auto">
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  lg: "block",
+                },
               }}
-              renderInput={() => <div />}
-            />
+            >
+              <StaticDatePicker
+                reduceAnimations
+                showDaysOutsideCurrentMonth
+                displayStaticWrapperAs="desktop"
+                value={date}
+                onChange={(value) => {
+                  if (value) {
+                    navigate(`?day=${value.tz().format(DATE_FORMAT)}`);
+                  }
+                }}
+                renderInput={() => <div />}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: {
+                  xs: "block",
+                  lg: "none",
+                },
+              }}
+            >
+              <MobileDatePicker
+                reduceAnimations
+                showDaysOutsideCurrentMonth
+                value={date}
+                onChange={(value) => {
+                  if (value) {
+                    navigate(`?day=${value.tz().format(DATE_FORMAT)}`);
+                  }
+                }}
+                renderInput={(params) => <TextField fullWidth {...params} />}
+                inputFormat="ddd MMMM DD, YYYY"
+              />
+            </Box>
           </Grid>
           <Grid item flex="auto">
             <Agenda meetings={meetings as Meeting[]} selectedDate={date} />
