@@ -61,7 +61,9 @@ export default function Calendar() {
   const { meetings, loading } = useGetMeetings();
   const [q] = useSearchParams();
   const day = q.get("day");
-  const [date, setDate] = useState(getCurrentDateTime());
+  const [date, setDate] = useState(
+    day ? getLocalDateTime(day) : getCurrentDateTime()
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -118,6 +120,7 @@ export default function Calendar() {
         <Grid container>
           <Grid item>
             <StaticDatePicker
+              reduceAnimations
               showDaysOutsideCurrentMonth
               displayStaticWrapperAs="desktop"
               value={date}
