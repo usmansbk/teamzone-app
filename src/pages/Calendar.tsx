@@ -165,6 +165,7 @@ export default function Calendar() {
                 }}
                 renderInput={(params) => <TextField fullWidth {...params} />}
                 inputFormat="ddd MMMM DD, YYYY"
+                showToolbar={false}
               />
             </Box>
           </Grid>
