@@ -1,5 +1,4 @@
 import { Dayjs } from "dayjs";
-import capitalize from "lodash.capitalize";
 import { Frequency, RRule } from "rrule";
 import { RecurrenceRule } from "src/types";
 
@@ -33,5 +32,5 @@ export function formatRepeat(repeat: RecurrenceRule) {
     freq: Frequency[freq],
   });
 
-  return capitalize(rule.toText());
+  return rule.toText();
 }

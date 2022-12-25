@@ -82,6 +82,9 @@ function Agenda({ meetings, selectedDate }: AgendaProps) {
         <Link
           key={item.id}
           to={routeMap.meeting.replace(":id", item.id)}
+          state={{
+            selectedDate: selectedDate.format(),
+          }}
           style={{ color: "inherit", textDecoration: "none" }}
         >
           <AgendaItem item={item} />

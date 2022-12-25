@@ -15,11 +15,18 @@ import {
 import { Dayjs } from "dayjs";
 import uniqBy from "lodash.uniqby";
 import { memo, useCallback, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import DeleteMeetingDialog from "src/components/DeleteMeetingDialog";
 import useGetMeetingById from "src/hooks/api/useGetMeetingById";
 import routeMap from "src/routeMap";
-import { getLocalDateTime, getTimezoneLocalDateTime } from "src/utils/dateTime";
+import { createRule } from "src/utils/calendar";
+import {
+  mergeDates,
+  formatDuration,
+  getLocalDateTime,
+  getTimezoneLocalDateTime,
+  getDateTimeFromUTC,
+} from "src/utils/dateTime";
 import { formatEventDateTime, formatRepeat } from "src/utils/event";
 import { User } from "src/__generated__/graphql";
 
@@ -75,6 +82,7 @@ const MembersList = memo(
 );
 
 export default function Meeting() {
+  const { state } = useLocation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -100,9 +108,19 @@ export default function Meeting() {
 
   const { title, isOwner, from, to, owner, teams, description, repeat } = data!;
 
-  const localFrom = getLocalDateTime(from);
-  const localTo = getLocalDateTime(to);
+  const rule = createRule(data as any);
+  const afterDate = state.selectedDate && getLocalDateTime(state.selectedDate);
+  const nextDate = afterDate && rule.after(afterDate.utc().toDate());
+  const startAt = nextDate ? getDateTimeFromUTC(nextDate) : from;
+
+  const duration = to.diff(from);
+  const localFrom = startAt
+    ? mergeDates(startAt, from)
+    : getLocalDateTime(from);
+  const localTo = localFrom.add(duration, "milliseconds");
+
   const time = formatEventDateTime(localFrom, localTo);
+  const formattedDuration = formatDuration(duration);
 
   return (
     <Box p={2} maxWidth="md">
@@ -147,7 +165,7 @@ export default function Meeting() {
           </Typography>
           {repeat && (
             <Typography variant="h5" fontWeight={500}>
-              {formatRepeat(repeat)}
+              {formattedDuration} {formatRepeat(repeat)}
             </Typography>
           )}
         </Box>
@@ -187,7 +205,11 @@ export default function Meeting() {
       </Stack>
       <Typography>{description}</Typography>
       <Box mt={2}>
-        <MembersList members={members as User[]} from={from} to={to} />
+        <MembersList
+          members={members as User[]}
+          from={localFrom}
+          to={localTo}
+        />
       </Box>
       <DeleteMeetingDialog
         open={openDeleteDialog}

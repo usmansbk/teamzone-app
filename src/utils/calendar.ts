@@ -2,7 +2,7 @@ import { Frequency, RRule } from "rrule";
 import { Meeting } from "src/__generated__/graphql";
 import { getDateTimeFromUTC } from "./dateTime";
 
-function createRule(item: Meeting) {
+export function createRule(item: Meeting) {
   const { from, repeat } = item;
 
   const date = from.startOf("day").utc().toDate();

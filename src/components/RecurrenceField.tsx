@@ -18,6 +18,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RecurrenceRule } from "src/types";
 import { formatRepeat } from "src/utils/event";
+import capitalize from "lodash.capitalize";
 
 const options = [
   {
@@ -88,7 +89,7 @@ export default function RecurrenceField({ onChange, value }: Props) {
     <>
       <TextField
         label="Repeat"
-        value={value ? formatRepeat(value) : "Does not repeat"}
+        value={value ? capitalize(formatRepeat(value)) : "Does not repeat"}
         multiline
         InputProps={{
           readOnly: true,

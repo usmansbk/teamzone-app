@@ -91,4 +91,8 @@ export function DayjsAdapter(this: any, props: any) {
   return this;
 }
 
+export function mergeDates(day1: Dayjs, day2: Dayjs) {
+  return day1.hour(day2.hour()).minute(day2.minute());
+}
+
 export default dayjs;
