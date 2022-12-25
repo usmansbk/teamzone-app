@@ -115,7 +115,7 @@ export default function Meeting() {
 
   const duration = to.diff(from);
   const localFrom = startAt
-    ? mergeDates(startAt, from)
+    ? mergeDates(startAt, getLocalDateTime(from))
     : getLocalDateTime(from);
   const localTo = localFrom.add(duration, "milliseconds");
 
