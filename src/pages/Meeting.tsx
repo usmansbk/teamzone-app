@@ -110,7 +110,7 @@ export default function Meeting() {
 
   const rule = createRule(data as any);
   const afterDate = state.selectedDate && getLocalDateTime(state.selectedDate);
-  const nextDate = afterDate && rule.after(afterDate.utc().toDate());
+  const nextDate = afterDate && rule.after(afterDate.utc().toDate(), true);
   const startAt = nextDate ? getDateTimeFromUTC(nextDate) : from;
 
   const duration = to.diff(from);
