@@ -1,11 +1,13 @@
 import { Frequency, RRule } from "rrule";
 import { Meeting } from "src/__generated__/graphql";
-import { getDateTimeFromUTC } from "./dateTime";
+import { getCurrentDateTime, getDateTimeFromUTC } from "./dateTime";
 
-export function createRule(item: Meeting) {
+export function createRule(item: Meeting, withTime = false) {
   const { from, repeat } = item;
 
-  const date = from.startOf("day").utc().toDate();
+  const date = withTime
+    ? from.utc().toDate()
+    : from.startOf("day").utc().toDate();
   if (!repeat) {
     return new RRule({
       dtstart: date,
@@ -21,8 +23,8 @@ export function createRule(item: Meeting) {
   });
 }
 
-export function matches(item: Meeting, utcDate: Date) {
-  const rule = createRule(item);
+export function matches(item: Meeting, utcDate: Date, withTime = false) {
+  const rule = createRule(item, withTime);
 
   const selectedDate = getDateTimeFromUTC(utcDate);
   const nextDate = rule.after(utcDate, true);
@@ -50,6 +52,20 @@ const byTime = (a: Meeting, b: Meeting) => {
   return -1;
 };
 
-export function getEventsByDate(items: Meeting[], date: Date) {
-  return items.filter((item) => matches(item, date)).sort(byTime);
+export function getEventsByDate(
+  items: Meeting[],
+  date: Date,
+  withTime = false
+) {
+  return items.filter((item) => matches(item, date, withTime)).sort(byTime);
+}
+
+export function getUpcomingEvent(items: Meeting[]) {
+  const [event] = getEventsByDate(
+    items,
+    getCurrentDateTime().utc().toDate(),
+    true
+  );
+
+  return event;
 }

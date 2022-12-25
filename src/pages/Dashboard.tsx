@@ -7,7 +7,8 @@ import useGetMeetings from "src/hooks/api/useGetMeetings";
 import useMe from "src/hooks/api/useMe";
 import useTime from "src/hooks/useTime";
 import routeMap from "src/routeMap";
-import { getCurrentDateTime, getLocalDateTime } from "src/utils/dateTime";
+import { getUpcomingEvent } from "src/utils/calendar";
+import { getLocalDateTime } from "src/utils/dateTime";
 import { TeamMember } from "src/__generated__/graphql";
 import TimezoneClocks from "../components/TimezoneClocks";
 
@@ -37,7 +38,7 @@ const Dashboard = () => {
   ) as TeamMember[];
 
   const upcomingMeeting = useMemo(
-    () => meetings.find((m) => m?.from.isSame(getCurrentDateTime(), "day")),
+    () => getUpcomingEvent(meetings as any),
     [meetings]
   );
 
