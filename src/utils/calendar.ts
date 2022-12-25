@@ -2,10 +2,10 @@ import { Frequency, RRule } from "rrule";
 import { Meeting } from "src/__generated__/graphql";
 import { getCurrentDateTime, getDateTimeFromUTC } from "./dateTime";
 
-export function createRule(item: Meeting, withTime = false) {
+export function createRule(item: Meeting, precise = false) {
   const { from, repeat } = item;
 
-  const date = withTime
+  const date = precise
     ? from.utc().toDate()
     : from.startOf("day").utc().toDate();
   if (!repeat) {
@@ -23,8 +23,8 @@ export function createRule(item: Meeting, withTime = false) {
   });
 }
 
-export function matches(item: Meeting, utcDate: Date, withTime = false) {
-  const rule = createRule(item, withTime);
+export function matches(item: Meeting, utcDate: Date, precise = false) {
+  const rule = createRule(item, precise);
 
   const selectedDate = getDateTimeFromUTC(utcDate);
   const nextDate = rule.after(utcDate, true);
@@ -52,12 +52,8 @@ const byTime = (a: Meeting, b: Meeting) => {
   return -1;
 };
 
-export function getEventsByDate(
-  items: Meeting[],
-  date: Date,
-  withTime = false
-) {
-  return items.filter((item) => matches(item, date, withTime)).sort(byTime);
+export function getEventsByDate(items: Meeting[], date: Date, precise = false) {
+  return items.filter((item) => matches(item, date, precise)).sort(byTime);
 }
 
 export function getUpcomingEvent(items: Meeting[]) {
