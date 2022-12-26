@@ -22,9 +22,10 @@ import Calendar from "./Calendar";
 import NewMeeting from "./NewMeeting";
 import Meeting from "./Meeting";
 import EditMeeting from "./EditMeeting";
-import Countdown from "./Countdowns";
-import NewCountdown from "./NewCountdown";
-import EditCountdown from "./EditCountdown";
+import Timers from "./Timers";
+import NewTimer from "./NewTimer";
+import EditTimer from "./EditTimer";
+import Timer from "./Timer";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -127,23 +128,23 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: routeMap.countdowns,
+            path: routeMap.timers,
             children: [
               {
                 index: true,
-                element: <Countdown />,
+                element: <Timers />,
               },
               {
-                path: routeMap.newCountdown,
-                element: <NewCountdown />,
+                path: routeMap.newTimer,
+                element: <NewTimer />,
               },
               {
-                path: routeMap.editCountdown,
-                element: <EditCountdown />,
+                path: routeMap.editTimer,
+                element: <EditTimer />,
               },
               {
-                path: routeMap.countdown,
-                element: <Countdown />,
+                path: routeMap.timer,
+                element: <Timer />,
               },
             ],
           },
