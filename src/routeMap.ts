@@ -12,5 +12,5 @@ export default {
   newMeeting: "/app/calendar/new",
   meeting: "/app/calendar/:id",
   editMeeting: "/app/calendar/:id/edit",
-  countdown: "/app/countdown",
+  countdown: "/app/countdowns",
 };
