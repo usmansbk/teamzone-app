@@ -141,6 +141,10 @@ const router = createBrowserRouter([
                 path: routeMap.editCountdown,
                 element: <EditCountdown />,
               },
+              {
+                path: routeMap.countdown,
+                element: <Countdown />,
+              },
             ],
           },
         ],

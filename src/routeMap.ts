@@ -12,6 +12,7 @@ export default {
   newMeeting: "/app/calendar/new",
   meeting: "/app/calendar/:id",
   editMeeting: "/app/calendar/:id/edit",
+  countdown: "/app/countdowns/:id",
   countdowns: "/app/countdowns",
   newCountdown: "/app/countdowns/new",
   editCountdown: "/app/countdowns/:id/edit",
