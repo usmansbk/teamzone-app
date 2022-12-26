@@ -109,7 +109,7 @@ export default function Meeting() {
   const { title, isOwner, from, to, owner, teams, description, repeat } = data!;
 
   const rule = createRule(data as any);
-  const afterDate = state.selectedDate && getLocalDateTime(state.selectedDate);
+  const afterDate = state?.selectedDate && getLocalDateTime(state.selectedDate);
   const nextDate = afterDate && rule.after(afterDate.utc().toDate(), true);
   const startAt = nextDate ? getDateTimeFromUTC(nextDate) : from;
 

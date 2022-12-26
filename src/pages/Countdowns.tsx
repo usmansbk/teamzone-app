@@ -1,7 +1,9 @@
 import { Add } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import routeMap from "src/routeMap";
 
-export default function Countdown() {
+export default function Countdowns() {
   return (
     <Stack spacing={1} p={2} maxWidth="lg">
       <Stack direction="row" justifyContent="space-between" spacing={1}>
@@ -9,11 +11,13 @@ export default function Countdown() {
           size="small"
           variant="contained"
           startIcon={<Add fontSize="small" />}
+          component={Link}
+          to={routeMap.newCountdown}
         >
           New
         </Button>
       </Stack>
-      <Typography variant="h2">Page under construction</Typography>
+      <Typography variant="h4">No countdowns yet</Typography>
     </Stack>
   );
 }

@@ -46,7 +46,7 @@ export default function DrawerContent({ teams }: Props) {
         name: "Calendar",
       },
       {
-        path: routeMap.countdown,
+        path: routeMap.countdowns,
         icon: <HourglassBottom />,
         name: "Countdown",
       },
