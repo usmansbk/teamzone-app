@@ -22,6 +22,7 @@ import Calendar from "./Calendar";
 import NewMeeting from "./NewMeeting";
 import Meeting from "./Meeting";
 import EditMeeting from "./EditMeeting";
+import Countdown from "./Countdown";
 
 function ProtectedRoute() {
   const { isLoggedIn } = useAuth();
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
                 element: <EditMeeting />,
               },
             ],
+          },
+          {
+            path: routeMap.countdown,
+            element: <Countdown />,
           },
         ],
       },
