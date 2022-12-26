@@ -790,24 +790,6 @@ export type GetTeamPreviewByCodeQuery = {
   getTeamPreviewByCode: any;
 };
 
-export type GetTeammatesByTimezoneQueryVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type GetTeammatesByTimezoneQuery = {
-  __typename?: "Query";
-  getTeammatesByTimezone: Array<{
-    __typename?: "TeamMember";
-    id: string;
-    member: {
-      __typename?: "User";
-      id: string;
-      fullName: string;
-      picture?: any | null;
-    };
-  } | null>;
-};
-
 export type GetTimezoneByIdQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -2125,72 +2107,6 @@ export const GetTeamPreviewByCodeDocument = {
 } as unknown as DocumentNode<
   GetTeamPreviewByCodeQuery,
   GetTeamPreviewByCodeQueryVariables
->;
-export const GetTeammatesByTimezoneDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetTeammatesByTimezone" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "getTeammatesByTimezone" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "id" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "member" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "fullName" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "picture" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  GetTeammatesByTimezoneQuery,
-  GetTeammatesByTimezoneQueryVariables
 >;
 export const GetTimezoneByIdDocument = {
   kind: "Document",

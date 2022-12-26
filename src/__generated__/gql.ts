@@ -29,8 +29,6 @@ const documents = {
     types.QueryDocument,
   "\n\tquery GetTeamPreviewByCode($code: ID!) {\n\t\tgetTeamPreviewByCode(code: $code)\n\t}\n":
     types.GetTeamPreviewByCodeDocument,
-  "\nquery GetTeammatesByTimezone($id: ID!) {\n  getTeammatesByTimezone(id: $id) {\n    id\n    member {\n      id\n      fullName\n      picture\n    }\n  }\n}\n":
-    types.GetTeammatesByTimezoneDocument,
   "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n    abbreviation\n    alternativeName\n    mainCities\n  }\n}\n":
     types.GetTimezoneByIdDocument,
   "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n":
@@ -109,12 +107,6 @@ export function gql(
 export function gql(
   source: "\n\tquery GetTeamPreviewByCode($code: ID!) {\n\t\tgetTeamPreviewByCode(code: $code)\n\t}\n"
 ): typeof documents["\n\tquery GetTeamPreviewByCode($code: ID!) {\n\t\tgetTeamPreviewByCode(code: $code)\n\t}\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
-  source: "\nquery GetTeammatesByTimezone($id: ID!) {\n  getTeammatesByTimezone(id: $id) {\n    id\n    member {\n      id\n      fullName\n      picture\n    }\n  }\n}\n"
-): typeof documents["\nquery GetTeammatesByTimezone($id: ID!) {\n  getTeammatesByTimezone(id: $id) {\n    id\n    member {\n      id\n      fullName\n      picture\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

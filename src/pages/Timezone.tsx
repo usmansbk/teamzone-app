@@ -1,5 +1,13 @@
-import { Box, LinearProgress, Stack, Typography } from "@mui/material";
-import { memo } from "react";
+import {
+  Box,
+  LinearProgress,
+  Stack,
+  Typography,
+  Grid,
+  Avatar,
+} from "@mui/material";
+import uniqBy from "lodash.uniqby";
+import { memo, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import BigClock from "src/components/BigClock";
 import useGetTimezoneById from "src/hooks/api/useGetTimezoneById";
@@ -10,9 +18,8 @@ import {
   formatUTCOffset,
   getTimeDifferenceInMs,
 } from "src/utils/dateTime";
-import { TimezoneData } from "src/__generated__/graphql";
-import PageNotFound from "../404";
-import MembersList from "./MembersList";
+import { TimezoneData, User } from "src/__generated__/graphql";
+import PageNotFound from "./404";
 
 interface TimezoneDetailsProps {
   data: TimezoneData;
@@ -52,6 +59,33 @@ const Clock = memo(
   }
 );
 
+const MembersList = memo(({ teammates }: { teammates: User[] }) => {
+  if (!teammates?.length) {
+    return <Typography variant="h6">No teammates in this time zone</Typography>;
+  }
+
+  return (
+    <Grid container mt={2} gap={1}>
+      {teammates.map((member) => (
+        <Grid item key={member.id} xs={12} md={4} lg={3} zeroMinWidth>
+          <Stack
+            direction={{ xs: "row", md: "column" }}
+            alignItems={{ xs: "center", md: "flex-start" }}
+            spacing={2}
+          >
+            <Avatar
+              alt={member.fullName}
+              src={member.picture}
+              sx={{ width: 72, height: 72 }}
+            />
+            <Typography variant="h5">{member.fullName}</Typography>
+          </Stack>
+        </Grid>
+      ))}
+    </Grid>
+  );
+});
+
 const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const { data: me } = useMe();
   const { countryName, alternativeName, abbreviation, mainCities } = data;
@@ -59,6 +93,14 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
   const city = mainCities?.[0]!;
   const myCity = me?.tzData?.mainCities?.[0]!;
   const timeDiff = getTimeDifferenceInMs(me?.timezone!, timezone);
+  const teammates = useMemo(
+    () =>
+      uniqBy(
+        me?.teams.flatMap((t) => t?.teammates.flatMap((tm) => tm?.member)),
+        "id"
+      ).filter((tm) => tm?.timezone === timezone),
+    [me?.teams]
+  );
 
   return (
     <Stack p={2} spacing={4}>
@@ -98,7 +140,7 @@ const TimezoneDetails = memo(({ data, timezone }: TimezoneDetailsProps) => {
         <Typography variant="h4" color="primary">
           People in this time zone
         </Typography>
-        <MembersList timezone={timezone} />
+        <MembersList teammates={teammates as any} />
       </Box>
     </Stack>
   );
