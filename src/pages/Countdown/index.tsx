@@ -1,9 +1,19 @@
-import { Box, Typography } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { Button, Stack, Typography } from "@mui/material";
 
 export default function Countdown() {
   return (
-    <Box p={2} maxWidth="lg">
+    <Stack spacing={1} p={2} maxWidth="lg">
+      <Stack direction="row" justifyContent="space-between" spacing={1}>
+        <Button
+          size="small"
+          variant="contained"
+          startIcon={<Add fontSize="small" />}
+        >
+          New
+        </Button>
+      </Stack>
       <Typography variant="h2">Page under construction</Typography>
-    </Box>
+    </Stack>
   );
 }
