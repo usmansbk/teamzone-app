@@ -23,6 +23,7 @@ const authLink = new ApolloLink((operation, forward) => {
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach?.((e) => {
+      console.log(e);
       toast.error(e.message);
       if ((e as any).statusCode === 401) {
         localStorage.removeItem("token");
