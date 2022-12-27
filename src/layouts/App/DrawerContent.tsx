@@ -97,16 +97,6 @@ export default function DrawerContent({ teams }: Props) {
         <ListSubheader>
           <Typography fontWeight={700}>Teams</Typography>
         </ListSubheader>
-        {!teams.length && (
-          <ListItem>
-            <ListItemText
-              primary="You are not a member of any teams yet"
-              primaryTypographyProps={{
-                variant: "h6",
-              }}
-            />
-          </ListItem>
-        )}
         {teams.map((team) => (
           <ListItem
             key={team!.id}

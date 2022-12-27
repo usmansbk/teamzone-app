@@ -1,18 +1,21 @@
 import { Stack, Button, Typography, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { memo } from "react";
 
 interface Props {
   title: string;
   loading?: boolean;
   disabled?: boolean;
   autoFocus?: boolean;
+  onClose: () => void;
 }
 
-export default function TimerForm({
+function TimerForm({
   title,
   loading,
   disabled,
   autoFocus = true,
+  onClose,
 }: Props) {
   return (
     <Stack spacing={1} maxWidth="md" component="form">
@@ -28,7 +31,7 @@ export default function TimerForm({
           >
             Save
           </LoadingButton>
-          <Button size="small" variant="outlined">
+          <Button size="small" variant="outlined" onClick={onClose}>
             Close
           </Button>
         </Stack>
@@ -53,3 +56,5 @@ export default function TimerForm({
     </Stack>
   );
 }
+
+export default memo(TimerForm);
