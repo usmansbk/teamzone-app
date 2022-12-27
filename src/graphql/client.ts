@@ -2,6 +2,7 @@ import { ApolloClient, HttpLink, ApolloLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import toast from "react-hot-toast";
 import cache from "./cache";
+import { deleteAuthToken, getAuthToken } from "./vars";
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -9,7 +10,7 @@ const httpLink = new HttpLink({
 
 const authLink = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => {
-    const token = localStorage.getItem("token");
+    const token = getAuthToken();
     return {
       headers: {
         ...headers,
@@ -23,17 +24,13 @@ const authLink = new ApolloLink((operation, forward) => {
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach?.((e) => {
-      console.log(e);
       toast.error(e.message);
-      if ((e as any).statusCode === 401) {
-        localStorage.removeItem("token");
-      }
     });
   }
   if (networkError) {
     const err = networkError as any;
-    if (err.statusCode !== 400) {
-      toast.error(`Network error: ${networkError.message}`);
+    if (err.statusCode === 401) {
+      deleteAuthToken();
     }
   }
 });
