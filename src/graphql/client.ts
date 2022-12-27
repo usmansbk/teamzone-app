@@ -24,10 +24,14 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach?.((e) => {
       toast.error(e.message);
+      if ((e as any).statusCode === 401) {
+        localStorage.removeItem("token");
+      }
     });
   }
   if (networkError) {
-    if ((networkError as any).statusCode !== 400) {
+    const err = networkError as any;
+    if (err.statusCode !== 400) {
       toast.error(`Network error: ${networkError.message}`);
     }
   }
