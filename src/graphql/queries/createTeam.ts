@@ -3,30 +3,39 @@ import { gql } from "src/__generated__";
 export default gql(`
 	mutation CreateTeam($input: CreateTeamInput!) {
 		createTeam(input: $input) {
-      id
-      name
+			id
+			name
+			logo
+			isOwner
+			isMember
+			isAdmin
 			isPinned
-      isAdmin
-      isOwner
+			inviteCode
 			owner {
 				id
+				fullName
+				picture
+				isMe
 			}
-      teammates {
-        id
-        member {
-          id
-          fullName
-          picture
-			  	timezone
-          tzData {
-            name
-            alternativeName
-            countryCode
-            countryName
-            mainCities
-          }
-        }
-      }
+			teammates {
+				id
+				isMe
+				role
+				member {
+					id
+					fullName
+					isMe
+					picture
+					timezone
+					tzData {
+						name
+						countryName
+						mainCities
+						alternativeName
+						abbreviation
+					}
+				}
+			}
 		}
 	}
 `);

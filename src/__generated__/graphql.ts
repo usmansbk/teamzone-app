@@ -212,6 +212,19 @@ export type CreateTeamInput = {
   name: Scalars["NonEmptyString"];
 };
 
+export type CreateTimerInput = {
+  dateTime?: InputMaybe<Scalars["DateTime"]>;
+  description?: InputMaybe<Scalars["NonEmptyString"]>;
+  direction: TimerDirection;
+  durationInMinutes?: InputMaybe<Scalars["PositiveInt"]>;
+  repeat?: InputMaybe<RecurrenceInput>;
+  startAt?: InputMaybe<Scalars["DateTime"]>;
+  teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  timezone: Scalars["NonEmptyString"];
+  title: Scalars["NonEmptyString"];
+  type: TimerType;
+};
+
 export enum Frequency {
   Daily = "DAILY",
   Monthly = "MONTHLY",
@@ -251,8 +264,10 @@ export type Mutation = {
   addTeamMemberToAdmin: TeamMember;
   createMeeting: Meeting;
   createTeam: Team;
+  createTimer: Timer;
   deleteMeeting: Meeting;
   deleteTeam: Team;
+  deleteTimer: Timer;
   joinTeam: Team;
   leaveTeam: Team;
   loginWithSocialProvider: AuthPayload;
@@ -263,6 +278,7 @@ export type Mutation = {
   updateMeeting: Meeting;
   updateProfile: User;
   updateTeam: Team;
+  updateTimer: Timer;
 };
 
 export type MutationAddTeamMemberToAdminArgs = {
@@ -277,6 +293,10 @@ export type MutationCreateTeamArgs = {
   input: CreateTeamInput;
 };
 
+export type MutationCreateTimerArgs = {
+  input: CreateTimerInput;
+};
+
 export type MutationDeleteMeetingArgs = {
   id: Scalars["ID"];
   reason?: InputMaybe<Scalars["NonEmptyString"]>;
@@ -284,6 +304,11 @@ export type MutationDeleteMeetingArgs = {
 
 export type MutationDeleteTeamArgs = {
   teamId: Scalars["ID"];
+};
+
+export type MutationDeleteTimerArgs = {
+  id: Scalars["ID"];
+  reason?: InputMaybe<Scalars["NonEmptyString"]>;
 };
 
 export type MutationJoinTeamArgs = {
@@ -326,6 +351,10 @@ export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
 
+export type MutationUpdateTimerArgs = {
+  input: UpdateTimerInput;
+};
+
 export type Query = {
   __typename?: "Query";
   getMeetingById: Meeting;
@@ -333,6 +362,8 @@ export type Query = {
   getTeamById: Team;
   getTeamPreviewByCode: Scalars["JSON"];
   getTeammatesByTimezone: Array<Maybe<TeamMember>>;
+  getTimerById: Timer;
+  getTimers: TimerConnection;
   getTimezoneById?: Maybe<TimezoneData>;
   getTimezonesByCountry: Array<Maybe<TimezoneData>>;
   me: User;
@@ -357,6 +388,14 @@ export type QueryGetTeamPreviewByCodeArgs = {
 
 export type QueryGetTeammatesByTimezoneArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryGetTimerByIdArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryGetTimersArgs = {
+  state?: InputMaybe<TimerState>;
 };
 
 export type QueryGetTimezoneByIdArgs = {
@@ -436,6 +475,46 @@ export enum TeamRole {
   Teammate = "TEAMMATE",
 }
 
+export type Timer = {
+  __typename?: "Timer";
+  createdAt: Scalars["DateTime"];
+  dateTime?: Maybe<Scalars["DateTime"]>;
+  description?: Maybe<Scalars["String"]>;
+  direction: TimerDirection;
+  durationInMinutes?: Maybe<Scalars["Int"]>;
+  id: Scalars["ID"];
+  isOwner: Scalars["Boolean"];
+  owner: User;
+  repeat?: Maybe<Recurrence>;
+  startAt?: Maybe<Scalars["DateTime"]>;
+  teams: Array<Maybe<Team>>;
+  timezone: Scalars["String"];
+  title: Scalars["String"];
+  type: TimerType;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type TimerConnection = {
+  __typename?: "TimerConnection";
+  cursor?: Maybe<Scalars["ID"]>;
+  timers: Array<Maybe<Timer>>;
+};
+
+export enum TimerDirection {
+  Countdown = "COUNTDOWN",
+  Countup = "COUNTUP",
+}
+
+export enum TimerState {
+  Active = "ACTIVE",
+  Inactive = "INACTIVE",
+}
+
+export enum TimerType {
+  Date = "DATE",
+  Duration = "DURATION",
+}
+
 export type TimezoneData = {
   __typename?: "TimezoneData";
   abbreviation: Scalars["String"];
@@ -472,6 +551,20 @@ export type UpdateMeetingInput = {
 export type UpdateTeamInput = {
   id: Scalars["ID"];
   name: Scalars["NonEmptyString"];
+};
+
+export type UpdateTimerInput = {
+  dateTime?: InputMaybe<Scalars["DateTime"]>;
+  description?: InputMaybe<Scalars["NonEmptyString"]>;
+  direction: TimerDirection;
+  durationInMinutes?: InputMaybe<Scalars["PositiveInt"]>;
+  id: Scalars["ID"];
+  repeat?: InputMaybe<RecurrenceInput>;
+  startAt?: InputMaybe<Scalars["DateTime"]>;
+  teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  timezone: Scalars["NonEmptyString"];
+  title: Scalars["NonEmptyString"];
+  type: TimerType;
 };
 
 export type UpdateUserProfileInput = {
@@ -572,26 +665,38 @@ export type CreateTeamMutation = {
     __typename?: "Team";
     id: string;
     name: string;
-    isPinned: boolean;
-    isAdmin: boolean;
+    logo?: any | null;
     isOwner: boolean;
-    owner: { __typename?: "User"; id: string };
+    isMember: boolean;
+    isAdmin: boolean;
+    isPinned: boolean;
+    inviteCode?: string | null;
+    owner: {
+      __typename?: "User";
+      id: string;
+      fullName: string;
+      picture?: any | null;
+      isMe: boolean;
+    };
     teammates: Array<{
       __typename?: "TeamMember";
       id: string;
+      isMe?: boolean | null;
+      role?: TeamRole | null;
       member: {
         __typename?: "User";
         id: string;
         fullName: string;
+        isMe: boolean;
         picture?: any | null;
         timezone?: string | null;
         tzData?: {
           __typename?: "TimezoneData";
           name: string;
-          alternativeName?: string | null;
-          countryCode?: any | null;
           countryName: string;
           mainCities?: Array<string | null> | null;
+          alternativeName?: string | null;
+          abbreviation: string;
         } | null;
       };
     } | null>;
@@ -1312,9 +1417,12 @@ export const CreateTeamDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "name" } },
-                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
-                { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
+                { kind: "Field", name: { kind: "Name", value: "logo" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                { kind: "Field", name: { kind: "Name", value: "isMember" } },
+                { kind: "Field", name: { kind: "Name", value: "isAdmin" } },
+                { kind: "Field", name: { kind: "Name", value: "isPinned" } },
+                { kind: "Field", name: { kind: "Name", value: "inviteCode" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "owner" },
@@ -1322,6 +1430,15 @@ export const CreateTeamDocument = {
                     kind: "SelectionSet",
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "picture" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
                     ],
                   },
                 },
@@ -1332,6 +1449,8 @@ export const CreateTeamDocument = {
                     kind: "SelectionSet",
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "isMe" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "member" },
@@ -1345,6 +1464,10 @@ export const CreateTeamDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
                             },
                             {
                               kind: "Field",
@@ -1368,6 +1491,17 @@ export const CreateTeamDocument = {
                                     kind: "Field",
                                     name: {
                                       kind: "Name",
+                                      value: "countryName",
+                                    },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "mainCities" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: {
+                                      kind: "Name",
                                       value: "alternativeName",
                                     },
                                   },
@@ -1375,19 +1509,8 @@ export const CreateTeamDocument = {
                                     kind: "Field",
                                     name: {
                                       kind: "Name",
-                                      value: "countryCode",
+                                      value: "abbreviation",
                                     },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "countryName",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "mainCities" },
                                   },
                                 ],
                               },
