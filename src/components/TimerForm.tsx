@@ -1,6 +1,22 @@
-import { Stack, Button, Typography, TextField } from "@mui/material";
+import {
+  Stack,
+  Button,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  Chip,
+  MenuProps,
+} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import useMe from "src/hooks/api/useMe";
+import useGetTimezones from "src/hooks/api/useGetTimezones";
+import { formatUTCOffset } from "src/utils/dateTime";
+import RecurrenceField from "./RecurrenceField";
 
 interface Props {
   title: string;
@@ -10,6 +26,14 @@ interface Props {
   onClose: () => void;
 }
 
+const menuProps: Partial<MenuProps> = {
+  PaperProps: {
+    style: {
+      overflowX: "scroll",
+    },
+  },
+};
+
 function TimerForm({
   title,
   loading,
@@ -17,6 +41,19 @@ function TimerForm({
   autoFocus = true,
   onClose,
 }: Props) {
+  const { data } = useMe();
+  const { teams, timezone } = data!;
+
+  const { timezones } = useGetTimezones();
+  const sortedTimezones = useMemo(
+    () => timezones.sort((a, b) => -b.name.localeCompare(a.name)),
+    [timezones]
+  );
+  const authorizedTeams = useMemo(
+    () => teams.filter((team) => team?.isAdmin || team?.isOwner),
+    [teams]
+  );
+
   return (
     <Stack spacing={1} maxWidth="md" component="form">
       <Stack direction="row" justifyContent="space-between" spacing={1}>
@@ -43,6 +80,67 @@ function TimerForm({
           type="text"
           placeholder="Add title"
         />
+        <FormControl fullWidth>
+          <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
+          <Select
+            value={timezone as string}
+            label="Timezone"
+            fullWidth
+            placeholder="Select timezone"
+            inputProps={{
+              sx: {
+                fontWeight: 800,
+              },
+            }}
+            MenuProps={menuProps}
+            renderValue={(tz: string) => (
+              <Typography fontWeight={800}>{tz}</Typography>
+            )}
+          >
+            {sortedTimezones.map((tz) => (
+              <MenuItem key={tz.name} value={tz.name}>
+                <Typography variant="body2" fontWeight={500}>
+                  {tz.name} ({formatUTCOffset(tz.name!)})
+                </Typography>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <RecurrenceField onChange={() => null} />
+        <FormControl fullWidth>
+          <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
+          <Select
+            label="Teams"
+            value={[]}
+            multiple
+            fullWidth
+            placeholder="Add teams"
+            inputProps={{
+              sx: {
+                fontWeight: 800,
+              },
+            }}
+            MenuProps={menuProps}
+            renderValue={(selected: any) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected?.map((val: string) => (
+                  <Chip
+                    key={val}
+                    label={authorizedTeams.find((t) => t?.id === val)?.name}
+                  />
+                ))}
+              </Box>
+            )}
+          >
+            {authorizedTeams.map((team) => (
+              <MenuItem key={team!.id} value={team!.id}>
+                <Typography variant="body2" fontWeight={500}>
+                  {team?.name}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <TextField
           placeholder="Add description"
           multiline
