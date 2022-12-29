@@ -703,6 +703,41 @@ export type CreateTeamMutation = {
   };
 };
 
+export type CreateTimerMutationVariables = Exact<{
+  input: CreateTimerInput;
+}>;
+
+export type CreateTimerMutation = {
+  __typename?: "Mutation";
+  createTimer: {
+    __typename?: "Timer";
+    id: string;
+    title: string;
+    timezone: string;
+    dateTime?: any | null;
+    description?: string | null;
+    direction: TimerDirection;
+    durationInMinutes?: number | null;
+    createdAt: any;
+    isOwner: boolean;
+    type: TimerType;
+    updatedAt?: any | null;
+    startAt?: any | null;
+    owner: {
+      __typename?: "User";
+      id: string;
+      fullName: string;
+      picture?: any | null;
+    };
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
+    teams: Array<{ __typename?: "Team"; id: string; name: string } | null>;
+  };
+};
+
 export type DeleteMeetingMutationVariables = Exact<{
   id: Scalars["ID"];
   reason?: InputMaybe<Scalars["NonEmptyString"]>;
@@ -1529,6 +1564,114 @@ export const CreateTeamDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateTeamMutation, CreateTeamMutationVariables>;
+export const CreateTimerDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateTimer" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "input" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateTimerInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createTimer" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "input" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "durationInMinutes" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "picture" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "type" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "startAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateTimerMutation, CreateTimerMutationVariables>;
 export const DeleteMeetingDocument = {
   kind: "Document",
   definitions: [

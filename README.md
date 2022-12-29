@@ -16,7 +16,7 @@
 
 - [x] Timezone clock
 
-- [x] Calendar (Agenda)
+- [x] Calendar (Meetings)
 
 - [ ] Timers (Countdown / Countup)
 

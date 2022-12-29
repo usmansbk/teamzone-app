@@ -17,6 +17,7 @@ import capitalize from "lodash.capitalize";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 import { formatUTCOffset } from "src/utils/dateTime";
+import { TimerDirection, TimerType } from "src/__generated__/graphql";
 import RecurrenceField from "./RecurrenceField";
 
 interface Props {
@@ -35,7 +36,8 @@ const menuProps: Partial<MenuProps> = {
   },
 };
 
-const timerTypes = ["DURATION", "DATE"];
+const timerTypes = [TimerType.Duration, TimerType.Date];
+const timerDirections = [TimerDirection.Countup, TimerDirection.Countdown];
 
 function TimerForm({
   title,
@@ -84,12 +86,36 @@ function TimerForm({
           placeholder="Add title"
         />
         <FormControl fullWidth>
+          <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
+          <Select
+            value={TimerDirection.Countdown}
+            label="Direction"
+            fullWidth
+            inputProps={{
+              sx: {
+                fontWeight: 800,
+              },
+            }}
+            MenuProps={menuProps}
+            renderValue={(timerType: string) => (
+              <Typography fontWeight={800}>{capitalize(timerType)}</Typography>
+            )}
+          >
+            {timerDirections.map((timerDirection) => (
+              <MenuItem key={timerDirection} value={timerDirection}>
+                <Typography variant="body2" fontWeight={500}>
+                  {capitalize(timerDirection)}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
           <Select
-            value="DURATION"
+            value={TimerType.Duration}
             label="Type"
             fullWidth
-            placeholder="Type"
             inputProps={{
               sx: {
                 fontWeight: 800,
@@ -103,7 +129,7 @@ function TimerForm({
             {timerTypes.map((timerType) => (
               <MenuItem key={timerType} value={timerType}>
                 <Typography variant="body2" fontWeight={500}>
-                  {timerType}
+                  {capitalize(timerType)}
                 </Typography>
               </MenuItem>
             ))}

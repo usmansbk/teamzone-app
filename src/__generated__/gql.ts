@@ -17,6 +17,8 @@ const documents = {
     types.CreateMeetingDocument,
   "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tisPinned\n\t\t\tinviteCode\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttimezone\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t\tmainCities\n\t\t\t\t\t\talternativeName\n\t\t\t\t\t\tabbreviation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n":
     types.CreateTeamDocument,
+  "\nmutation CreateTimer($input: CreateTimerInput!) {\n  createTimer(input: $input) {\n    id\n    title\n    timezone\n    dateTime\n    description\n    direction\n    durationInMinutes\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    type\n    updatedAt\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}\n":
+    types.CreateTimerDocument,
   "\nmutation DeleteMeeting($id: ID!, $reason: NonEmptyString) {\n  deleteMeeting(id: $id, reason: $reason) {\n    id\n  }\n}\n":
     types.DeleteMeetingDocument,
   "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n":
@@ -71,6 +73,12 @@ export function gql(
 export function gql(
   source: "\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tisPinned\n\t\t\tinviteCode\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttimezone\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t\tmainCities\n\t\t\t\t\t\talternativeName\n\t\t\t\t\t\tabbreviation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
 ): typeof documents["\n\tmutation CreateTeam($input: CreateTeamInput!) {\n\t\tcreateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t\tlogo\n\t\t\tisOwner\n\t\t\tisMember\n\t\t\tisAdmin\n\t\t\tisPinned\n\t\t\tinviteCode\n\t\t\towner {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tpicture\n\t\t\t\tisMe\n\t\t\t}\n\t\t\tteammates {\n\t\t\t\tid\n\t\t\t\tisMe\n\t\t\t\trole\n\t\t\t\tmember {\n\t\t\t\t\tid\n\t\t\t\t\tfullName\n\t\t\t\t\tisMe\n\t\t\t\t\tpicture\n\t\t\t\t\ttimezone\n\t\t\t\t\ttzData {\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcountryName\n\t\t\t\t\t\tmainCities\n\t\t\t\t\t\talternativeName\n\t\t\t\t\t\tabbreviation\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nmutation CreateTimer($input: CreateTimerInput!) {\n  createTimer(input: $input) {\n    id\n    title\n    timezone\n    dateTime\n    description\n    direction\n    durationInMinutes\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    type\n    updatedAt\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}\n"
+): typeof documents["\nmutation CreateTimer($input: CreateTimerInput!) {\n  createTimer(input: $input) {\n    id\n    title\n    timezone\n    dateTime\n    description\n    direction\n    durationInMinutes\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    type\n    updatedAt\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
