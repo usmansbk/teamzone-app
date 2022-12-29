@@ -14,11 +14,14 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { memo, useMemo } from "react";
 import capitalize from "lodash.capitalize";
+import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import { formatUTCOffset } from "src/utils/dateTime";
+import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
 import { TimerDirection, TimerType } from "src/__generated__/graphql";
 import RecurrenceField from "./RecurrenceField";
+
+const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 
 interface Props {
   title: string;
@@ -135,6 +138,40 @@ function TimerForm({
             ))}
           </Select>
         </FormControl>
+        <MobileDateTimePicker
+          label="To"
+          value={getCurrentDateTime()}
+          onChange={() => {}}
+          inputFormat={DATE_TIME_VALUE_FORMAT}
+          InputProps={{
+            sx: {
+              fontWeight: 800,
+            },
+          }}
+          renderInput={(params: any) => <TextField {...params} fullWidth />}
+          disablePast
+          minDateTime={getCurrentDateTime()}
+          disableIgnoringDatePartForTimeValidation
+          minutesStep={5}
+          ampm={false}
+        />
+        <MobileDateTimePicker
+          label="Start on"
+          value={getCurrentDateTime()}
+          onChange={() => {}}
+          inputFormat={DATE_TIME_VALUE_FORMAT}
+          InputProps={{
+            sx: {
+              fontWeight: 800,
+            },
+          }}
+          renderInput={(params: any) => <TextField {...params} fullWidth />}
+          disablePast
+          minDateTime={getCurrentDateTime()}
+          disableIgnoringDatePartForTimeValidation
+          minutesStep={5}
+          ampm={false}
+        />
         <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
           <Select
