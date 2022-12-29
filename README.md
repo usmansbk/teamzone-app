@@ -12,17 +12,13 @@
 
 ![dark](https://user-images.githubusercontent.com/10219539/207712039-92c02116-4a9a-4b17-bf2d-ca7057628ede.png)
 
-## Todo
+## Features
 
-- [x] Meetings
+- [x] Timezone clock
+
+- [x] Calendar (Agenda)
 
 - [ ] Countdowns
-
-- [ ] Google calendar integration
-
-- [ ] Google meet integration
-
-- [ ] Slack integration (Notifications & Import slack teams if possible)
 
 ## Techonologies
 

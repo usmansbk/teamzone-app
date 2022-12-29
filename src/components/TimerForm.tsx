@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { memo, useMemo } from "react";
+import capitalize from "lodash.capitalize";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 import { formatUTCOffset } from "src/utils/dateTime";
@@ -33,6 +34,8 @@ const menuProps: Partial<MenuProps> = {
     },
   },
 };
+
+const timerTypes = ["DURATION", "DATE"];
 
 function TimerForm({
   title,
@@ -80,6 +83,32 @@ function TimerForm({
           type="text"
           placeholder="Add title"
         />
+        <FormControl fullWidth>
+          <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
+          <Select
+            value="DURATION"
+            label="Type"
+            fullWidth
+            placeholder="Type"
+            inputProps={{
+              sx: {
+                fontWeight: 800,
+              },
+            }}
+            MenuProps={menuProps}
+            renderValue={(timerType: string) => (
+              <Typography fontWeight={800}>{capitalize(timerType)}</Typography>
+            )}
+          >
+            {timerTypes.map((timerType) => (
+              <MenuItem key={timerType} value={timerType}>
+                <Typography variant="body2" fontWeight={500}>
+                  {timerType}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
           <Select
