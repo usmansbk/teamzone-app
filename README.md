@@ -18,7 +18,7 @@
 
 - [x] Calendar (Agenda)
 
-- [ ] Countdowns
+- [ ] Timers (Countdown / Countup)
 
 ## Techonologies
 
