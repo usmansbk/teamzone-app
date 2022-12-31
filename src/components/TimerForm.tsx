@@ -15,7 +15,7 @@ import { LoadingButton } from "@mui/lab";
 import { memo, useMemo } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
@@ -94,6 +94,7 @@ function TimerForm({
   );
 
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors, touchedFields },
@@ -106,6 +107,8 @@ function TimerForm({
       startAt: getCurrentDateTime(),
       repeat: null,
       teamIds: [],
+      direction: TimerDirection.Countdown,
+      type: TimerType.Duration,
     },
   });
 
@@ -143,148 +146,204 @@ function TimerForm({
           helperText={touchedFields.title && errors.title?.message}
           {...register("title")}
         />
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
-          <Select
-            value={TimerDirection.Countdown}
-            label="Direction"
-            fullWidth
-            inputProps={{
-              sx: {
-                fontWeight: 800,
-              },
-            }}
-            MenuProps={menuProps}
-            renderValue={(timerType: string) => (
-              <Typography fontWeight={800}>{capitalize(timerType)}</Typography>
-            )}
-          >
-            {timerDirections.map((timerDirection) => (
-              <MenuItem key={timerDirection} value={timerDirection}>
-                <Typography variant="body2" fontWeight={500}>
-                  {capitalize(timerDirection)}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
-          <Select
-            value={TimerType.Duration}
-            label="Type"
-            fullWidth
-            inputProps={{
-              sx: {
-                fontWeight: 800,
-              },
-            }}
-            MenuProps={menuProps}
-            renderValue={(timerType: string) => (
-              <Typography fontWeight={800}>{capitalize(timerType)}</Typography>
-            )}
-          >
-            {timerTypes.map((timerType) => (
-              <MenuItem key={timerType} value={timerType}>
-                <Typography variant="body2" fontWeight={500}>
-                  {capitalize(timerType)}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
-          <Select
-            value={timezone as string}
-            label="Timezone"
-            fullWidth
-            placeholder="Select timezone"
-            inputProps={{
-              sx: {
-                fontWeight: 800,
-              },
-            }}
-            MenuProps={menuProps}
-            renderValue={(tz: string) => (
-              <Typography fontWeight={800}>{tz}</Typography>
-            )}
-          >
-            {sortedTimezones.map((tz) => (
-              <MenuItem key={tz.name} value={tz.name}>
-                <Typography variant="body2" fontWeight={500}>
-                  {tz.name} ({formatUTCOffset(tz.name!)})
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <MobileDateTimePicker
-          label="To"
-          value={getCurrentDateTime()}
-          onChange={() => {}}
-          inputFormat={DATE_TIME_VALUE_FORMAT}
-          InputProps={{
-            sx: {
-              fontWeight: 800,
-            },
-          }}
-          renderInput={(params: any) => <TextField {...params} fullWidth />}
-          disablePast
-          minDateTime={getCurrentDateTime()}
-          disableIgnoringDatePartForTimeValidation
-          minutesStep={5}
-          ampm={false}
-        />
-        <MobileDateTimePicker
-          label="Start on"
-          value={getCurrentDateTime()}
-          onChange={() => {}}
-          inputFormat={DATE_TIME_VALUE_FORMAT}
-          InputProps={{
-            sx: {
-              fontWeight: 800,
-            },
-          }}
-          renderInput={(params: any) => <TextField {...params} fullWidth />}
-          minutesStep={5}
-          ampm={false}
-        />
-        <RecurrenceField onChange={() => null} />
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
-          <Select
-            label="Teams"
-            value={[]}
-            multiple
-            fullWidth
-            placeholder="Add teams"
-            inputProps={{
-              sx: {
-                fontWeight: 800,
-              },
-            }}
-            MenuProps={menuProps}
-            renderValue={(selected: any) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected?.map((val: string) => (
-                  <Chip
-                    key={val}
-                    label={authorizedTeams.find((t) => t?.id === val)?.name}
-                  />
+        <Controller
+          name="direction"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <FormControl fullWidth>
+              <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
+              <Select
+                value={value}
+                label="Direction"
+                fullWidth
+                inputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                MenuProps={menuProps}
+                renderValue={(timerType: string) => (
+                  <Typography fontWeight={800}>
+                    {capitalize(timerType)}
+                  </Typography>
+                )}
+                onChange={onChange}
+              >
+                {timerDirections.map((timerDirection) => (
+                  <MenuItem key={timerDirection} value={timerDirection}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {capitalize(timerDirection)}
+                    </Typography>
+                  </MenuItem>
                 ))}
-              </Box>
-            )}
-          >
-            {authorizedTeams.map((team) => (
-              <MenuItem key={team!.id} value={team!.id}>
-                <Typography variant="body2" fontWeight={500}>
-                  {team?.name}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="type"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <>
+              <FormControl fullWidth>
+                <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
+                <Select
+                  value={value}
+                  label="Type"
+                  fullWidth
+                  inputProps={{
+                    sx: {
+                      fontWeight: 800,
+                    },
+                  }}
+                  MenuProps={menuProps}
+                  renderValue={(timerType: string) => (
+                    <Typography fontWeight={800}>
+                      {capitalize(timerType)}
+                    </Typography>
+                  )}
+                  onChange={onChange}
+                >
+                  {timerTypes.map((timerType) => (
+                    <MenuItem key={timerType} value={timerType}>
+                      <Typography variant="body2" fontWeight={500}>
+                        {capitalize(timerType)}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {value === TimerType.Date && (
+                <Controller
+                  control={control}
+                  name="dateTime"
+                  render={({ field: { value, onChange } }) => (
+                    <MobileDateTimePicker
+                      label="To"
+                      value={value}
+                      onChange={onChange}
+                      inputFormat={DATE_TIME_VALUE_FORMAT}
+                      InputProps={{
+                        sx: {
+                          fontWeight: 800,
+                        },
+                      }}
+                      renderInput={(params: any) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                      disablePast
+                      minDateTime={getCurrentDateTime()}
+                      disableIgnoringDatePartForTimeValidation
+                      minutesStep={5}
+                      ampm={false}
+                    />
+                  )}
+                />
+              )}
+            </>
+          )}
+        />
+        <Controller
+          name="timezone"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <FormControl fullWidth>
+              <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
+              <Select
+                value={value}
+                onChange={onChange}
+                label="Timezone"
+                fullWidth
+                placeholder="Select timezone"
+                inputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                MenuProps={menuProps}
+                renderValue={(tz: string) => (
+                  <Typography fontWeight={800}>{tz}</Typography>
+                )}
+              >
+                {sortedTimezones.map((tz) => (
+                  <MenuItem key={tz.name} value={tz.name}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {tz.name} ({formatUTCOffset(tz.name!)})
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="startAt"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <MobileDateTimePicker
+              label="Start at"
+              value={value}
+              onChange={onChange}
+              inputFormat={DATE_TIME_VALUE_FORMAT}
+              InputProps={{
+                sx: {
+                  fontWeight: 800,
+                },
+              }}
+              renderInput={(params: any) => <TextField {...params} fullWidth />}
+              minutesStep={5}
+              ampm={false}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="repeat"
+          render={({ field: { value, onChange } }) => (
+            <RecurrenceField onChange={onChange} value={value} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="teamIds"
+          render={({ field: { value, onChange } }) => (
+            <FormControl fullWidth>
+              <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
+              <Select
+                label="Teams"
+                value={value}
+                onChange={onChange}
+                multiple
+                fullWidth
+                placeholder="Add teams"
+                inputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                MenuProps={menuProps}
+                renderValue={(selected: any) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected?.map((val: string) => (
+                      <Chip
+                        key={val}
+                        label={authorizedTeams.find((t) => t?.id === val)?.name}
+                      />
+                    ))}
+                  </Box>
+                )}
+              >
+                {authorizedTeams.map((team) => (
+                  <MenuItem key={team!.id} value={team!.id}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {team?.name}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
         <TextField
           placeholder="Add description"
           multiline
@@ -293,6 +352,9 @@ function TimerForm({
               fontWeight: 500,
             },
           }}
+          {...register("description")}
+          error={touchedFields.description && errors.description?.message}
+          helperText={touchedFields.description && errors.description?.message}
         />
       </Stack>
     </Stack>
