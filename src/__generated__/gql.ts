@@ -23,6 +23,8 @@ const documents = {
     types.DeleteMeetingDocument,
   "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n":
     types.DeleteTeamDocument,
+  "\nmutation DeleteTimer($deleteTimerId: ID!, $reason: NonEmptyString) {\n  deleteTimer(id: $deleteTimerId, reason: $reason) {\n    id\n  }\n}":
+    types.DeleteTimerDocument,
   "\nquery GetMeetingById($id: ID!) {\n  getMeetingById(id: $id) {\n    id\n    title\n    from\n    to\n    timezone\n    updatedAt\n    createdAt\n    description\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    owner {\n      id\n      fullName\n      picture\n      isMe\n    }\n    teams {\n      id\n      name\n      logo\n      teammates {\n        id\n        member {\n          id\n          fullName\n          picture\n          timezone\n          tzData {\n\t\t\t\t\t\tname\n            abbreviation\n            countryName\n            alternativeName\n          }\n        }\n      }\n    }\n  }\n}\n":
     types.GetMeetingByIdDocument,
   "\nquery GetMeetings($sort: MeetingSort) {\n  getMeetings(sort: $sort) {\n    cursor\n    meetings {\n      id\n      title\n      from\n      to\n      timezone\n      updatedAt\n      createdAt\n      description\n      isOwner\n      repeat {\n        freq\n        interval\n      }\n      owner {\n        id\n        fullName\n        picture\n        isMe\n      }\n      teams {\n        id\n        name\n        logo\n        teammates {\n          id\n          member {\n            id\n            fullName\n            picture\n            timezone\n            tzData {\n              name\n              abbreviation\n              countryName\n              alternativeName\n            }\n          }\n        }\n      }\n    }\n  }\n}\n":
@@ -59,6 +61,8 @@ const documents = {
     types.UpdateProfileDocument,
   "\n\tmutation UpdateTeam($input: UpdateTeamInput!) {\n\t\tupdateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n":
     types.UpdateTeamDocument,
+  "\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    timezone\n    createdAt\n    updatedAt\n    dateTime\n    description\n    direction\n    durationInMinutes\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}":
+    types.UpdateTimerDocument,
 };
 
 /**
@@ -91,6 +95,12 @@ export function gql(
 export function gql(
   source: "\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n"
 ): typeof documents["\n\tmutation DeleteTeam($id: ID!) {\n\t\tdeleteTeam(teamId: $id) {\n\t\t\tid\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nmutation DeleteTimer($deleteTimerId: ID!, $reason: NonEmptyString) {\n  deleteTimer(id: $deleteTimerId, reason: $reason) {\n    id\n  }\n}"
+): typeof documents["\nmutation DeleteTimer($deleteTimerId: ID!, $reason: NonEmptyString) {\n  deleteTimer(id: $deleteTimerId, reason: $reason) {\n    id\n  }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -199,6 +209,12 @@ export function gql(
 export function gql(
   source: "\n\tmutation UpdateTeam($input: UpdateTeamInput!) {\n\t\tupdateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n"
 ): typeof documents["\n\tmutation UpdateTeam($input: UpdateTeamInput!) {\n\t\tupdateTeam(input: $input) {\n\t\t\tid\n\t\t\tname\n\t\t}\n\t}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    timezone\n    createdAt\n    updatedAt\n    dateTime\n    description\n    direction\n    durationInMinutes\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}"
+): typeof documents["\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    timezone\n    createdAt\n    updatedAt\n    dateTime\n    description\n    direction\n    durationInMinutes\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}"];
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

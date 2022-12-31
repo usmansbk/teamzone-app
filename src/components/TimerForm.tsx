@@ -16,9 +16,14 @@ import { memo, useMemo } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import useMe from "src/hooks/api/useMe";
+import { useForm } from "react-hook-form";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
-import { TimerDirection, TimerType } from "src/__generated__/graphql";
+import {
+  TimerDirection,
+  TimerType,
+  UpdateTimerInput,
+} from "src/__generated__/graphql";
 import RecurrenceField from "./RecurrenceField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
@@ -29,6 +34,7 @@ interface Props {
   disabled?: boolean;
   autoFocus?: boolean;
   onClose: () => void;
+  onSubmit: (values: UpdateTimerInput) => void;
 }
 
 const menuProps: Partial<MenuProps> = {
@@ -48,6 +54,7 @@ function TimerForm({
   disabled,
   autoFocus = true,
   onClose,
+  onSubmit,
 }: Props) {
   const { data } = useMe();
   const { teams, timezone } = data!;
@@ -62,8 +69,19 @@ function TimerForm({
     [teams]
   );
 
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, touchedFields },
+  } = useForm<UpdateTimerInput>();
+
   return (
-    <Stack spacing={1} maxWidth="md" component="form">
+    <Stack
+      spacing={1}
+      maxWidth="md"
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Stack direction="row" justifyContent="space-between" spacing={1}>
         <Typography variant="subtitle1">{title}</Typography>
         <Stack direction="row" spacing={1}>
@@ -72,7 +90,7 @@ function TimerForm({
             size="small"
             variant="contained"
             loading={loading}
-            disabled={!disabled || loading}
+            disabled={disabled || loading}
           >
             Save
           </LoadingButton>
@@ -87,6 +105,9 @@ function TimerForm({
           label="Title"
           type="text"
           placeholder="Add title"
+          error={touchedFields.title && errors.title?.message}
+          helperText={touchedFields.title && errors.title?.message}
+          {...register("title")}
         />
         <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
@@ -166,9 +187,6 @@ function TimerForm({
             },
           }}
           renderInput={(params: any) => <TextField {...params} fullWidth />}
-          disablePast
-          minDateTime={getCurrentDateTime()}
-          disableIgnoringDatePartForTimeValidation
           minutesStep={5}
           ampm={false}
         />
