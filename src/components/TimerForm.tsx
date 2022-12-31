@@ -15,8 +15,10 @@ import { LoadingButton } from "@mui/lab";
 import { memo, useMemo } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
-import useMe from "src/hooks/api/useMe";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
 import {
@@ -24,9 +26,31 @@ import {
   TimerType,
   UpdateTimerInput,
 } from "src/__generated__/graphql";
-import RecurrenceField from "./RecurrenceField";
+import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
+const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
+
+const schema = yup
+  .object({
+    id: yup.string().optional(),
+    title: yup
+      .string()
+      .trim()
+      .max(225, () => MAX_CHARACTERS_MESSAGE)
+      .required(() => "Add title"),
+    timezone: yup.string().required(),
+    teamIds: yup.array(yup.string().required()),
+    description: yup
+      .string()
+      .trim()
+      .max(2048, () => MAX_CHARACTERS_MESSAGE)
+      .transform((val, original) => original || null)
+      .nullable(),
+    repeat: repeatSchema.nullable().optional().default(null),
+  })
+  .noUnknown()
+  .required();
 
 interface Props {
   title: string;
@@ -73,7 +97,17 @@ function TimerForm({
     handleSubmit,
     register,
     formState: { errors, touchedFields },
-  } = useForm<UpdateTimerInput>();
+  } = useForm<UpdateTimerInput>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      title: "",
+      timezone,
+      description: null,
+      startAt: getCurrentDateTime(),
+      repeat: null,
+      teamIds: [],
+    },
+  });
 
   return (
     <Stack
@@ -159,6 +193,32 @@ function TimerForm({
             ))}
           </Select>
         </FormControl>
+        <FormControl fullWidth>
+          <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
+          <Select
+            value={timezone as string}
+            label="Timezone"
+            fullWidth
+            placeholder="Select timezone"
+            inputProps={{
+              sx: {
+                fontWeight: 800,
+              },
+            }}
+            MenuProps={menuProps}
+            renderValue={(tz: string) => (
+              <Typography fontWeight={800}>{tz}</Typography>
+            )}
+          >
+            {sortedTimezones.map((tz) => (
+              <MenuItem key={tz.name} value={tz.name}>
+                <Typography variant="body2" fontWeight={500}>
+                  {tz.name} ({formatUTCOffset(tz.name!)})
+                </Typography>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <MobileDateTimePicker
           label="To"
           value={getCurrentDateTime()}
@@ -190,32 +250,6 @@ function TimerForm({
           minutesStep={5}
           ampm={false}
         />
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
-          <Select
-            value={timezone as string}
-            label="Timezone"
-            fullWidth
-            placeholder="Select timezone"
-            inputProps={{
-              sx: {
-                fontWeight: 800,
-              },
-            }}
-            MenuProps={menuProps}
-            renderValue={(tz: string) => (
-              <Typography fontWeight={800}>{tz}</Typography>
-            )}
-          >
-            {sortedTimezones.map((tz) => (
-              <MenuItem key={tz.name} value={tz.name}>
-                <Typography variant="body2" fontWeight={500}>
-                  {tz.name} ({formatUTCOffset(tz.name!)})
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <RecurrenceField onChange={() => null} />
         <FormControl fullWidth>
           <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
