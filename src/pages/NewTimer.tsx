@@ -10,7 +10,7 @@ export default function NewTimer() {
 
   return (
     <Box p={2}>
-      <TimerForm title="New Timer" onClose={onClose} onSubmit={console.log} />
+      <TimerForm title="New Timer" onClose={onClose} onSubmit={() => null} />
     </Box>
   );
 }

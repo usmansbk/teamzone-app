@@ -20,7 +20,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
+import {
+  formatUTCOffset,
+  getCurrentDateTime,
+  getRoundUpCurrentDateTime,
+} from "src/utils/dateTime";
 import {
   TimerDirection,
   TimerType,
@@ -31,6 +35,9 @@ import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
+const timerTypes = [TimerType.Duration, TimerType.Date];
+const timerDirections = [TimerDirection.Countup, TimerDirection.Countdown];
+
 const schema = yup
   .object({
     id: yup.string().optional(),
@@ -39,6 +46,8 @@ const schema = yup
       .trim()
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
+    type: yup.string().oneOf(timerTypes).required(),
+    direction: yup.string().oneOf(timerDirections).required(),
     timezone: yup.string().required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
@@ -48,6 +57,7 @@ const schema = yup
       .transform((val, original) => original || null)
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
+    startAt: yup.date(),
   })
   .noUnknown()
   .required();
@@ -68,9 +78,6 @@ const menuProps: Partial<MenuProps> = {
     },
   },
 };
-
-const timerTypes = [TimerType.Duration, TimerType.Date];
-const timerDirections = [TimerDirection.Countup, TimerDirection.Countdown];
 
 function TimerForm({
   title,
@@ -104,7 +111,7 @@ function TimerForm({
       title: "",
       timezone,
       description: null,
-      startAt: getCurrentDateTime(),
+      startAt: getRoundUpCurrentDateTime(timezone!),
       repeat: null,
       teamIds: [],
       direction: TimerDirection.Countdown,
