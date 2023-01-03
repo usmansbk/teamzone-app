@@ -103,15 +103,12 @@ function TimerForm({
     [teams]
   );
 
-  const handleChange = () => {
-    setSchedule(!schedule);
-  };
-
   const {
     control,
     handleSubmit,
     register,
     formState: { errors, touchedFields },
+    setValue,
   } = useForm<UpdateTimerInput>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -126,6 +123,13 @@ function TimerForm({
       type: TimerType.Duration,
     },
   });
+
+  const handleChange = () => {
+    setSchedule(!schedule);
+    if (!schedule) {
+      setValue("startAt", null);
+    }
+  };
 
   return (
     <Stack
