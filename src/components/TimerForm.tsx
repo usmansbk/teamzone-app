@@ -10,9 +10,12 @@ import {
   Box,
   Chip,
   MenuProps,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { Controller, useForm } from "react-hook-form";
@@ -87,6 +90,7 @@ function TimerForm({
   onClose,
   onSubmit,
 }: Props) {
+  const [schedule, setSchedule] = useState(false);
   const { data } = useMe();
   const { teams, timezone } = data!;
 
@@ -99,6 +103,10 @@ function TimerForm({
     () => teams.filter((team) => team?.isAdmin || team?.isOwner),
     [teams]
   );
+
+  const handleChange = () => {
+    setSchedule(!schedule);
+  };
 
   const {
     control,
@@ -284,26 +292,39 @@ function TimerForm({
             </>
           )}
         />
-        <Controller
-          name="startAt"
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <MobileDateTimePicker
-              label="Schedule"
-              value={value}
-              onChange={onChange}
-              inputFormat={DATE_TIME_VALUE_FORMAT}
-              InputProps={{
-                sx: {
-                  fontWeight: 800,
-                },
-              }}
-              renderInput={(params: any) => <TextField {...params} fullWidth />}
-              minutesStep={5}
-              ampm={false}
+        <Box>
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch checked={schedule} />}
+              label={<InputLabel sx={{ fontWeight: 700 }}>Schedule</InputLabel>}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          {schedule && (
+            <Controller
+              name="startAt"
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <MobileDateTimePicker
+                  label={null}
+                  value={value}
+                  onChange={onChange}
+                  inputFormat={DATE_TIME_VALUE_FORMAT}
+                  InputProps={{
+                    sx: {
+                      fontWeight: 800,
+                    },
+                  }}
+                  renderInput={(params: any) => (
+                    <TextField {...params} fullWidth />
+                  )}
+                  minutesStep={5}
+                  ampm={false}
+                />
+              )}
             />
           )}
-        />
+        </Box>
         <Controller
           control={control}
           name="repeat"
