@@ -112,6 +112,7 @@ function TimerForm({
       timezone,
       description: null,
       startAt: getRoundUpCurrentDateTime(timezone!),
+      dateTime: getRoundUpCurrentDateTime(timezone!),
       repeat: null,
       teamIds: [],
       direction: TimerDirection.Countdown,
@@ -148,10 +149,43 @@ function TimerForm({
           autoFocus={autoFocus}
           label="Title"
           type="text"
-          placeholder="Add title"
+          placeholder="e.g PTO"
           error={touchedFields.title && errors.title?.message}
           helperText={touchedFields.title && errors.title?.message}
           {...register("title")}
+        />
+        <Controller
+          name="timezone"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <FormControl fullWidth>
+              <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
+              <Select
+                value={value}
+                onChange={onChange}
+                label="Timezone"
+                fullWidth
+                placeholder="Select timezone"
+                inputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                MenuProps={menuProps}
+                renderValue={(tz: string) => (
+                  <Typography fontWeight={800}>{tz}</Typography>
+                )}
+              >
+                {sortedTimezones.map((tz) => (
+                  <MenuItem key={tz.name} value={tz.name}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {tz.name} ({formatUTCOffset(tz.name!)})
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
         />
         <Controller
           name="direction"
@@ -251,44 +285,11 @@ function TimerForm({
           )}
         />
         <Controller
-          name="timezone"
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <FormControl fullWidth>
-              <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
-              <Select
-                value={value}
-                onChange={onChange}
-                label="Timezone"
-                fullWidth
-                placeholder="Select timezone"
-                inputProps={{
-                  sx: {
-                    fontWeight: 800,
-                  },
-                }}
-                MenuProps={menuProps}
-                renderValue={(tz: string) => (
-                  <Typography fontWeight={800}>{tz}</Typography>
-                )}
-              >
-                {sortedTimezones.map((tz) => (
-                  <MenuItem key={tz.name} value={tz.name}>
-                    <Typography variant="body2" fontWeight={500}>
-                      {tz.name} ({formatUTCOffset(tz.name!)})
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-        />
-        <Controller
           name="startAt"
           control={control}
           render={({ field: { value, onChange } }) => (
             <MobileDateTimePicker
-              label="Start at"
+              label="Schedule"
               value={value}
               onChange={onChange}
               inputFormat={DATE_TIME_VALUE_FORMAT}

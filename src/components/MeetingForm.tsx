@@ -162,7 +162,7 @@ export default function MeetingForm({
           autoFocus={autoFocus}
           label="Title"
           type="text"
-          placeholder="Add title"
+          placeholder="e.g Sprint planning"
           error={touchedFields.title && !!errors.title?.message}
           helperText={touchedFields.title && errors.title?.message}
           {...register("title")}
