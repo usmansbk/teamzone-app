@@ -10,7 +10,6 @@ import {
   Box,
   Chip,
   MenuProps,
-  FormGroup,
   FormControlLabel,
   Switch,
 } from "@mui/material";
@@ -292,39 +291,43 @@ function TimerForm({
             </>
           )}
         />
-        <Box>
-          <FormGroup>
-            <FormControlLabel
-              control={<Switch checked={schedule} />}
-              label={<InputLabel sx={{ fontWeight: 700 }}>Schedule</InputLabel>}
-              onChange={handleChange}
-            />
-          </FormGroup>
-          {schedule && (
-            <Controller
-              name="startAt"
-              control={control}
-              render={({ field: { value, onChange } }) => (
-                <MobileDateTimePicker
-                  label={null}
-                  value={value}
-                  onChange={onChange}
-                  inputFormat={DATE_TIME_VALUE_FORMAT}
-                  InputProps={{
-                    sx: {
-                      fontWeight: 800,
-                    },
-                  }}
-                  renderInput={(params: any) => (
-                    <TextField {...params} fullWidth />
-                  )}
-                  minutesStep={5}
-                  ampm={false}
-                />
-              )}
-            />
-          )}
-        </Box>
+        <FormControlLabel
+          checked={schedule}
+          control={<Switch />}
+          sx={{
+            margin: 0,
+          }}
+          label={
+            <InputLabel sx={{ fontWeight: 700, margin: 0 }}>
+              Schedule
+            </InputLabel>
+          }
+          onChange={handleChange}
+        />
+        {schedule && (
+          <Controller
+            name="startAt"
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <MobileDateTimePicker
+                label="Start on"
+                value={value}
+                onChange={onChange}
+                inputFormat={DATE_TIME_VALUE_FORMAT}
+                InputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                renderInput={(params: any) => (
+                  <TextField {...params} fullWidth />
+                )}
+                minutesStep={5}
+                ampm={false}
+              />
+            )}
+          />
+        )}
         <Controller
           control={control}
           name="repeat"
