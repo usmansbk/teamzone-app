@@ -51,8 +51,8 @@ const schema = yup
       .transform((val, original) => original || null)
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
-    startAt: yup.date().nullable().optional().default(null),
     dateTime: yup.date().nullable().optional().default(null),
+    startAt: yup.date().nullable().optional().default(null),
   })
   .noUnknown()
   .required();
@@ -294,6 +294,10 @@ function TimerForm({
                     },
                     shrink: true,
                   }}
+                  error={Boolean(
+                    touchedFields.startAt && errors.startAt?.message
+                  )}
+                  helperText={touchedFields.startAt && errors.startAt?.message}
                 />
               )}
               minutesStep={5}
