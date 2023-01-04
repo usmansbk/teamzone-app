@@ -17,7 +17,7 @@ export default function Timers() {
           New
         </Button>
       </Stack>
-      <Typography variant="h4">No timers yet</Typography>
+      <Typography variant="h4">No countdowns yet</Typography>
     </Stack>
   );
 }

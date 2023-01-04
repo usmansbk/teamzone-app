@@ -6,7 +6,6 @@ mutation UpdateTimer($input: UpdateTimerInput!) {
     id
     title
     type
-    direction
     dateTime
     duration
     timezone

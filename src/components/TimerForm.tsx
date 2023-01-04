@@ -24,11 +24,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
 import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
-import {
-  TimerDirection,
-  TimerType,
-  UpdateTimerInput,
-} from "src/__generated__/graphql";
+import { TimerType, UpdateTimerInput } from "src/__generated__/graphql";
 import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 import DurationField from "./DurationField";
 
@@ -36,7 +32,6 @@ const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
 const timerTypes = [TimerType.Duration, TimerType.Date];
-const timerDirections = [TimerDirection.Countup, TimerDirection.Countdown];
 
 const schema = yup
   .object({
@@ -47,7 +42,6 @@ const schema = yup
       .max(225, () => MAX_CHARACTERS_MESSAGE)
       .required(() => "Add title"),
     type: yup.string().oneOf(timerTypes).required(),
-    direction: yup.string().oneOf(timerDirections).required(),
     timezone: yup.string().required(),
     teamIds: yup.array(yup.string().required()),
     description: yup
@@ -116,7 +110,6 @@ function TimerForm({
       dateTime: null,
       repeat: null,
       teamIds: [],
-      direction: TimerDirection.Countdown,
       type: TimerType.Duration,
     },
   });
@@ -181,40 +174,6 @@ function TimerForm({
                   <MenuItem key={tz.name} value={tz.name}>
                     <Typography variant="body2" fontWeight={500}>
                       {tz.name} ({formatUTCOffset(tz.name!)})
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-        />
-        <Controller
-          name="direction"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <FormControl fullWidth>
-              <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
-              <Select
-                value={value}
-                label="Type"
-                fullWidth
-                inputProps={{
-                  sx: {
-                    fontWeight: 800,
-                  },
-                }}
-                MenuProps={menuProps}
-                renderValue={(timerType: string) => (
-                  <Typography fontWeight={800}>
-                    {capitalize(timerType)}
-                  </Typography>
-                )}
-                onChange={onChange}
-              >
-                {timerDirections.map((timerDirection) => (
-                  <MenuItem key={timerDirection} value={timerDirection}>
-                    <Typography variant="body2" fontWeight={500}>
-                      {capitalize(timerDirection)}
                     </Typography>
                   </MenuItem>
                 ))}

@@ -215,7 +215,6 @@ export type CreateTeamInput = {
 export type CreateTimerInput = {
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   description?: InputMaybe<Scalars["NonEmptyString"]>;
-  direction: TimerDirection;
   duration?: InputMaybe<Scalars["Duration"]>;
   repeat?: InputMaybe<RecurrenceInput>;
   startAt?: InputMaybe<Scalars["DateTime"]>;
@@ -556,7 +555,6 @@ export type UpdateTeamInput = {
 export type UpdateTimerInput = {
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   description?: InputMaybe<Scalars["NonEmptyString"]>;
-  direction: TimerDirection;
   duration?: InputMaybe<Scalars["Duration"]>;
   id: Scalars["ID"];
   repeat?: InputMaybe<RecurrenceInput>;
@@ -715,7 +713,6 @@ export type CreateTimerMutation = {
     title: string;
     timezone: string;
     description?: string | null;
-    direction: TimerDirection;
     type: TimerType;
     dateTime?: any | null;
     duration?: any | null;
@@ -1250,7 +1247,6 @@ export type UpdateTimerMutation = {
     id: string;
     title: string;
     type: TimerType;
-    direction: TimerDirection;
     dateTime?: any | null;
     duration?: any | null;
     timezone: string;
@@ -1649,7 +1645,6 @@ export const CreateTimerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "title" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
-                { kind: "Field", name: { kind: "Name", value: "direction" } },
                 { kind: "Field", name: { kind: "Name", value: "type" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "duration" } },
@@ -3629,7 +3624,6 @@ export const UpdateTimerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
                 { kind: "Field", name: { kind: "Name", value: "type" } },
-                { kind: "Field", name: { kind: "Name", value: "direction" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "duration" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },

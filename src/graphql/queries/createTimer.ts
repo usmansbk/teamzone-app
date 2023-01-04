@@ -7,7 +7,6 @@ mutation CreateTimer($input: CreateTimerInput!) {
     title
     timezone
     description
-    direction
     type
     dateTime
     duration
