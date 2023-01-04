@@ -261,7 +261,7 @@ function TimerForm({
           control={control}
           render={({ field: { value, onChange } }) => (
             <MobileDateTimePicker
-              label="Start on"
+              label="Start"
               value={value}
               onChange={onChange}
               inputFormat={DATE_TIME_VALUE_FORMAT}
@@ -287,7 +287,13 @@ function TimerForm({
                 <TextField
                   {...params}
                   fullWidth
-                  placeholder="Will start immediately"
+                  placeholder="Now"
+                  InputLabelProps={{
+                    sx: {
+                      fontWeight: 800,
+                    },
+                    shrink: true,
+                  }}
                 />
               )}
               minutesStep={5}
