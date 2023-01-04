@@ -10,11 +10,12 @@ import {
   Box,
   Chip,
   MenuProps,
-  FormControlLabel,
-  Switch,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { memo, useMemo, useState } from "react";
+import { Close } from "@mui/icons-material";
+import { memo, useMemo } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { Controller, useForm } from "react-hook-form";
@@ -22,11 +23,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import {
-  formatUTCOffset,
-  getCurrentDateTime,
-  getRoundUpCurrentDateTime,
-} from "src/utils/dateTime";
+import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
 import {
   TimerDirection,
   TimerType,
@@ -59,7 +56,8 @@ const schema = yup
       .transform((val, original) => original || null)
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
-    startAt: yup.date(),
+    startAt: yup.date().nullable().optional().default(null),
+    dateTime: yup.date().nullable().optional().default(null),
   })
   .noUnknown()
   .required();
@@ -89,9 +87,8 @@ function TimerForm({
   onClose,
   onSubmit,
 }: Props) {
-  const [schedule, setSchedule] = useState(false);
   const { data } = useMe();
-  const { teams, timezone } = data!;
+  const { teams, timezone, firstName } = data!;
 
   const { timezones } = useGetTimezones();
   const sortedTimezones = useMemo(
@@ -108,28 +105,20 @@ function TimerForm({
     handleSubmit,
     register,
     formState: { errors, touchedFields },
-    setValue,
   } = useForm<UpdateTimerInput>({
     resolver: yupResolver(schema),
     defaultValues: {
       title: "",
       timezone,
       description: null,
-      startAt: getRoundUpCurrentDateTime(timezone!),
-      dateTime: getRoundUpCurrentDateTime(timezone!),
+      startAt: null,
+      dateTime: null,
       repeat: null,
       teamIds: [],
       direction: TimerDirection.Countdown,
       type: TimerType.Duration,
     },
   });
-
-  const handleChange = () => {
-    setSchedule(!schedule);
-    if (!schedule) {
-      setValue("startAt", null);
-    }
-  };
 
   return (
     <Stack
@@ -160,8 +149,8 @@ function TimerForm({
           autoFocus={autoFocus}
           label="Title"
           type="text"
-          placeholder="e.g PTO"
-          error={touchedFields.title && errors.title?.message}
+          placeholder={`e.g ${firstName}'s PTO`}
+          error={Boolean(touchedFields.title && errors.title?.message)}
           helperText={touchedFields.title && errors.title?.message}
           {...register("title")}
         />
@@ -172,7 +161,7 @@ function TimerForm({
             <FormControl fullWidth>
               <InputLabel sx={{ fontWeight: 800 }}>Timezone</InputLabel>
               <Select
-                value={value}
+                value={timezones.length ? value : ""}
                 onChange={onChange}
                 label="Timezone"
                 fullWidth
@@ -203,10 +192,10 @@ function TimerForm({
           control={control}
           render={({ field: { onChange, value } }) => (
             <FormControl fullWidth>
-              <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
+              <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
               <Select
                 value={value}
-                label="Direction"
+                label="Type"
                 fullWidth
                 inputProps={{
                   sx: {
@@ -236,12 +225,12 @@ function TimerForm({
           name="type"
           control={control}
           render={({ field: { value, onChange } }) => (
-            <>
+            <Box>
               <FormControl fullWidth>
-                <InputLabel sx={{ fontWeight: 800 }}>Type</InputLabel>
+                <InputLabel sx={{ fontWeight: 800 }}>To</InputLabel>
                 <Select
                   value={value}
-                  label="Type"
+                  label="To"
                   fullWidth
                   inputProps={{
                     sx: {
@@ -271,7 +260,6 @@ function TimerForm({
                   name="dateTime"
                   render={({ field: { value, onChange } }) => (
                     <MobileDateTimePicker
-                      label="To"
                       value={value}
                       onChange={onChange}
                       inputFormat={DATE_TIME_VALUE_FORMAT}
@@ -281,7 +269,11 @@ function TimerForm({
                         },
                       }}
                       renderInput={(params: any) => (
-                        <TextField {...params} fullWidth />
+                        <TextField
+                          {...params}
+                          fullWidth
+                          placeholder="Pick a date"
+                        />
                       )}
                       disablePast
                       minDateTime={getCurrentDateTime()}
@@ -292,46 +284,48 @@ function TimerForm({
                   )}
                 />
               )}
-            </>
+            </Box>
           )}
         />
-        <FormControlLabel
-          checked={schedule}
-          control={<Switch />}
-          sx={{
-            margin: 0,
-          }}
-          label={
-            <InputLabel sx={{ fontWeight: 700, margin: 0 }}>
-              Schedule
-            </InputLabel>
-          }
-          onChange={handleChange}
+        <Controller
+          name="startAt"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <MobileDateTimePicker
+              label="Start on"
+              value={value}
+              onChange={onChange}
+              inputFormat={DATE_TIME_VALUE_FORMAT}
+              InputProps={{
+                sx: {
+                  fontWeight: 800,
+                },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      onClick={(e) => {
+                        onChange(null);
+                        e.stopPropagation();
+                      }}
+                    >
+                      <Close />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              renderInput={(params: any) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  placeholder="Will start immediately"
+                />
+              )}
+              minutesStep={5}
+              ampm={false}
+            />
+          )}
         />
-        {schedule && (
-          <Controller
-            name="startAt"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <MobileDateTimePicker
-                label="Start on"
-                value={value}
-                onChange={onChange}
-                inputFormat={DATE_TIME_VALUE_FORMAT}
-                InputProps={{
-                  sx: {
-                    fontWeight: 800,
-                  },
-                }}
-                renderInput={(params: any) => (
-                  <TextField {...params} fullWidth />
-                )}
-                minutesStep={5}
-                ampm={false}
-              />
-            )}
-          />
-        )}
         <Controller
           control={control}
           name="repeat"
@@ -389,7 +383,9 @@ function TimerForm({
             },
           }}
           {...register("description")}
-          error={touchedFields.description && errors.description?.message}
+          error={Boolean(
+            touchedFields.description && errors.description?.message
+          )}
           helperText={touchedFields.description && errors.description?.message}
         />
       </Stack>
