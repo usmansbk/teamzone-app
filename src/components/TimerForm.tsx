@@ -30,6 +30,7 @@ import {
   UpdateTimerInput,
 } from "src/__generated__/graphql";
 import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
+import DurationField from "./DurationField";
 
 const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
@@ -225,7 +226,7 @@ function TimerForm({
           name="type"
           control={control}
           render={({ field: { value, onChange } }) => (
-            <Box>
+            <Stack spacing={1}>
               <FormControl fullWidth>
                 <InputLabel sx={{ fontWeight: 800 }}>To</InputLabel>
                 <Select
@@ -284,7 +285,16 @@ function TimerForm({
                   )}
                 />
               )}
-            </Box>
+              {value === TimerType.Duration && (
+                <Controller
+                  control={control}
+                  name="duration"
+                  render={({ field: { value, onChange } }) => (
+                    <DurationField value={value} onChange={onChange} />
+                  )}
+                />
+              )}
+            </Stack>
           )}
         />
         <Controller

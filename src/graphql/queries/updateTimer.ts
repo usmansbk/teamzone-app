@@ -6,13 +6,13 @@ mutation UpdateTimer($input: UpdateTimerInput!) {
     id
     title
     type
+    direction
+    dateTime
+    duration
     timezone
     createdAt
     updatedAt
-    dateTime
     description
-    direction
-    durationInMinutes
     isOwner
     repeat {
       freq

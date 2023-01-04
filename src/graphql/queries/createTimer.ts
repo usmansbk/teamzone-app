@@ -6,10 +6,11 @@ mutation CreateTimer($input: CreateTimerInput!) {
     id
     title
     timezone
-    dateTime
     description
     direction
-    durationInMinutes
+    type
+    dateTime
+    duration
     createdAt
     isOwner
     owner {

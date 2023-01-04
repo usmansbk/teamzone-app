@@ -216,7 +216,7 @@ export type CreateTimerInput = {
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   description?: InputMaybe<Scalars["NonEmptyString"]>;
   direction: TimerDirection;
-  durationInMinutes?: InputMaybe<Scalars["PositiveInt"]>;
+  duration?: InputMaybe<Scalars["Duration"]>;
   repeat?: InputMaybe<RecurrenceInput>;
   startAt?: InputMaybe<Scalars["DateTime"]>;
   teamIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -481,7 +481,7 @@ export type Timer = {
   dateTime?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   direction: TimerDirection;
-  durationInMinutes?: Maybe<Scalars["Int"]>;
+  duration?: Maybe<Scalars["Duration"]>;
   id: Scalars["ID"];
   isOwner: Scalars["Boolean"];
   owner: User;
@@ -557,7 +557,7 @@ export type UpdateTimerInput = {
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   description?: InputMaybe<Scalars["NonEmptyString"]>;
   direction: TimerDirection;
-  durationInMinutes?: InputMaybe<Scalars["PositiveInt"]>;
+  duration?: InputMaybe<Scalars["Duration"]>;
   id: Scalars["ID"];
   repeat?: InputMaybe<RecurrenceInput>;
   startAt?: InputMaybe<Scalars["DateTime"]>;
@@ -714,13 +714,13 @@ export type CreateTimerMutation = {
     id: string;
     title: string;
     timezone: string;
-    dateTime?: any | null;
     description?: string | null;
     direction: TimerDirection;
-    durationInMinutes?: number | null;
+    type: TimerType;
+    dateTime?: any | null;
+    duration?: any | null;
     createdAt: any;
     isOwner: boolean;
-    type: TimerType;
     updatedAt?: any | null;
     startAt?: any | null;
     owner: {
@@ -1250,13 +1250,13 @@ export type UpdateTimerMutation = {
     id: string;
     title: string;
     type: TimerType;
+    direction: TimerDirection;
+    dateTime?: any | null;
+    duration?: any | null;
     timezone: string;
     createdAt: any;
     updatedAt?: any | null;
-    dateTime?: any | null;
     description?: string | null;
-    direction: TimerDirection;
-    durationInMinutes?: number | null;
     isOwner: boolean;
     startAt?: any | null;
     repeat?: {
@@ -1648,13 +1648,11 @@ export const CreateTimerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },
-                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "direction" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "durationInMinutes" },
-                },
+                { kind: "Field", name: { kind: "Name", value: "type" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
+                { kind: "Field", name: { kind: "Name", value: "duration" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
@@ -3631,16 +3629,13 @@ export const UpdateTimerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
                 { kind: "Field", name: { kind: "Name", value: "type" } },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
+                { kind: "Field", name: { kind: "Name", value: "duration" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
-                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
-                { kind: "Field", name: { kind: "Name", value: "direction" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "durationInMinutes" },
-                },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
                   kind: "Field",
