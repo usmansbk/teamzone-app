@@ -279,6 +279,7 @@ export default function MeetingForm({
             <FormControl fullWidth>
               <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
               <Select
+                disabled={!authorizedTeams.length}
                 label="Teams"
                 multiple
                 fullWidth

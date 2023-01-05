@@ -233,6 +233,12 @@ function TimerForm({
                           {...params}
                           fullWidth
                           placeholder="Pick a date"
+                          error={Boolean(
+                            touchedFields.dateTime && errors.dateTime?.message
+                          )}
+                          helperText={
+                            touchedFields.dateTime && errors.dateTime?.message
+                          }
                         />
                       )}
                       disablePast
@@ -319,6 +325,7 @@ function TimerForm({
             <FormControl fullWidth>
               <InputLabel sx={{ fontWeight: 800 }}>Teams</InputLabel>
               <Select
+                disabled={!authorizedTeams.length}
                 label="Teams"
                 value={value}
                 onChange={onChange}

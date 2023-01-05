@@ -5,10 +5,13 @@ import dateTime from "src/utils/dateTime";
 interface Props {
   value: string;
   onChange: (newValue: string) => void;
+  error?: boolean;
 }
 
-export default function DurationField({ value, onChange }: Props) {
-  const [duration, setDuration] = useState(dateTime.duration(value));
+export default function DurationField({ value, onChange, error }: Props) {
+  const [duration, setDuration] = useState(
+    value ? dateTime.duration(value) : dateTime.duration({ minutes: 15 })
+  );
 
   useEffect(() => {
     onChange(duration.toISOString());
@@ -38,6 +41,7 @@ export default function DurationField({ value, onChange }: Props) {
         inputProps={{
           min: 0,
         }}
+        error={error}
       />
       <TextField
         fullWidth
@@ -50,6 +54,7 @@ export default function DurationField({ value, onChange }: Props) {
           min: 0,
           max: 23,
         }}
+        error={error}
       />
       <TextField
         fullWidth
@@ -62,6 +67,7 @@ export default function DurationField({ value, onChange }: Props) {
           min: 0,
           max: 59,
         }}
+        error={error}
       />
       <TextField
         fullWidth
@@ -74,6 +80,7 @@ export default function DurationField({ value, onChange }: Props) {
           min: 0,
           max: 59,
         }}
+        error={error}
       />
     </Stack>
   );
