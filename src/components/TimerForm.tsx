@@ -255,7 +255,16 @@ function TimerForm({
                   control={control}
                   name="duration"
                   render={({ field: { value, onChange } }) => (
-                    <DurationField value={value} onChange={onChange} />
+                    <DurationField
+                      value={value}
+                      onChange={onChange}
+                      error={Boolean(
+                        touchedFields.duration && errors.duration?.message
+                      )}
+                      helperText={
+                        touchedFields.duration && errors.duration?.message
+                      }
+                    />
                   )}
                 />
               )}
