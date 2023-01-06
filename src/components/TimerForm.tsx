@@ -54,6 +54,14 @@ const schema = yup
     dateTime: yup.date().nullable().optional().default(null),
     startAt: yup.date().nullable().optional().default(null),
   })
+  .transform((value, original) => {
+    const { startAt, dateTime, timezone } = original;
+    return {
+      ...original,
+      startAt: startAt?.tz(timezone, true).utc(),
+      dateTime: dateTime?.tz(timezone, true).utc(),
+    };
+  })
   .noUnknown()
   .required();
 
