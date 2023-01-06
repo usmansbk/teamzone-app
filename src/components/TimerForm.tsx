@@ -107,7 +107,7 @@ function TimerForm({
     control,
     handleSubmit,
     register,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, isDirty },
   } = useForm<UpdateTimerInput>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -137,7 +137,7 @@ function TimerForm({
             size="small"
             variant="contained"
             loading={loading}
-            disabled={disabled || loading}
+            disabled={!isDirty || disabled || loading}
           >
             Save
           </LoadingButton>
@@ -292,16 +292,17 @@ function TimerForm({
                 sx: {
                   fontWeight: 800,
                 },
-                endAdornment: (
+                endAdornment: !!value && (
                   <InputAdornment position="end">
                     <IconButton
+                      size="small"
                       edge="end"
                       onClick={(e) => {
                         onChange(null);
                         e.stopPropagation();
                       }}
                     >
-                      <Close />
+                      <Close fontSize="small" />
                     </IconButton>
                   </InputAdornment>
                 ),

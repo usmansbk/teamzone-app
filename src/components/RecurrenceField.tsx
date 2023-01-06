@@ -99,6 +99,7 @@ export default function RecurrenceField({ onChange, value }: Props) {
           endAdornment: value && (
             <InputAdornment position="end">
               <IconButton
+                edge="end"
                 size="small"
                 onClick={(e) => {
                   onChange(null);
