@@ -964,26 +964,26 @@ export type GetTimerByIdQuery = {
     id: string;
     title: string;
     type: TimerType;
-    timezone: string;
-    updatedAt?: any | null;
-    startAt?: any | null;
-    direction: TimerDirection;
     duration?: any | null;
+    direction: TimerDirection;
     description?: string | null;
     dateTime?: any | null;
     createdAt: any;
+    updatedAt?: any | null;
+    timezone: string;
     isOwner: boolean;
-    repeat?: {
-      __typename?: "Recurrence";
-      freq: Frequency;
-      interval: number;
-    } | null;
+    startAt?: any | null;
     owner: {
       __typename?: "User";
       id: string;
       fullName: string;
       picture?: any | null;
     };
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
     teams: Array<{
       __typename?: "Team";
       id: string;
@@ -992,12 +992,12 @@ export type GetTimerByIdQuery = {
         __typename?: "TeamMember";
         id: string;
         role?: TeamRole | null;
-        isMe?: boolean | null;
         member: {
           __typename?: "User";
           id: string;
           fullName: string;
           picture?: any | null;
+          timezone?: string | null;
         };
       } | null>;
     } | null>;
@@ -2676,28 +2676,13 @@ export const GetTimerByIdDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
                 { kind: "Field", name: { kind: "Name", value: "type" } },
-                { kind: "Field", name: { kind: "Name", value: "timezone" } },
-                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
-                { kind: "Field", name: { kind: "Name", value: "startAt" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "repeat" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "freq" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "interval" },
-                      },
-                    ],
-                  },
-                },
-                { kind: "Field", name: { kind: "Name", value: "direction" } },
                 { kind: "Field", name: { kind: "Name", value: "duration" } },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
                 { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
                   kind: "Field",
@@ -2713,6 +2698,21 @@ export const GetTimerByIdDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "picture" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "startAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
                       },
                     ],
                   },
@@ -2757,12 +2757,12 @@ export const GetTimerByIdDocument = {
                                     kind: "Field",
                                     name: { kind: "Name", value: "picture" },
                                   },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "timezone" },
+                                  },
                                 ],
                               },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "isMe" },
                             },
                           ],
                         },
