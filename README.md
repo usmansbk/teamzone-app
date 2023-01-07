@@ -18,7 +18,7 @@
 
 - [x] Calendar (Meetings)
 
-- [ ] Countdown Timers (for PTOs etc)
+- [x] Countdown Timers (for PTOs etc)
 
 ## Techonologies
 
