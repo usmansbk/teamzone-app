@@ -35,6 +35,10 @@ const documents = {
     types.GetTeamPreviewByCodeDocument,
   "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n    abbreviation\n    alternativeName\n    mainCities\n  }\n}\n":
     types.GetTimezoneByIdDocument,
+  "\nquery GetTimerById($id: ID!) {\n  getTimerById(id: $id) {\n    id\n    title\n    type\n    timezone\n    updatedAt\n    startAt\n    repeat {\n      freq\n      interval\n    }\n    direction\n    duration\n    description\n    dateTime\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      teammates {\n        id\n        role\n        member {\n          id\n          fullName\n          picture\n        }\n        isMe\n      }\n    }\n  }\n}":
+    types.GetTimerByIdDocument,
+  "\nquery GetTimers($state: TimerState) {\n  getTimers(state: $state) {\n    cursor\n    timers {\n      id\n      title\n      type\n      duration\n      direction\n      description\n      dateTime\n      createdAt\n      updatedAt\n      timezone\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      startAt\n      repeat {\n        freq\n        interval\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          role\n          member {\n            id\n            fullName\n            picture\n            timezone\n          }\n        }\n      }\n    }\n  }\n}\n":
+    types.GetTimersDocument,
   "\n\tquery Timezones {\n\t\ttimezones {\n\t\t\tname\n\t\t\tabbreviation\n\t\t\talternativeName\n\t\t\tcountryCode\n\t\t\tcountryName\n\t\t\tcountryFlag\n\t\t\tmainCities\n\t\t}\n\t}\n":
     types.TimezonesDocument,
   "\nmutation JoinTeam($inviteCode: ID!) {\n  joinTeam(inviteCode: $inviteCode) {\n\t\tid\n\t\tname\n\t\tlogo\n\t\tisOwner\n\t\tisMember\n\t\tisAdmin\n\t\tisPinned\n\t\tinviteCode\n\t\towner {\n\t\t\tid\n\t\t\tfullName\n\t\t\tpicture\n\t\t\tisMe\n\t\t}\n\t\tteammates {\n\t\t\tid\n\t\t\tisMe\n\t\t\trole\n\t\t\tmember {\n\t\t\t\tid\n\t\t\t\tfullName\n\t\t\t\tisMe\n\t\t\t\tpicture\n\t\t\t\ttimezone\n\t\t\t\ttzData {\n\t\t\t\t\tname\n\t\t\t\t\tcountryCode\n\t\t\t\t\tcountryName\n\t\t\t\t\tmainCities\n\t\t\t\t}\n\t\t\t}\n\t\t}\n  }\n}\n":
@@ -64,6 +68,20 @@ const documents = {
   "\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    dateTime\n    duration\n    timezone\n    createdAt\n    updatedAt\n    description\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}":
     types.UpdateTimerDocument,
 };
+
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ *
+ *
+ * @example
+ * ```ts
+ * const query = gql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
+ * ```
+ *
+ * The query argument is unknown!
+ * Please regenerate the types.
+ **/
+export function gql(source: string): unknown;
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -131,6 +149,18 @@ export function gql(
 export function gql(
   source: "\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n    abbreviation\n    alternativeName\n    mainCities\n  }\n}\n"
 ): typeof documents["\nquery GetTimezoneById($id: ID!) {\n  getTimezoneById(id: $id) {\n    name\n    countryName\n    abbreviation\n    alternativeName\n    mainCities\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nquery GetTimerById($id: ID!) {\n  getTimerById(id: $id) {\n    id\n    title\n    type\n    timezone\n    updatedAt\n    startAt\n    repeat {\n      freq\n      interval\n    }\n    direction\n    duration\n    description\n    dateTime\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      teammates {\n        id\n        role\n        member {\n          id\n          fullName\n          picture\n        }\n        isMe\n      }\n    }\n  }\n}"
+): typeof documents["\nquery GetTimerById($id: ID!) {\n  getTimerById(id: $id) {\n    id\n    title\n    type\n    timezone\n    updatedAt\n    startAt\n    repeat {\n      freq\n      interval\n    }\n    direction\n    duration\n    description\n    dateTime\n    createdAt\n    isOwner\n    owner {\n      id\n      fullName\n      picture\n    }\n    teams {\n      id\n      name\n      teammates {\n        id\n        role\n        member {\n          id\n          fullName\n          picture\n        }\n        isMe\n      }\n    }\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\nquery GetTimers($state: TimerState) {\n  getTimers(state: $state) {\n    cursor\n    timers {\n      id\n      title\n      type\n      duration\n      direction\n      description\n      dateTime\n      createdAt\n      updatedAt\n      timezone\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      startAt\n      repeat {\n        freq\n        interval\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          role\n          member {\n            id\n            fullName\n            picture\n            timezone\n          }\n        }\n      }\n    }\n  }\n}\n"
+): typeof documents["\nquery GetTimers($state: TimerState) {\n  getTimers(state: $state) {\n    cursor\n    timers {\n      id\n      title\n      type\n      duration\n      direction\n      description\n      dateTime\n      createdAt\n      updatedAt\n      timezone\n      isOwner\n      owner {\n        id\n        fullName\n        picture\n      }\n      startAt\n      repeat {\n        freq\n        interval\n      }\n      teams {\n        id\n        name\n        teammates {\n          id\n          role\n          member {\n            id\n            fullName\n            picture\n            timezone\n          }\n        }\n      }\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -215,20 +245,6 @@ export function gql(
 export function gql(
   source: "\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    dateTime\n    duration\n    timezone\n    createdAt\n    updatedAt\n    description\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}"
 ): typeof documents["\nmutation UpdateTimer($input: UpdateTimerInput!) {\n  updateTimer(input: $input) {\n    id\n    title\n    type\n    dateTime\n    duration\n    timezone\n    createdAt\n    updatedAt\n    description\n    isOwner\n    repeat {\n      freq\n      interval\n    }\n    startAt\n    teams {\n      id\n      name\n    }\n  }\n}"];
-
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- *
- *
- * @example
- * ```ts
- * const query = gql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
- * ```
- *
- * The query argument is unknown!
- * Please regenerate the types.
- **/
-export function gql(source: string): unknown;
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

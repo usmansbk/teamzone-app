@@ -953,6 +953,112 @@ export type GetTimezoneByIdQuery = {
   } | null;
 };
 
+export type GetTimerByIdQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetTimerByIdQuery = {
+  __typename?: "Query";
+  getTimerById: {
+    __typename?: "Timer";
+    id: string;
+    title: string;
+    type: TimerType;
+    timezone: string;
+    updatedAt?: any | null;
+    startAt?: any | null;
+    direction: TimerDirection;
+    duration?: any | null;
+    description?: string | null;
+    dateTime?: any | null;
+    createdAt: any;
+    isOwner: boolean;
+    repeat?: {
+      __typename?: "Recurrence";
+      freq: Frequency;
+      interval: number;
+    } | null;
+    owner: {
+      __typename?: "User";
+      id: string;
+      fullName: string;
+      picture?: any | null;
+    };
+    teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        role?: TeamRole | null;
+        isMe?: boolean | null;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          picture?: any | null;
+        };
+      } | null>;
+    } | null>;
+  };
+};
+
+export type GetTimersQueryVariables = Exact<{
+  state?: InputMaybe<TimerState>;
+}>;
+
+export type GetTimersQuery = {
+  __typename?: "Query";
+  getTimers: {
+    __typename?: "TimerConnection";
+    cursor?: string | null;
+    timers: Array<{
+      __typename?: "Timer";
+      id: string;
+      title: string;
+      type: TimerType;
+      duration?: any | null;
+      direction: TimerDirection;
+      description?: string | null;
+      dateTime?: any | null;
+      createdAt: any;
+      updatedAt?: any | null;
+      timezone: string;
+      isOwner: boolean;
+      startAt?: any | null;
+      owner: {
+        __typename?: "User";
+        id: string;
+        fullName: string;
+        picture?: any | null;
+      };
+      repeat?: {
+        __typename?: "Recurrence";
+        freq: Frequency;
+        interval: number;
+      } | null;
+      teams: Array<{
+        __typename?: "Team";
+        id: string;
+        name: string;
+        teammates: Array<{
+          __typename?: "TeamMember";
+          id: string;
+          role?: TeamRole | null;
+          member: {
+            __typename?: "User";
+            id: string;
+            fullName: string;
+            picture?: any | null;
+            timezone?: string | null;
+          };
+        } | null>;
+      } | null>;
+    } | null>;
+  };
+};
+
 export type TimezonesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TimezonesQuery = {
@@ -2531,6 +2637,349 @@ export const GetTimezoneByIdDocument = {
   GetTimezoneByIdQuery,
   GetTimezoneByIdQueryVariables
 >;
+export const GetTimerByIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetTimerById" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getTimerById" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "type" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "startAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "repeat" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "freq" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "interval" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
+                { kind: "Field", name: { kind: "Name", value: "duration" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "isOwner" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "owner" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "picture" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "teams" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "role" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "isMe" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetTimerByIdQuery, GetTimerByIdQueryVariables>;
+export const GetTimersDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetTimers" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "state" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "TimerState" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getTimers" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "state" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "state" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "cursor" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "timers" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "title" } },
+                      { kind: "Field", name: { kind: "Name", value: "type" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "duration" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "direction" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "dateTime" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "timezone" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "isOwner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "owner" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fullName" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "picture" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "startAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "repeat" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "freq" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "interval" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teams" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "teammates" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "role" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "member" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "id" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "fullName",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "picture",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "timezone",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetTimersQuery, GetTimersQueryVariables>;
 export const TimezonesDocument = {
   kind: "Document",
   definitions: [
