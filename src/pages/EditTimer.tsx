@@ -12,7 +12,7 @@ export default function EditTimer() {
 
   useEffect(() => {
     if (data) {
-      navigate(-1);
+      onClose();
     }
   }, [data]);
 

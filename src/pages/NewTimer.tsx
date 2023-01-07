@@ -12,7 +12,7 @@ export default function NewTimer() {
 
   useEffect(() => {
     if (data) {
-      navigate(-1);
+      onClose();
     }
   }, [data]);
 
