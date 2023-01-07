@@ -23,7 +23,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useMe from "src/hooks/api/useMe";
 import useGetTimezones from "src/hooks/api/useGetTimezones";
-import { formatUTCOffset, getCurrentDateTime } from "src/utils/dateTime";
+import dt, {
+  dateAsDay,
+  formatUTCOffset,
+  getCurrentDateTime,
+} from "src/utils/dateTime";
 import { TimerType, UpdateTimerInput } from "src/__generated__/graphql";
 import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 import DurationField from "./DurationField";
@@ -52,7 +56,42 @@ const schema = yup
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
     dateTime: yup.date().nullable().optional().default(null),
-    startAt: yup.date().nullable().optional().default(null),
+    startAt: yup
+      .date()
+      .nullable()
+      .optional()
+      .default(null)
+      .test(
+        "isBeforeDateTime",
+        () => "Timer must start before end date",
+        (value: any, ctx) => {
+          const { dateTime, timezone } = ctx.parent;
+          if (!(value && dateTime)) {
+            return true;
+          }
+          return dateAsDay(value, timezone).isBefore(
+            dateAsDay(dateTime, timezone)
+          );
+        }
+      ),
+    duration: yup
+      .string()
+      .nullable()
+      .optional()
+      .default(null)
+      .test(
+        "isMinDuration",
+        () => "Duration too short",
+        (value) => {
+          if (!value) {
+            return true;
+          }
+          return (
+            dt.duration(value).asMilliseconds() >=
+            dt.duration({ minutes: 1 }).asMilliseconds()
+          );
+        }
+      ),
   })
   .transform((value, original) => {
     const { startAt, dateTime, timezone } = original;
@@ -241,12 +280,8 @@ function TimerForm({
                           {...params}
                           fullWidth
                           placeholder="Pick a date"
-                          error={Boolean(
-                            touchedFields.dateTime && errors.dateTime?.message
-                          )}
-                          helperText={
-                            touchedFields.dateTime && errors.dateTime?.message
-                          }
+                          error={Boolean(errors.dateTime?.message)}
+                          helperText={errors.dateTime?.message}
                         />
                       )}
                       disablePast
@@ -266,12 +301,8 @@ function TimerForm({
                     <DurationField
                       value={value}
                       onChange={onChange}
-                      error={Boolean(
-                        touchedFields.duration && errors.duration?.message
-                      )}
-                      helperText={
-                        touchedFields.duration && errors.duration?.message
-                      }
+                      error={Boolean(errors.duration?.message)}
+                      helperText={errors.duration?.message as string}
                     />
                   )}
                 />
@@ -318,10 +349,8 @@ function TimerForm({
                     },
                     shrink: true,
                   }}
-                  error={Boolean(
-                    touchedFields.startAt && errors.startAt?.message
-                  )}
-                  helperText={touchedFields.startAt && errors.startAt?.message}
+                  error={Boolean(errors.startAt?.message)}
+                  helperText={errors.startAt?.message}
                 />
               )}
               minutesStep={5}

@@ -74,6 +74,10 @@ export function setDefaultTimezone(timezone: string) {
   dayjs.tz.setDefault(timezone);
 }
 
+export function dateAsDay(date: Date, timezone: string) {
+  return dayjs(date).tz(timezone, true);
+}
+
 export function DayjsAdapter(this: any, props: any) {
   Object.assign(this, new AdapterDayjs(props));
 
