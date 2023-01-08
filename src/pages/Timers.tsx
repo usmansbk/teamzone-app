@@ -30,7 +30,9 @@ export default function Timers() {
       </Stack>
       {!data?.length && <Typography variant="h4">No countdowns yet</Typography>}
       {data?.map((item) => (
-        <Typography key={item!.id}>{item?.title}</Typography>
+        <Link key={item!.id} to={routeMap.timer.replace(":id", item!.id)}>
+          <Typography>{item?.title}</Typography>
+        </Link>
       ))}
     </Stack>
   );
