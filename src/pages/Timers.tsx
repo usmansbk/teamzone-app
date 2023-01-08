@@ -1,9 +1,20 @@
 import { Add } from "@mui/icons-material";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, LinearProgress, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import useGetTimers from "src/hooks/api/useGetTimers";
 import routeMap from "src/routeMap";
 
 export default function Timers() {
+  const { loading, error, data } = useGetTimers();
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  if (error) {
+    throw error;
+  }
+
   return (
     <Stack spacing={1} p={2} maxWidth="lg">
       <Stack direction="row" justifyContent="space-between" spacing={1}>
@@ -17,7 +28,10 @@ export default function Timers() {
           New
         </Button>
       </Stack>
-      <Typography variant="h4">No countdowns yet</Typography>
+      {!data?.length && <Typography variant="h4">No countdowns yet</Typography>}
+      {data?.map((item) => (
+        <Typography key={item!.id}>{item?.title}</Typography>
+      ))}
     </Stack>
   );
 }

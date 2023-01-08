@@ -55,7 +55,20 @@ const schema = yup
       .transform((val, original) => original || null)
       .nullable(),
     repeat: repeatSchema.nullable().optional().default(null),
-    dateTime: yup.date().nullable().optional().default(null),
+    dateTime: yup
+      .date()
+      .nullable()
+      .optional()
+      .default(null)
+      .test(
+        "isRequired",
+        () => "Pick a date",
+        (value, ctx) => {
+          const { type } = ctx.parent;
+
+          return type === TimerType.Date && !!value;
+        }
+      ),
     startAt: yup
       .date()
       .nullable()
