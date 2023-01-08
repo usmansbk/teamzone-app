@@ -711,14 +711,15 @@ export type CreateTimerMutation = {
     __typename?: "Timer";
     id: string;
     title: string;
-    timezone: string;
-    description?: string | null;
     type: TimerType;
-    dateTime?: any | null;
     duration?: any | null;
+    direction: TimerDirection;
+    description?: string | null;
+    dateTime?: any | null;
     createdAt: any;
-    isOwner: boolean;
     updatedAt?: any | null;
+    timezone: string;
+    isOwner: boolean;
     startAt?: any | null;
     owner: {
       __typename?: "User";
@@ -731,7 +732,23 @@ export type CreateTimerMutation = {
       freq: Frequency;
       interval: number;
     } | null;
-    teams: Array<{ __typename?: "Team"; id: string; name: string } | null>;
+    teams: Array<{
+      __typename?: "Team";
+      id: string;
+      name: string;
+      teammates: Array<{
+        __typename?: "TeamMember";
+        id: string;
+        role?: TeamRole | null;
+        member: {
+          __typename?: "User";
+          id: string;
+          fullName: string;
+          picture?: any | null;
+          timezone?: string | null;
+        };
+      } | null>;
+    } | null>;
   };
 };
 
@@ -1749,12 +1766,14 @@ export const CreateTimerDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "title" } },
-                { kind: "Field", name: { kind: "Name", value: "timezone" } },
-                { kind: "Field", name: { kind: "Name", value: "description" } },
                 { kind: "Field", name: { kind: "Name", value: "type" } },
-                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "duration" } },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "isOwner" } },
                 {
                   kind: "Field",
@@ -1774,8 +1793,7 @@ export const CreateTimerDocument = {
                     ],
                   },
                 },
-                { kind: "Field", name: { kind: "Name", value: "type" } },
-                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "startAt" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "repeat" },
@@ -1790,7 +1808,6 @@ export const CreateTimerDocument = {
                     ],
                   },
                 },
-                { kind: "Field", name: { kind: "Name", value: "startAt" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "teams" },
@@ -1799,6 +1816,48 @@ export const CreateTimerDocument = {
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "teammates" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "role" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "member" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "id" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fullName" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "picture" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "timezone" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },

@@ -72,6 +72,14 @@ const cache = new InMemoryCache({
             });
           },
         },
+        getTimerById: {
+          read(_, { toReference, args }) {
+            return toReference({
+              __typename: "Timer",
+              id: (args as { id: string }).id,
+            });
+          },
+        },
       },
     },
   },

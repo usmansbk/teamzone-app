@@ -65,8 +65,10 @@ const schema = yup
         () => "Pick a date",
         (value, ctx) => {
           const { type } = ctx.parent;
-
-          return type === TimerType.Date && !!value;
+          if (type !== TimerType.Date) {
+            return true;
+          }
+          return !!value;
         }
       ),
     startAt: yup

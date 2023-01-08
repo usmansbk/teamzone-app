@@ -8,6 +8,7 @@ export default function useGetTimers(state = TimerState.Active) {
     variables: {
       state,
     },
+    fetchPolicy: "cache-first",
   });
 
   const timers = useMemo(() => data?.getTimers.timers, [data]);

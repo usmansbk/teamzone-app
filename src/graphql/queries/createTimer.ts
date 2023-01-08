@@ -5,28 +5,38 @@ mutation CreateTimer($input: CreateTimerInput!) {
   createTimer(input: $input) {
     id
     title
-    timezone
-    description
     type
-    dateTime
     duration
+    direction
+    description
+    dateTime
     createdAt
+    updatedAt
+    timezone
     isOwner
     owner {
       id
       fullName
       picture
     }
-    type
-    updatedAt
+    startAt
     repeat {
       freq
       interval
     }
-    startAt
     teams {
       id
       name
+      teammates {
+        id
+        role
+        member {
+          id
+          fullName
+          picture
+          timezone
+        }
+      }
     }
   }
 }
