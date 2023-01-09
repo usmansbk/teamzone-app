@@ -16,6 +16,26 @@ const cache = new InMemoryCache({
         },
       },
     },
+    Timer: {
+      fields: {
+        dateTime: {
+          read(dateTime, { readField }) {
+            return getTimezoneDateTimeFromUTC(
+              dateTime,
+              readField("timezone") as string
+            );
+          },
+        },
+        startAt: {
+          read(startAt, { readField }) {
+            return getTimezoneDateTimeFromUTC(
+              startAt,
+              readField("timezone") as string
+            );
+          },
+        },
+      },
+    },
     Meeting: {
       fields: {
         from: {

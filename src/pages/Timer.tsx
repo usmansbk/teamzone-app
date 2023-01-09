@@ -1,7 +1,8 @@
 import { Typography, Box, Button } from "@mui/material";
 import { useCallback, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DeleteTimerDialog from "src/components/DeleteTimerDialog";
+import routeMap from "src/routeMap";
 
 export default function Countdown() {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +16,7 @@ export default function Countdown() {
     <Box p={2}>
       <Typography>Countdown</Typography>
       <Button onClick={() => setOpenDeleteDialog(true)}>Delete</Button>
+      <Link to={routeMap.editTimer.replace(":id", id!)}>Edit</Link>
       <DeleteTimerDialog
         id={id!}
         open={openDeleteDialog}

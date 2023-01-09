@@ -6,7 +6,7 @@ import useCreateTimer from "src/hooks/api/useCreateTimer";
 
 export default function NewTimer() {
   const navigate = useNavigate();
-  const { onSubmit, data } = useCreateTimer();
+  const { onSubmit, data, loading } = useCreateTimer();
 
   const onClose = useCallback(() => navigate(-1), []);
 
@@ -18,7 +18,13 @@ export default function NewTimer() {
 
   return (
     <Box p={2}>
-      <TimerForm title="New Countdown" onClose={onClose} onSubmit={onSubmit} />
+      <TimerForm
+        title="New Countdown"
+        onClose={onClose}
+        onSubmit={onSubmit}
+        disabled={loading}
+        loading={loading}
+      />
     </Box>
   );
 }

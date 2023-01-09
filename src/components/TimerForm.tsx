@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Close } from "@mui/icons-material";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import capitalize from "lodash.capitalize";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { Controller, useForm } from "react-hook-form";
@@ -126,6 +126,7 @@ interface Props {
   autoFocus?: boolean;
   onClose: () => void;
   onSubmit: (values: UpdateTimerInput) => void;
+  defaultValues?: Partial<UpdateTimerInput>;
 }
 
 const menuProps: Partial<MenuProps> = {
@@ -143,6 +144,7 @@ function TimerForm({
   autoFocus = true,
   onClose,
   onSubmit,
+  defaultValues,
 }: Props) {
   const { data } = useMe();
   const { teams, timezone, firstName } = data!;
@@ -161,6 +163,7 @@ function TimerForm({
     control,
     handleSubmit,
     register,
+    reset,
     formState: { errors, touchedFields, isDirty },
   } = useForm<UpdateTimerInput>({
     resolver: yupResolver(schema),
@@ -175,6 +178,12 @@ function TimerForm({
       type: TimerType.Duration,
     },
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues]);
 
   return (
     <Stack
