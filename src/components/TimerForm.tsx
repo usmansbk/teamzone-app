@@ -80,7 +80,10 @@ const schema = yup
         "isBeforeDateTime",
         () => "Timer must start before end date",
         (value: any, ctx) => {
-          const { dateTime, timezone } = ctx.parent;
+          const { dateTime, timezone, type } = ctx.parent;
+          if (type !== TimerType.Date) {
+            return true;
+          }
           if (!(value && dateTime)) {
             return true;
           }

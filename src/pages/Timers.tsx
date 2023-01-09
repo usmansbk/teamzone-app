@@ -3,6 +3,7 @@ import { Button, LinearProgress, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import useGetTimers from "src/hooks/api/useGetTimers";
 import routeMap from "src/routeMap";
+import { getLocalDateTime } from "src/utils/dateTime";
 
 export default function Timers() {
   const { loading, error, data } = useGetTimers();
@@ -31,7 +32,9 @@ export default function Timers() {
       {!data?.length && <Typography variant="h4">No countdowns yet</Typography>}
       {data?.map((item) => (
         <Link key={item!.id} to={routeMap.timer.replace(":id", item!.id)}>
-          <Typography>{item?.title}</Typography>
+          <Typography>
+            {item?.title} {getLocalDateTime(item?.startAt).format()}
+          </Typography>
         </Link>
       ))}
     </Stack>
