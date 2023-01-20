@@ -8,6 +8,10 @@
 
 - [Netlify](https://teamzone.netlify.app/)
 
+## Backend
+
+- [GitHub Repo](https://github.com/usmansbk/teamzone-server)
+
 ![light](https://user-images.githubusercontent.com/10219539/207712076-04c9cdb0-7960-4a21-8d2a-ce2ab4aeffc1.png)
 
 ![dark](https://user-images.githubusercontent.com/10219539/207712039-92c02116-4a9a-4b17-bf2d-ca7057628ede.png)
