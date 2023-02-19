@@ -296,6 +296,7 @@ export default function MeetingForm({
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {selected?.map((val) => (
                       <Chip
+                        size="small"
                         key={val}
                         label={authorizedTeams.find((t) => t?.id === val)?.name}
                       />
