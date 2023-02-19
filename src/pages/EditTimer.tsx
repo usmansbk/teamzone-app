@@ -29,7 +29,7 @@ export default function EditTimer() {
       {loading && <LinearProgress />}
       <Box p={2}>
         <TimerForm
-          title="Edit Countdown"
+          title="Edit Timer"
           onClose={onClose}
           onSubmit={onSubmit}
           loading={submitting}

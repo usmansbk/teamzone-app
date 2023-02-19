@@ -8,6 +8,7 @@ mutation UpdateTimer($input: UpdateTimerInput!) {
     type
     dateTime
     duration
+    direction
     timezone
     createdAt
     updatedAt

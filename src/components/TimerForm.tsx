@@ -28,7 +28,11 @@ import dt, {
   formatUTCOffset,
   getCurrentDateTime,
 } from "src/utils/dateTime";
-import { TimerType, UpdateTimerInput } from "src/__generated__/graphql";
+import {
+  TimerDirection,
+  TimerType,
+  UpdateTimerInput,
+} from "src/__generated__/graphql";
 import RecurrenceField, { schema as repeatSchema } from "./RecurrenceField";
 import DurationField from "./DurationField";
 
@@ -36,6 +40,7 @@ const DATE_TIME_VALUE_FORMAT = "MMM DD, YYYY, HH:mm";
 const MAX_CHARACTERS_MESSAGE = "Maximum number of characters reached";
 
 const timerTypes = [TimerType.Duration, TimerType.Date];
+const timerDirections = [TimerDirection.Countdown, TimerDirection.Countup];
 
 const schema = yup
   .object({
@@ -179,6 +184,7 @@ function TimerForm({
       repeat: null,
       teamIds: [],
       type: TimerType.Duration,
+      direction: TimerDirection.Countdown,
     },
   });
 
@@ -256,10 +262,45 @@ function TimerForm({
           )}
         />
         <Controller
+          name="direction"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <FormControl fullWidth>
+              <InputLabel sx={{ fontWeight: 800 }}>Direction</InputLabel>
+              <Select
+                value={value || ""}
+                onChange={onChange}
+                label="Direction"
+                fullWidth
+                placeholder="Pick direction"
+                inputProps={{
+                  sx: {
+                    fontWeight: 800,
+                  },
+                }}
+                MenuProps={menuProps}
+                renderValue={(direction: string) => (
+                  <Typography fontWeight={800}>
+                    {capitalize(direction)}
+                  </Typography>
+                )}
+              >
+                {timerDirections.map((direction) => (
+                  <MenuItem key={direction} value={direction}>
+                    <Typography variant="body2" fontWeight={500}>
+                      {capitalize(direction)}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
           name="type"
           control={control}
           render={({ field: { value, onChange } }) => (
-            <Stack spacing={1}>
+            <Stack spacing={2}>
               <FormControl fullWidth>
                 <InputLabel sx={{ fontWeight: 800 }}>To</InputLabel>
                 <Select

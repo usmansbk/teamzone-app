@@ -555,6 +555,7 @@ export type UpdateTeamInput = {
 export type UpdateTimerInput = {
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   description?: InputMaybe<Scalars["NonEmptyString"]>;
+  direction?: InputMaybe<TimerDirection>;
   duration?: InputMaybe<Scalars["Duration"]>;
   id: Scalars["ID"];
   repeat?: InputMaybe<RecurrenceInput>;
@@ -1372,6 +1373,7 @@ export type UpdateTimerMutation = {
     type: TimerType;
     dateTime?: any | null;
     duration?: any | null;
+    direction: TimerDirection;
     timezone: string;
     createdAt: any;
     updatedAt?: any | null;
@@ -4134,6 +4136,7 @@ export const UpdateTimerDocument = {
                 { kind: "Field", name: { kind: "Name", value: "type" } },
                 { kind: "Field", name: { kind: "Name", value: "dateTime" } },
                 { kind: "Field", name: { kind: "Name", value: "duration" } },
+                { kind: "Field", name: { kind: "Name", value: "direction" } },
                 { kind: "Field", name: { kind: "Name", value: "timezone" } },
                 { kind: "Field", name: { kind: "Name", value: "createdAt" } },
                 { kind: "Field", name: { kind: "Name", value: "updatedAt" } },

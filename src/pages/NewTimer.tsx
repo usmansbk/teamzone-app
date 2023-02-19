@@ -19,7 +19,7 @@ export default function NewTimer() {
   return (
     <Box p={2}>
       <TimerForm
-        title="New Countdown"
+        title="New Timer"
         onClose={onClose}
         onSubmit={onSubmit}
         disabled={loading}
